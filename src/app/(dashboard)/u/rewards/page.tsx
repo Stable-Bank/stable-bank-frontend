@@ -160,14 +160,177 @@ function OverviewTab() {
   );
 }
 
+import { Star, Clock, User } from "lucide-react";
+
+const rewards = [
+  {
+    title: "Make a purchase",
+    points: "1 Point per $1",
+    icon: Gift,
+  },
+  {
+    title: "Write a review",
+    points: "50 points",
+    icon: Star,
+  },
+  {
+    title: "Daily Login",
+    points: "10 points",
+    icon: Clock,
+  },
+  {
+    title: "Complete Profile",
+    points: "100 points",
+    icon: User,
+  },
+];
+
 function EarnTab() {
-  return <div></div>;
+  return (
+    <div className="flex flex-col gap-7">
+      <h2 className="text-brand-yellow text-2xl font-semibold">
+        How to Earn Points
+      </h2>
+
+      <div className="flex flex-col gap-12">
+        {rewards.map((reward) => (
+          <div
+            key={reward.title}
+            className="flex items-center gap-8 rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] px-5 py-4"
+          >
+            <div className="bg-brand-purple flex aspect-square h-[52px] w-[52px] items-center justify-center rounded-[6px]">
+              <reward.icon size={32} />
+            </div>
+
+            <div>
+              <p className="text-2xl font-semibold text-[#E9E9E9]">
+                {reward.title}
+              </p>
+              <p className="text-brand-purple text-[28px] font-semibold">
+                {reward.points}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
+
+const redeemRewards = [
+  {
+    title: "$5 off Coupon",
+    cost: 500,
+    type: "coupon",
+    value: 5,
+  },
+  {
+    title: "$10 Off Coupon",
+    cost: 1000,
+    type: "coupon",
+    value: 10,
+  },
+  {
+    title: "Exclusive Product",
+    cost: 2500,
+    type: "product",
+  },
+];
 
 function RedeemTab() {
-  return <div>RedeemTab</div>;
+  return (
+    <div className="flex flex-col gap-7">
+      <h2 className="text-brand-yellow text-2xl font-semibold">
+        Redeem Rewards
+      </h2>
+      <div className="flex flex-col gap-8">
+        {redeemRewards.map((reward) => (
+          <div
+            key={reward.title}
+            className="flex flex-col gap-3 rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] px-5 py-6 text-[#E9E9E9]"
+          >
+            <h3 className="text-2xl font-semibold">{reward.title}</h3>
+            <div className="flex justify-between">
+              <p className="text-brand-purple text-[28px] font-semibold">
+                {reward.cost}
+              </p>
+              <p className="text-base font-normal">{reward.type}</p>
+            </div>
+
+            <Button className="text-brand-white bg-brand-purple mt-4 flex h-12 w-full cursor-pointer items-center justify-center rounded-[10px] px-8 text-[22px] font-semibold">
+              Redeem Points
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
+const membershipTiers = [
+  {
+    name: "Bronze",
+    pointsRequired: 0,
+    perks: ["5% bonus points", "Basic Support", "Welcome gift"],
+    icon: "/images/svg/membership-icon-bronze.svg",
+  },
+  {
+    name: "Gold",
+    pointsRequired: 2500,
+    perks: ["15% bonus points", "VIP Support", "Free shipping"],
+    isCurrent: true,
+    icon: "/images/svg/membership-icon-gold.svg",
+  },
+];
+
 function TiersTab() {
-  return <div>TiersTab</div>;
+  const [activeTier, setActiveTier] = useState(membershipTiers[1].name);
+
+  function handleTierClick(tierName: string) {
+    setActiveTier(tierName);
+  }
+
+  return (
+    <div className="flex flex-col gap-7">
+      <h2 className="text-brand-yellow text-2xl font-semibold">
+        Membership Tiers
+      </h2>
+
+      <div className="flex flex-col gap-9">
+        {membershipTiers.map((tier) => (
+          <div
+            key={tier.name}
+            onClick={() => handleTierClick(tier.name)}
+            className={`flex transform flex-col gap-3 rounded-[14px] border-[0.2px] border-solid bg-[#0E121C] p-7 text-[#E9E9E9] transition-all duration-200 ease-linear ${activeTier === tier.name ? "border-brand-purple" : "border-white/60"}`}
+          >
+            <div className="mx-auto flex flex-col items-center gap-2">
+              <Image
+                src={tier.icon}
+                alt="tier icon"
+                width={84}
+                height={84}
+                className="aspect-square"
+              />
+              <p className="text-3xl font-semibold">{tier.name}</p>
+              <p className="text-base font-normal">{tier.pointsRequired}</p>
+            </div>
+
+            <ul className="text-[22px] font-normal">
+              {tier.perks.map((perk) => (
+                <li key={perk} className="ml-7 list-disc">
+                  {perk}
+                </li>
+              ))}
+            </ul>
+
+            {activeTier === tier.name && (
+              <Button className="text-brand-white bg-brand-purple mt-4 flex h-12 w-full cursor-pointer items-center justify-center rounded-[10px] px-8 text-[22px] font-semibold transition-all duration-200 ease-linear transform">
+                Current Tier
+              </Button>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

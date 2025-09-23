@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "StableBank | Secure, Scalable, Decentralized",
     description:
       "Secure, scalable, and decentralized solutions for your digital assets—experience the future of financial freedom.",
-    url: "https://portfoliobigsam.vercel.app/",
+    url: "https://stablebank-staging.vercel.app/",
     siteName: "StableBank",
     images: [
       {
