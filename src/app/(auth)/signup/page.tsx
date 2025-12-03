@@ -78,46 +78,49 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={handleSignup} className="flex flex-col gap-7">
-      <div className="flex flex-col gap-3">
-        <div className="flex w-fit items-center gap-3.5 rounded-full bg-[#0F0F0F] py-2 pr-16 pl-2.5 text-base font-medium shadow-2xl shadow-[#171E2E]">
-          <Sparkles size={18} />
+    <form
+      onSubmit={handleSignup}
+      className="flex w-full flex-col gap-5 sm:gap-6 md:gap-7"
+    >
+      <div className="flex flex-col gap-2 sm:gap-3">
+        <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-[#0F0F0F] py-2 pr-8 sm:pr-12 md:pr-16 pl-2.5 text-sm sm:text-base font-medium shadow-2xl shadow-[#171E2E]">
+          <Sparkles size={16} className="sm:w-[18px] sm:h-[18px]" />
           <span>Create Account</span>
         </div>
-        <h1 className="text-4xl font-semibold">
-          Web3’s Super-wallet,{" "}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+          Web3's Super-wallet,{" "}
           <span className="text-brand-yellow">Secure and Easy to use.</span>
         </h1>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <div className="relative h-[52px] rounded-[8px] bg-[#0F0F0F] text-base font-medium text-white placeholder:text-white/60">
+      <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+        <div className="relative h-[48px] sm:h-[52px] rounded-[8px] bg-[#0F0F0F] text-sm sm:text-base font-medium text-white placeholder:text-white/60">
           <input
             type="email"
             name="email"
             value={signupData.email}
             onChange={(e) => updateSignupData("email", e.target.value)}
             placeholder="Email Address"
-            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-4 ring-0 outline-0"
+            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
           />
           <MoveRight
-            size={24}
-            className="absolute top-1/2 right-2 -translate-1/2 transform"
+            size={20}
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
             color="#FFFFFF52"
           />
         </div>
-        <div className="relative h-[52px] rounded-[8px] bg-[#0F0F0F] text-base font-medium text-white placeholder:text-white/60">
+        <div className="relative h-[48px] sm:h-[52px] rounded-[8px] bg-[#0F0F0F] text-sm sm:text-base font-medium text-white placeholder:text-white/60">
           <input
             type="password"
             name="password"
             value={signupData.password}
             onChange={(e) => updateSignupData("password", e.target.value)}
             placeholder="Password"
-            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-4 ring-0 outline-0"
+            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
           />
           <MoveRight
-            size={24}
-            className="absolute top-1/2 right-2 -translate-1/2 transform"
+            size={20}
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
             color="#FFFFFF52"
           />
         </div>
@@ -127,12 +130,12 @@ export default function Signup() {
         <Button
           type="submit"
           disabled={signupData.loading}
-          className="text-brand-white bg-brand-purple flex h-12 cursor-pointer items-center justify-center rounded-[40px] px-8 text-base font-semibold"
+          className="text-brand-white bg-brand-purple flex h-11 sm:h-12 cursor-pointer items-center justify-center rounded-[40px] px-6 sm:px-8 text-sm sm:text-base font-semibold"
         >
           {signupData.loading ? "Creating..." : "Create Account"}
         </Button>
 
-        <p className="flex justify-end gap-2">
+        <p className="flex justify-end gap-2 text-sm sm:text-base">
           Already have an account?{" "}
           <Link
             href={appRoutes.auth.signIn}

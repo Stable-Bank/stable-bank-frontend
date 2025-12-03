@@ -4,13 +4,13 @@ import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 
 export default function Testimonials() {
   return (
-    <div className="flex flex-col gap-[72px]">
-      <div className="mx-auto flex w-full max-w-[544px] flex-col items-center gap-5 text-center">
+    <div className="flex flex-col gap-12 sm:gap-16 md:gap-[72px] px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-20">
+      <div className="mx-auto flex w-full max-w-[544px] flex-col items-center gap-4 sm:gap-5 text-center">
         <SectionCard title="Testimonial" />
-        <h1 className="text-[50px] font-bold">
+        <h1 className="text-3xl sm:text-4xl md:text-[50px] font-bold">
           Trusted by <span className="text-brand-yellow">Innovators</span>
         </h1>
-        <p className="text-xl">
+        <p className="text-base sm:text-lg md:text-xl">
           Secure your digital assets with the peace of mind that comes from
           knowing you are protected by the best technology in the blockchain
           space.
