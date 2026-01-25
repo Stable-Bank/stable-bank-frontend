@@ -22,7 +22,7 @@ export default function UnifiedBalance() {
     try {
       await refresh();
       toast.success("Balance refreshed");
-    } catch (err) {
+    } catch {
       toast.error("Failed to refresh balance");
     }
   };

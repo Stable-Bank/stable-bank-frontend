@@ -43,7 +43,7 @@ export default function UConfirmTransaction({
     setIsProcessing(true);
 
     try {
-      const transfer = await transferService.initiateTransfer({
+      await transferService.initiateTransfer({
         recipientBankTag: recipient.bankTag,
         amount,
         tokenSymbol: "USDC",

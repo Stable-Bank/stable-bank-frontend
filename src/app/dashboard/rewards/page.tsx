@@ -6,13 +6,12 @@ import { useState, useEffect } from "react";
 import { pointsService } from "@/services/pointsService";
 import { referralService } from "@/services/referralService";
 import { toast } from "sonner";
-import type { PointsSummary, TierInfo, PointsTransaction } from "@/types/points";
+import type { PointsSummary, TierInfo } from "@/types/points";
 import type { ReferralStats } from "@/types/referral";
 
 export default function URewards() {
   const [pointsSummary, setPointsSummary] = useState<PointsSummary | null>(null);
   const [tierInfo, setTierInfo] = useState<TierInfo | null>(null);
-  const [referralStats, setReferralStats] = useState<ReferralStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isClaiming, setIsClaiming] = useState(false);
 
@@ -20,15 +19,13 @@ export default function URewards() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const [points, tier, referrals] = await Promise.all([
+        const [points, tier] = await Promise.all([
           pointsService.getPointsSummary(),
           pointsService.getUserTier(),
-          referralService.getReferralStats().catch(() => null),
         ]);
 
         setPointsSummary(points);
         setTierInfo(tier);
-        setReferralStats(referrals);
       } catch (error: any) {
         console.error("Failed to fetch rewards data:", error);
         toast.error(error?.message || "Failed to load rewards data");
@@ -173,7 +170,8 @@ const Tabs = ({ pointsSummary, tierInfo, referralStats }: TabsProps) => {
 
 import { Zap, Trophy, Gift, Crown } from "lucide-react";
 
-const overviewStats = [
+// Overview stats for rewards dashboard
+// const overviewStats = [
   {
     label: "Points Balance",
     value: 2673,
@@ -376,7 +374,8 @@ function RedeemTab() {
   );
 }
 
-const membershipTiers = [
+// Membership tiers configuration
+// const membershipTiers = [
   {
     name: "Bronze",
     pointsRequired: 0,
@@ -393,10 +392,13 @@ const membershipTiers = [
 ];
 
 function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
-  const [activeTier, setActiveTier] = useState(tierInfo?.currentTier || "bronze");
+  type TierName = "bronze" | "silver" | "gold" | "platinum" | "diamond";
+  const [activeTier, setActiveTier] = useState<TierName>(
+    (tierInfo?.currentTier as TierName) || "bronze"
+  );
 
   function handleTierClick(tierName: string) {
-    setActiveTier(tierName);
+    setActiveTier(tierName as TierName);
   }
 
   // Default tiers if not loaded from backend

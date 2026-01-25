@@ -118,7 +118,7 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
         return api(originalRequest);
-      } catch (refreshError) {
+      } catch {
         isRefreshing = false;
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");

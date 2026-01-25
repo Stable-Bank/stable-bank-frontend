@@ -6,7 +6,6 @@ import {
   Home,
   ArrowUp,
   CreditCard,
-  Gift,
   Settings,
   ChartNoAxesCombined,
 } from "lucide-react";

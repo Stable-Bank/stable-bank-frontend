@@ -26,7 +26,7 @@ export default function Balances() {
           size: 200,
         });
         setQrCode(qrData.qrCode);
-      } catch (qrError) {
+      } catch {
         // QR generation failed - use placeholder
         console.log("QR code generation not available, using placeholder");
       }
