@@ -172,35 +172,35 @@ import { Zap, Trophy, Gift, Crown } from "lucide-react";
 
 // Overview stats for rewards dashboard
 // const overviewStats = [
-  {
-    label: "Points Balance",
-    value: 2673,
-    description: "Available to spend",
-    icon: Zap,
-    color: "#4649D6",
-  },
-  {
-    label: "Total Earned",
-    value: 12450,
-    description: "Lifetime Points",
-    icon: Trophy,
-    color: "#CA8A04",
-  },
-  {
-    label: "Points Redeemed",
-    value: 9603,
-    description: "Total Spent",
-    icon: Gift,
-    color: "#319F43",
-  },
-  {
-    label: "Current Tier",
-    value: "Gold",
-    description: "Member level",
-    icon: Crown,
-    color: "#EA580C",
-  },
-];
+//   {
+//     label: "Points Balance",
+//     value: 2673,
+//     description: "Available to spend",
+//     icon: Zap,
+//     color: "#4649D6",
+//   },
+//   {
+//     label: "Total Earned",
+//     value: 12450,
+//     description: "Lifetime Points",
+//     icon: Trophy,
+//     color: "#CA8A04",
+//   },
+//   {
+//     label: "Points Redeemed",
+//     value: 9603,
+//     description: "Total Spent",
+//     icon: Gift,
+//     color: "#319F43",
+//   },
+//   {
+//     label: "Current Tier",
+//     value: "Gold",
+//     description: "Member level",
+//     icon: Crown,
+//     color: "#EA580C",
+//   },
+// ];
 
 function OverviewTab({ pointsSummary }: { pointsSummary: PointsSummary | null }) {
   const stats = [
@@ -376,20 +376,20 @@ function RedeemTab() {
 
 // Membership tiers configuration
 // const membershipTiers = [
-  {
-    name: "Bronze",
-    pointsRequired: 0,
-    perks: ["5% bonus points", "Basic Support", "Welcome gift"],
-    icon: "/images/svg/membership-icon-bronze.svg",
-  },
-  {
-    name: "Gold",
-    pointsRequired: 2500,
-    perks: ["15% bonus points", "VIP Support", "Free shipping"],
-    isCurrent: true,
-    icon: "/images/svg/membership-icon-gold.svg",
-  },
-];
+//   {
+//     name: "Bronze",
+//     pointsRequired: 0,
+//     perks: ["5% bonus points", "Basic Support", "Welcome gift"],
+//     icon: "/images/svg/membership-icon-bronze.svg",
+//   },
+//   {
+//     name: "Gold",
+//     pointsRequired: 2500,
+//     perks: ["15% bonus points", "VIP Support", "Free shipping"],
+//     isCurrent: true,
+//     icon: "/images/svg/membership-icon-gold.svg",
+//   },
+// ];
 
 function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
   type TierName = "bronze" | "silver" | "gold" | "platinum" | "diamond";
