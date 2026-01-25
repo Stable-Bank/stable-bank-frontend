@@ -6,7 +6,7 @@ import type { UnifiedBalance } from "@/types/wallet";
 let sharedBalance: UnifiedBalance | null = null;
 let sharedError: string | null = null;
 let sharedLoading = false;
-let listeners: Set<() => void> = new Set();
+const listeners: Set<() => void> = new Set();
 
 // Notify all listeners of state change
 const notifyListeners = () => {

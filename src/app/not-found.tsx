@@ -37,8 +37,8 @@ export default function NotFound() {
                 <span className="text-brand-purple">Found</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-[22px] font-normal text-muted-foreground">
-                The page you're looking for doesn't exist or has been moved.
-                Let's get you back on track.
+                The page you&apos;re looking for doesn&apos;t exist or has been moved.
+                Let&apos;s get you back on track.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5">

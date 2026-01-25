@@ -56,7 +56,7 @@ export default function Login() {
           <span>Sign-in to your account</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
-          Web3's Super-wallet,{" "}
+          Web3&apos;s Super-wallet,{" "}
           <span className="text-brand-yellow">Secure and Easy to use.</span>
         </h1>
       </div>

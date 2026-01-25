@@ -51,7 +51,7 @@ export default function Error({
                 <span className="text-brand-purple">Error Occurred</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-[22px] font-normal text-muted-foreground">
-                We encountered an unexpected error. Don't worry, your funds are
+                We encountered an unexpected error. Don&apos;t worry, your funds are
                 safe. Try again or contact support if the issue persists.
               </p>
               {error.digest && (
