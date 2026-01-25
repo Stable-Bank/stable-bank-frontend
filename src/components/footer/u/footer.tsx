@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function UFooter() {
   return (
-    <div className="flex items-center justify-end gap-9">
+    <div className="hidden lg:flex items-center justify-end gap-9">
       {UFooterLinks.map((link) => (
         <Link
           key={link.label}

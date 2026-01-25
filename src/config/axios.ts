@@ -39,7 +39,17 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response: AxiosResponse): AxiosResponse => response,
+  (response: AxiosResponse): AxiosResponse => {
+    // Extract data from nested response structure if present
+    // Handle both { status: "success", data: {...} } and { success: true, data: {...} }
+    if (
+      (response.data?.status === "success" || response.data?.success === true) &&
+      response.data?.data
+    ) {
+      return { ...response, data: response.data.data };
+    }
+    return response;
+  },
   async (
     error: AxiosError<{ message: string; status: number }>
   ): Promise<any> => {
@@ -47,7 +57,30 @@ api.interceptors.response.use(
       _retry?: boolean;
     };
 
+    // Handle network errors
+    if (!error.response) {
+      const apiError: ApiError = {
+        message: "Network error. Please check your connection.",
+        status: 0,
+        code: "NETWORK_ERROR",
+      };
+      return Promise.reject(apiError);
+    }
+
     if (error.response?.status === 401 && !originalRequest._retry) {
+      // Don't try to refresh token for login/register endpoints
+      const isAuthEndpoint = originalRequest.url?.includes('/auth/login') || 
+                            originalRequest.url?.includes('/auth/register');
+      
+      if (isAuthEndpoint) {
+        const apiError: ApiError = {
+          message: error.response?.data?.message || "Invalid credentials. Please check your email and password.",
+          status: error.response?.data?.status || error.response?.status,
+          code: error.response?.status,
+        };
+        return Promise.reject(apiError);
+      }
+
       if (isRefreshing) {
         return new Promise<AxiosResponse>((resolve) => {
           subscribeTokenRefresh((token: string) => {
@@ -63,15 +96,16 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem("refreshToken");
         if (!refreshToken) {
-          throw new Error("No refresh token available");
+          throw new Error("Session expired. Please login again.");
         }
 
-        const response = await axios.post<RefreshResponse>(
-          `${API_BASE_URL}/auth/refresh`,
-          { refreshToken }
-        );
+        const response = await axios.post<{
+          status: string;
+          data: RefreshResponse;
+        }>(`${API_BASE_URL}/auth/refresh`, { refreshToken });
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        const { accessToken, refreshToken: newRefreshToken } =
+          response.data.data;
 
         localStorage.setItem("accessToken", accessToken);
         if (newRefreshToken) {
@@ -91,7 +125,12 @@ api.interceptors.response.use(
 
         window.dispatchEvent(new CustomEvent("auth:logout"));
 
-        return Promise.reject(refreshError);
+        const apiError: ApiError = {
+          message: "Session expired. Please login again.",
+          status: 401,
+          code: 401,
+        };
+        return Promise.reject(apiError);
       }
     }
 

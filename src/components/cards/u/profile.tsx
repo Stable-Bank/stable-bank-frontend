@@ -16,7 +16,7 @@ export default function UProfileCard({
 }) {
   return clickable ? (
     <Link
-      href={`${appRoutes.dashboard.user.send.to}/${user.id}`}
+      href={`${appRoutes.dashboard.sendTo}/${user.id}`}
       className="group cursor-pointer transition-all duration-300 hover:scale-105"
     >
       <div className="relative aspect-square overflow-hidden rounded-[9px]">

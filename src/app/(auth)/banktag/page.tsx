@@ -80,7 +80,7 @@ export default function CreateBankTag() {
         console.log("response in creator", res);
 
         toast.success("BankTag created successfully!");
-        router.push(appRoutes.dashboard.user.home);
+        router.push(appRoutes.dashboard.home);
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -105,8 +105,6 @@ export default function CreateBankTag() {
     } else {
       updateTagData("loading", false);
     }
-
-    router.replace(appRoutes.dashboard.user.home);
   }
 
   return (

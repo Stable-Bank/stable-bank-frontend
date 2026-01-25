@@ -1,7 +1,8 @@
 import { UFooter } from "@/components/footer/u";
 import { USidebar } from "@/components/sidebar/u";
 import { UTopbar } from "@/components/topbar/u";
-import { AuthProvider } from "@/layouts/auth/auth.provider";
+import { MobileBottomNav } from "@/components/navbar";
+import { AuthProvider as ProtectedRoute } from "@/layouts/auth/auth.provider";
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
@@ -16,15 +17,22 @@ export const metadata: Metadata = {
 
 export default function UserDashboardLayout({ children }: PropsWithChildren) {
   return (
-    <AuthProvider>
+    <ProtectedRoute>
       <div className="flex h-screen overflow-hidden">
-        <USidebar />
-        <div className="flex h-full w-full flex-col gap-8 overflow-y-auto px-12 py-6">
+        {/* Sidebar - hidden on mobile, visible on desktop */}
+        <div className="hidden lg:block">
+          <USidebar />
+        </div>
+        
+        <div className="flex h-full w-full flex-col gap-4 sm:gap-6 lg:gap-8 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-5 lg:py-6 pb-20 lg:pb-6">
           <UTopbar />
           {children}
           <UFooter />
         </div>
+
+        {/* Mobile Bottom Navigation */}
+        <MobileBottomNav />
       </div>
-    </AuthProvider>
+    </ProtectedRoute>
   );
 }

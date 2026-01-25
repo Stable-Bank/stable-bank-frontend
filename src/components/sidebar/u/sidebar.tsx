@@ -57,7 +57,10 @@ export default function USidebar() {
 
       <div className="flex flex-col gap-1">
         {navItems.map((ni) => {
-          const isActive = pathname.startsWith(ni.route);
+          // Exact match for home, startsWith for others
+          const isActive = ni.route === appRoutes.dashboard.home 
+            ? pathname === ni.route 
+            : pathname.startsWith(ni.route);
           return (
             <div key={ni.route} className="relative px-3">
               {isActive && (
@@ -113,27 +116,27 @@ export default function USidebar() {
 const navItems = [
   {
     label: "Home",
-    route: appRoutes.dashboard.user.home,
+    route: appRoutes.dashboard.home,
     icon: Home,
   },
   {
     label: "Send",
-    route: appRoutes.dashboard.user.send.index,
+    route: appRoutes.dashboard.send,
     icon: ArrowUp,
   },
   {
     label: "Virtual Card",
-    route: appRoutes.dashboard.user.vcard,
+    route: appRoutes.dashboard.vcard,
     icon: CreditCard,
   },
   {
     label: "Invest & Stake",
-    route: appRoutes.dashboard.user.invest,
+    route: appRoutes.dashboard.invest,
     icon: ChartNoAxesCombined,
   },
   {
     label: "Rewards",
-    route: appRoutes.dashboard.user.rewards,
+    route: appRoutes.dashboard.rewards,
     icon: Gift,
   },
 ];
@@ -141,7 +144,7 @@ const navItems = [
 const utilItems = [
   {
     label: "Settings",
-    route: appRoutes.dashboard.user.settings,
+    route: appRoutes.dashboard.settings,
     icon: Settings,
   },
 ];

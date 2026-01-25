@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DialogClose,
   DialogContent,
@@ -6,16 +8,61 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { redirect, RedirectType } from "next/navigation";
 import { appRoutes } from "@/lib/navigation";
 import TransactionCard from "../cards/u/transaction";
-import { topUsers } from "@/lib/dummy";
+import { transferService } from "@/services/transferService";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useState } from "react";
+import type { UserProfile } from "@/types/user";
 
-export default function UConfirmTransaction() {
-  const handleLogout = async () => {
-    "use server";
-    redirect(appRoutes.auth.signIn, RedirectType.replace);
+interface UConfirmTransactionProps {
+  recipient: UserProfile;
+  amount: string;
+  description?: string;
+  fee?: any;
+}
+
+export default function UConfirmTransaction({
+  recipient,
+  amount,
+  description,
+  fee,
+}: UConfirmTransactionProps) {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleTransfer = async () => {
+    if (!user?.walletAddress || !recipient.bankTag) {
+      toast.error("Missing required information");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const transfer = await transferService.initiateTransfer({
+        recipientBankTag: recipient.bankTag,
+        amount,
+        tokenSymbol: "USDC",
+        sourceChain: "polygon",
+        destinationChain: "polygon",
+        description,
+      });
+
+      toast.success("Transfer initiated successfully!");
+      router.push(appRoutes.dashboard.home);
+    } catch (error: any) {
+      console.error("Transfer failed:", error);
+      toast.error(error?.message || "Transfer failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
+
+  const totalAmount = parseFloat(amount) + (fee?.feeUSD || 0);
 
   return (
     <div>
@@ -28,32 +75,65 @@ export default function UConfirmTransaction() {
           </DialogTitle>
 
           <TransactionCard
-            timestamp="2022.22.03,10;22:30"
+            timestamp={new Date().toLocaleString()}
             from={{
-              name: topUsers[0].username,
-              avatar: topUsers[0].avatar,
-              amount: "$500",
-              bank: topUsers[0].username,
+              name: user?.bankTag || "You",
+              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.walletAddress}`,
+              amount: `-$${amount}`,
+              bank: user?.bankTag || "Your Wallet",
             }}
             to={{
-              name: topUsers[2].username,
-              avatar: topUsers[2].avatar,
-              amount: "+131.1100",
-              token: "qmatic",
-              bank: topUsers[2].username,
+              name: recipient.displayName || recipient.username,
+              avatar: recipient.avatar,
+              amount: `+$${amount}`,
+              token: "USDC",
+              bank: recipient.bankTag,
             }}
           />
+
+          <div className="mt-4 space-y-2 rounded-lg bg-[#131926] p-4">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-white/60">Amount:</span>
+              <span className="font-medium text-white">${amount} USDC</span>
+            </div>
+            {fee && (
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-white/60">Network Fee:</span>
+                <span className="font-medium text-white">${fee.feeUSD?.toFixed(2)}</span>
+              </div>
+            )}
+            <div className="flex items-center justify-between border-t border-white/10 pt-2 text-base font-semibold">
+              <span className="text-white">Total:</span>
+              <span className="text-brand-yellow">${totalAmount.toFixed(2)}</span>
+            </div>
+            {description && (
+              <div className="border-t border-white/10 pt-2">
+                <p className="text-xs text-white/60">Remark:</p>
+                <p className="text-sm text-white">{description}</p>
+              </div>
+            )}
+          </div>
         </DialogHeader>
 
-        <DialogFooter>
-          <DialogClose asChild onClick={handleLogout}>
+        <DialogFooter className="flex gap-3">
+          <DialogClose asChild>
             <Button
               type="button"
-              className="text-brand-white bg-brand-purple flex h-12 w-full cursor-pointer items-center justify-center rounded-[10px] px-8 text-[22px] font-semibold"
+              variant="outline"
+              className="flex h-12 flex-1 cursor-pointer items-center justify-center rounded-[10px] border-white/20 px-8 text-lg font-semibold"
+              disabled={isProcessing}
             >
-              Transfer
+              Cancel
             </Button>
           </DialogClose>
+          <Button
+            type="button"
+            onClick={handleTransfer}
+            disabled={isProcessing}
+            className="text-brand-white bg-brand-purple flex h-12 flex-1 cursor-pointer items-center justify-center rounded-[10px] px-8 text-lg font-semibold disabled:opacity-50"
+          >
+            {isProcessing ? "Processing..." : "Confirm Transfer"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </div>

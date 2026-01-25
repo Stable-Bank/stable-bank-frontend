@@ -1,23 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
 import { passwordSchema } from "@/schema/password";
-import axios, { AxiosResponse } from "axios";
 import { MoveRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-
-interface SignupResponse {
-  user: {
-    id: string;
-    email: string;
-  };
-  accessToken: string;
-  refreshToken: string;
-}
 
 export default function Signup() {
   const router = useRouter();
@@ -40,7 +31,7 @@ export default function Signup() {
 
     if (!signupData.email || !signupData.password) {
       toast.error("Email and password are required.");
-      signupData.loading = false;
+      updateSignupData("loading", false);
       return;
     }
 
@@ -48,30 +39,22 @@ export default function Signup() {
 
     if (!validPassword.success) {
       toast.error(validPassword.error.issues.map((e) => e.message).join(" "));
-      signupData.loading = false;
+      updateSignupData("loading", false);
       return;
     }
 
     try {
-      const res: AxiosResponse<SignupResponse> = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-        {
-          email: signupData.email,
-          password: validPassword.data,
-        }
-      );
+      await apiClient.post("/auth/register", {
+        email: signupData.email,
+        password: validPassword.data,
+      });
 
-      if (res.status >= 200 && res.status < 300) {
-        toast.success("Account created successfully!");
-
-        router.push(appRoutes.auth.signIn);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errMsg = error.response.data.message;
-        console.error("Signup error:", error);
-        toast.error(errMsg || "Signup failed. Please try again.");
-      }
+      toast.success("Account created successfully! Please sign in.");
+      router.push(appRoutes.auth.signIn);
+    } catch (error: any) {
+      const errMsg = error?.message || "Signup failed. Please try again.";
+      console.error("Signup error:", error);
+      toast.error(errMsg);
     } finally {
       updateSignupData("loading", false);
     }

@@ -5,17 +5,13 @@ export const appRoutes = {
     bankTag: "/banktag",
   },
   dashboard: {
-    user: {
-      home: "/u/home",
-      send: {
-        index: "/u/send",
-        to: "/u/send/to",
-      },
-      vcard: "/u/vcard",
-      invest: "/u/invest",
-      rewards: "/u/rewards",
-      settings: "/u/settings",
-    },
+    home: "/dashboard",
+    send: "/dashboard/send",
+    sendTo: "/dashboard/send/to",
+    vcard: "/dashboard/vcard",
+    invest: "/dashboard/invest",
+    rewards: "/dashboard/rewards",
+    settings: "/dashboard/settings",
   },
 };
 

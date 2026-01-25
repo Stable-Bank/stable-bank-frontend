@@ -1,23 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { setToken } from "@/composables/token";
+import { useAuth } from "@/contexts/AuthContext";
 import { appRoutes } from "@/lib/navigation";
-import { passwordSchema } from "@/schema/password";
-import axios, { AxiosResponse } from "axios";
 import { MoveRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export default function Login() {
   const router = useRouter();
+  const { login } = useAuth();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -37,40 +31,15 @@ export default function Login() {
 
     if (!loginData.email || !loginData.password) {
       toast.error("Email and password are required.");
-      loginData.loading = false;
-      return;
-    }
-
-    const validPassword = passwordSchema.safeParse(loginData.password);
-
-    if (!validPassword.success) {
-      toast.error(validPassword.error.issues.map((e) => e.message).join(" "));
-      loginData.loading = false;
+      updateLoginData("loading", false);
       return;
     }
 
     try {
-      const res: AxiosResponse<LoginResponse> = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          email: loginData.email,
-          password: validPassword.data,
-        }
-      );
-
-      if (res.status >= 200 && res.status < 300) {
-        toast.success("Login successful!");
-        setToken(res.data.accessToken, res.data.refreshToken);
-        requestAnimationFrame(() => {
-          router.push(appRoutes.auth.bankTag);
-        });
-      }
+      await login(loginData.email, loginData.password);
+      router.push(appRoutes.dashboard.home);
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errMsg = error.response.data.message;
-        console.error("Login error:", error);
-        toast.error(errMsg || "Login failed. Please try again.");
-      }
+      console.error("Login error:", error);
     } finally {
       updateLoginData("loading", false);
     }

@@ -166,4 +166,13 @@
       background-color 9999s ease-out,
       color 9999s ease-out;
   }
+
+  /* Safe area for mobile devices with notches/home indicators */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
 }

@@ -7,19 +7,24 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useAuth } from "@/contexts/AuthContext";
 import { Power } from "lucide-react";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
-import { appRoutes } from "@/lib/navigation";
-import { clearToken } from "@/composables/token";
+import { useState } from "react";
 
 export default function LogoutModal() {
-  const router = useRouter();
+  const { logout } = useAuth();
+  const [loading, setLoading] = useState(false);
+
   const handleLogout = async () => {
-    clearToken();
-    requestAnimationFrame(() => {
-      router.replace(appRoutes.auth.signIn);
-    });
+    setLoading(true);
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,20 +42,21 @@ export default function LogoutModal() {
         <DialogClose asChild>
           <Button
             type="button"
+            disabled={loading}
             className="rounded-[20px] bg-[#1F2937] py-3 text-base font-medium"
           >
             Cancel
           </Button>
         </DialogClose>
 
-        <DialogClose asChild onClick={handleLogout}>
-          <Button
-            type="button"
-            className="rounded-[20px] bg-[#FE0420] py-3 text-base font-medium"
-          >
-            Log Out
-          </Button>
-        </DialogClose>
+        <Button
+          type="button"
+          onClick={handleLogout}
+          disabled={loading}
+          className="rounded-[20px] bg-[#FE0420] py-3 text-base font-medium"
+        >
+          {loading ? "Logging out..." : "Log Out"}
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

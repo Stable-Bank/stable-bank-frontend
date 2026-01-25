@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Darker_Grotesque } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
 const darkerGrotesque = Darker_Grotesque({
@@ -52,8 +53,10 @@ export default function RootLayout({
       <body
         className={`${darkerGrotesque.variable} font-grotesque antialiased`}
       >
-        {children}
-        <Toaster position="top-center" />
+        <AuthProvider>
+          {children}
+          <Toaster position="top-center" />
+        </AuthProvider>
       </body>
     </html>
   );
