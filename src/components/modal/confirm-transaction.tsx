@@ -84,7 +84,7 @@ export default function UConfirmTransaction({
             }}
             to={{
               name: recipient.displayName || recipient.username,
-              avatar: recipient.avatar,
+              avatar: recipient.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${recipient.bankTag}`,
               amount: `+$${amount}`,
               token: "USDC",
               bank: recipient.bankTag,

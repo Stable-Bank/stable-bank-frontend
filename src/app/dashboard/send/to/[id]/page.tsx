@@ -94,7 +94,15 @@ export default function USendTo() {
     <div className="flex w-full max-w-[675px] flex-col gap-5">
       <h1 className="text-2xl font-semibold text-[#E9F2A3]">Send to</h1>
       <div className="h-[144px] w-[132px]">
-        <UProfileCard user={recipient} clickable={false} />
+        <UProfileCard 
+          user={{
+            id: recipient.id,
+            username: recipient.username || recipient.bankTag || "Unknown",
+            avatar: recipient.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${recipient.bankTag}`,
+            bgColor: recipient.bgColor || "from-purple-500 to-blue-500",
+          }} 
+          clickable={false} 
+        />
       </div>
 
       <div className="mt-4 flex flex-col gap-2 rounded-[20px] bg-[#0E121C] px-6 py-6">

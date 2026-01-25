@@ -4,10 +4,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { pointsService } from "@/services/pointsService";
-import { referralService } from "@/services/referralService";
 import { toast } from "sonner";
 import type { PointsSummary, TierInfo } from "@/types/points";
-import type { ReferralStats } from "@/types/referral";
 
 export default function URewards() {
   const [pointsSummary, setPointsSummary] = useState<PointsSummary | null>(null);
@@ -121,7 +119,6 @@ export default function URewards() {
       <Tabs
         pointsSummary={pointsSummary}
         tierInfo={tierInfo}
-        referralStats={referralStats}
       />
     </div>
   );
@@ -137,10 +134,9 @@ const tabsArr = [
 interface TabsProps {
   pointsSummary: PointsSummary | null;
   tierInfo: TierInfo | null;
-  referralStats: ReferralStats | null;
 }
 
-const Tabs = ({ pointsSummary, tierInfo, referralStats }: TabsProps) => {
+const Tabs = ({ pointsSummary, tierInfo }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(tabsArr[0].value);
   return (
     <div className="flex flex-col gap-12">

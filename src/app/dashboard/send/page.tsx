@@ -112,7 +112,15 @@ export default function USend() {
             </h2>
             <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
               {displayUsers.map((user) => (
-                <UProfileCard key={user.id} user={user} />
+                <UProfileCard 
+                  key={user.id} 
+                  user={{
+                    id: user.id,
+                    username: user.username || user.bankTag || "Unknown",
+                    avatar: user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.bankTag}`,
+                    bgColor: user.bgColor || "from-purple-500 to-blue-500",
+                  }} 
+                />
               ))}
             </div>
           </div>

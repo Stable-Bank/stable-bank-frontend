@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { apiClient } from "@/config/axios";
 import { clearToken, getToken, setToken } from "@/composables/token";
 import { appRoutes } from "@/lib/navigation";

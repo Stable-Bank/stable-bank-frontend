@@ -45,7 +45,7 @@ const fetchSharedBalance = async (walletAddress: string) => {
 
 export const useBalance = (walletAddress?: string) => {
   const [, forceUpdate] = useState({});
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Force component re-render when shared state changes
   const handleUpdate = useCallback(() => {
@@ -67,7 +67,7 @@ export const useBalance = (walletAddress?: string) => {
       // Clear interval if no wallet address
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
-        intervalRef.current = undefined;
+        intervalRef.current = null;
       }
       return;
     }
@@ -88,7 +88,7 @@ export const useBalance = (walletAddress?: string) => {
       // Clean up interval when component unmounts
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
-        intervalRef.current = undefined;
+        intervalRef.current = null;
       }
     };
   }, [walletAddress]);
