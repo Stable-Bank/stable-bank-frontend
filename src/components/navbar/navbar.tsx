@@ -22,7 +22,7 @@ export default function Navbar({ className }: NavbarProps) {
       className={cn(
         "max-w-largest bg-brand-black mx-auto flex h-16 sm:h-20 w-full items-center justify-between px-4 sm:px-6 lg:px-10",
         bordered &&
-          "mt-[33px] rounded-[40px] border border-[#FEF8F10F] bg-[#000000CC]",
+        "mt-[33px] rounded-[40px] border border-[#FEF8F10F] bg-[#000000CC]",
         className
       )}
     >
@@ -32,7 +32,7 @@ export default function Navbar({ className }: NavbarProps) {
           <li key={link.name} className="">
             <Link
               href={link.href}
-              className={`text-base xl:text-lg ${pathname.startsWith(link.href) ? "text-brand-yellow font-bold" : "text-brand-white font-medium"}`}
+              className={`text-base xl:text-lg ${(link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)) ? "text-brand-yellow font-bold" : "text-brand-white font-medium"}`}
             >
               {link.name}
             </Link>
@@ -91,7 +91,7 @@ export default function Navbar({ className }: NavbarProps) {
                 <Link
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-xl ${pathname.startsWith(link.href) ? "text-brand-yellow font-bold" : "text-brand-white font-medium"}`}
+                  className={`text-xl ${(link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)) ? "text-brand-yellow font-bold" : "text-brand-white font-medium"}`}
                 >
                   {link.name}
                 </Link>
