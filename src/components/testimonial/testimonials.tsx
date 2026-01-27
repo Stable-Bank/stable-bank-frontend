@@ -4,7 +4,7 @@ import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 
 export default function Testimonials() {
   return (
-    <div className="flex flex-col gap-12 sm:gap-16 md:gap-[72px] px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-20">
+    <div className="flex flex-col gap-12 sm:gap-16 md:gap-[72px] px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-20 pt-10">
       <div className="mx-auto flex w-full max-w-[544px] flex-col items-center gap-4 sm:gap-5 text-center">
         <SectionCard title="Testimonial" />
         <h1 className="text-3xl sm:text-4xl md:text-[50px] font-bold">
