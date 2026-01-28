@@ -169,7 +169,7 @@ export default function AboutPage() {
             </section>
 
             {/* Values Section */}
-            <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 bg-gradient-to-b from-brand-purple/5 to-transparent">
+            <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
                 <div className="max-w-largest mx-auto">
                     <div className="text-center mb-12 sm:mb-16">
                         <SectionCard title="Our Values" />
@@ -178,23 +178,28 @@ export default function AboutPage() {
                         </h2>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                        {values.map((value) => (
+                    <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+                        {values.map((value, index) => (
                             <div
                                 key={value.title}
-                                className="group p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300"
+                                className={`relative group p-8 sm:p-10 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:scale-[1.02] border border-white/5 ${index === 0 || index === 3 ? "bg-white/[0.03]" : "bg-white/[0.02]"
+                                    }`}
                             >
-                                <div
-                                    className={`h-14 w-14 rounded-2xl ${value.bgColor} flex items-center justify-center mb-6`}
-                                >
-                                    <value.icon className={`h-7 w-7 ${value.color}`} />
+                                <div className={`absolute inset-0 bg-gradient-to-br ${value.bgColor.replace("/10", "/5")} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+                                <div className="relative z-10">
+                                    <div
+                                        className={`h-16 w-16 rounded-2xl ${value.bgColor} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}
+                                    >
+                                        <value.icon className={`h-8 w-8 ${value.color}`} />
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-brand-white mb-4">
+                                        {value.title}
+                                    </h3>
+                                    <p className="text-white/60 text-lg leading-relaxed max-w-md">
+                                        {value.description}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold text-brand-white mb-3">
-                                    {value.title}
-                                </h3>
-                                <p className="text-white/60 text-sm sm:text-base">
-                                    {value.description}
-                                </p>
                             </div>
                         ))}
                     </div>
@@ -202,9 +207,9 @@ export default function AboutPage() {
             </section>
 
             {/* Team Section */}
-            <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
+            <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 bg-gradient-to-b from-brand-purple/5 to-transparent">
                 <div className="max-w-largest mx-auto">
-                    <div className="text-center mb-12 sm:mb-16">
+                    <div className="text-center mb-12 sm:mb-20">
                         <SectionCard title="Our Team" />
                         <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl font-bold text-brand-white">
                             Meet the Builders
@@ -214,30 +219,35 @@ export default function AboutPage() {
                         </p>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                         {team.map((member) => (
                             <div
                                 key={member.name}
-                                className="group text-center p-6 rounded-3xl border border-white/10 hover:border-brand-purple/30 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300"
+                                className="group relative"
                             >
-                                <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gradient-to-br from-brand-purple to-brand-yellow p-[2px]">
-                                    <div className="w-full h-full rounded-full overflow-hidden bg-brand-black">
-                                        <Image
-                                            src={member.image}
-                                            alt={member.name}
-                                            width={96}
-                                            height={96}
-                                            className="w-full h-full object-cover"
-                                        />
+                                <div className="relative mb-6 rounded-3xl overflow-hidden aspect-square">
+                                    <div className="absolute inset-0 bg-brand-purple/20 mix-blend-overlay group-hover:bg-transparent transition-colors duration-300 z-10" />
+                                    <Image
+                                        src={member.image}
+                                        alt={member.name}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                    />
+
+                                    {/* Glass Overlay on Hover */}
+                                    <div className="absolute inset-x-4 bottom-4 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 opacity-0 group-hover:opacity-100">
+                                        <p className="text-white/80 text-xs sm:text-sm">{member.bio}</p>
                                     </div>
                                 </div>
-                                <h3 className="text-lg font-bold text-brand-white">
-                                    {member.name}
-                                </h3>
-                                <p className="text-brand-purple text-sm font-medium mt-1">
-                                    {member.role}
-                                </p>
-                                <p className="text-white/50 text-sm mt-3">{member.bio}</p>
+
+                                <div className="text-center">
+                                    <h3 className="text-xl font-bold text-brand-white mb-1 group-hover:text-brand-yellow transition-colors">
+                                        {member.name}
+                                    </h3>
+                                    <p className="text-brand-purple font-medium text-sm tracking-wide uppercase">
+                                        {member.role}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
