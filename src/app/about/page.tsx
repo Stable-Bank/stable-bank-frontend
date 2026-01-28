@@ -55,33 +55,6 @@ const values = [
     },
 ];
 
-const team = [
-    {
-        name: "Sarah Chen",
-        role: "CEO & Co-founder",
-        image: "/images/placeholder/dummy-profile-img.png",
-        bio: "Former Goldman Sachs executive with 15 years in fintech.",
-    },
-    {
-        name: "Marcus Johnson",
-        role: "CTO & Co-founder",
-        image: "/images/placeholder/dummy-profile-img.png",
-        bio: "Ex-Coinbase engineer, blockchain pioneer since 2013.",
-    },
-    {
-        name: "Elena Rodriguez",
-        role: "Head of Design",
-        image: "/images/placeholder/dummy-profile-img.png",
-        bio: "Award-winning designer from Apple and Stripe.",
-    },
-    {
-        name: "David Kim",
-        role: "Head of Security",
-        image: "/images/placeholder/dummy-profile-img.png",
-        bio: "Former NSA cybersecurity specialist.",
-    },
-];
-
 export default function AboutPage() {
     return (
         <SiteLayout>
@@ -198,54 +171,6 @@ export default function AboutPage() {
                                     </h3>
                                     <p className="text-white/60 text-lg leading-relaxed max-w-md">
                                         {value.description}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Team Section */}
-            <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 bg-gradient-to-b from-brand-purple/5 to-transparent">
-                <div className="max-w-largest mx-auto">
-                    <div className="text-center mb-12 sm:mb-20">
-                        <SectionCard title="Our Team" />
-                        <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl font-bold text-brand-white">
-                            Meet the Builders
-                        </h2>
-                        <p className="mt-4 text-lg text-white/60 max-w-2xl mx-auto">
-                            A world-class team of engineers, designers, and finance experts.
-                        </p>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                        {team.map((member) => (
-                            <div
-                                key={member.name}
-                                className="group relative"
-                            >
-                                <div className="relative mb-6 rounded-3xl overflow-hidden aspect-square">
-                                    <div className="absolute inset-0 bg-brand-purple/20 mix-blend-overlay group-hover:bg-transparent transition-colors duration-300 z-10" />
-                                    <Image
-                                        src={member.image}
-                                        alt={member.name}
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                                    />
-
-                                    {/* Glass Overlay on Hover */}
-                                    <div className="absolute inset-x-4 bottom-4 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 opacity-0 group-hover:opacity-100">
-                                        <p className="text-white/80 text-xs sm:text-sm">{member.bio}</p>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <h3 className="text-xl font-bold text-brand-white mb-1 group-hover:text-brand-yellow transition-colors">
-                                        {member.name}
-                                    </h3>
-                                    <p className="text-brand-purple font-medium text-sm tracking-wide uppercase">
-                                        {member.role}
                                     </p>
                                 </div>
                             </div>
