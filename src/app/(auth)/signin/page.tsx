@@ -95,6 +95,14 @@ export default function Login() {
       </div>
 
       <div className="flex flex-col gap-1">
+        <div className="flex justify-end mb-2">
+          <Link
+            href={appRoutes.auth.forgotPassword}
+            className="text-xs sm:text-sm text-white/60 hover:text-brand-purple transition-colors"
+          >
+            Forgot Password?
+          </Link>
+        </div>
         <Button
           type="submit"
           disabled={loginData.loading}

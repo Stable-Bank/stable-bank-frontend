@@ -7,14 +7,7 @@ import { clearToken, getToken, setToken } from "@/composables/token";
 import { appRoutes } from "@/lib/navigation";
 import { toast } from "sonner";
 
-interface User {
-  id: string;
-  email: string;
-  bankTag?: string;
-  kycStatus?: string;
-  role?: string;
-  walletAddress?: string;
-}
+import { User } from "@/types/user";
 
 interface AuthContextType {
   user: User | null;
@@ -23,6 +16,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  fetchUser: () => Promise<void>;
+  updateUser: (user: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -91,6 +86,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await fetchUser();
   };
 
+  const updateUser = (newUser: Partial<User>) => {
+    setUser(prev => prev ? { ...prev, ...newUser } : (newUser as User));
+  };
+
   useEffect(() => {
     fetchUser();
 
@@ -114,6 +113,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         refreshUser,
+        fetchUser,
+        updateUser,
       }}
     >
       {children}

@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 import { pointsService } from "@/services/pointsService";
 import { toast } from "sonner";
 import type { PointsSummary, TierInfo } from "@/types/points";
+import { Zap, Trophy, Gift, Crown, Star, Clock, User, Shield, Target } from "lucide-react";
 
 export default function URewards() {
   const [pointsSummary, setPointsSummary] = useState<PointsSummary | null>(null);
   const [tierInfo, setTierInfo] = useState<TierInfo | null>(null);
+  const [pointsConfig, setPointsConfig] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isClaiming, setIsClaiming] = useState(false);
 
@@ -17,13 +19,15 @@ export default function URewards() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const [points, tier] = await Promise.all([
+        const [points, tier, config] = await Promise.all([
           pointsService.getPointsSummary(),
           pointsService.getUserTier(),
+          pointsService.getPointsConfig(),
         ]);
 
         setPointsSummary(points);
         setTierInfo(tier);
+        setPointsConfig(config);
       } catch (error: any) {
         console.error("Failed to fetch rewards data:", error);
         toast.error(error?.message || "Failed to load rewards data");
@@ -107,11 +111,11 @@ export default function URewards() {
         </div>
         <div className="w-[30%]">
           <Image
-            src={"/images/placeholder/reward-dash-img.svg"}
+            src={"/images/brand/stablebank-logo-white.svg"}
             alt="reward img"
             width={300}
             height={300}
-            className="h-full w-full rounded-r-[12px] object-cover object-top-right"
+            className="h-full w-full rounded-r-[12px] object-cover object-top-right p-4"
           />
         </div>
       </div>
@@ -119,6 +123,7 @@ export default function URewards() {
       <Tabs
         pointsSummary={pointsSummary}
         tierInfo={tierInfo}
+        pointsConfig={pointsConfig}
       />
     </div>
   );
@@ -134,9 +139,10 @@ const tabsArr = [
 interface TabsProps {
   pointsSummary: PointsSummary | null;
   tierInfo: TierInfo | null;
+  pointsConfig: any;
 }
 
-const Tabs = ({ pointsSummary, tierInfo }: TabsProps) => {
+const Tabs = ({ pointsSummary, tierInfo, pointsConfig }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(tabsArr[0].value);
   return (
     <div className="flex flex-col gap-12">
@@ -156,15 +162,15 @@ const Tabs = ({ pointsSummary, tierInfo }: TabsProps) => {
 
       <div className="transform transition-all duration-200 ease-linear">
         {activeTab === "overview" && <OverviewTab pointsSummary={pointsSummary} />}
-        {activeTab === "earn" && <EarnTab />}
+        {activeTab === "earn" && <EarnTab pointsConfig={pointsConfig} />}
         {activeTab === "redeem" && <RedeemTab />}
-        {activeTab === "tiers" && <TiersTab tierInfo={tierInfo} />}
+        {activeTab === "tiers" && <TiersTab tierInfo={tierInfo} pointsConfig={pointsConfig} />}
       </div>
     </div>
   );
 };
 
-import { Zap, Trophy, Gift, Crown } from "lucide-react";
+
 
 // Overview stats for rewards dashboard
 // const overviewStats = [
@@ -263,32 +269,35 @@ function OverviewTab({ pointsSummary }: { pointsSummary: PointsSummary | null })
   );
 }
 
-import { Star, Clock, User } from "lucide-react";
 
-const rewards = [
-  {
-    title: "Make a purchase",
-    points: "1 Point per $1",
-    icon: Gift,
-  },
-  {
-    title: "Write a review",
-    points: "50 points",
-    icon: Star,
-  },
-  {
-    title: "Daily Login",
-    points: "10 points",
-    icon: Clock,
-  },
-  {
-    title: "Complete Profile",
-    points: "100 points",
-    icon: User,
-  },
-];
 
-function EarnTab() {
+function EarnTab({ pointsConfig }: { pointsConfig: any }) {
+  const activities = pointsConfig?.activities || {};
+  
+  const getIcon = (key: string) => {
+    if (key.includes("staking")) return Clock;
+    if (key.includes("referral")) return User;
+    if (key.includes("transaction")) return Gift;
+    if (key.includes("engagement")) return Star;
+    return Zap;
+  };
+
+  const flattenActivities = (obj: any) => {
+    const flat: any[] = [];
+    Object.entries(obj).forEach(([group, acts]: [string, any]) => {
+      Object.entries(acts).forEach(([key, value]) => {
+        flat.push({
+          title: `${group.charAt(0).toUpperCase() + group.slice(1)}: ${key.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}`,
+          points: `${value} Points`,
+          icon: getIcon(group),
+        });
+      });
+    });
+    return flat.slice(0, 4); // Limit for UI beauty
+  };
+
+  const earnActivities = flattenActivities(activities);
+
   return (
     <div className="flex flex-col gap-7">
       <h2 className="text-brand-yellow text-2xl font-semibold">
@@ -296,7 +305,7 @@ function EarnTab() {
       </h2>
 
       <div className="flex flex-col gap-12">
-        {rewards.map((reward) => (
+        {earnActivities.map((reward) => (
           <div
             key={reward.title}
             className="flex items-center gap-8 rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] px-5 py-4"
@@ -387,7 +396,7 @@ function RedeemTab() {
 //   },
 // ];
 
-function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
+function TiersTab({ tierInfo, pointsConfig }: { tierInfo: TierInfo | null, pointsConfig: any }) {
   type TierName = "bronze" | "silver" | "gold" | "platinum" | "diamond";
   const [activeTier, setActiveTier] = useState<TierName>(
     (tierInfo?.currentTier as TierName) || "bronze"
@@ -397,21 +406,13 @@ function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
     setActiveTier(tierName as TierName);
   }
 
-  // Default tiers if not loaded from backend
-  const defaultTiers = [
-    {
-      name: "Bronze",
-      pointsRequired: 0,
-      perks: ["5% bonus points", "Basic Support", "Welcome gift"],
-      icon: "/images/svg/membership-icon-bronze.svg",
-    },
-    {
-      name: "Gold",
-      pointsRequired: 2500,
-      perks: ["15% bonus points", "VIP Support", "Free shipping"],
-      icon: "/images/svg/membership-icon-gold.svg",
-    },
-  ];
+  const tiersData = pointsConfig?.tiers || {};
+  const tiers = Object.entries(tiersData).map(([name, data]: [string, any]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    pointsRequired: data.minPoints,
+    perks: [`${(data.multiplier * 100 - 100).toFixed(0)}% Bonus Points`, "Exclusive Features", "Priority Access"],
+    icon: `/images/svg/membership-icon-${name}.svg`,
+  }));
 
   return (
     <div className="flex flex-col gap-7">
@@ -420,7 +421,7 @@ function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
       </h2>
 
       <div className="flex flex-col gap-9">
-        {defaultTiers.map((tier) => {
+        {tiers.map((tier) => {
           const isCurrentTier = tier.name.toLowerCase() === activeTier.toLowerCase();
 
           return (
@@ -430,13 +431,9 @@ function TiersTab({ tierInfo }: { tierInfo: TierInfo | null }) {
               className={`flex transform flex-col gap-3 rounded-[14px] border-[0.2px] border-solid bg-[#0E121C] p-7 text-[#E9E9E9] transition-all duration-200 ease-linear cursor-pointer ${isCurrentTier ? "border-brand-purple" : "border-white/60"}`}
             >
               <div className="mx-auto flex flex-col items-center gap-2">
-                <Image
-                  src={tier.icon}
-                  alt="tier icon"
-                  width={84}
-                  height={84}
-                  className="aspect-square"
-                />
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple to-blue-500">
+                   <Crown size={40} className="text-white" />
+                </div>
                 <p className="text-3xl font-semibold">{tier.name}</p>
                 <p className="text-base font-normal">
                   {tier.pointsRequired} points required

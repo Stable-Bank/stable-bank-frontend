@@ -12,6 +12,8 @@ export interface User {
   status?: 'active' | 'suspended' | 'banned';
   totalPoints?: number;
   tier?: 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond';
+  avatarUrl?: string;
+  is2FAEnabled?: boolean;
   createdAt?: string;
 }
 

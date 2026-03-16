@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,48 +12,10 @@ import {
   Zap,
 } from "lucide-react";
 import Slider from "@/components/slider/base";
+import { earnService, EarnSummary, StakingOption, AimPlan } from "@/services/earnService";
+import { toast } from "sonner";
 
-export default function UInvest() {
-  const [currentTab, setCurrentTab] = useState("stake-earn");
-
-  return (
-    <div className="flex w-full max-w-[640px] flex-col gap-8">
-      <div>
-        <h1 className="text-2xl font-semibold text-[#E9F2A3]">Earn</h1>
-        <p className="text-brand-white text-sm font-normal">
-          Grow your wealth through staking, automated investing, and synthetic
-          assets.
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-10">
-        <div className="grid grid-cols-3 overflow-hidden rounded-[10px] border-[0.3px] border-solid border-white/60">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              className={`flex w-full transform cursor-pointer items-center justify-center gap-1 p-3.5 text-[22px] font-medium transition duration-200 ease-linear ${
-                tab.key === currentTab ? "bg-brand-purple" : "bg-transparent"
-              }`}
-              onClick={() => setCurrentTab(tab.key)}
-            >
-              <tab.icon size={20} />
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="transition duration-200 ease-linear transform-content">
-          {tabs.map((tab) => {
-            if (tab.key === currentTab) {
-              return <tab.component key={tab.key} />;
-            }
-            return null;
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
+// --- Components and Data ---
 
 const SectionHeader = ({
   title,
@@ -69,19 +31,56 @@ const SectionHeader = ({
 );
 
 const StakeEarnTab = () => {
-  const [selectedLock, setSelectedLock] = useState(365);
-  const [amount, setAmount] = useState<number>(12);
-  const lockOptions = [
+  const [selectedLock, setSelectedLock] = useState<number>(30);
+  const [amount, setAmount] = useState<number>(100);
+  const [lockOptions, setLockOptions] = useState<StakingOption[]>([
     { days: 30, min: 100, apy: 8.5 },
     { days: 90, min: 250, apy: 12.3 },
     { days: 180, min: 500, apy: 16.8 },
     { days: 365, min: 500, apy: 16.8 },
-  ];
+  ]);
+  const [stakingLoading, setStakingLoading] = useState(false);
 
-  const selected = lockOptions.find((opt) => opt.days === selectedLock)!;
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const options = await earnService.getStakingOptions();
+        if (options && options.length > 0) {
+          setLockOptions(options);
+          setSelectedLock(options[0].days);
+        }
+      } catch (error) {
+        console.error("Failed to fetch staking options:", error);
+      }
+    };
+    fetchOptions();
+  }, []);
+
+  const selected = lockOptions.find((opt) => opt.days === selectedLock) || lockOptions[0];
 
   const estimatedRewards = ((amount * selected.apy) / 100).toFixed(2);
   const totalReturn = (amount + parseFloat(estimatedRewards)).toFixed(2);
+
+  const handleStake = async () => {
+    if (amount < selected.min) {
+      toast.error(`Minimum amount to stake is $${selected.min}`);
+      return;
+    }
+    setStakingLoading(true);
+    try {
+      await earnService.stakeTokens({
+        tokenId: "65cf68e7f8e3f2a1b0c9d8e7", // Placeholder
+        amount,
+        lockPeriodInDays: selected.days,
+        apy: selected.apy,
+      });
+      toast.success("Staking successful!");
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Staking failed");
+    } finally {
+      setStakingLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-10">
@@ -95,8 +94,7 @@ const StakeEarnTab = () => {
           Choose Lock Period
         </h3>
         <p className="text-sm text-[#E9E9E9]">
-          Cards Will Pull Funds in priority order: Ethereum first, then BNB, the
-          USDC
+          Lock periods determine your APY. Longer locks yield higher returns.
         </p>
       </div>
 
@@ -129,7 +127,7 @@ const StakeEarnTab = () => {
 
       <div>
         <h3 className="text-2xl font-semibold text-[#E9F2A3]">Stake Amount</h3>
-        <p className="text-base text-[#E9E9E9]">Amount to stake</p>
+        <p className="text-base text-[#E9E9E9]">Amount to stake in USDC</p>
       </div>
 
       <div className="flex items-center rounded-[14px] border-[0.2px] border-solid border-white/60 bg-transparent px-6 py-3">
@@ -166,15 +164,44 @@ const StakeEarnTab = () => {
         </CardContent>
       </Card>
 
-      <Button className="text-brand-white bg-brand-purple flex h-12 w-full cursor-pointer items-center justify-center rounded-[10px] px-8 text-[22px] font-semibold">
-        Stake Now
+      <Button 
+        onClick={handleStake}
+        disabled={stakingLoading}
+        className="text-brand-white bg-brand-purple flex h-12 w-full cursor-pointer items-center justify-center rounded-[10px] px-8 text-[22px] font-semibold"
+      >
+        {stakingLoading ? "Staking..." : "Stake Now"}
       </Button>
     </div>
   );
 };
 
 const AimPlansTab = () => {
-  const [selectedPlan, setSelectedPlan] = useState(aimplans[0]);
+  const [plans, setPlans] = useState<AimPlan[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<AimPlan | null>(null);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const data = await earnService.getAimPlans();
+        if (data && data.length > 0) {
+          setPlans(data);
+          setSelectedPlan(data[0]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch AIM plans:", error);
+      }
+    };
+    fetchPlans();
+  }, []);
+
+  if (!selectedPlan) return null;
+
+  const currentPlanIcon = (id: string) => {
+    if (id.includes("conservative")) return Shield;
+    if (id.includes("growth")) return Zap;
+    return CornerRightDown;
+  };
+
   return (
     <div className="flex flex-col gap-10">
       <SectionHeader
@@ -183,38 +210,41 @@ const AimPlansTab = () => {
       />
 
       <div className="flex flex-col gap-8">
-        {aimplans.map((plan) => (
-          <div
-            key={plan.name}
-            onClick={() => setSelectedPlan(plan)}
-            className={`flex w-full flex-col gap-5 rounded-[14px] bg-[#0E121C] px-[18px] py-3.5 text-[#E9E9E9] ${
-              selectedPlan.name === plan.name
-                ? "border-[1.5px] border-[#4649D6]"
-                : "border-0 border-transparent"
-            } cursor-pointer transition-all duration-200 ease-linear`}
-          >
-            <div className="flex h-[56px] w-[59px] items-center justify-center rounded-[10px] bg-[#252670]">
-              <plan.icon size={32} color="#E9F2A3" />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <p className="text-3xl font-semibold">{plan.name}</p>
-              <p className="text-base font-normal">{plan.description}</p>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <p className="text-2xl font-semibold">Risk Level:</p>
-                <p className="">{plan.riskLevel}</p>
+        {plans.map((plan) => {
+          const Icon = currentPlanIcon(plan.id);
+          return (
+            <div
+              key={plan.id}
+              onClick={() => setSelectedPlan(plan)}
+              className={`flex w-full flex-col gap-5 rounded-[14px] bg-[#0E121C] px-[18px] py-3.5 text-[#E9E9E9] ${
+                selectedPlan.id === plan.id
+                  ? "border-[1.5px] border-[#4649D6]"
+                  : "border-0 border-transparent"
+              } cursor-pointer transition-all duration-200 ease-linear`}
+            >
+              <div className="flex h-[56px] w-[59px] items-center justify-center rounded-[10px] bg-[#252670]">
+                <Icon size={32} color="#E9F2A3" />
               </div>
 
-              <div className="flex items-center justify-between">
-                <p className="text-base font-normal">Expected Return:</p>
-                <p className="text-sm font-normal">{plan.expectedReturn}</p>
+              <div className="flex flex-col gap-1">
+                <p className="text-3xl font-semibold">{plan.name}</p>
+                <p className="text-base font-normal">{plan.description}</p>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <p className="text-2xl font-semibold">Risk Level:</p>
+                  <p className="">{plan.riskLevel}</p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-base font-normal">Expected Return:</p>
+                  <p className="text-sm font-normal">{plan.expectedReturn}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="flex flex-col gap-3.5 rounded-[14px] bg-[#0E121C] px-[18px] py-[30px] text-[#E9E9E9]">
@@ -256,6 +286,23 @@ const AimPlansTab = () => {
 };
 
 const SyntheticStocksTab = () => {
+  const [trendingStocks, setTrendingStocks] = useState<any[]>([]);
+  const [stocksLoading, setStocksLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const data = await earnService.getTrendingStocks();
+        setTrendingStocks(data);
+      } catch (error) {
+        console.error("Failed to fetch trending stocks:", error);
+      } finally {
+        setStocksLoading(false);
+      }
+    };
+    fetchStocks();
+  }, []);
+
   return (
     <div className="flex flex-col gap-10">
       <SectionHeader
@@ -267,33 +314,37 @@ const SyntheticStocksTab = () => {
         <h2 className="text-[26px] font-semibold">Trending Stocks</h2>
 
         <div className="flex flex-col gap-6">
-          {stocks.map((stock) => (
-            <Card
-              key={stock.symbol}
-              className={`cursor-pointer !rounded-[14px] border-[0.2px] border-solid border-white/60 !bg-[#0E121C] p-3.5 !px-0 !py-0 transition-all duration-200 ease-linear`}
-            >
-              <CardContent className="flex flex-col gap-0.5 px-5 py-3">
-                <div className="flex items-center justify-between">
-                  <p className="text-2xl font-semibold uppercase">
-                    {stock.symbol}{" "}
-                  </p>
-                  <p className="text-2xl font-normal text-[#E9E9E9]">
-                    ${stock.price}
-                  </p>
-                </div>
+          {stocksLoading ? (
+            <p className="text-white/60 text-base">Loading trending stocks...</p>
+          ) : (
+            trendingStocks.map((stock) => (
+              <Card
+                key={stock.symbol}
+                className={`cursor-pointer !rounded-[14px] border-[0.2px] border-solid border-white/60 !bg-[#0E121C] p-3.5 !px-0 !py-0 transition-all duration-200 ease-linear`}
+              >
+                <CardContent className="flex flex-col gap-0.5 px-5 py-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-2xl font-semibold uppercase">
+                      {stock.symbol}{" "}
+                    </p>
+                    <p className="text-2xl font-normal text-[#E9E9E9]">
+                      ${stock.price}
+                    </p>
+                  </div>
 
-                <p className="flex items-center justify-between">
-                  <span className="text-base font-normal">{stock.name}</span>
-                  <span
-                    className={`flex items-center gap-1 text-base font-bold ${stock.isPositive ? "text-[#319F43]" : "text-[#FE0420]"} `}
-                  >
-                    <ChartNoAxesCombined size={16} />
-                    <span>{stock.changePercent}%</span>
-                  </span>
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+                  <p className="flex items-center justify-between">
+                    <span className="text-base font-normal">{stock.name}</span>
+                    <span
+                      className={`flex items-center gap-1 text-base font-bold ${stock.isPositive ? "text-[#319F43]" : "text-[#FE0420]"} `}
+                    >
+                      <ChartNoAxesCombined size={16} />
+                      <span>{stock.changePercent}%</span>
+                    </span>
+                  </p>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
       </div>
 
@@ -376,57 +427,81 @@ const tabs = [
   },
 ];
 
-const aimplans = [
-  {
-    name: "Conservative Growth",
-    description: "Focus on capital preservation with steady growth",
-    riskLevel: "Low",
-    expectedReturn: "8-12%",
-    icon: Shield,
-  },
-  {
-    name: "Balanced Portfolio",
-    description: "Balanced approach between growth and stability",
-    riskLevel: "Medium",
-    expectedReturn: "12-18%",
-    icon: CornerRightDown,
-  },
-  {
-    name: "Growth Focus",
-    description: "Maximum growth potential with higher volatility",
-    riskLevel: "High",
-    expectedReturn: "12-18%",
-    icon: Zap,
-  },
-];
+// --- Main Page Component ---
 
-const stocks = [
-  {
-    symbol: "AAPL",
-    name: "Apple Inc.",
-    price: 192.53,
-    changePercent: 8.5,
-    isPositive: true,
-  },
-  {
-    symbol: "NVDA",
-    name: "NVIDIA Corp",
-    price: 455.12,
-    changePercent: 8.5,
-    isPositive: false,
-  },
-  {
-    symbol: "TSLA",
-    name: "Tesla Inc.",
-    price: 248.8,
-    changePercent: 8.5,
-    isPositive: true,
-  },
-  {
-    symbol: "MSFT",
-    name: "Microsoft Corp",
-    price: 378.45,
-    changePercent: 8.5,
-    isPositive: true,
-  },
-];
+export default function UInvest() {
+  const [currentTab, setCurrentTab] = useState("stake-earn");
+  const [summary, setSummary] = useState<EarnSummary | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const data = await earnService.getEarnSummary();
+        setSummary(data);
+      } catch (error) {
+        console.error("Failed to fetch earn summary:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSummary();
+  }, []);
+
+  return (
+    <div className="flex w-full max-w-[640px] flex-col gap-8">
+      <div>
+        <h1 className="text-2xl font-semibold text-[#E9F2A3]">Earn</h1>
+        <p className="text-brand-white text-sm font-normal">
+          Grow your wealth through staking, automated investing, and synthetic
+          assets.
+        </p>
+      </div>
+
+      {!loading && summary && (
+        <Card className="!rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] !px-0 !py-0">
+          <CardContent className="grid grid-cols-2 gap-4 p-5">
+            <div>
+              <p className="text-xs text-brand-white/60 uppercase">Total Invested</p>
+              <p className="text-2xl font-bold text-white">
+                ${(summary.totalInvestedUSD + summary.totalStakedUSD).toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-brand-white/60 uppercase">Lifetime Earnings</p>
+              <p className="text-2xl font-bold text-[#319F43]">
+                +${summary.totalEarnedUSD.toLocaleString()}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-3 overflow-hidden rounded-[10px] border-[0.3px] border-solid border-white/60">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              className={`flex w-full transform cursor-pointer items-center justify-center gap-1 p-3.5 text-[22px] font-medium transition duration-200 ease-linear ${
+                tab.key === currentTab ? "bg-brand-purple" : "bg-transparent"
+              }`}
+              onClick={() => setCurrentTab(tab.key)}
+            >
+              <tab.icon size={20} />
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="transition duration-200 ease-linear transform-content">
+          {tabs.map((tab) => {
+            if (tab.key === currentTab) {
+              return <tab.component key={tab.key} />;
+            }
+            return null;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -3,6 +3,8 @@ export const appRoutes = {
     signIn: "/signin",
     signUp: "/signup",
     bankTag: "/banktag",
+    forgotPassword: "/forgot-password",
+    resetPassword: "/reset-password",
   },
   dashboard: {
     home: "/dashboard",

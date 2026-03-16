@@ -9,8 +9,10 @@ import {
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { ArrowDownLeft, Copy } from "lucide-react";
 import Image from "next/image";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function RecieveModal() {
+  const { user } = useAuth();
   return (
     <DialogContent className="w-full !max-w-[370px] rounded-[20px] border-none bg-[#0E121C] px-[18px] py-5">
       <DialogHeader>
@@ -36,11 +38,11 @@ export default function RecieveModal() {
         />
         <div
           onClick={() => {
-            copyToClipboard("mfoniso@stablebank");
+            user?.bankTag && copyToClipboard(user.bankTag);
           }}
           className="flex w-full max-w-[242px] cursor-pointer items-center gap-4 rounded-[20px] bg-[#131926] px-4 py-2 text-sm font-medium text-white/60"
         >
-          <span>mfoniso@stablebank</span>
+          <span>{user?.bankTag || "unidentified"}</span>
           <Copy size={8} color="#FFFFFF99" />
         </div>
       </DialogFooter>

@@ -49,8 +49,11 @@ export default function Signup() {
         password: validPassword.data,
       });
 
-      toast.success("Account created successfully! Please sign in.");
-      router.push(appRoutes.auth.signIn);
+      // Automatically send OTP after registration
+      await apiClient.post("/auth/send-otp", { email: signupData.email });
+
+      toast.success("Account created! Please verify your email.");
+      router.push(`${appRoutes.auth.signUp}/../verify-otp?email=${encodeURIComponent(signupData.email)}`);
     } catch (error: any) {
       const errMsg = error?.message || "Signup failed. Please try again.";
       console.error("Signup error:", error);
