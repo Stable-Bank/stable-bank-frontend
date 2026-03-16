@@ -77,36 +77,38 @@ export default function Login() {
             color="#FFFFFF52"
           />
         </div>
-        <div className="relative h-[48px] sm:h-[52px] rounded-[8px] bg-[#0F0F0F] text-sm sm:text-base font-medium text-white placeholder:text-white/60">
-          <input
-            type="password"
-            name="password"
-            value={loginData.password}
-            onChange={(e) => updateLoginData("password", e.target.value)}
-            placeholder="Password"
-            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
-          />
-          <MoveRight
-            size={20}
-            className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
-            color="#FFFFFF52"
-          />
+        <div className="flex flex-col gap-2">
+          <div className="relative h-[48px] sm:h-[52px] rounded-[8px] bg-[#0F0F0F] text-sm sm:text-base font-medium text-white placeholder:text-white/60">
+            <input
+              type="password"
+              name="password"
+              value={loginData.password}
+              onChange={(e) => updateLoginData("password", e.target.value)}
+              placeholder="Password"
+              className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
+            />
+            <MoveRight
+              size={20}
+              className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
+              color="#FFFFFF52"
+            />
+          </div>
+          <div className="flex justify-end">
+            <Link
+              href={appRoutes.auth.forgotPassword}
+              className="text-xs sm:text-sm text-white/50 hover:text-brand-purple transition-colors"
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <div className="flex justify-end mb-2">
-          <Link
-            href={appRoutes.auth.forgotPassword}
-            className="text-xs sm:text-sm text-white/60 hover:text-brand-purple transition-colors"
-          >
-            Forgot Password?
-          </Link>
-        </div>
+      <div className="flex flex-col gap-4">
         <Button
           type="submit"
           disabled={loginData.loading}
-          className="text-brand-white bg-brand-purple flex h-11 sm:h-12 cursor-pointer items-center justify-center rounded-[40px] px-6 sm:px-8 text-sm sm:text-base font-semibold"
+          className="text-brand-white bg-brand-purple flex h-11 sm:h-12 cursor-pointer items-center justify-center rounded-[40px] px-6 sm:px-8 text-sm sm:text-base font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
         >
           {loginData.loading ? "Signing in..." : "Sign-in"}
         </Button>
