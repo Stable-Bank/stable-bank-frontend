@@ -6,7 +6,7 @@ import { appRoutes } from "@/lib/navigation";
 import { passwordSchema } from "@/schema/password";
 import { MoveRight, LockKeyhole } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 import { OtpInput } from "@/components/ui/otp-input";
@@ -25,12 +25,37 @@ export default function ResetPassword() {
     loading: false,
   });
 
+  const [resendTimer, setResendTimer] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [resendTimer]);
+
   function updateResetData<K extends keyof typeof resetData>(
     field: K,
     value: (typeof resetData)[K]
   ) {
     setResetData((prev) => ({ ...prev, [field]: value }));
   }
+
+  const handleResendCode = async () => {
+    if (resendTimer > 0) return;
+
+    try {
+      await apiClient.post("/auth/forgot-password", { email });
+      toast.success("Security code resent to your email.");
+      setResendTimer(60);
+    } catch (error: any) {
+      const errMsg = error?.response?.data?.message || "Failed to resend code.";
+      toast.error(errMsg);
+    }
+  };
 
   const handleNextStep = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,12 +141,30 @@ export default function ResetPassword() {
 
       {step === 1 ? (
         <form onSubmit={handleNextStep} className="flex flex-col gap-8">
-          <div className="py-4">
-            <OtpInput 
-              value={resetData.otp} 
-              onChange={(val) => updateResetData("otp", val)} 
-              disabled={resetData.loading}
-            />
+          <div className="flex flex-col gap-6">
+            <div className="py-4">
+              <OtpInput 
+                value={resetData.otp} 
+                onChange={(val) => updateResetData("otp", val)} 
+                disabled={resetData.loading}
+              />
+            </div>
+            
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={handleResendCode}
+                disabled={resendTimer > 0}
+                className={cn(
+                  "text-sm font-medium transition-all",
+                  resendTimer > 0 
+                  ? "text-white/20 cursor-not-allowed" 
+                  : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
+                )}
+              >
+                {resendTimer > 0 ? `Resend code in ${resendTimer}s` : "Didn't receive code? Resend"}
+              </button>
+            </div>
           </div>
           
           <div className="flex flex-col gap-4">
