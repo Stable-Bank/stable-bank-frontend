@@ -43,9 +43,17 @@ export default function UnifiedBalance() {
         {isLoading && !balance ? (
           <div className="h-12 w-32 animate-pulse rounded bg-white/10" />
         ) : error ? (
-          <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-red-500">Error</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-xl sm:text-2xl font-bold text-red-400">Unable to load balance</p>
+            <button 
+              onClick={handleRefresh}
+              className="w-fit text-sm font-medium text-brand-purple hover:text-brand-purple/80 underline underline-offset-4 transition-colors"
+            >
+              Try again
+            </button>
+          </div>
         ) : (
-          <p className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+          <p className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
             ${balance?.totalUSD?.toFixed(2) || "0.00"}
           </p>
         )}

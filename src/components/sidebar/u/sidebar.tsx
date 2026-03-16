@@ -9,132 +9,169 @@ import {
   Settings,
   ChartNoAxesCombined,
   Copy,
+  LogOut,
+  ChevronRight,
+  ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { appRoutes } from "@/lib/navigation";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function USidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
 
-  const { user } = useAuth();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push(appRoutes.auth.signIn);
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
   
   return (
-    <div className="flex h-full w-[280px] flex-col gap-6 bg-[#0E121C] px-5 py-8">
-      <Link href={appRoutes.dashboard.home}>
-        <Image
-          src={"/images/brand/logo-full.svg"}
-          alt="logo"
-          width={160}
-          height={40}
-        />
-      </Link>
+    <div className="flex h-full w-[280px] flex-col bg-[#0A0D14]/80 backdrop-blur-xl border-r border-white/5 shadow-2xl">
+      {/* Brand Header */}
+      <div className="px-6 py-10 flex items-center justify-center">
+        <Link href={appRoutes.dashboard.home} className="hover:opacity-80 transition-opacity">
+          <Image
+            src={"/images/brand/logo-full.svg"}
+            alt="Stable Bank"
+            width={160}
+            height={40}
+            priority
+          />
+        </Link>
+      </div>
 
-      <div className="group relative flex flex-col gap-4 rounded-2xl bg-white/5 p-4 border border-white/10 hover:bg-white/[0.08] transition-all duration-300">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-brand-purple/30 bg-black/20 ring-4 ring-brand-purple/5">
-            <Image
-              src={
-                user?.avatarUrl 
-                  ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '')}${user.avatarUrl}`
-                  : `/images/svg/default-avatar.svg`
-              }
-              alt="avatar"
-              width={48}
-              height={48}
-              className="h-full w-full object-cover transition-transform group-hover:scale-110"
-            />
+      {/* Profile Card */}
+      <div className="px-5 mb-8">
+        <div className="group relative flex flex-col gap-4 rounded-3xl bg-white/[0.03] p-5 border border-white/10 hover:border-brand-purple/30 transition-all duration-500 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="relative flex items-center gap-4">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg">
+              <Image
+                src={
+                  user?.avatarUrl 
+                    ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '')}${user.avatarUrl}`
+                    : `/images/svg/default-avatar.svg`
+                }
+                alt="avatar"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-bold text-white truncate leading-tight">
+                {user?.firstName ? `${user.firstName} ${user.lastName}` : "Stable Member"}
+              </span>
+              <div className="flex items-center gap-1.5 mt-1">
+                <ShieldCheck size={11} className="text-brand-purple" />
+                <span className="text-[10px] font-bold text-brand-purple uppercase tracking-widest">
+                  Verified
+                </span>
+                <div className="h-0.5 w-0.5 rounded-full bg-white/20" />
+                <span className="text-[10px] font-medium text-white/30 truncate">
+                  {user?.role || "Personal"}
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-bold text-white truncate">
-              {user?.firstName ? `${user.firstName} ${user.lastName}` : "Stable Member"}
-            </span>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="text-[11px] font-medium text-white/40 uppercase tracking-wider">
-                Personal
-              </span>
-              <div className="h-1 w-1 rounded-full bg-brand-purple/40" />
-              <span className="text-[11px] font-medium text-brand-purple/80 tracking-tight">
-                Verified
-              </span>
+
+          <div className="relative">
+            <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-black/40 border border-white/5 group/tag backdrop-blur-md">
+              <div className="flex flex-col">
+                <span className="text-[9px] text-white/20 font-bold uppercase tracking-widest mb-0.5">My Tag</span>
+                <span className="text-[13px] font-mono font-bold text-[#E9F2A3] tracking-tighter">
+                  ${user?.bankTag || "..."}
+                </span>
+              </div>
+              <button
+                 onClick={() => user?.bankTag && copyToClipboard(user.bankTag)}
+                 className="p-2 rounded-xl bg-white/5 text-white/40 hover:text-brand-purple hover:bg-brand-purple/10 transition-all active:scale-90"
+              >
+                <Copy size={13} />
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-black/30 border border-white/5 group/tag">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-white/30 font-medium uppercase tracking-tighter">My Tag</span>
-              <span className="text-xs font-bold text-white tracking-tight">
-                ${user?.bankTag || "unidentified"}
-              </span>
-            </div>
-            <button
-               onClick={() => user?.bankTag && copyToClipboard(user.bankTag)}
-               className="p-1.5 rounded-lg bg-white/5 text-white/40 hover:text-brand-purple hover:bg-brand-purple/10 transition-all active:scale-90"
-               title="Copy StableTag"
-            >
-              <Copy size={12} />
-            </button>
+      {/* Navigation */}
+      <div className="flex-1 px-4 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+        {/* Main Section */}
+        <section>
+          <span className="px-4 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Dashboard</span>
+          <div className="flex flex-col gap-1.5">
+            {navItems.map((ni) => {
+              const isActive = ni.route === appRoutes.dashboard.home 
+                ? pathname === ni.route 
+                : pathname.startsWith(ni.route);
+              return (
+                <Link
+                  key={ni.route}
+                  href={ni.route}
+                  className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 ${
+                    isActive
+                      ? "bg-brand-purple text-white shadow-xl shadow-brand-purple/10"
+                      : "text-white/40 hover:text-white hover:bg-white/[0.03]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                    <div className={`${isActive ? "text-white" : "text-brand-purple/60 group-hover:text-brand-purple"}`}>
+                      <ni.icon size={20} />
+                    </div>
+                    <span className={`text-[14px] ${isActive ? "font-bold" : "font-medium"}`}>{ni.label}</span>
+                  </div>
+                  {!isActive && <ChevronRight size={14} className="opacity-0 group-hover:opacity-40 -translate-x-2 group-hover:translate-x-0 transition-all" />}
+                  {isActive && <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl" />}
+                </Link>
+              );
+            })}
           </div>
-        </div>
+        </section>
+
+        {/* Utilities Section */}
+        <section>
+          <span className="px-4 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Support</span>
+          <div className="flex flex-col gap-1.5">
+            {utilItems.map((ni) => {
+              const isActive = pathname === ni.route;
+              return (
+                <Link
+                  key={ni.route}
+                  href={ni.route}
+                  className={`group relative flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all duration-300 ${
+                    isActive
+                      ? "bg-brand-purple text-white shadow-xl shadow-brand-purple/10"
+                      : "text-white/40 hover:text-white hover:bg-white/[0.03]"
+                  }`}
+                >
+                  <div className={`${isActive ? "text-white" : "text-brand-purple/60 group-hover:text-brand-purple"}`}>
+                    <ni.icon size={20} />
+                  </div>
+                  <span className={`text-[14px] ${isActive ? "font-bold" : "font-medium"}`}>{ni.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
       </div>
 
-      <div className="flex flex-col gap-1">
-        {navItems.map((ni) => {
-          // Exact match for home, startsWith for others
-          const isActive = ni.route === appRoutes.dashboard.home 
-            ? pathname === ni.route 
-            : pathname.startsWith(ni.route);
-          return (
-            <div key={ni.route} className="relative px-3">
-              {isActive && (
-                <div className="bg-brand-purple absolute top-0 left-0 h-full w-1 rounded-sm" />
-              )}
-              <Link
-                href={ni.route}
-                className={`flex transform items-center gap-2.5 px-5 py-3 transition-all duration-200 ease-linear ${
-                  isActive
-                    ? "bg-brand-purple rounded-[6px] text-base font-semibold"
-                    : "text-sm font-normal"
-                } `}
-              >
-                <ni.icon size={20} />
-                <span>{ni.label}</span>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mt-8 px-5">
-        <div className="h-[0.3px] w-full bg-[#FFFFFF]/20" />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        {utilItems.map((ni) => {
-          const isActive = pathname === ni.route;
-          return (
-            <div key={ni.route} className="relative px-3">
-              {isActive && (
-                <div className="bg-brand-purple absolute top-0 left-0 h-full w-1 rounded-sm" />
-              )}
-              <Link
-                href={ni.route}
-                className={`flex items-center gap-2.5 px-5 py-3 ${
-                  isActive
-                    ? "bg-brand-purple rounded-[6px] text-base font-semibold"
-                    : "text-sm font-normal"
-                } `}
-              >
-                <ni.icon size={20} />
-                <span>{ni.label}</span>
-              </Link>
-            </div>
-          );
-        })}
+      {/* Footer / Logout */}
+      <div className="p-4 mt-auto border-t border-white/5">
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center justify-center gap-3 px-4 py-4 rounded-2xl text-white/40 hover:text-red-400 hover:bg-red-400/5 transition-all duration-300 group"
+        >
+          <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm font-bold">Sign Out</span>
+        </button>
       </div>
     </div>
   );
