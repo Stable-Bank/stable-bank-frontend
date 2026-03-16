@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleQuestionMark, Copy, ExternalLink } from "lucide-react";
+import { CircleQuestionMark, Copy } from "lucide-react";
 import NetworkSelector from "../selector/network";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
@@ -19,13 +19,6 @@ export default function Balances() {
 
   const totalAssets =
     balance?.chains?.reduce((acc, chain) => acc + chain.tokens.length, 0) || 0;
-
-  const handleTrustWalletLink = () => {
-    if (!user?.walletAddress) return;
-    // Trust Wallet deep link format
-    const deepLink = `ethereum:${user.walletAddress}`;
-    window.location.href = deepLink;
-  };
 
   return (
     <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
@@ -56,34 +49,22 @@ export default function Balances() {
 
         <div className="relative flex flex-col items-center gap-4">
           <div className="p-4 bg-white rounded-[28px] shadow-2xl shadow-brand-purple/20 border-4 border-white/10 group-hover:scale-[1.02] transition-transform duration-500">
-            {isLoading ? (
-              <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 animate-pulse rounded-2xl bg-black/5" />
-            ) : (
-              <QRCodeSVG
-                value={user?.walletAddress || ""}
-                size={200}
-                level="H"
-                includeMargin={false}
-                imageSettings={{
-                  src: "/images/brand/logo-full.svg",
-                  x: undefined,
-                  y: undefined,
-                  height: 40,
-                  width: 40,
-                  excavate: true,
-                }}
-                className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
-              />
-            )}
+            <QRCodeSVG
+              value={`ethereum:${user?.walletAddress || ""}`}
+              size={200}
+              level="H"
+              includeMargin={false}
+              imageSettings={{
+                src: "/images/brand/logo-full.svg",
+                x: undefined,
+                y: undefined,
+                height: 40,
+                width: 40,
+                excavate: true,
+              }}
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
+            />
           </div>
-          
-          <button 
-            onClick={handleTrustWalletLink}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#3375BB]/10 hover:bg-[#3375BB]/20 text-[#3375BB] text-[10px] font-bold uppercase tracking-widest transition-all border border-[#3375BB]/20 active:scale-95"
-          >
-            <span>Push to Trust Wallet</span>
-            <ExternalLink size={10} />
-          </button>
         </div>
 
         <div className="flex flex-col gap-4 text-center md:text-left relative z-10">
@@ -95,7 +76,7 @@ export default function Balances() {
               </span>
             </h2>
             <p className="text-white/40 text-sm max-w-[300px]">
-              Scan to receive assets or click to open in your preferred wallet.
+              Scan this QR with a wallet like Trust Wallet to fund your account.
             </p>
           </div>
 
