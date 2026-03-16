@@ -55,7 +55,7 @@ export default function Balances() {
               level="H"
               includeMargin={false}
               imageSettings={{
-                src: "/images/brand/logo-full.svg",
+                src: "/images/brand/favicon.png",
                 x: undefined,
                 y: undefined,
                 height: 40,
