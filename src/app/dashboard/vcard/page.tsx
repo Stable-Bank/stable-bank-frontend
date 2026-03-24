@@ -291,7 +291,7 @@ const VCardTabs: React.FC<VCardTabsProps> = ({
 };
 
 function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
-  if (!balance || balance.chains.length === 0) {
+  if (!balance || !balance.chains || balance.chains.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-10 text-center">
         <p className="text-white/60">No funding sources available</p>
@@ -332,10 +332,10 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
 
               <div className="text-right">
                 <p className="text-base sm:text-lg lg:text-2xl font-semibold text-[#E9F2A3]">
-                  ${chain.balanceUSD.toFixed(2)}
+                  ${(chain.balanceUSD || 0).toFixed(2)}
                 </p>
                 <p className="text-xs sm:text-sm text-[#E9E9E9]">
-                  {chain.tokens.length} token{chain.tokens.length !== 1 ? "s" : ""}
+                  {chain.tokens?.length || 0} token{chain.tokens?.length !== 1 ? "s" : ""}
                 </p>
               </div>
             </CardContent>
@@ -347,7 +347,7 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
 }
 
 function TransactionTab({ transactions }: { transactions: CardTransaction[] }) {
-  if (transactions.length === 0) {
+  if (!transactions || transactions.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-10 text-center">
         <p className="text-white/60">No transactions yet</p>
@@ -396,7 +396,7 @@ function TransactionTab({ transactions }: { transactions: CardTransaction[] }) {
 
               <div className="text-right">
                 <p className="text-2xl font-semibold text-[#E9F2A3]">
-                  ${tx.amount.toFixed(2)}
+                  ${(tx.amount || 0).toFixed(2)}
                 </p>
                 <p className="text-sm text-[#E9E9E9]">{tx.currency}</p>
               </div>

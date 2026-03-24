@@ -1,14 +1,18 @@
 "use client";
 
-import { CircleQuestionMark, Copy } from "lucide-react";
+import { CircleQuestionMark, Copy, Star, ArrowRight } from "lucide-react";
 import NetworkSelector from "../selector/network";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { useBalance } from "@/hooks/useBalance";
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { useRouter } from "next/navigation";
+import { appRoutes } from "@/lib/navigation";
+import { cn } from "@/utils/cn";
 
 export default function Balances() {
+  const router = useRouter();
   const { user } = useAuth();
   const { balance, isLoading } = useBalance(user?.walletAddress);
   const [hideZeroBalance, setHideZeroBalance] = useState(false);
@@ -19,6 +23,14 @@ export default function Balances() {
 
   const totalAssets =
     balance?.chains?.reduce((acc, chain) => acc + chain.tokens.length, 0) || 0;
+
+  const handleTagAction = () => {
+    if (user?.bankTag) {
+      copyToClipboard(user.bankTag);
+    } else {
+      router.push(appRoutes.dashboard.settings);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
@@ -82,23 +94,32 @@ export default function Balances() {
 
           <div className="flex flex-col gap-3 mt-2">
             <div
-              onClick={() => {
-                if (user?.bankTag) {
-                  copyToClipboard(user.bankTag);
-                } else if (user?.walletAddress) {
-                  copyToClipboard(user.walletAddress);
-                }
-              }}
-              className="group/tag flex cursor-pointer items-center justify-between gap-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-brand-purple/30 px-5 py-4 transition-all"
+              onClick={handleTagAction}
+              className={cn(
+                "group/tag flex cursor-pointer items-center justify-between gap-4 rounded-2xl border px-5 py-4 transition-all duration-300",
+                user?.bankTag 
+                  ? "bg-white/[0.03] border-white/5 hover:border-brand-purple/30" 
+                  : "bg-brand-purple/10 border-brand-purple/40 hover:bg-brand-purple/20 shadow-lg shadow-brand-purple/10"
+              )}
             >
-              <div className="flex flex-col items-start">
-                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">Your Tag</span>
-                <span className="text-base font-bold text-white group-hover/tag:text-brand-purple transition-colors">
-                  ${user?.bankTag || "unidentified"}
+              <div className="flex flex-col items-start overflow-hidden">
+                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">
+                  {user?.bankTag ? "Your Tag" : "Claim your Profile"}
+                </span>
+                <span className={cn(
+                  "text-base font-bold transition-all duration-300 truncate w-full",
+                  user?.bankTag ? "text-white group-hover/tag:text-brand-purple" : "text-brand-yellow flex items-center gap-2"
+                )}>
+                  {user?.bankTag ? `$${user.bankTag}` : <span>Claim your $BankTag <Star size={14} className="fill-brand-yellow animate-pulse" /></span>}
                 </span>
               </div>
-              <div className="p-2 rounded-xl bg-white/5 text-white/40 group-hover/tag:text-brand-purple group-hover/tag:bg-brand-purple/10 transition-all">
-                <Copy size={16} />
+              <div className={cn(
+                "p-2 rounded-xl transition-all",
+                user?.bankTag 
+                  ? "bg-white/5 text-white/40 group-hover/tag:text-brand-purple group-hover/tag:bg-brand-purple/10" 
+                  : "bg-brand-purple text-white shadow-lg"
+              )}>
+                {user?.bankTag ? <Copy size={16} /> : <ArrowRight size={16} />}
               </div>
             </div>
 

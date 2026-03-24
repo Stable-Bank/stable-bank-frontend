@@ -20,9 +20,10 @@ export default function USend() {
       try {
         const history = await transferService.getTransferHistory();
         // Extract unique recipients from history
-        const uniqueRecipients = history
-          .filter((t) => t.toBankTag)
-          .reduce((acc: any[], transfer) => {
+        const uniqueRecipients = Array.isArray(history)
+          ? history
+              .filter((t) => t.toBankTag)
+              .reduce((acc: any[], transfer) => {
             if (!acc.find((u) => u.bankTag === transfer.toBankTag)) {
               acc.push({
                 id: transfer.toUserId || 0,
@@ -34,7 +35,7 @@ export default function USend() {
             }
             return acc;
           }, [])
-          .slice(0, 12); // Limit to 12 recent users
+              .slice(0, 12) : []; // Limit to 12 recent users
 
         setRecentUsers(uniqueRecipients);
       } catch (error) {
@@ -61,14 +62,14 @@ export default function USend() {
       try {
         const results = await transferService.searchUsers(searchQuery);
         // Transform results to UserProfile format
-        const profiles: UserProfile[] = results.map((result: any) => ({
+        const profiles: UserProfile[] = Array.isArray(results) ? results.map((result: any) => ({
           id: result.id || result.userId,
           username: result.bankTag || result.displayName || "Unknown",
           bankTag: result.bankTag,
           displayName: result.displayName,
           avatar: result.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${result.bankTag}`,
           bgColor: result.bgColor || "from-gray-500 to-gray-700",
-        }));
+        })) : [];
         setSearchResults(profiles);
       } catch (error: any) {
         console.error("Search failed:", error);
