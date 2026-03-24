@@ -1,4 +1,4 @@
-import { navLinks, UFooterLinks } from "@/lib/navigation";
+import { navLinks } from "@/lib/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

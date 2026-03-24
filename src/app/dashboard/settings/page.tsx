@@ -20,7 +20,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export default function SettingsPage() {
-  const { user, fetchUser, updateUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");

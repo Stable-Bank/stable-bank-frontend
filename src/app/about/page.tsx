@@ -1,12 +1,9 @@
 import SiteLayout from "@/layouts/site";
 import { SectionCard } from "@/components/cards";
-import Image from "next/image";
 import {
     Shield,
     Eye,
     Zap,
-    Users,
-    Target,
     Heart,
     ArrowRight,
 } from "lucide-react";

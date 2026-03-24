@@ -15,13 +15,9 @@ import {
   Clock, 
   User, 
   Shield, 
-  Target, 
   TrendingUp,
-  ChevronRight,
-  Info,
   CalendarCheck,
   Flame,
-  ArrowUpRight
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 
@@ -328,7 +324,6 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col gap-6">
       <div className="grid grid-cols-1 gap-6">
         {tiers.map((tier) => {
-          const isUnlocked = currentPoints >= tier.pointsRequired || tier.key === 'bronze';
           const isCurrent = tier.key === tierInfo?.currentTier;
 
           return (

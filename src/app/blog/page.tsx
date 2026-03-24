@@ -1,6 +1,5 @@
 import SiteLayout from "@/layouts/site";
 import { SectionCard } from "@/components/cards";
-import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, ArrowRight, Search, Tag } from "lucide-react";
 

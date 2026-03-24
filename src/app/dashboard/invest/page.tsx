@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ChartLine,
-  ChartNoAxesCombined,
   CornerRightDown,
   LockKeyhole,
   Shield,
@@ -13,7 +12,6 @@ import {
   TrendingUp,
   Info,
   ArrowUpRight,
-  ChevronRight,
 } from "lucide-react";
 import Slider from "@/components/slider/base";
 import { earnService, EarnSummary, StakingOption, AimPlan } from "@/services/earnService";
@@ -382,7 +380,7 @@ const AimPlansTab = () => {
                 </h3>
                 
                 <p className="text-sm text-white/60 leading-relaxed italic">
-                  "The {selectedPlan.name} is designed for investors seeking {selectedPlan.expectedReturn === "low" ? "stability" : "growth"} while maintaining {selectedPlan.riskLevel} levels of volatility."
+                  {"\""}The {selectedPlan.name} is designed for investors seeking {selectedPlan.expectedReturn === "low" ? "stability" : "growth"} while maintaining {selectedPlan.riskLevel} levels of volatility.{"\""}
                 </p>
 
                 <div className="space-y-4 bg-white/5 rounded-2xl p-6 border border-white/5">

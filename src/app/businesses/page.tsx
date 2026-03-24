@@ -2,7 +2,6 @@ import SiteLayout from "@/layouts/site";
 import { SectionCard } from "@/components/cards";
 import BusinessWaitlistForm from "@/components/forms/business-waitlist";
 import {
-    ShieldCheck,
     ArrowRight,
     TrendingUp,
     Building2,
@@ -14,8 +13,7 @@ import {
     RefreshCw,
     Scale,
     FileCheck,
-    Fingerprint,
-    Globe2
+    Fingerprint
 } from "lucide-react";
 
 export const metadata = {
@@ -257,7 +255,7 @@ export default function BusinessPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {solutions.map((solution, index) => (
+                        {solutions.map((solution) => (
                             <div
                                 key={solution.title}
                                 className={`group relative p-10 rounded-[2.5rem] border border-white/5 overflow-hidden transition-all duration-500 hover:border-brand-purple/30 hover:shadow-2xl hover:shadow-brand-purple/10 ${solution.className}`}

@@ -14,7 +14,7 @@ import { cn } from "@/utils/cn";
 export default function Balances() {
   const router = useRouter();
   const { user } = useAuth();
-  const { balance, isLoading } = useBalance(user?.walletAddress);
+  const { balance } = useBalance(user?.walletAddress);
   const [hideZeroBalance, setHideZeroBalance] = useState(false);
 
   const visibleChains = hideZeroBalance

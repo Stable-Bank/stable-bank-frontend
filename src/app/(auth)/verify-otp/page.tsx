@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
-import { MoveRight, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -66,7 +66,7 @@ export default function VerifyOtp() {
       await apiClient.post("/auth/send-otp", { email });
       setTimer(60);
       toast.success("New OTP sent to your email.");
-    } catch (error: any) {
+    } catch (error) {
       toast.error("Failed to resend OTP.");
     }
   }
