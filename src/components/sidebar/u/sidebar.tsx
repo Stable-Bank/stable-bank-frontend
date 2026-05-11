@@ -12,6 +12,8 @@ import {
   LogOut,
   ChevronRight,
   ShieldCheck,
+  Lock,
+  PiggyBank,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -197,6 +199,16 @@ const navItems = [
     label: "Invest & Stake",
     route: appRoutes.dashboard.invest,
     icon: ChartNoAxesCombined,
+  },
+  {
+    label: "Vaults",
+    route: appRoutes.dashboard.vaults,
+    icon: Lock,
+  },
+  {
+    label: "Savings",
+    route: appRoutes.dashboard.savings,
+    icon: PiggyBank,
   },
   {
     label: "Rewards",

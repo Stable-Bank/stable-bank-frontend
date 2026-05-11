@@ -9,7 +9,8 @@ const footerSections = [
         title: "Product",
         links: [
             { label: "Features", href: "/#features" },
-            { label: "Virtual Cards", href: "/dashboard/vcard" },
+            { label: "StableBank Business", href: "/business" },
+            { label: "StableBank Institution", href: "/institution" },
             { label: "Rewards", href: "/dashboard/rewards" },
             { label: "Security", href: "/about#security" },
         ],

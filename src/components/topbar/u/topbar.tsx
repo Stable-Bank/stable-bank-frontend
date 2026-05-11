@@ -55,7 +55,7 @@ export default function UTopbar() {
           <div className="flex flex-col">
             <div className="flex items-center gap-0.5 text-xs sm:text-sm font-medium">
               <UserRound size={10} className="sm:w-3 sm:h-3" />
-              <span>Personal</span>
+              <span>{user?.accountType === 'business' ? 'Business' : 'Personal'}</span>
             </div>
             <div
               className="flex items-center gap-0.5 text-white/60 cursor-pointer hover:text-white/80 transition-colors"

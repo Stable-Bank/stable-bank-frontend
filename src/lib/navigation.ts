@@ -12,6 +12,8 @@ export const appRoutes = {
     sendTo: "/dashboard/send/to",
     vcard: "/dashboard/vcard",
     invest: "/dashboard/invest",
+    vaults: "/dashboard/vaults",
+    savings: "/dashboard/savings",
     rewards: "/dashboard/rewards",
     settings: "/dashboard/settings",
   },
@@ -33,6 +35,10 @@ export const navLinks = [
   {
     name: "Business",
     href: "/businesses",
+  },
+  {
+    name: "Institutions",
+    href: "/institutions",
   },
   {
     name: "Contact",

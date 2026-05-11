@@ -9,6 +9,7 @@ export interface User {
   walletAddress?: string;
   kycStatus?: 'pending' | 'approved' | 'rejected' | 'not_started';
   role?: 'user' | 'admin' | 'moderator';
+  accountType?: 'individual' | 'business';
   status?: 'active' | 'suspended' | 'banned';
   totalPoints?: number;
   tier?: 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond';

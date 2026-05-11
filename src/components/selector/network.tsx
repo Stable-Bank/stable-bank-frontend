@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
+import Image from "next/image";
 
 export default function NetworkSelector() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,14 +29,14 @@ export default function NetworkSelector() {
               key={network.id}
               className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-xs font-medium z-${10 - index}`}
             >
-              {network.icon}
+              {network.logo ? <Image src={network.logo} alt={network.name} width={16} height={16} className="rounded-full" /> : network.icon}
             </div>
           ))}
 
           <div
             className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-xs font-medium`}
           >
-            {selectedNetworkData?.icon}
+            {selectedNetworkData?.logo ? <Image src={selectedNetworkData.logo} alt={selectedNetworkData.name} width={16} height={16} className="rounded-full" /> : selectedNetworkData?.icon}
           </div>
 
           {otherNetworks.length > 4 && (
@@ -55,7 +56,7 @@ export default function NetworkSelector() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-3.5 max-h-[360px] w-[230px] overflow-y-auto rounded-[20px] border-[0.2px] border-[#FEF8F1]/60 bg-[#0E121C] shadow-xl">
+        <div className="absolute top-full left-0 z-50 mt-3.5 max-h-[360px] w-[230px] overflow-y-auto rounded-[20px] border-[0.2px] border-[#FEF8F1]/60 bg-[#0E121C] shadow-xl [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 hover:[&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
           <div className="flex flex-col gap-[18px] px-3.5 py-3">
             <div className="text-lg font-semibold text-white/60">
               All Networks
@@ -90,7 +91,7 @@ export default function NetworkSelector() {
                     <div
                       className={`h-8 w-8 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-xs font-bold`}
                     >
-                      {network.icon}
+                      {network.logo ? <Image src={network.logo} alt={network.name} width={20} height={20} className="rounded-full" /> : network.icon}
                     </div>
                     <span className="text-xl font-medium text-white">
                       {network.name}
@@ -117,6 +118,7 @@ const networks = [
     id: "optimism",
     name: "Optimism",
     icon: "OP",
+    logo: "/networks/optimism.svg",
     bgColor: "bg-red-500",
     textColor: "text-white",
   },
@@ -124,6 +126,7 @@ const networks = [
     id: "ethereum",
     name: "Ethereum",
     icon: "♦",
+    logo: "/networks/ethereum.svg",
     bgColor: "bg-blue-600",
     textColor: "text-white",
   },
@@ -131,6 +134,7 @@ const networks = [
     id: "polygon",
     name: "Polygon",
     icon: "▲",
+    logo: "/networks/polygon.svg",
     bgColor: "bg-purple-600",
     textColor: "text-white",
   },
@@ -138,6 +142,7 @@ const networks = [
     id: "arbitrum",
     name: "Arbitrum",
     icon: "ARB",
+    logo: "/networks/arbitrum.svg",
     bgColor: "bg-blue-500",
     textColor: "text-white",
   },
@@ -145,6 +150,7 @@ const networks = [
     id: "base",
     name: "Base",
     icon: "◯",
+    logo: "/networks/base.svg",
     bgColor: "bg-blue-400",
     textColor: "text-white",
   },
@@ -152,6 +158,7 @@ const networks = [
     id: "avalanche",
     name: "Avalanche",
     icon: "AVAX",
+    logo: "/networks/avalanche.svg",
     bgColor: "bg-red-600",
     textColor: "text-white",
   },
@@ -159,6 +166,7 @@ const networks = [
     id: "bsc",
     name: "BSC",
     icon: "BNB",
+    logo: "/networks/bsc.svg",
     bgColor: "bg-yellow-500",
     textColor: "text-black",
   },
