@@ -127,10 +127,10 @@ export default function BusinessPage() {
                                     </div>
 
                                     {/* Floating Data Nodes */}
-                                    <div className="absolute -top-12 -right-4 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-xs font-mono text-brand-green animate-bounce-custom">
+                                    <div className="absolute -top-12 -right-4 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-sm font-mono text-brand-green animate-bounce-custom">
                                         +2.45% APY
                                     </div>
-                                    <div className="absolute -bottom-8 -left-8 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-xs font-mono text-brand-yellow animate-bounce-custom delay-700">
+                                    <div className="absolute -bottom-8 -left-8 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-sm font-mono text-brand-yellow animate-bounce-custom delay-700">
                                         SECURED
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@ export default function BusinessPage() {
                                             </div>
                                             <div>
                                                 <div className="font-bold text-white">{item.label}</div>
-                                                <div className="text-xs text-white/40 uppercase tracking-wider font-medium">{item.sub}</div>
+                                                <div className="text-sm text-white/40 uppercase tracking-wider font-medium">{item.sub}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@ export default function BusinessPage() {
                                     {/* Floating Header */}
                                     <div className="bg-black/40 border border-white/10 px-6 py-3 rounded-full flex items-center gap-3 backdrop-blur-xl mb-4 shadow-lg animate-float-slow">
                                         <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
-                                        <span className="text-xs font-mono text-brand-green tracking-widest uppercase">Live Audit Stream</span>
+                                        <span className="text-sm font-mono text-brand-green tracking-widest uppercase">Live Audit Stream</span>
                                     </div>
 
                                     {/* Transaction Blocks */}
@@ -204,7 +204,7 @@ export default function BusinessPage() {
                                                     <div className="w-8 h-8 rounded-lg bg-brand-purple/10 flex items-center justify-center">
                                                         <Lock className="w-4 h-4 text-brand-purple" />
                                                     </div>
-                                                    <div className="px-2 py-1 rounded bg-brand-green/10 border border-brand-green/20 text-[10px] text-brand-green font-mono">
+                                                    <div className="px-2 py-1 rounded bg-brand-green/10 border border-brand-green/20 text-md text-brand-green font-mono">
                                                         VERIFIED
                                                     </div>
                                                 </div>
@@ -224,12 +224,12 @@ export default function BusinessPage() {
                                     <div className="mt-8 flex gap-8">
                                         <div className="text-center">
                                             <div className="text-2xl font-bold text-white">100%</div>
-                                            <div className="text-[10px] text-white/40 uppercase tracking-wider">Reserve Ratio</div>
+                                            <div className="text-md text-white/40 uppercase tracking-wider">Reserve Ratio</div>
                                         </div>
                                         <div className="w-px h-10 bg-white/10" />
                                         <div className="text-center">
                                             <div className="text-2xl font-bold text-white">24/7</div>
-                                            <div className="text-[10px] text-white/40 uppercase tracking-wider">Monitoring</div>
+                                            <div className="text-md text-white/40 uppercase tracking-wider">Monitoring</div>
                                         </div>
                                     </div>
                                 </div>

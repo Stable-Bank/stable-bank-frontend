@@ -119,7 +119,7 @@ export default function ResetPassword() {
   return (
     <div className="flex w-full flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-xs sm:text-sm font-medium backdrop-blur-md">
+        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-sm sm:text-sm font-medium backdrop-blur-md">
           <LockKeyhole size={14} className="text-brand-purple" />
           <span>{step === 1 ? "Identity Verification" : "Security Setup"}</span>
         </div>

@@ -208,7 +208,7 @@ export default function SettingsPage() {
 
             <div className="w-full h-px bg-white/10" />
             
-            <p className="text-xs text-center text-white/30 leading-relaxed">
+            <p className="text-sm text-center text-white/30 leading-relaxed">
               Max file size is 1MB. Supported formats: JPG, PNG, SVG.
             </p>
           </div>
@@ -301,7 +301,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
                 <div className="flex flex-col gap-1">
                   <span className="text-sm font-bold text-white">2FA Authentication</span>
-                  <span className="text-xs text-white/40">Secure your withdrawals</span>
+                  <span className="text-sm text-white/40">Secure your withdrawals</span>
                 </div>
                 <button
                   onClick={handleToggle2FA}

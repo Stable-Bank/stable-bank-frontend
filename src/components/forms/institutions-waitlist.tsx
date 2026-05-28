@@ -82,7 +82,7 @@ export default function InstitutionsWaitlistForm() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 First Name*
                             </label>
                             <input
@@ -95,7 +95,7 @@ export default function InstitutionsWaitlistForm() {
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 Last Name*
                             </label>
                             <input
@@ -110,7 +110,7 @@ export default function InstitutionsWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Email*
                         </label>
                         <input
@@ -124,7 +124,7 @@ export default function InstitutionsWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Business Name*
                         </label>
                         <input
@@ -139,7 +139,7 @@ export default function InstitutionsWaitlistForm() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 Business structure*
                             </label>
                             <input
@@ -152,7 +152,7 @@ export default function InstitutionsWaitlistForm() {
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 Website/URL*
                             </label>
                             <input
@@ -168,7 +168,7 @@ export default function InstitutionsWaitlistForm() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 Country*
                             </label>
                             <input
@@ -181,7 +181,7 @@ export default function InstitutionsWaitlistForm() {
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 StableBank Tag
                             </label>
                             <input
@@ -195,7 +195,7 @@ export default function InstitutionsWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-3 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-3 ml-1">
                             Must-haves in a business product?*
                         </label>
                         <div className="space-y-3">
@@ -229,7 +229,7 @@ export default function InstitutionsWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Willing to pay for a global solution?*
                         </label>
                         <select

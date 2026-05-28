@@ -96,7 +96,7 @@ export default function Login() {
           <div className="flex justify-end">
             <Link
               href={appRoutes.auth.forgotPassword}
-              className="text-xs sm:text-sm text-white/50 hover:text-brand-purple transition-colors"
+              className="text-sm sm:text-sm text-white/50 hover:text-brand-purple transition-colors"
             >
               Forgot Password?
             </Link>

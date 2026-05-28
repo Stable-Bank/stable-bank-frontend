@@ -103,7 +103,7 @@ export default function Balances() {
               )}
             >
               <div className="flex flex-col items-start overflow-hidden">
-                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">
+                <span className="text-md font-bold text-white/20 uppercase tracking-widest mb-1">
                   {user?.bankTag ? "Your Tag" : "Claim your Profile"}
                 </span>
                 <span className={cn(
@@ -124,7 +124,7 @@ export default function Balances() {
             </div>
 
             <div className="flex flex-col gap-2 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-              <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Network</span>
+              <span className="text-md font-bold text-white/20 uppercase tracking-widest">Network</span>
               <NetworkSelector />
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Balances() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-0.5">Chain</span>
+                  <span className="text-md font-bold text-white/20 uppercase tracking-widest mb-0.5">Chain</span>
                   <h3 className="text-sm font-bold text-white group-hover:text-brand-purple transition-colors">{chain.chainName}</h3>
                 </div>
                 <p className="text-xl font-bold text-[#E9F2A3]">
@@ -154,7 +154,7 @@ export default function Balances() {
                   {chain.tokens.map((token) => (
                     <div
                       key={token.address}
-                      className="flex items-center justify-between p-2 rounded-xl bg-white/[0.03] text-xs"
+                      className="flex items-center justify-between p-2 rounded-xl bg-white/[0.03] text-sm"
                     >
                       <span className="text-white/60 font-medium">{token.symbol}</span>
                       <span className="text-white font-bold">${token.balanceUSD.toFixed(2)}</span>

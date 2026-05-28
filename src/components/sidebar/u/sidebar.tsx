@@ -14,17 +14,45 @@ import {
   ShieldCheck,
   Lock,
   PiggyBank,
+  Bell,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { appRoutes } from "@/lib/navigation";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNotifications } from "@/contexts/NotificationContext";
 
 export default function USidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuth();
+  const { unreadCount } = useNotifications();
+
+  const itemsToRender = user?.role === "admin"
+    ? [
+        {
+          label: "Home",
+          route: appRoutes.dashboard.home,
+          icon: Home,
+        },
+        {
+          label: "Admin Panel",
+          route: "/dashboard/admin",
+          icon: ShieldCheck,
+        },
+        {
+          label: "Memo",
+          route: "/dashboard/admin/memo",
+          icon: Bell,
+        },
+        {
+          label: "Withdrawal",
+          route: "/dashboard/admin/withdrawal",
+          icon: ArrowUp,
+        },
+      ]
+    : navItems;
 
   const handleLogout = async () => {
     try {
@@ -69,16 +97,16 @@ export default function USidebar() {
               />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-bold text-white truncate leading-tight">
+              <span className="text-sm font-black text-white truncate leading-tight tracking-tight">
                 {user?.firstName ? `${user.firstName} ${user.lastName}` : "Stable Member"}
               </span>
-              <div className="flex items-center gap-1.5 mt-1">
-                <ShieldCheck size={11} className="text-brand-purple" />
-                <span className="text-[10px] font-bold text-brand-purple uppercase tracking-widest">
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <ShieldCheck size={12} className="text-[#E9F2A3]" />
+                <span className="text-[9px] font-bold text-[#E9F2A3] uppercase tracking-wider leading-none">
                   Verified
                 </span>
-                <div className="h-0.5 w-0.5 rounded-full bg-white/20" />
-                <span className="text-[10px] font-medium text-white/30 truncate">
+                <div className="h-1 w-1 rounded-full bg-white/25" />
+                <span className="text-[9px] font-bold text-white/40 uppercase tracking-wider leading-none">
                   {user?.role || "Personal"}
                 </span>
               </div>
@@ -108,9 +136,9 @@ export default function USidebar() {
       <div className="flex-1 px-4 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
         {/* Main Section */}
         <section>
-          <span className="px-4 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Dashboard</span>
+          <span className="px-4 text-md font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Dashboard</span>
           <div className="flex flex-col gap-1.5">
-            {navItems.map((ni) => {
+            {itemsToRender.map((ni) => {
               const isActive = ni.route === appRoutes.dashboard.home 
                 ? pathname === ni.route 
                 : pathname.startsWith(ni.route);
@@ -124,23 +152,29 @@ export default function USidebar() {
                       : "text-white/40 hover:text-white hover:bg-white/[0.03]"
                   }`}
                 >
-                  <div className="flex items-center gap-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                  <div className="flex items-center gap-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-1 w-full">
                     <div className={`${isActive ? "text-white" : "text-brand-purple/60 group-hover:text-brand-purple"}`}>
                       <ni.icon size={20} />
                     </div>
                     <span className={`text-[14px] ${isActive ? "font-bold" : "font-medium"}`}>{ni.label}</span>
+                    {ni.label === "Notifications" && unreadCount > 0 && (
+                      <span className="ml-auto flex h-5 min-w-5 px-1.5 items-center justify-center rounded-full bg-rose-500 text-md font-black text-white animate-pulse">
+                        {unreadCount}
+                      </span>
+                    )}
                   </div>
-                  {!isActive && <ChevronRight size={14} className="opacity-0 group-hover:opacity-40 -translate-x-2 group-hover:translate-x-0 transition-all" />}
+                  {!isActive && ni.label !== "Notifications" && <ChevronRight size={14} className="opacity-0 group-hover:opacity-40 -translate-x-2 group-hover:translate-x-0 transition-all ml-auto" />}
                   {isActive && <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl" />}
                 </Link>
               );
             })}
+
           </div>
         </section>
 
         {/* Utilities Section */}
         <section>
-          <span className="px-4 text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Support</span>
+          <span className="px-4 text-md font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Support</span>
           <div className="flex flex-col gap-1.5">
             {utilItems.map((ni) => {
               const isActive = pathname === ni.route;
@@ -186,27 +220,17 @@ const navItems = [
     icon: Home,
   },
   {
-    label: "Send",
-    route: appRoutes.dashboard.send,
-    icon: ArrowUp,
-  },
-  {
     label: "Virtual Card",
     route: appRoutes.dashboard.vcard,
     icon: CreditCard,
   },
   {
-    label: "Invest & Stake",
+    label: "Invest",
     route: appRoutes.dashboard.invest,
     icon: ChartNoAxesCombined,
   },
   {
-    label: "Vaults",
-    route: appRoutes.dashboard.vaults,
-    icon: Lock,
-  },
-  {
-    label: "Savings",
+    label: "Savings & Lock",
     route: appRoutes.dashboard.savings,
     icon: PiggyBank,
   },
@@ -214,6 +238,11 @@ const navItems = [
     label: "Rewards",
     route: appRoutes.dashboard.rewards,
     icon: Gift,
+  },
+  {
+    label: "Notifications",
+    route: appRoutes.dashboard.notifications,
+    icon: Bell,
   },
 ];
 

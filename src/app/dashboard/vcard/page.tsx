@@ -142,7 +142,7 @@ export default function UVCard() {
     <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
       <div>
         <h1 className="text-xl sm:text-2xl font-semibold text-[#E9F2A3]">Virtual Card</h1>
-        <p className="text-brand-white text-xs sm:text-sm font-normal">
+        <p className="text-brand-white text-sm sm:text-sm font-normal">
           Manage your crypto-funded virtual card
         </p>
       </div>
@@ -162,7 +162,7 @@ export default function UVCard() {
                 <span className="text-sm font-medium">StableBank</span>
                 <span
                   className={cn(
-                    "text-xs font-semibold px-2 py-1 rounded",
+                    "text-sm font-semibold px-2 py-1 rounded",
                     selectedCard.status === "active"
                       ? "bg-green-500"
                       : selectedCard.status === "frozen"
@@ -273,7 +273,7 @@ const VCardTabs: React.FC<VCardTabsProps> = ({
             key={tab.key}
             onClick={() => onTabChange(tab.key)}
             className={cn(
-              "transform rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-200 ease-linear whitespace-nowrap",
+              "transform rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-sm font-medium transition-all duration-200 ease-linear whitespace-nowrap",
               activeTab === tab.key ? "bg-brand-purple" : "bg-transparent"
             )}
           >
@@ -305,7 +305,7 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
       <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-[#E9F2A3]">
         Funding Sources
       </h2>
-      <p className="text-brand-white mb-5 sm:mb-6 lg:mb-8 text-xs sm:text-sm">
+      <p className="text-brand-white mb-5 sm:mb-6 lg:mb-8 text-sm sm:text-sm">
         Cards will pull funds in priority order from your available balances
       </p>
 
@@ -326,7 +326,7 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
                   <p className="text-base sm:text-lg lg:text-2xl font-semibold">
                     {chain.chainName}
                   </p>
-                  <p className="text-xs sm:text-sm text-[#E9E9E9]">Priority #{i + 1}</p>
+                  <p className="text-sm sm:text-sm text-[#E9E9E9]">Priority #{i + 1}</p>
                 </div>
               </div>
 
@@ -334,7 +334,7 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
                 <p className="text-base sm:text-lg lg:text-2xl font-semibold text-[#E9F2A3]">
                   ${(chain.balanceUSD || 0).toFixed(2)}
                 </p>
-                <p className="text-xs sm:text-sm text-[#E9E9E9]">
+                <p className="text-sm sm:text-sm text-[#E9E9E9]">
                   {chain.tokens?.length || 0} token{chain.tokens?.length !== 1 ? "s" : ""}
                 </p>
               </div>

@@ -7,7 +7,7 @@ import TextMarquee from "@/components/marquee";
 export default function HeroHome() {
   return (
     <div className="py-10 px-4 sm:py-16 md:py-20">
-      <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/50 px-3 py-2.5 font-sans text-xs sm:text-sm font-normal">
+      <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/50 px-3 py-2.5 font-sans text-sm sm:text-sm font-normal">
         <div className="aspect-square h-[9px] w-[9px] rounded-full bg-white" />
         <span>Decentralised </span>
       </div>

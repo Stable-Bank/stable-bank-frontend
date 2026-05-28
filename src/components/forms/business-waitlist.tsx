@@ -61,7 +61,7 @@ export default function BusinessWaitlistForm() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Business Name
                         </label>
                         <input
@@ -75,7 +75,7 @@ export default function BusinessWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Work Email
                         </label>
                         <input
@@ -89,7 +89,7 @@ export default function BusinessWaitlistForm() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                             Est. Monthly Volume
                         </label>
                         <select

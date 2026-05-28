@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Darker_Grotesque } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 import "./globals.css";
 
 const darkerGrotesque = Darker_Grotesque({
@@ -54,8 +55,10 @@ export default function RootLayout({
         className={`${darkerGrotesque.variable} font-grotesque antialiased`}
       >
         <AuthProvider>
-          {children}
-          <Toaster position="top-center" />
+          <NotificationProvider>
+            {children}
+            <Toaster position="top-center" />
+          </NotificationProvider>
         </AuthProvider>
       </body>
     </html>

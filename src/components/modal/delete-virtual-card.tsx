@@ -26,7 +26,7 @@ export default function DeleteVirtualCardModal({
       <DialogHeader>
         <DialogTitle className="flex flex-col gap-3 font-medium">
           <p className="text-base">Delete Virtual Card</p>
-          <p className="text-xs text-white/60">
+          <p className="text-sm text-white/60">
             Are you sure you want to delete card ending in{" "}
             <span className="font-semibold text-white">
               {card.cardNumber.slice(-4)}

@@ -30,7 +30,7 @@ export default function DashboardError({
             safe and secure.
           </CardDescription>
           {error.digest && (
-            <p className="text-xs text-muted-foreground font-mono mt-2">
+            <p className="text-sm text-muted-foreground font-mono mt-2">
               Error ID: {error.digest}
             </p>
           )}

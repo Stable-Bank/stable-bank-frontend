@@ -41,7 +41,7 @@ export default function AuthError({
             <div className="flex flex-col gap-4 sm:gap-5">
               <div className="flex w-fit items-center gap-2 rounded-3xl border border-solid border-destructive px-3 py-2.5 font-sans">
                 <span className="aspect-square h-[9px] w-[9px] rounded-full bg-destructive" />
-                <span className="text-xs sm:text-sm font-normal">
+                <span className="text-sm sm:text-sm font-normal">
                   Authentication Error
                 </span>
               </div>
@@ -54,7 +54,7 @@ export default function AuthError({
                 or contact support if the problem continues.
               </p>
               {error.digest && (
-                <p className="text-xs text-muted-foreground font-mono">
+                <p className="text-sm text-muted-foreground font-mono">
                   Error ID: {error.digest}
                 </p>
               )}

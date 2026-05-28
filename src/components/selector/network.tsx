@@ -27,20 +27,20 @@ export default function NetworkSelector() {
           {otherNetworks.slice(0, 4).map((network, index) => (
             <div
               key={network.id}
-              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-xs font-medium z-${10 - index}`}
+              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-sm font-medium z-${10 - index}`}
             >
               {network.logo ? <Image src={network.logo} alt={network.name} width={16} height={16} className="rounded-full" /> : network.icon}
             </div>
           ))}
 
           <div
-            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-xs font-medium`}
+            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-sm font-medium`}
           >
             {selectedNetworkData?.logo ? <Image src={selectedNetworkData.logo} alt={selectedNetworkData.name} width={16} height={16} className="rounded-full" /> : selectedNetworkData?.icon}
           </div>
 
           {otherNetworks.length > 4 && (
-            <div className="z-30 flex h-7 w-7 items-center justify-center rounded-full bg-[#4649D6] text-xs font-medium text-white">
+            <div className="z-30 flex h-7 w-7 items-center justify-center rounded-full bg-[#4649D6] text-sm font-medium text-white">
               +{otherNetworks.length - 4}
             </div>
           )}
@@ -89,7 +89,7 @@ export default function NetworkSelector() {
                     }`}
                   >
                     <div
-                      className={`h-8 w-8 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-xs font-bold`}
+                      className={`h-8 w-8 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-sm font-bold`}
                     >
                       {network.logo ? <Image src={network.logo} alt={network.name} width={20} height={20} className="rounded-full" /> : network.icon}
                     </div>

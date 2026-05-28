@@ -55,7 +55,7 @@ export default function RegenerateCardModal({
       <DialogHeader>
         <DialogTitle className="flex flex-col gap-3 font-medium">
           <p className="text-base">Regenerate Card Details</p>
-          <p className="text-xs text-white/60">
+          <p className="text-sm text-white/60">
             This will generate new card numbers and security codes. Update any
             saved payment methods.
           </p>

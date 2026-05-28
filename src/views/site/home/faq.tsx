@@ -105,7 +105,7 @@ export default function FAQ() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Left Column: Sticky Header */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 h-fit">
-            <div className="flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/30 px-4 py-2.5 font-sans text-xs sm:text-sm font-normal mb-6">
+            <div className="flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/30 px-4 py-2.5 font-sans text-sm sm:text-sm font-normal mb-6">
               <MessageCircleQuestion className="h-4 w-4 text-brand-purple" />
               <span>Got Questions?</span>
             </div>

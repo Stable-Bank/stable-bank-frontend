@@ -112,7 +112,7 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
             >
                 <div className="absolute inset-0 bg-brand-black/40" />
                 <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-purple/80 text-white text-xs font-medium">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-purple/80 text-white text-sm font-medium">
                         <Tag className="h-3 w-3" />
                         {post.category}
                     </span>
@@ -135,7 +135,7 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
                 </p>
 
                 {/* Meta */}
-                <div className="flex items-center gap-4 text-xs sm:text-sm text-white/40">
+                <div className="flex items-center gap-4 text-sm sm:text-sm text-white/40">
                     <span className="flex items-center gap-1.5">
                         <Calendar className="h-3.5 w-3.5" />
                         {post.date}

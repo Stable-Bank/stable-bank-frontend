@@ -1,6 +1,7 @@
 // Transfer Types
 
 export interface TransferRequest {
+  recipient?: string;
   recipientBankTag?: string;
   recipientAddress?: string;
   amount: string;
@@ -8,6 +9,7 @@ export interface TransferRequest {
   sourceChain: string;
   destinationChain: string;
   description?: string;
+  password?: string;
 }
 
 export interface TransferFeeRequest {

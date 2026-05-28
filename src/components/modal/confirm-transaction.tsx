@@ -108,7 +108,7 @@ export default function UConfirmTransaction({
             </div>
             {description && (
               <div className="border-t border-white/10 pt-2">
-                <p className="text-xs text-white/60">Remark:</p>
+                <p className="text-sm text-white/60">Remark:</p>
                 <p className="text-sm text-white">{description}</p>
               </div>
             )}

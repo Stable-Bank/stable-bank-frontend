@@ -74,7 +74,7 @@ export default function VerifyOtp() {
   return (
     <form onSubmit={handleVerify} className="flex w-full flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-xs sm:text-sm font-medium backdrop-blur-md">
+        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-sm sm:text-sm font-medium backdrop-blur-md">
           <ShieldCheck size={14} className="text-brand-purple" />
           <span>Security Verification</span>
         </div>
@@ -115,7 +115,7 @@ export default function VerifyOtp() {
                 timer > 0 ? "text-white/20 cursor-not-allowed" : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
               )}
             >
-              Resend Code {timer > 0 && <span className="font-mono text-white/40 text-xs ml-1">({timer}s)</span>}
+              Resend Code {timer > 0 && <span className="font-mono text-white/40 text-sm ml-1">({timer}s)</span>}
             </button>
           </div>
         </div>

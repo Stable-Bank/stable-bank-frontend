@@ -71,11 +71,11 @@ const TierProgress = ({ tierInfo, summary }: { tierInfo: TierInfo | null, summar
     <div className="space-y-4">
       <div className="flex justify-between items-end">
         <div>
-          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Tier Progress</p>
+          <p className="text-md font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Tier Progress</p>
           <p className="text-white font-bold">{progress.toFixed(0)}% to {tierInfo?.nextTier || 'Max Tier'}</p>
         </div>
         <div className="text-right">
-          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Points Needed</p>
+          <p className="text-md font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Points Needed</p>
           <p className="text-[#319F43] font-black">{tierInfo?.pointsToNextTier || 'Unlocked'}</p>
         </div>
       </div>
@@ -137,9 +137,9 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
                   <stat.icon className={stat.color} size={24} />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{stat.label}</p>
+                  <p className="text-md font-bold text-white/30 uppercase tracking-widest">{stat.label}</p>
                   <p className="text-2xl font-black text-white">{typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}</p>
-                  <p className="text-xs text-white/40 mt-0.5">{stat.description}</p>
+                  <p className="text-sm text-white/40 mt-0.5">{stat.description}</p>
                 </div>
              </div>
            </GlassCard>
@@ -180,7 +180,7 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
            <p className="text-sm text-white/40 leading-relaxed max-w-[200px] mb-6">
               Spend your accumulated points on exclusive digital assets, fee discounts, or gift cards.
            </p>
-           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-xs uppercase font-bold tracking-widest">
+           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-sm uppercase font-bold tracking-widest">
               View Rewards Shop
            </Button>
          </GlassCard>
@@ -193,7 +193,7 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
            <p className="text-sm text-white/40 leading-relaxed max-w-[200px] mb-6">
               Your current {(tierInfo?.multiplier || 1).toFixed(1)}x multiplier applies to all trading activities.
            </p>
-           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-xs uppercase font-bold tracking-widest">
+           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-sm uppercase font-bold tracking-widest">
               Examine Multipliers
            </Button>
          </GlassCard>
@@ -242,12 +242,12 @@ function EarnTab({ pointsConfig }: { pointsConfig: any }) {
               <div className="h-10 w-10 bg-brand-purple/10 border border-brand-purple/20 rounded-xl flex items-center justify-center">
                  <reward.icon className="text-brand-purple" size={20} />
               </div>
-              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">{reward.group}</p>
+              <p className="text-md font-bold text-white/20 uppercase tracking-widest">{reward.group}</p>
             </div>
             <h4 className="text-white font-bold group-hover:text-brand-purple transition-colors mb-2">{reward.title}</h4>
             <div className="flex items-center gap-1">
                <span className="text-2xl font-black text-[#E9F2A3]">+{reward.points}</span>
-               <span className="text-[10px] font-bold text-[#E9F2A3]/60 uppercase mb-1">Pts</span>
+               <span className="text-md font-bold text-[#E9F2A3]/60 uppercase mb-1">Pts</span>
             </div>
           </GlassCard>
         ))}
@@ -277,11 +277,11 @@ function RedeemTab() {
                 <h3 className="text-lg font-bold text-white leading-tight mb-1">{reward.title}</h3>
                 <div className="flex items-center gap-1">
                   <span className="text-xl font-black text-white">{reward.cost.toLocaleString()}</span>
-                  <span className="text-[10px] font-bold text-white/40 uppercase mb-0.5">Pts</span>
+                  <span className="text-md font-bold text-white/40 uppercase mb-0.5">Pts</span>
                 </div>
              </div>
 
-             <Button className="w-full bg-white/5 border border-white/10 text-white hover:bg-white/10 font-bold text-[10px] uppercase tracking-widest h-10 rounded-lg">
+             <Button className="w-full bg-white/5 border border-white/10 text-white hover:bg-white/10 font-bold text-md uppercase tracking-widest h-10 rounded-lg">
                 Redeem Now
              </Button>
           </GlassCard>
@@ -347,7 +347,7 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
                           <p className="text-sm font-bold text-white/40 uppercase tracking-widest">{tier.pointsRequired.toLocaleString()} Points Needed</p>
                        </div>
                        {isCurrent && (
-                         <div className="px-4 py-1.5 rounded-full bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-xs font-black uppercase tracking-widest">
+                         <div className="px-4 py-1.5 rounded-full bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-sm font-black uppercase tracking-widest">
                             Current Tier
                          </div>
                        )}
@@ -362,7 +362,7 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
                        ))}
                     </div>
 
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold uppercase tracking-tighter">
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between text-sm font-bold uppercase tracking-tighter">
                        <span className="text-white/40">Earnings Multiplier</span>
                        <span className="text-white text-lg font-black">{tier.multiplier.toFixed(1)}x</span>
                     </div>
@@ -440,7 +440,7 @@ export default function URewards() {
           <div className="h-20 w-20 animate-spin rounded-full border-2 border-brand-purple border-t-transparent shadow-xl shadow-brand-purple/20" />
           <Zap className="absolute inset-0 m-auto text-brand-purple animate-pulse" size={24} />
         </div>
-        <p className="text-white/40 font-bold uppercase tracking-widest text-[10px] animate-pulse">Synchronizing Rewards...</p>
+        <p className="text-white/40 font-bold uppercase tracking-widest text-md animate-pulse">Synchronizing Rewards...</p>
       </div>
     );
   }
@@ -478,7 +478,7 @@ export default function URewards() {
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={cn(
-                  "relative flex flex-1 items-center justify-center gap-2.5 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-500 overflow-hidden",
+                  "relative flex flex-1 items-center justify-center gap-2.5 py-4 px-6 rounded-2xl text-md font-black uppercase tracking-widest transition-all duration-500 overflow-hidden",
                   isSelected ? "text-white" : "text-white/30 hover:text-white/60"
                 )}
               >

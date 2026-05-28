@@ -7,6 +7,8 @@ import { Lock, Unlock, Clock, Zap, Plus, AlertCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
 import { apiClient } from "@/config/axios";
+import { useAuth } from "@/contexts/AuthContext";
+import { useBalance } from "@/hooks/useBalance";
 
 const GlassCard = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <Card className={cn("overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40", className)}>
@@ -17,16 +19,30 @@ const GlassCard = ({ children, className }: { children: React.ReactNode; classNa
 );
 
 export default function VaultsPage() {
+  const { user } = useAuth();
+  const { balance, refresh: refreshBalance } = useBalance(user?.walletAddress);
+  
   const [vaults, setVaults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState<number | "">("");
   const [lockLoading, setLockLoading] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
 
+  const usdcToken = balance?.chains
+    ?.flatMap((c: any) => c.tokens)
+    ?.find((t: any) => t.symbol.toUpperCase() === "USDC");
+  const availableUSDC = usdcToken ? parseFloat(usdcToken.balance) || 0 : 0;
+
+  const isInsufficient = amount !== "" && amount > availableUSDC;
+
   const fetchVaults = async () => {
     try {
-      const { data } = await apiClient.get("/vault");
-      setVaults(data.data);
+      const res = await apiClient.get("/vault");
+      if (Array.isArray(res)) {
+        setVaults(res);
+      } else if (res && Array.isArray(res.data)) {
+        setVaults(res.data);
+      }
     } catch (error) {
       console.error("Failed to fetch vaults", error);
     } finally {
@@ -40,6 +56,8 @@ export default function VaultsPage() {
 
   const handleLock = async () => {
     if (!amount || amount <= 0) return toast.error("Enter a valid amount");
+    if (amount > availableUSDC) return toast.error("Insufficient balance");
+    
     setLockLoading(true);
     try {
       await apiClient.post("/vault/lock", { amount });
@@ -47,6 +65,7 @@ export default function VaultsPage() {
       setAmount("");
       setShowCreate(false);
       fetchVaults();
+      refreshBalance();
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to lock funds");
     } finally {
@@ -69,6 +88,7 @@ export default function VaultsPage() {
       await apiClient.post(`/vault/${id}/withdraw`);
       toast.success("Funds withdrawn to spendable balance.");
       fetchVaults();
+      refreshBalance();
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to withdraw");
     }
@@ -109,7 +129,17 @@ export default function VaultsPage() {
 
             <div className="p-6 space-y-6">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-white/40 uppercase tracking-widest">Amount (USDC)</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-bold text-white/40 uppercase tracking-widest">
+                    Amount (USDC)
+                  </label>
+                  <button 
+                    onClick={() => setAmount(availableUSDC)}
+                    className="text-sm font-bold text-brand-purple hover:text-brand-purple/80 transition-colors"
+                  >
+                    Available: {availableUSDC.toFixed(2)} USDC (Max)
+                  </button>
+                </div>
                 <input
                   type="number"
                   min="0"
@@ -118,22 +148,34 @@ export default function VaultsPage() {
                     const val = parseFloat(e.target.value);
                     setAmount(isNaN(val) ? "" : Math.max(0, val));
                   }}
-                  className="w-full h-14 bg-black/40 border border-white/10 rounded-xl px-4 text-2xl font-black text-white outline-none focus:border-brand-purple transition-colors"
+                  className={cn(
+                    "w-full h-14 bg-black/40 border rounded-xl px-4 text-2xl font-black text-white outline-none transition-colors",
+                    isInsufficient ? "border-red-500/50 focus:border-red-500" : "border-white/10 focus:border-brand-purple"
+                  )}
                   placeholder="0.00"
                 />
               </div>
 
-              <div className="flex items-start gap-3 p-3 bg-brand-yellow/5 border border-brand-yellow/10 rounded-xl">
-                <AlertCircle size={16} className="text-brand-yellow shrink-0 mt-0.5" />
-                <p className="text-[10px] text-brand-yellow/80 leading-snug">
-                  Unlocking funds takes exactly 24 hours from the time of request for security purposes.
-                </p>
-              </div>
+              {isInsufficient ? (
+                <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-xl">
+                  <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
+                  <p className="text-md text-red-500/80 leading-snug">
+                    Insufficient balance. You only have {availableUSDC.toFixed(2)} USDC available in your wallet.
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-start gap-3 p-3 bg-brand-yellow/5 border border-brand-yellow/10 rounded-xl">
+                  <AlertCircle size={16} className="text-brand-yellow shrink-0 mt-0.5" />
+                  <p className="text-md text-brand-yellow/80 leading-snug">
+                    Unlocking funds takes exactly 24 hours from the time of request for security purposes.
+                  </p>
+                </div>
+              )}
 
               <Button 
                 onClick={handleLock}
-                disabled={lockLoading || !amount || amount <= 0}
-                className="w-full h-14 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-xl"
+                disabled={lockLoading || !amount || amount <= 0 || isInsufficient}
+                className="w-full h-14 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-xl disabled:opacity-50"
               >
                 {lockLoading ? "Locking..." : "Lock in Vault"}
               </Button>
@@ -166,7 +208,7 @@ export default function VaultsPage() {
                     </div>
                     <div>
                       <h4 className="text-2xl font-black text-white">${vault.amount.toLocaleString()}</h4>
-                      <p className="text-xs font-bold uppercase tracking-widest text-white/40">
+                      <p className="text-sm font-bold uppercase tracking-widest text-white/40">
                         Status: <span className={cn(
                           vault.status === "locked" ? "text-brand-purple" : vault.status === "unlocking" ? "text-brand-yellow" : "text-[#319F43]"
                         )}>{vault.status}</span>
@@ -186,7 +228,7 @@ export default function VaultsPage() {
                     )}
                     {vault.status === "unlocking" && (
                        <div className="text-right">
-                          <p className="text-xs text-white/40">Available at:</p>
+                          <p className="text-sm text-white/40">Available at:</p>
                           <p className="text-sm font-bold text-white">{new Date(vault.unlockAvailableAt).toLocaleString()}</p>
                        </div>
                     )}

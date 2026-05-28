@@ -42,7 +42,7 @@ export default function Error({
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
               <div className="flex w-fit items-center gap-2 rounded-3xl border border-solid border-destructive px-3 py-2.5 font-sans">
                 <span className="aspect-square h-[9px] w-[9px] rounded-full bg-destructive" />
-                <span className="text-xs sm:text-sm font-normal">
+                <span className="text-sm sm:text-sm font-normal">
                   Something Went Wrong
                 </span>
               </div>

@@ -73,7 +73,7 @@ export default function MobileBottomNav() {
                 strokeWidth={isActive ? 2.5 : 2}
               />
               <span className={cn(
-                "text-[10px] font-medium transition-all duration-200",
+                "text-md font-medium transition-all duration-200",
                 isActive && "font-semibold"
               )}>
                 {item.label}

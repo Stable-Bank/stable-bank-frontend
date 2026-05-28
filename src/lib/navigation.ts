@@ -8,14 +8,15 @@ export const appRoutes = {
   },
   dashboard: {
     home: "/dashboard",
-    send: "/dashboard/send",
-    sendTo: "/dashboard/send/to",
+    send: "/dashboard?send=true",
+    sendTo: "/dashboard?send=true",
     vcard: "/dashboard/vcard",
     invest: "/dashboard/invest",
     vaults: "/dashboard/vaults",
     savings: "/dashboard/savings",
     rewards: "/dashboard/rewards",
     settings: "/dashboard/settings",
+    notifications: "/dashboard/notifications",
   },
 };
 

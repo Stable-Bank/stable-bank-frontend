@@ -153,7 +153,7 @@ export default function Features() {
             <div className="max-w-largest mx-auto relative">
                 {/* Section header */}
                 <div className="text-center mb-12 sm:mb-16 md:mb-20">
-                    <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/30 px-4 py-2.5 font-sans text-xs sm:text-sm font-normal mb-6">
+                    <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/30 px-4 py-2.5 font-sans text-sm sm:text-sm font-normal mb-6">
                         <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-brand-yellow" />
                         <span>Powerful Features</span>
                     </div>
