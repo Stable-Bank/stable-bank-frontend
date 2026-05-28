@@ -308,7 +308,7 @@ export default function UHome() {
               Welcome, <span className="bg-gradient-to-r from-brand-purple via-pink-400 to-[#E9F2A3] bg-clip-text text-transparent">System Admin</span>
             </h1>
             <p className="text-white/40 text-sm font-medium">
-              Supervising StableBank's operations, virtual ledgers, and deposit stats. Logged in as <span className="text-white/70 font-bold">{user?.email}</span>
+              Supervising StableBank&apos;s operations, virtual ledgers, and deposit stats. Logged in as <span className="text-white/70 font-bold">{user?.email}</span>
             </p>
           </div>
           <Button

@@ -945,7 +945,7 @@ export default function SavingsPage() {
                 <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-xl">
                   <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
                   <p className="text-md text-red-500/80 leading-snug">
-                    <strong>Early Break Warning:</strong> Your goal target is either incomplete or the deadline hasn't passed. Breaking early forfeits yield and charges a <strong>2.5% penalty breaking fee</strong>.
+                    <strong>Early Break Warning:</strong> Your goal target is either incomplete or the deadline hasn&apos;t passed. Breaking early forfeits yield and charges a <strong>2.5% penalty breaking fee</strong>.
                   </p>
                 </div>
               )}
@@ -960,7 +960,7 @@ export default function SavingsPage() {
               )}
 
               <p className="text-sm text-white/50 leading-relaxed">
-                You are about to make a <strong>total withdrawal</strong> from your savings account <strong>"{selectedBucket.name}"</strong>. This will empty the account and transfer the funds back to your spendable wallet balance.
+                You are about to make a <strong>total withdrawal</strong> from your savings account <strong>&quot;{selectedBucket.name}&quot;</strong>. This will empty the account and transfer the funds back to your spendable wallet balance.
               </p>
 
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 space-y-4">

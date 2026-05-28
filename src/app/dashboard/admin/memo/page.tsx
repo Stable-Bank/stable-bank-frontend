@@ -121,7 +121,7 @@ export default function AdminMemoPage() {
                 <Sparkles size={14} /> Real-time Delivery
               </div>
               <p className="text-md text-white/50 leading-relaxed">
-                Memos are stored in each user's notification list and pushed instantly to all online users using Server-Sent Events (SSE).
+                Memos are stored in each user&apos;s notification list and pushed instantly to all online users using Server-Sent Events (SSE).
               </p>
               <p className="text-md text-white/50 leading-relaxed">
                 Make sure formatting, tone, and information are verified before clicking broadcast.
