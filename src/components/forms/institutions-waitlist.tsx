@@ -11,13 +11,14 @@ export default function InstitutionsWaitlistForm() {
         firstName: "",
         lastName: "",
         email: "",
-        businessName: "",
-        businessStructure: "",
-        websiteUrl: "",
-        country: "",
-        kastTag: "",
-        mustHaves: [] as string[],
-        willingnessToPay: "",
+        company: "",
+        institutionType: "",
+        phoneNumber: "",
+        primaryPlaceOfBusiness: "",
+        howDidYouHear: "",
+        assetsAmount: "",
+        assetsOfInterest: "",
+        areasOfInterest: [] as string[],
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -31,34 +32,44 @@ export default function InstitutionsWaitlistForm() {
         setSubmitted(true);
     };
 
-    const handleMustHaveChange = (value: string) => {
+    const handleAreaChange = (value: string) => {
         setFormData(prev => ({
             ...prev,
-            mustHaves: prev.mustHaves.includes(value)
-                ? prev.mustHaves.filter(item => item !== value)
-                : [...prev.mustHaves, value]
+            areasOfInterest: prev.areasOfInterest.includes(value)
+                ? prev.areasOfInterest.filter(item => item !== value)
+                : [...prev.areasOfInterest, value]
         }));
     };
 
     if (submitted) {
         return (
-            <div className="w-full max-w-xl mx-auto p-8 rounded-3xl bg-brand-black/50 border border-white/10 text-center animate-in fade-in zoom-in duration-500">
+            <div className="w-full max-w-2xl mx-auto p-8 sm:p-12 rounded-3xl bg-brand-black/50 border border-white/10 text-center animate-in fade-in zoom-in duration-500">
                 <div className="w-16 h-16 bg-brand-green/20 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Application Received!</h3>
-                <p className="text-white/60 mb-6">
-                    We review every application individually. We&apos;ll be in touch soon regarding your access to StableBank Institutions.
+                <h3 className="text-3xl font-bold text-white mb-3">Application Received!</h3>
+                <p className="text-white/60 mb-8 max-w-md mx-auto">
+                    Thank you for contacting StableBank. Our institutional onboarding team reviews every application carefully and will be in touch with you shortly.
                 </p>
                 <Button
                     onClick={() => {
                         setSubmitted(false);
                         setFormData({
-                            firstName: "", lastName: "", email: "", businessName: "", businessStructure: "", websiteUrl: "", country: "", kastTag: "", mustHaves: [], willingnessToPay: ""
+                            firstName: "",
+                            lastName: "",
+                            email: "",
+                            company: "",
+                            institutionType: "",
+                            phoneNumber: "",
+                            primaryPlaceOfBusiness: "",
+                            howDidYouHear: "",
+                            assetsAmount: "",
+                            assetsOfInterest: "",
+                            areasOfInterest: [],
                         });
                     }}
                     variant="outline"
-                    className="rounded-full border-white/20 text-white hover:bg-white/5 hover:text-white"
+                    className="rounded-full border-white/20 text-white hover:bg-white/5 hover:text-white px-8 py-3"
                 >
                     Submit another application
                 </Button>
@@ -67,20 +78,21 @@ export default function InstitutionsWaitlistForm() {
     }
 
     return (
-        <div className="w-full max-w-xl mx-auto relative group">
+        <div className="w-full max-w-2xl mx-auto relative group">
             {/* Glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-brand-purple to-brand-yellow rounded-[2rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-1000" />
 
-            <div className="relative p-8 sm:p-10 rounded-[2rem] bg-[#0A0A0A] border border-white/10 overflow-hidden">
+            <div className="relative p-8 sm:p-12 rounded-[2rem] bg-[#0A0A0A] border border-white/10 overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple via-brand-yellow to-brand-green opacity-50" />
 
-                <h3 className="text-2xl font-bold text-white mb-2">Request Institutional Access</h3>
+                <h3 className="text-3xl font-bold text-white mb-2">Get in touch</h3>
                 <p className="text-white/60 mb-8 text-sm">
-                    We are rolling out our institutional tier in phases. Our team reviews every application carefully to ensure we provide the best onboarding experience.
+                    Connect with our institutional coverage team to learn how StableBank can support your digital asset operations.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* First Name & Last Name */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
                                 First Name*
@@ -109,115 +121,177 @@ export default function InstitutionsWaitlistForm() {
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                            Email*
-                        </label>
-                        <input
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                            placeholder="jane@company.com"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                            Business Name*
-                        </label>
-                        <input
-                            type="text"
-                            required
-                            value={formData.businessName}
-                            onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                            placeholder="Acme Corp"
-                        />
-                    </div>
-
+                    {/* Email & Company */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                                Business structure*
+                                Work E-mail Address*
                             </label>
                             <input
-                                type="text"
+                                type="email"
                                 required
-                                value={formData.businessStructure}
-                                onChange={(e) => setFormData({ ...formData, businessStructure: e.target.value })}
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                                placeholder="LLC, C-Corp, etc."
+                                placeholder="jane@company.com"
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                                Website/URL*
+                                Company*
                             </label>
                             <input
                                 type="text"
                                 required
-                                value={formData.websiteUrl}
-                                onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                value={formData.company}
+                                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                                 className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                                placeholder="https://acme.com"
+                                placeholder="Acme Corporation"
                             />
                         </div>
                     </div>
 
+                    {/* Institution Type & Phone Number */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                                Country*
+                                Institution Type*
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 required
-                                value={formData.country}
-                                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                                placeholder="United States"
-                            />
+                                value={formData.institutionType}
+                                onChange={(e) => setFormData({ ...formData, institutionType: e.target.value })}
+                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium appearance-none"
+                            >
+                                <option value="" disabled className="bg-brand-black text-white/50">Select institution type</option>
+                                <option value="Hedge Fund" className="bg-brand-black text-white">Hedge Fund</option>
+                                <option value="Venture Capital" className="bg-brand-black text-white">Venture Capital</option>
+                                <option value="Asset Manager" className="bg-brand-black text-white">Asset Manager</option>
+                                <option value="Wealth Manager" className="bg-brand-black text-white">Wealth Manager / RIA</option>
+                                <option value="Crypto Protocol" className="bg-brand-black text-white">Crypto Protocol / Foundation</option>
+                                <option value="Corporation" className="bg-brand-black text-white">Corporation</option>
+                                <option value="Sovereign / Government" className="bg-brand-black text-white">Sovereign / Government</option>
+                                <option value="Other" className="bg-brand-black text-white">Other</option>
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                                StableBank Tag
+                                Phone Number
                             </label>
                             <input
-                                type="text"
-                                value={formData.kastTag}
-                                onChange={(e) => setFormData({ ...formData, kastTag: e.target.value })}
+                                type="tel"
+                                value={formData.phoneNumber}
+                                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                                 className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
-                                placeholder="$janedoe"
+                                placeholder="+1 (555) 000-0000"
                             />
                         </div>
                     </div>
 
+                    {/* Primary Place of Business & How did you hear about us */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                                Primary Place of Business*
+                            </label>
+                            <select
+                                required
+                                value={formData.primaryPlaceOfBusiness}
+                                onChange={(e) => setFormData({ ...formData, primaryPlaceOfBusiness: e.target.value })}
+                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium appearance-none"
+                            >
+                                <option value="" disabled className="bg-brand-black text-white/50">Select region</option>
+                                <option value="United States" className="bg-brand-black text-white">United States</option>
+                                <option value="United Kingdom" className="bg-brand-black text-white">United Kingdom</option>
+                                <option value="European Union" className="bg-brand-black text-white">European Union</option>
+                                <option value="Singapore" className="bg-brand-black text-white">Singapore</option>
+                                <option value="Hong Kong" className="bg-brand-black text-white">Hong Kong</option>
+                                <option value="Switzerland" className="bg-brand-black text-white">Switzerland</option>
+                                <option value="United Arab Emirates" className="bg-brand-black text-white">United Arab Emirates</option>
+                                <option value="Other" className="bg-brand-black text-white">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                                How did you hear about us?
+                            </label>
+                            <select
+                                value={formData.howDidYouHear}
+                                onChange={(e) => setFormData({ ...formData, howDidYouHear: e.target.value })}
+                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium appearance-none"
+                            >
+                                <option value="" disabled className="bg-brand-black text-white/50">Select option</option>
+                                <option value="Search Engine" className="bg-brand-black text-white">Search Engine</option>
+                                <option value="Social Media" className="bg-brand-black text-white">Social Media</option>
+                                <option value="Referral" className="bg-brand-black text-white">Referral / Word of Mouth</option>
+                                <option value="Event" className="bg-brand-black text-white">Event / Conference</option>
+                                <option value="Press" className="bg-brand-black text-white">Press / News</option>
+                                <option value="Other" className="bg-brand-black text-white">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Assets Amount & Assets of Interest */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                                Assets Amount
+                            </label>
+                            <select
+                                value={formData.assetsAmount}
+                                onChange={(e) => setFormData({ ...formData, assetsAmount: e.target.value })}
+                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium appearance-none"
+                            >
+                                <option value="" disabled className="bg-brand-black text-white/50">Select assets amount</option>
+                                <option value="Under $10M" className="bg-brand-black text-white">Under $10M</option>
+                                <option value="$10M - $50M" className="bg-brand-black text-white">$10M - $50M</option>
+                                <option value="$50M - $250M" className="bg-brand-black text-white">$50M - $250M</option>
+                                <option value="$250M - $1B" className="bg-brand-black text-white">$250M - $1B</option>
+                                <option value="Over $1B" className="bg-brand-black text-white">Over $1B</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
+                                What are your assets of interest?
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.assetsOfInterest}
+                                onChange={(e) => setFormData({ ...formData, assetsOfInterest: e.target.value })}
+                                className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium"
+                                placeholder="USDC, USDT, EURC, BTC, ETH..."
+                            />
+                        </div>
+                    </div>
+
+                    {/* Areas of Interest Checklist */}
                     <div>
-                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-3 ml-1">
-                            Must-haves in a business product?*
+                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-4 ml-1">
+                            Areas of Interest*
                         </label>
-                        <div className="space-y-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {[
-                                "Instant On-chain Settlement",
-                                "Global Bank Transfers (Fiat Integration)",
-                                "Programmable Corporate Cards",
-                                "Yield Generation / Cashback",
-                                "Qualified Custody & Insured Funds",
-                                "Advanced Expense Management & Approvals",
-                                "Dedicated Institutional Account Director"
+                                "Trading and financing",
+                                "Wealth management",
+                                "Stablecoin rewards",
+                                "Stablecoin solutions for banks",
+                                "Agentic banking",
+                                "Atlas settlement network",
+                                "Self-custody (Defi)",
+                                "Staking",
+                                "Custody",
+                                "Token management"
                             ].map((option) => (
                                 <label key={option} className="flex items-start gap-3 cursor-pointer group/cb">
                                     <div className="relative flex items-center justify-center mt-0.5">
                                         <input
                                             type="checkbox"
                                             className="peer sr-only"
-                                            checked={formData.mustHaves.includes(option)}
-                                            onChange={() => handleMustHaveChange(option)}
+                                            checked={formData.areasOfInterest.includes(option)}
+                                            onChange={() => handleAreaChange(option)}
                                         />
                                         <div className="w-5 h-5 rounded border border-white/20 bg-white/5 peer-checked:bg-brand-purple peer-checked:border-brand-purple transition-all flex items-center justify-center">
-                                            <svg className={`w-3.5 h-3.5 text-white ${formData.mustHaves.includes(option) ? 'opacity-100' : 'opacity-0'} transition-opacity`} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className={`w-3.5 h-3.5 text-white ${formData.areasOfInterest.includes(option) ? 'opacity-100' : 'opacity-0'} transition-opacity`} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                             </svg>
                                         </div>
@@ -228,29 +302,10 @@ export default function InstitutionsWaitlistForm() {
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-white/50 uppercase tracking-wider mb-2 ml-1">
-                            Willing to pay for a global solution?*
-                        </label>
-                        <select
-                            required
-                            value={formData.willingnessToPay}
-                            onChange={(e) => setFormData({ ...formData, willingnessToPay: e.target.value })}
-                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-purple focus:bg-white/10 transition-all font-medium appearance-none"
-                        >
-                            <option value="" disabled className="bg-brand-black text-white/50">Select an amount</option>
-                            <option value="$0" className="bg-brand-black text-white">$0</option>
-                            <option value="$100" className="bg-brand-black text-white">$100 / month</option>
-                            <option value="$500" className="bg-brand-black text-white">$500 / month</option>
-                            <option value="$1000" className="bg-brand-black text-white">$1000 / month</option>
-                            <option value="$3000" className="bg-brand-black text-white">$3000 / month</option>
-                        </select>
-                    </div>
-
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full h-14 rounded-xl bg-gradient-to-r from-brand-purple to-brand-purple hover:to-brand-purple/80 text-white font-bold text-lg mt-4 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full h-14 rounded-xl bg-gradient-to-r from-brand-purple to-brand-purple hover:to-brand-purple/80 text-white font-bold text-lg mt-6 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                         {loading ? (
                             <Loader2 className="h-5 w-5 animate-spin" />
