@@ -9,9 +9,9 @@ import React from "react";
 
 export default function CTA() {
     return (
-        <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden">
+        <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
             {/* Background gradient orbs */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0">
                 <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-purple/20 rounded-full blur-[120px]" />
                 <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-brand-yellow/10 rounded-full blur-[100px]" />
             </div>

@@ -1,24 +1,23 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 import TextMarquee from "@/components/marquee";
 
 export default function HeroHome() {
   return (
     <div className="py-10 px-4 sm:py-16 md:py-20">
-      <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-white/50 px-3 py-2.5 font-sans text-sm sm:text-sm font-normal">
-        <div className="aspect-square h-[9px] w-[9px] rounded-full bg-white" />
-        <span>Decentralised </span>
+      <div className="mx-auto flex w-fit items-center gap-2 rounded-3xl border border-solid border-brand-yellow/30 bg-brand-yellow/5 px-4 py-2 font-sans text-xs sm:text-sm font-semibold text-brand-yellow uppercase tracking-wider mb-6">
+        <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+        <span>Spend USDT Like Cash</span>
       </div>
 
       <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#E5E5E5] px-4">
         All Stables, One Wallet
       </h1>
 
-      <p className="text-brand-white mx-auto mt-5 max-w-[480px] text-center text-base sm:text-lg md:text-xl lg:text-[22px] font-normal px-4">
-        Secure, scalable, and decentralized solutions for your digital
-        assets—experience the future of financial freedom.
+      <p className="text-brand-white mx-auto mt-5 max-w-[540px] text-center text-base sm:text-lg md:text-xl lg:text-[22px] font-normal px-4">
+        Create virtual cards in seconds to spend your USDT, USDC, and EURC like cash anywhere Visa is accepted. Secure, self-custodial, and zero hidden fees.
       </p>
 
       <div className="mt-8 sm:mt-10 md:mt-[46px] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 px-4">

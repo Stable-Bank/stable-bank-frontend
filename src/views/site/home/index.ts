@@ -5,3 +5,6 @@ export { default as Stats } from "./stats";
 export { default as FAQ } from "./faq";
 export { default as CTA } from "./cta";
 export { default as Audiences } from "./audiences";
+export { default as VirtualCards } from "./virtual-cards";
+export { default as VirtualAccounts } from "./virtual-accounts";
+

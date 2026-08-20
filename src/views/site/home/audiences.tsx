@@ -5,9 +5,15 @@ import { SectionCard } from "@/components/cards";
 
 export default function Audiences() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden">
+    <section className="py-20 px-4 sm:px-6 lg:px-10 relative">
       <div className="absolute inset-0 bg-brand-black" />
-      <div className="absolute inset-0 bg-[url('/images/svg/grid-pattern.svg')] opacity-5 mask-gradient-b" />
+      <div 
+        className="absolute inset-0 bg-[url('/images/svg/grid-pattern.svg')] opacity-5 pointer-events-none" 
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
+        }}
+      />
       
       <div className="max-w-largest mx-auto relative z-10">
         <div className="mb-16 text-center flex flex-col items-center">

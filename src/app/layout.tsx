@@ -11,16 +11,16 @@ const darkerGrotesque = Darker_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "StableBank",
+  title: "Spend USDT Like Cash | Stablecoin Virtual Cards | StableBank",
   description:
-    "Secure, scalable, and decentralized solutions for your digital assets—experience the future of financial freedom.",
+    "Spend USDT, USDC, and other stablecoins like cash. Generate virtual crypto debit cards instantly for global purchases with zero hidden fees.",
   icons: {
     icon: "/images/brand/favicon.svg",
   },
   openGraph: {
-    title: "StableBank | Secure, Scalable, Decentralized",
+    title: "Spend USDT Like Cash | Stablecoin Virtual Cards | StableBank",
     description:
-      "Secure, scalable, and decentralized solutions for your digital assets—experience the future of financial freedom.",
+      "Spend USDT, USDC, and other stablecoins like cash. Generate virtual crypto debit cards instantly for global purchases with zero hidden fees.",
     url: "https://stablebank-staging.vercel.app/",
     siteName: "StableBank",
     images: [
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "StableBank | Secure, Scalable, Decentralized",
+    title: "Spend USDT Like Cash | Stablecoin Virtual Cards | StableBank",
     description:
-      "Secure, scalable, and decentralized solutions for your digital assets—experience the future of financial freedom.",
+      "Spend USDT, USDC, and other stablecoins like cash. Generate virtual crypto debit cards instantly for global purchases with zero hidden fees.",
     images: [
       "https://stablebank-staging.vercel.app/images/brand/stablebank-card-back.svg",
     ],

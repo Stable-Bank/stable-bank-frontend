@@ -146,7 +146,7 @@ function FeatureCard({
 
 export default function Features() {
     return (
-        <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden">
+        <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-purple/5 to-transparent" />
 
