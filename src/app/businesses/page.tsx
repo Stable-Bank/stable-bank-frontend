@@ -3,74 +3,68 @@ import { SectionCard } from "@/components/cards";
 import BusinessWaitlistForm from "@/components/forms/business-waitlist";
 import {
     ArrowRight,
-    TrendingUp,
     Building2,
     Landmark,
-    Banknote,
     Coins,
     BarChart3,
     Lock,
     RefreshCw,
     Scale,
     FileCheck,
-    Fingerprint
+    Fingerprint,
+    CreditCard,
+    Sparkles,
+    Percent
 } from "lucide-react";
 
 export const metadata = {
-    title: "Business | StableBank",
+    title: "Business Accounts | StableBank",
     description:
-        "The financial operating system for the new economy. Prime trading, settlement, custody, and staking.",
+        "Treasury management, team expense cards, auto-compounding yields, and global fiat rails for modern companies.",
 };
 
 const solutions = [
     {
         icon: Landmark,
-        title: "ApexPrime",
+        title: "Corporate Treasury",
         description:
-            "A full-stack crypto prime brokerage. Get best-in-class execution, liquidity, and white-glove service for high-volume trading.",
+            "Hold, transfer, and trade USD, EUR, GBP, and stablecoins in one dashboard. Protected by insurance-backed balance coverage.",
         className: "bg-brand-black",
     },
     {
-        icon: BarChart3,
-        title: "DeepMarkets",
+        icon: CreditCard,
+        title: "Team Expense Cards",
         description:
-            "Stay ahead of evolving markets with advanced algorithmic trading, deep liquidity pools, and minimal slippage.",
+            "Issue corporate virtual and physical debit cards to employees. Set spend limits, restrict merchants, and settle from stablecoins.",
         className: "bg-[#0F0F0F]",
     },
     {
         icon: RefreshCw,
-        title: "Velocity Net",
+        title: "Global FX Rails",
         description:
-            "Settle on-chain instantly. Avoid counterparty risk, delivery failures, and bankruptcy exposure with atomic settlements.",
+            "Convert stablecoins to local fiat currencies instantly. Send global wires and ACH transfers at industry-low exchange rates.",
         className: "bg-[#141414]",
     },
     {
         icon: Lock,
-        title: "IronVault",
+        title: "Secure Custody",
         description:
-            "Qualified custody you can trust. Safeguard your assets with MPC technology and segregation of funds.",
+            "Safeguard corporate funds using qualified multi-party computation (MPC) cold vaults and fully segregated ledger accounts.",
         className: "bg-[#1A1A1A]",
     },
     {
         icon: Coins,
-        title: "MintOS",
+        title: "Yield Optimizers",
         description:
-            "Launch your own branded stablecoin or tokenized asset on our compliant infrastructure.",
+            "Put idle cash reserves to work in automated yield-generating vaults, earning competitive yields with daily compounding.",
         className: "bg-[#1F1F1F]",
     },
     {
-        icon: TrendingUp,
-        title: "YieldCore",
+        icon: BarChart3,
+        title: "Deep Liquidity",
         description:
-            "Safely collect rewards by staking assets like ETH, SOL, and DOT with institutional-grade validators.",
+            "Trade large stablecoin allocations directly into fiat and vice-versa with minimal slippage and direct broker execution.",
         className: "bg-[#242424]",
-    },
-    {
-        icon: Banknote,
-        title: "DeFi Direct",
-        description:
-            "Direct, secure access to DeFi protocols for lending, borrowing, and yield generation.",
-        className: "bg-[#292929]",
     },
 ];
 
@@ -90,15 +84,15 @@ export default function BusinessPage() {
                 <div className="max-w-largest mx-auto relative z-10 w-full">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="max-w-3xl">
-                            <SectionCard title="For Institutions" />
+                            <SectionCard title="For Smart Companies" />
                             <h1 className="mt-8 text-6xl sm:text-7xl md:text-8xl font-bold text-white leading-[1] tracking-tight">
-                                The Digital <br />
+                                The Financial <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-white to-brand-yellow animate-gradient-x">
-                                    Asset Platform
+                                    Operating System
                                 </span>
                             </h1>
                             <p className="mt-8 text-xl sm:text-2xl text-white/50 max-w-xl font-light leading-relaxed">
-                                The first federally chartered crypto bank designed for the world&apos;s most sophisticated institutions.
+                                Manage treasury, issue corporate cards, earn high yields, and move capital globally in one integrated business account.
                             </p>
                         </div>
 
@@ -128,8 +122,8 @@ export default function BusinessPage() {
 
                                     {/* Floating Data Nodes */}
                                     <div className="absolute -top-12 -right-4 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-sm font-mono text-brand-green animate-bounce-custom">
-                                        +2.45% APY
-                                    </div>
+                                        +5.25% APY
+                                     </div>
                                     <div className="absolute -bottom-8 -left-8 bg-black/80 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg text-sm font-mono text-brand-yellow animate-bounce-custom delay-700">
                                         SECURED
                                     </div>
@@ -140,8 +134,73 @@ export default function BusinessPage() {
                 </div>
             </section>
 
+            {/* One Place for Balance Sheet Section */}
+            <section className="relative py-28 px-4 sm:px-6 lg:px-10 bg-[#050505] border-t border-white/5">
+                <div className="max-w-largest mx-auto">
+                    <div className="mb-20 text-center max-w-3xl mx-auto">
+                        <SectionCard title="Unified Hub" />
+                        <h2 className="mt-8 text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+                            One place for your entire balance sheet
+                        </h2>
+                        <p className="text-xl text-white/50 font-light leading-relaxed">
+                            Bring your corporate banking details, stablecoin allocations, yield-generating vaults, and employee cards into a single high-performance dashboard.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Card 1 */}
+                        <div className="p-8 rounded-[2rem] border border-white/5 bg-[#0A0A0A] flex flex-col justify-between min-h-[320px] hover:border-brand-purple/35 transition-all duration-300">
+                            <div>
+                                <div className="h-12 w-12 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple mb-6">
+                                    <Landmark size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Manage treasury</h3>
+                                <p className="text-white/50 text-base leading-relaxed">
+                                    Hold and trade stablecoins (USDC, USDT, EURC) alongside USD, GBP, and EUR corporate banking details, protected by fully segregated account custody.
+                                </p>
+                            </div>
+                            <div className="text-sm font-semibold text-brand-purple flex items-center gap-1 mt-6">
+                                Program live soon <Sparkles size={14} className="text-brand-yellow" />
+                            </div>
+                        </div>
+
+                        {/* Card 2 */}
+                        <div className="p-8 rounded-[2rem] border border-white/5 bg-[#0A0A0A] flex flex-col justify-between min-h-[320px] hover:border-brand-purple/35 transition-all duration-300">
+                            <div>
+                                <div className="h-12 w-12 rounded-xl bg-brand-yellow/10 flex items-center justify-center text-brand-yellow mb-6">
+                                    <Percent size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Auto-Stake and Earn</h3>
+                                <p className="text-white/50 text-base leading-relaxed">
+                                    Convert idle fiat or stablecoins into yield-generating vaults automatically, building compound returns with 24/7 on-chain transparency.
+                                </p>
+                            </div>
+                            <div className="text-sm font-mono text-[#E9F2A3] mt-6">
+                                Up to 5.25% APY
+                            </div>
+                        </div>
+
+                        {/* Card 3 */}
+                        <div className="p-8 rounded-[2rem] border border-white/5 bg-[#0A0A0A] flex flex-col justify-between min-h-[320px] hover:border-brand-purple/35 transition-all duration-300">
+                            <div>
+                                <div className="h-12 w-12 rounded-xl bg-[#319F43]/10 flex items-center justify-center text-[#319F43] mb-6">
+                                    <CreditCard size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Issue corporate cards</h3>
+                                <p className="text-white/50 text-base leading-relaxed">
+                                    Instantly provision virtual cards for operations, marketing ads, and SaaS subscriptions. Set custom spend limits and controls for your team.
+                                </p>
+                            </div>
+                            <div className="text-sm font-semibold text-[#319F43] flex items-center gap-1 mt-6">
+                                Visa network supported
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Trust Section with Parallax Scroll */}
-            <section className="relative py-32 bg-[#050505] border-y border-white/5">
+            <section className="relative py-28 bg-brand-black border-y border-white/5">
                 <div className="max-w-largest mx-auto px-4 sm:px-6 lg:px-10">
                     <div className="grid md:grid-cols-2 gap-20 items-center">
                         <div>
@@ -244,13 +303,13 @@ export default function BusinessPage() {
             </section>
 
             {/* Sticky Integrated Solutions */}
-            <section className="py-32 px-4 sm:px-6 lg:px-10 bg-brand-black">
+            <section className="py-28 px-4 sm:px-6 lg:px-10 bg-[#050505]">
                 <div className="max-w-largest mx-auto">
-                    <div className="mb-24 text-center">
-                        <SectionCard title="Platform" />
+                    <div className="mb-20 text-center">
+                        <SectionCard title="Product" />
                         <h2 className="mt-8 text-5xl sm:text-6xl font-bold text-white mb-6">Integrated Offerings</h2>
                         <p className="text-xl text-white/60 max-w-2xl mx-auto">
-                            One unified platform for all your institutional digital asset needs.
+                            One unified account built for the rigorous compliance standards of modern business.
                         </p>
                     </div>
 
@@ -285,7 +344,7 @@ export default function BusinessPage() {
             </section>
 
             {/* Waitlist Section */}
-            <section className="relative py-32 px-4 sm:px-6 lg:px-10 overflow-hidden">
+            <section className="relative py-28 px-4 sm:px-6 lg:px-10 overflow-hidden">
                 <div className="absolute inset-0 bg-brand-black" />
                 <div className="absolute inset-0 bg-[url('/images/svg/grid-pattern.svg')] opacity-10 mask-gradient-b" />
 
