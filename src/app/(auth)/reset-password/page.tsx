@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
 import { passwordSchema } from "@/schema/password";
-import { MoveRight, LockKeyhole } from "lucide-react";
+import { LockKeyhole, Eye, EyeOff } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -18,6 +18,8 @@ export default function ResetPassword() {
   const email = searchParams.get("email");
 
   const [step, setStep] = useState(1); // 1: OTP, 2: New Password
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [resetData, setResetData] = useState({
     otp: "",
     password: "",
@@ -189,26 +191,46 @@ export default function ResetPassword() {
           <div className="flex flex-col gap-4">
             <div className="group relative h-12 sm:h-14 rounded-2xl bg-white/5 border border-white/10 focus-within:border-brand-purple/50 focus-within:bg-white/10 transition-all">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoFocus
                 value={resetData.password}
                 onChange={(e) => updateResetData("password", e.target.value)}
                 placeholder="New Password"
-                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit px-5 text-sm sm:text-base text-white ring-0 outline-0"
+                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit pl-5 pr-12 text-sm sm:text-base text-white ring-0 outline-0"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer p-1 focus:outline-none"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </button>
             </div>
             <div className="group relative h-12 sm:h-14 rounded-2xl bg-white/5 border border-white/10 focus-within:border-brand-purple/50 focus-within:bg-white/10 transition-all">
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 value={resetData.confirmPassword}
                 onChange={(e) => updateResetData("confirmPassword", e.target.value)}
                 placeholder="Confirm New Password"
-                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit px-5 text-sm sm:text-base text-white ring-0 outline-0"
+                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit pl-5 pr-12 text-sm sm:text-base text-white ring-0 outline-0"
               />
-              <MoveRight
-                size={18}
-                className="absolute top-1/2 right-5 -translate-y-1/2 transform text-white/20 group-focus-within:text-brand-purple transition-colors"
-              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer p-1 focus:outline-none"
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </button>
             </div>
           </div>
 

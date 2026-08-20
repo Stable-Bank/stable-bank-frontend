@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
-import { MoveRight, KeyRound } from "lucide-react";
+import { KeyRound } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,11 +59,6 @@ export default function ForgotPassword() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email Address"
             className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
-          />
-          <MoveRight
-            size={20}
-            className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
-            color="#FFFFFF52"
           />
         </div>
       </div>

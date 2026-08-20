@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
 import { passwordSchema } from "@/schema/password";
-import { MoveRight, Sparkles, User, Building2, ChevronLeft } from "lucide-react";
+import { MoveRight, Sparkles, User, Building2, ChevronLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 export default function Signup() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
+  const [showPassword, setShowPassword] = useState(false);
   const [signupData, setSignupData] = useState({
     accountType: "individual",
     email: "",
@@ -73,12 +74,15 @@ export default function Signup() {
           <div className="flex flex-col gap-2 sm:gap-3 mb-8">
             <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-[#0F0F0F] py-2 pr-8 sm:pr-12 md:pr-16 pl-2.5 text-sm sm:text-base font-medium shadow-2xl shadow-[#171E2E]">
               <Sparkles size={16} className="sm:w-[18px] sm:h-[18px]" />
-              <span>Choose Account Type</span>
+              <span>Spend USDT Like Cash</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
-              How will you use{" "}
-              <span className="text-brand-yellow">StableBank?</span>
+              Get started with{" "}
+              <span className="text-brand-yellow">StableBank.</span>
             </h1>
+            <p className="text-white/60 text-sm sm:text-base">
+              Choose how you want to spend and manage your stablecoins.
+            </p>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -95,7 +99,7 @@ export default function Signup() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">Personal Account</h3>
-                <p className="text-sm text-white/50">Your personal super-wallet for everyday stablecoin spending and yield.</p>
+                <p className="text-sm text-white/50">Spend your USDT & USDC like cash with instant virtual cards and high-yield vaults.</p>
               </div>
               <MoveRight className="ml-auto w-6 h-6 text-white/20 group-hover:text-brand-purple transform group-hover:translate-x-1 transition-all" />
             </button>
@@ -113,7 +117,7 @@ export default function Signup() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">Business Account</h3>
-                <p className="text-sm text-white/50">Manage global treasury, cross-border payroll, and team cards.</p>
+                <p className="text-sm text-white/50">Corporate treasury, team expense cards, and global wire settlements in USD, GBP, & EUR.</p>
               </div>
               <MoveRight className="ml-auto w-6 h-6 text-white/20 group-hover:text-brand-yellow transform group-hover:translate-x-1 transition-all" />
             </button>
@@ -149,6 +153,9 @@ export default function Signup() {
                 {signupData.accountType === 'business' ? 'Business' : 'Personal'} Account
               </span>
             </h1>
+            <p className="text-white/60 text-sm sm:text-base">
+              Instant setup with self-custodial security and zero hidden fees.
+            </p>
           </div>
 
           <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
@@ -161,26 +168,28 @@ export default function Signup() {
                 placeholder="Email Address"
                 className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
               />
-              <MoveRight
-                size={20}
-                className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
-                color="#FFFFFF52"
-              />
             </div>
             <div className="relative h-[48px] sm:h-[52px] rounded-[8px] bg-[#0F0F0F] text-sm sm:text-base font-medium text-white placeholder:text-white/60">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={signupData.password}
                 onChange={(e) => updateSignupData("password", e.target.value)}
                 placeholder="Password"
-                className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-3 sm:px-4 ring-0 outline-0"
+                className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit pl-3 pr-10 sm:pl-4 sm:pr-12 ring-0 outline-0"
               />
-              <MoveRight
-                size={20}
-                className="absolute top-1/2 right-2 -translate-y-1/2 transform sm:w-6 sm:h-6"
-                color="#FFFFFF52"
-              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-white/50 hover:text-white transition-colors cursor-pointer p-1 focus:outline-none"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff size={18} className="sm:w-5 sm:h-5" />
+                ) : (
+                  <Eye size={18} className="sm:w-5 sm:h-5" />
+                )}
+              </button>
             </div>
           </div>
 
