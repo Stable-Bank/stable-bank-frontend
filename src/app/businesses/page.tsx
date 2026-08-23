@@ -70,7 +70,7 @@ export default function BusinessPage() {
                 <div className="max-w-largest mx-auto relative z-10 w-full">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="max-w-3xl">
-                            <SectionCard title="For Smart Companies" category="ENTERPRISE" />
+                            <SectionCard title="For Smart Companies" category="ENTERPRISE" variant="yellow" />
                             <h1 className="mt-8 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-zinc-950 leading-[1.05] tracking-tight">
                                 The Financial <br />
                                 <span className="text-brand-purple">
@@ -94,7 +94,7 @@ export default function BusinessPage() {
                                     <Building2 className="w-20 h-20 text-brand-purple" />
                                     
                                     {/* Floating Data Nodes */}
-                                    <div className="absolute -top-4 -right-4 bg-white border border-zinc-200 px-3 py-1.5 rounded-lg text-xs font-mono font-bold text-emerald-600 shadow-md">
+                                    <div className="absolute -top-4 -right-4 bg-[#EEF8A8]/90 border border-[#D0E244]/80 px-3 py-1.5 rounded-lg text-xs font-mono font-bold text-[#556000] shadow-md">
                                         +5.25% APY
                                     </div>
                                     <div className="absolute -bottom-4 -left-4 bg-white border border-zinc-200 px-3 py-1.5 rounded-lg text-xs font-mono font-bold text-brand-purple shadow-md">
@@ -138,9 +138,9 @@ export default function BusinessPage() {
                         </div>
 
                         {/* Card 2 */}
-                        <div className="p-8 rounded-2xl border border-zinc-200 bg-white flex flex-col justify-between min-h-[300px] shadow-sm hover:shadow-md hover:border-brand-purple/40 transition-all duration-300">
+                        <div className="p-8 rounded-2xl border border-zinc-200 bg-white flex flex-col justify-between min-h-[300px] shadow-sm hover:shadow-md hover:border-[#B0BE19]/60 transition-all duration-300">
                             <div>
-                                <div className="h-12 w-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 mb-6">
+                                <div className="h-12 w-12 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000] mb-6">
                                     <Percent size={24} />
                                 </div>
                                 <h3 className="text-xl font-display font-bold text-zinc-950 mb-2">Auto-Stake and Earn</h3>
