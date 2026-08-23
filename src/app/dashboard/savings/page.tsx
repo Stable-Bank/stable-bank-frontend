@@ -59,7 +59,7 @@ export default function SavingsPage() {
     { id: "purple", value: "bg-brand-purple" },
     { id: "yellow", value: "bg-amber-500 text-black" },
     { id: "green", value: "bg-emerald-600" },
-    { id: "blue", value: "bg-blue-500" },
+    { id: "dark", value: "bg-zinc-800" },
     { id: "red", value: "bg-red-500" },
   ];
 
@@ -491,7 +491,7 @@ export default function SavingsPage() {
                       onClick={() => { setSavingsType("flex"); setCreateStep(2); }}
                       className="p-5 text-left rounded-2xl border border-zinc-200 bg-zinc-50 hover:bg-purple-50/50 hover:border-brand-purple transition-all duration-200 space-y-2 group cursor-pointer"
                     >
-                      <Unlock size={24} className="text-blue-600 group-hover:scale-105 transition-transform" />
+                      <Unlock size={24} className="text-brand-purple group-hover:scale-105 transition-transform" />
                       <h4 className="font-display font-bold text-zinc-950 text-base">Flex Wallet</h4>
                       <p className="text-xs text-zinc-500 font-sans leading-snug">Flexible emergency cash. 12% APY. Interest drops to 0% if withdrawn &gt;4 times/mo.</p>
                     </button>
