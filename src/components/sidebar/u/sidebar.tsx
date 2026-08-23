@@ -12,7 +12,6 @@ import {
   LogOut,
   ChevronRight,
   ShieldCheck,
-  Lock,
   PiggyBank,
   Bell,
 } from "lucide-react";
@@ -64,12 +63,12 @@ export default function USidebar() {
   };
   
   return (
-    <div className="flex h-full w-[280px] flex-col bg-[#0A0D14]/80 backdrop-blur-xl border-r border-white/5 shadow-2xl">
+    <div className="flex h-full w-[280px] flex-col bg-white border-r border-zinc-200 shadow-sm">
       {/* Brand Header */}
-      <div className="px-6 py-10 flex items-center justify-center">
+      <div className="px-6 py-8 flex items-center justify-center">
         <Link href={appRoutes.dashboard.home} className="hover:opacity-80 transition-opacity">
           <Image
-            src={"/images/brand/logo-full.svg"}
+            src={"/images/brand/full-logo-purple.svg"}
             alt="Stable Bank"
             width={160}
             height={40}
@@ -79,12 +78,10 @@ export default function USidebar() {
       </div>
 
       {/* Profile Card */}
-      <div className="px-5 mb-8">
-        <div className="group relative flex flex-col gap-4 rounded-3xl bg-white/[0.03] p-5 border border-white/10 hover:border-brand-purple/30 transition-all duration-500 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          
-          <div className="relative flex items-center gap-4">
-            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg">
+      <div className="px-5 mb-6">
+        <div className="group relative flex flex-col gap-4 rounded-2xl bg-zinc-50 p-4 border border-zinc-200 hover:border-brand-purple/40 hover:shadow-sm transition-all duration-300 overflow-hidden">
+          <div className="relative flex items-center gap-3.5">
+            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xs">
               <Image
                 src={
                   user?.avatarUrl 
@@ -93,20 +90,20 @@ export default function USidebar() {
                 }
                 alt="avatar"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-black text-white truncate leading-tight tracking-tight">
+              <span className="text-sm font-display font-bold text-zinc-950 truncate leading-tight tracking-tight">
                 {user?.firstName ? `${user.firstName} ${user.lastName}` : "Stable Member"}
               </span>
               <div className="flex items-center gap-1.5 mt-1.5">
-                <ShieldCheck size={12} className="text-[#E9F2A3]" />
-                <span className="text-[9px] font-bold text-[#E9F2A3] uppercase tracking-wider leading-none">
+                <ShieldCheck size={12} className="text-brand-purple" />
+                <span className="text-[9px] font-mono font-bold text-brand-purple uppercase tracking-wider leading-none">
                   Verified
                 </span>
-                <div className="h-1 w-1 rounded-full bg-white/25" />
-                <span className="text-[9px] font-bold text-white/40 uppercase tracking-wider leading-none">
+                <div className="h-1 w-1 rounded-full bg-zinc-300" />
+                <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-wider leading-none">
                   {user?.role || "Personal"}
                 </span>
               </div>
@@ -114,16 +111,16 @@ export default function USidebar() {
           </div>
 
           <div className="relative">
-            <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-black/40 border border-white/5 group/tag backdrop-blur-md">
+            <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border border-zinc-200 group/tag shadow-2xs">
               <div className="flex flex-col">
-                <span className="text-[9px] text-white/20 font-bold uppercase tracking-widest mb-0.5">My Tag</span>
-                <span className="text-[13px] font-mono font-bold text-[#E9F2A3] tracking-tighter">
+                <span className="text-[9px] text-zinc-400 font-mono font-bold uppercase tracking-widest mb-0.5">My Tag</span>
+                <span className="text-xs font-mono font-bold text-zinc-900 tracking-tight">
                   ${user?.bankTag || "..."}
                 </span>
               </div>
               <button
                  onClick={() => user?.bankTag && copyToClipboard(user.bankTag)}
-                 className="p-2 rounded-xl bg-white/5 text-white/40 hover:text-brand-purple hover:bg-brand-purple/10 transition-all active:scale-90"
+                 className="p-1.5 rounded-lg bg-zinc-100 text-zinc-500 hover:text-brand-purple hover:bg-brand-purple/10 transition-all active:scale-90 cursor-pointer"
               >
                 <Copy size={13} />
               </button>
@@ -133,11 +130,11 @@ export default function USidebar() {
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-4 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+      <div className="flex-1 px-4 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
         {/* Main Section */}
         <section>
-          <span className="px-4 text-md font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Dashboard</span>
-          <div className="flex flex-col gap-1.5">
+          <span className="px-3 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2.5 block">Dashboard</span>
+          <div className="flex flex-col gap-1">
             {itemsToRender.map((ni) => {
               const isActive = ni.route === appRoutes.dashboard.home 
                 ? pathname === ni.route 
@@ -146,25 +143,24 @@ export default function USidebar() {
                 <Link
                   key={ni.route}
                   href={ni.route}
-                  className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 ${
+                  className={`group relative flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all duration-200 ${
                     isActive
-                      ? "bg-brand-purple text-white shadow-xl shadow-brand-purple/10"
-                      : "text-white/40 hover:text-white hover:bg-white/[0.03]"
+                      ? "bg-brand-purple text-white shadow-sm shadow-brand-purple/20 font-bold"
+                      : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 font-medium"
                   }`}
                 >
-                  <div className="flex items-center gap-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-1 w-full">
-                    <div className={`${isActive ? "text-white" : "text-brand-purple/60 group-hover:text-brand-purple"}`}>
-                      <ni.icon size={20} />
+                  <div className="flex items-center gap-3 relative z-10 transition-transform duration-200 group-hover:translate-x-0.5 w-full">
+                    <div className={`${isActive ? "text-white" : "text-brand-purple group-hover:text-brand-purple"}`}>
+                      <ni.icon size={18} />
                     </div>
-                    <span className={`text-[14px] ${isActive ? "font-bold" : "font-medium"}`}>{ni.label}</span>
+                    <span className="text-sm font-sans">{ni.label}</span>
                     {ni.label === "Notifications" && unreadCount > 0 && (
-                      <span className="ml-auto flex h-5 min-w-5 px-1.5 items-center justify-center rounded-full bg-rose-500 text-md font-black text-white animate-pulse">
+                      <span className="ml-auto flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-mono font-bold text-white animate-pulse">
                         {unreadCount}
                       </span>
                     )}
                   </div>
-                  {!isActive && ni.label !== "Notifications" && <ChevronRight size={14} className="opacity-0 group-hover:opacity-40 -translate-x-2 group-hover:translate-x-0 transition-all ml-auto" />}
-                  {isActive && <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl" />}
+                  {!isActive && ni.label !== "Notifications" && <ChevronRight size={14} className="opacity-0 group-hover:opacity-40 -translate-x-1 group-hover:translate-x-0 transition-all ml-auto text-zinc-400" />}
                 </Link>
               );
             })}
@@ -174,24 +170,24 @@ export default function USidebar() {
 
         {/* Utilities Section */}
         <section>
-          <span className="px-4 text-md font-bold text-white/20 uppercase tracking-[0.2em] mb-4 block">Support</span>
-          <div className="flex flex-col gap-1.5">
+          <span className="px-3 text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2.5 block">Support</span>
+          <div className="flex flex-col gap-1">
             {utilItems.map((ni) => {
               const isActive = pathname === ni.route;
               return (
                 <Link
                   key={ni.route}
                   href={ni.route}
-                  className={`group relative flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all duration-300 ${
+                  className={`group relative flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 ${
                     isActive
-                      ? "bg-brand-purple text-white shadow-xl shadow-brand-purple/10"
-                      : "text-white/40 hover:text-white hover:bg-white/[0.03]"
+                      ? "bg-brand-purple text-white shadow-sm shadow-brand-purple/20 font-bold"
+                      : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 font-medium"
                   }`}
                 >
-                  <div className={`${isActive ? "text-white" : "text-brand-purple/60 group-hover:text-brand-purple"}`}>
-                    <ni.icon size={20} />
+                  <div className={`${isActive ? "text-white" : "text-brand-purple group-hover:text-brand-purple"}`}>
+                    <ni.icon size={18} />
                   </div>
-                  <span className={`text-[14px] ${isActive ? "font-bold" : "font-medium"}`}>{ni.label}</span>
+                  <span className="text-sm font-sans">{ni.label}</span>
                 </Link>
               );
             })}
@@ -200,13 +196,13 @@ export default function USidebar() {
       </div>
 
       {/* Footer / Logout */}
-      <div className="p-4 mt-auto border-t border-white/5">
+      <div className="p-4 mt-auto border-t border-zinc-200">
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-3 px-4 py-4 rounded-2xl text-white/40 hover:text-red-400 hover:bg-red-400/5 transition-all duration-300 group"
+          className="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200 group cursor-pointer text-sm font-bold font-sans"
         >
-          <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-bold">Sign Out</span>
+          <LogOut size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+          <span>Sign Out</span>
         </button>
       </div>
     </div>
