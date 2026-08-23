@@ -101,7 +101,7 @@ export default function NotificationsPage() {
         );
       case "referral":
         return (
-          <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0">
+          <div className="h-10 w-10 rounded-full bg-purple-50 text-brand-purple border border-brand-purple/20 flex items-center justify-center shrink-0">
             <Gift size={18} />
           </div>
         );
