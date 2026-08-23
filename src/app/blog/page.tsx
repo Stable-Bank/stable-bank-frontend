@@ -102,17 +102,16 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
     return (
         <Link
             href={`/blog/${post.slug}`}
-            className={`group block rounded-3xl border border-white/10 overflow-hidden bg-white/[0.02] hover:bg-white/[0.05] hover:border-brand-purple/30 transition-all duration-300 ${featured ? "lg:grid lg:grid-cols-2" : ""
+            className={`group block rounded-2xl border border-zinc-200 overflow-hidden bg-white hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 shadow-sm ${featured ? "lg:grid lg:grid-cols-2" : ""
                 }`}
         >
             {/* Image */}
             <div
-                className={`relative overflow-hidden bg-gradient-to-br from-brand-purple/20 to-brand-yellow/10 ${featured ? "h-64 lg:h-full" : "h-48"
+                className={`relative overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 ${featured ? "h-64 lg:h-full" : "h-48"
                     }`}
             >
-                <div className="absolute inset-0 bg-brand-black/40" />
                 <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-purple/80 text-white text-sm font-medium">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-purple text-white text-xs font-mono font-semibold uppercase tracking-wider">
                         <Tag className="h-3 w-3" />
                         {post.category}
                     </span>
@@ -122,20 +121,20 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
             {/* Content */}
             <div className={`p-6 ${featured ? "lg:p-8 lg:flex lg:flex-col lg:justify-center" : ""}`}>
                 <h3
-                    className={`font-bold text-brand-white group-hover:text-brand-yellow transition-colors ${featured ? "text-2xl sm:text-3xl mb-4" : "text-lg mb-3"
+                    className={`font-display font-bold text-zinc-950 group-hover:text-brand-purple transition-colors ${featured ? "text-2xl sm:text-3xl mb-4" : "text-lg mb-2"
                         }`}
                 >
                     {post.title}
                 </h3>
                 <p
-                    className={`text-white/60 line-clamp-2 ${featured ? "text-base sm:text-lg mb-6" : "text-sm mb-4"
+                    className={`text-zinc-600 line-clamp-2 font-sans ${featured ? "text-base sm:text-lg mb-6" : "text-sm mb-4"
                         }`}
                 >
                     {post.excerpt}
                 </p>
 
                 {/* Meta */}
-                <div className="flex items-center gap-4 text-sm sm:text-sm text-white/40">
+                <div className="flex items-center gap-4 text-xs font-mono text-zinc-500 font-medium">
                     <span className="flex items-center gap-1.5">
                         <Calendar className="h-3.5 w-3.5" />
                         {post.date}
@@ -147,7 +146,7 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
                 </div>
 
                 {featured && (
-                    <div className="mt-6 inline-flex items-center gap-2 text-brand-purple font-medium group-hover:gap-3 transition-all">
+                    <div className="mt-6 inline-flex items-center gap-2 text-brand-purple font-bold text-sm group-hover:gap-3 transition-all font-mono">
                         Read article
                         <ArrowRight className="h-4 w-4" />
                     </div>
@@ -166,10 +165,10 @@ export default function BlogPage() {
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 sm:mb-12">
                         <div>
                             <SectionCard title="Blog" />
-                            <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-bold text-brand-white">
+                            <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950">
                                 Insights & Updates
                             </h1>
-                            <p className="mt-4 text-lg text-white/60 max-w-xl">
+                            <p className="mt-4 text-lg text-zinc-600 max-w-xl font-sans">
                                 Stay informed with the latest news, tutorials, and deep dives
                                 into the world of stablecoins and decentralized finance.
                             </p>
@@ -177,23 +176,23 @@ export default function BlogPage() {
 
                         {/* Search */}
                         <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
                             <input
                                 type="text"
                                 placeholder="Search articles..."
-                                className="w-full lg:w-80 h-12 pl-12 pr-4 rounded-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-purple transition-colors"
+                                className="w-full lg:w-80 h-11 pl-12 pr-4 rounded-full bg-white border border-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-brand-purple shadow-sm transition-colors text-sm font-sans"
                             />
                         </div>
                     </div>
 
                     {/* Categories */}
-                    <div className="flex flex-wrap gap-3 mb-10 sm:mb-12">
+                    <div className="flex flex-wrap gap-2.5 mb-10 sm:mb-12">
                         {categories.map((category, index) => (
                             <button
                                 key={category.slug}
-                                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${index === 0
-                                        ? "bg-brand-purple text-white"
-                                        : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                                className={`px-4 py-2 rounded-full text-xs font-mono font-semibold transition-all ${index === 0
+                                        ? "bg-brand-purple text-white shadow-sm"
+                                        : "bg-white border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50"
                                     }`}
                             >
                                 {category.name}
@@ -215,7 +214,7 @@ export default function BlogPage() {
 
                     {/* Load More */}
                     <div className="mt-12 text-center">
-                        <button className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white/20 text-white/70 hover:bg-white/5 hover:text-white transition-all">
+                        <button className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-zinc-300 bg-white text-zinc-800 hover:bg-zinc-50 font-semibold text-sm shadow-sm transition-all">
                             Load more articles
                             <ArrowRight className="h-4 w-4" />
                         </button>
