@@ -40,7 +40,7 @@ export default function VirtualCards() {
           
           {/* Copy Side */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
-            <SectionCard title="VIRTUAL CARDS" category="INSTANT VISA" />
+            <SectionCard title="VIRTUAL CARDS" category="INSTANT VISA" variant="yellow" />
             
             <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 leading-tight">
               Spend USDT Like Cash,<br />
@@ -53,19 +53,19 @@ export default function VirtualCards() {
 
             <ul className="mt-8 space-y-4 text-sm sm:text-base text-zinc-700 font-sans">
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000] shrink-0">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <span><strong>Instant Issuance</strong> — Generate new cards for shopping or recurring payments immediately.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-brand-purple shrink-0">
                   <Zap className="h-4 w-4" />
                 </div>
                 <span><strong>Stable Settlement</strong> — No pre-funding needed; funds settle directly from your stablecoin wallet.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
                   <Lock className="h-4 w-4" />
                 </div>
                 <span><strong>Single-Use Burners</strong> — Cards automatically self-destruct after one transaction for maximum safety.</span>
