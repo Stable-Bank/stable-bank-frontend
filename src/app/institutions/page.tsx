@@ -113,7 +113,7 @@ export default function InstitutionsPage() {
             <section className="relative min-h-[80vh] flex items-center pt-16 pb-20 px-4 sm:px-6 lg:px-10 overflow-hidden">
                 <div className="max-w-largest mx-auto relative z-10 w-full">
                     <div className="text-center max-w-4xl mx-auto">
-                        <SectionCard title="StableBank Institutions" category="PRIME" />
+                        <SectionCard title="StableBank Institutions" category="PRIME" variant="emerald" />
                         <h1 className="mt-8 text-5xl sm:text-6xl md:text-8xl font-display font-black text-zinc-950 leading-[1.05] tracking-tight">
                             Engineered for scale. <br />
                             <span className="text-brand-purple">
@@ -128,24 +128,21 @@ export default function InstitutionsPage() {
                             <a href="#waitlist" className="px-8 py-4 bg-brand-purple hover:bg-brand-purple/90 text-white rounded-full font-bold text-lg shadow-md shadow-brand-purple/20 transition-all hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center">
                                 Request Access <ArrowRight size={20} />
                             </a>
-                            <div className="text-zinc-500 text-sm font-mono font-medium">
-                                Dedicated coverage teams ready.
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Platform Capabilities Section */}
-            <section className="py-24 px-4 sm:px-6 lg:px-10 border-y border-zinc-200 bg-zinc-50/50 relative overflow-hidden">
+            {/* Core Capabilities Grid */}
+            <section className="py-24 px-4 sm:px-6 lg:px-10 bg-zinc-50/50 relative border-t border-zinc-200">
                 <div className="max-w-largest mx-auto">
                     <div className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Capabilities" category="INFRASTRUCTURE" />
+                        <SectionCard title="Institutional Infrastructure" category="INFRASTRUCTURE" />
                         <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950 mb-4">
-                            Institutional <span className="text-brand-purple">Platform</span>
+                            Core Capabilities
                         </h2>
-                        <p className="text-lg sm:text-xl text-zinc-600 max-w-3xl mx-auto font-sans leading-relaxed">
-                            A comprehensive suite of digital asset infrastructure, powered by advanced security, real-time liquidity, and next-generation connectivity.
+                        <p className="text-lg sm:text-xl text-zinc-600 max-w-2xl mx-auto font-sans leading-relaxed">
+                            Engineered to meet the stringent security, governance, and operational standards of global financial entities.
                         </p>
                     </div>
 
@@ -174,7 +171,7 @@ export default function InstitutionsPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-10 bg-white relative overflow-hidden">
                 <div className="max-w-largest mx-auto relative z-10">
                     <div className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Who We Serve" category="CLIENTELE" />
+                        <SectionCard title="Who We Serve" category="CLIENTELE" variant="yellow" />
                         <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950 mb-4">
                             Powering Digital Asset <span className="text-brand-purple">Pioneers</span>
                         </h2>
