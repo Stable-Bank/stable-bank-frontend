@@ -9,9 +9,10 @@ import {
     Shield,
     Globe,
     Zap,
-    TrendingUp,
 } from "lucide-react";
 import React, { useState } from "react";
+
+import SectionCard from "@/components/cards/section";
 
 const features = [
     {
@@ -27,7 +28,7 @@ const features = [
         title: "Instant Transfers",
         description:
             "Send stablecoins globally in seconds with near-zero fees. No borders, no delays.",
-        iconBg: "bg-indigo-50",
+        iconBg: "bg-purple-50",
         iconColor: "text-brand-purple",
     },
     {
@@ -51,8 +52,8 @@ const features = [
         title: "Bank-Grade Security",
         description:
             "Enterprise-level encryption and multi-sig protection keep your assets safe 24/7.",
-        iconBg: "bg-blue-50",
-        iconColor: "text-blue-600",
+        iconBg: "bg-brand-purple/10",
+        iconColor: "text-brand-purple",
     },
     {
         icon: Globe,
@@ -85,7 +86,7 @@ function FeatureCard({
             {/* Icon */}
             <div
                 className={cn(
-                    "relative mb-4 sm:mb-6 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl transition-all duration-300",
+                    "relative mb-4 sm:mb-6 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl transition-all duration-300 border border-zinc-200/60",
                     feature.iconBg,
                     isHovered && "scale-105"
                 )}
@@ -130,9 +131,8 @@ export default function Features() {
             <div className="max-w-largest mx-auto relative">
                 {/* Section header */}
                 <div className="text-center mb-12 sm:mb-16 md:mb-20 flex flex-col items-center">
-                    <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-zinc-300 bg-zinc-100/80 px-4 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider mb-6 shadow-sm">
-                        <TrendingUp className="h-3.5 w-3.5 text-brand-purple" />
-                        <span>Powerful Features</span>
+                    <div className="mb-6">
+                        <SectionCard title="Powerful Features" category="CAPABILITIES" />
                     </div>
 
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 mb-4 sm:mb-6">
