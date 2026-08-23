@@ -126,7 +126,7 @@ export default function ContactPage() {
             <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-10">
                 <div className="max-w-largest mx-auto">
                     <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Contact Us" />
+                        <SectionCard title="Contact Us" category="SUPPORT" />
                         <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-black text-zinc-950">
                             Get in <span className="text-brand-purple">Touch</span>
                         </h1>
