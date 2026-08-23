@@ -620,9 +620,9 @@ export default function UHome() {
             )}
 
             <div className="flex items-center gap-3 pt-1">
-              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <p className="text-emerald-700 text-xs font-bold font-mono">
+              <div className="flex items-center gap-1.5 bg-[#EEF8A8]/80 border border-[#D0E244]/80 px-3 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-[#839105] animate-pulse" />
+                <p className="text-[#556000] text-xs font-bold font-mono">
                   DeFi Yield: ${balance?.defiBalanceUSD?.toFixed(2) || "0.00"}
                 </p>
               </div>
@@ -674,7 +674,7 @@ export default function UHome() {
               onClick={() => router.push(appRoutes.dashboard.savings)}
               className="flex flex-col items-center gap-2 group cursor-pointer"
             >
-              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-[#319F43] group-hover:text-white group-hover:border-[#319F43] transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
+              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
                 <PiggyBank size={22} />
               </div>
               <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Save</span>
@@ -685,7 +685,7 @@ export default function UHome() {
       </div>
 
       {/* Card Promo Banner ("Spend USDT Like Cash") */}
-      <div className="relative rounded-2xl bg-gradient-to-r from-indigo-50 via-purple-50 to-zinc-50 border border-zinc-200 p-6 sm:p-7 shadow-sm overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div className="relative rounded-2xl bg-gradient-to-r from-indigo-50/70 via-purple-50/50 to-[#F7FBE8]/50 border border-zinc-200 p-6 sm:p-7 shadow-sm overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex items-center gap-5">
           <div className="w-16 h-11 rounded-xl bg-gradient-to-tr from-brand-purple to-indigo-900 border border-brand-purple/20 shadow-md flex items-center justify-center shrink-0">
             <CreditCard size={24} className="text-white drop-shadow-sm" />
@@ -693,7 +693,7 @@ export default function UHome() {
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-lg font-display font-bold text-zinc-950">Get the Black Metal Card</h3>
-              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[#EEF8A8]/80 text-[#556000] border border-[#D0E244]/80">
                 3% Cashback
               </span>
             </div>
@@ -705,7 +705,7 @@ export default function UHome() {
 
         <Button
           onClick={() => router.push(appRoutes.dashboard.vcard)}
-          className="bg-brand-yellow text-black hover:bg-brand-yellow/90 font-bold rounded-full h-11 px-6 text-sm shrink-0 cursor-pointer shadow-sm shadow-brand-yellow/20"
+          className="bg-brand-yellow text-zinc-950 hover:bg-brand-yellow/90 font-bold rounded-full h-11 px-6 text-sm shrink-0 cursor-pointer shadow-sm shadow-brand-yellow/20"
         >
           {cards.length > 0 ? "Manage Card" : "Activate Card"}
         </Button>
@@ -734,17 +734,17 @@ export default function UHome() {
         {/* Feature 2: High Yield Vaults */}
         <div 
           onClick={() => router.push(appRoutes.dashboard.savings)}
-          className="rounded-2xl bg-white border border-zinc-200 p-5 shadow-sm hover:shadow-md hover:border-amber-400/40 transition-all duration-300 group cursor-pointer flex items-center gap-4"
+          className="rounded-2xl bg-white border border-zinc-200 p-5 shadow-sm hover:shadow-md hover:border-[#B0BE19]/60 transition-all duration-300 group cursor-pointer flex items-center gap-4"
         >
-          <div className="h-12 w-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 text-amber-700">
+          <div className="h-12 w-12 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center shrink-0 text-[#556000]">
             <Percent size={22} />
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h4 className="text-sm font-display font-bold text-zinc-950 group-hover:text-amber-700 transition-colors truncate">
+              <h4 className="text-sm font-display font-bold text-zinc-950 group-hover:text-[#556000] transition-colors truncate">
                 High-Yield Vaults
               </h4>
-              <span className="text-[10px] font-mono font-bold text-emerald-600">Up to 6.79%</span>
+              <span className="text-[10px] font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2 py-0.5 rounded-full border border-[#D0E244]/80">Up to 6.79%</span>
             </div>
             <p className="text-xs text-zinc-500 font-sans mt-0.5 line-clamp-1">
               Automated compounding yields on idle stable assets.
