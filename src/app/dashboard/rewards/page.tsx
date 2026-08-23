@@ -233,8 +233,8 @@ function EarnTab({ pointsConfig }: { pointsConfig: any }) {
 function RedeemTab() {
   const redeemRewards = [
     { title: "$5 Bonus Cash", cost: 500, label: "BONUS", color: "bg-emerald-100 text-emerald-800 border border-emerald-200" },
-    { title: "$10 Bonus Cash", cost: 1000, label: "BONUS", color: "bg-brand-purple/15 text-brand-purple border border-brand-purple/30" },
-    { title: "Standard Debit Card", cost: 2500, label: "EQUIPMENT", color: "bg-amber-100 text-amber-800 border border-amber-200" },
+    { title: "$10 Bonus Cash", cost: 1000, label: "BONUS", color: "bg-[#EEF8A8]/80 text-[#556000] border border-[#D0E244]/80" },
+    { title: "Standard Debit Card", cost: 2500, label: "EQUIPMENT", color: "bg-purple-50 text-brand-purple border border-purple-200" },
     { title: "Metal Debit Card", cost: 15000, label: "EXCLUSIVE", color: "bg-zinc-900 text-white" },
   ];
 
