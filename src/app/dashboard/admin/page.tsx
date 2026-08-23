@@ -8,8 +8,6 @@ import {
   BookOpen,
   TrendingUp,
   Coins,
-  ArrowDownLeft,
-  ArrowUpRight,
   Search,
   Sparkles,
   RefreshCw,
@@ -18,14 +16,13 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  ExternalLink,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
 import { adminService, AdminUser, LedgerEntry, SavingsSummary } from "@/services/adminService";
 
 const GlassCard = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <Card className={cn("overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40", className)}>
+  <Card className={cn("overflow-hidden transition-all duration-200 border border-zinc-200 bg-white shadow-sm rounded-2xl", className)}>
     <CardContent className="p-6">
       {children}
     </CardContent>
@@ -104,21 +101,21 @@ export default function AdminDashboard() {
   });
 
   return (
-    <div className="flex animate-in fade-in flex-col gap-8 pb-20">
+    <div className="flex animate-in fade-in flex-col gap-8 pb-20 max-w-[1440px] mx-auto w-full">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-black text-white tracking-tighter flex items-center gap-3">
-            Admin Panel <span className="text-sm bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full font-bold border border-brand-purple/30 uppercase tracking-wider">Superuser</span>
+        <div className="space-y-1">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950 tracking-tight flex items-center gap-3">
+            Admin Panel <span className="text-xs bg-brand-purple/10 text-brand-purple px-3 py-1 rounded-full font-mono font-bold border border-brand-purple/20 uppercase tracking-wider">Superuser</span>
           </h1>
-          <p className="text-white/40 text-base max-w-[600px]">
+          <p className="text-zinc-600 text-sm sm:text-base max-w-[600px] font-sans">
             Audit off-chain virtual ledgers, monitor user deposits, manage administrative privileges, and review StableBank interactions.
           </p>
         </div>
         <Button
           onClick={fetchData}
           disabled={loading}
-          className="bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl h-12 border border-white/10 flex items-center gap-2"
+          className="bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full h-11 px-5 flex items-center gap-2 shadow-md shadow-brand-purple/20 cursor-pointer"
         >
           <RefreshCw size={16} className={cn(loading && "animate-spin")} />
           Reload Data
@@ -129,70 +126,66 @@ export default function AdminDashboard() {
       {savings && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <GlassCard className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Total Users</span>
-              <div className="h-10 w-10 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+              <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">Total Users</span>
+              <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple">
                 <Users size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">{users.length}</h2>
-            <p className="text-sm text-white/40 mt-1">Registered accounts</p>
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">{users.length}</h2>
+            <p className="text-xs text-zinc-500 font-sans mt-1">Registered accounts</p>
           </GlassCard>
 
           <GlassCard className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#E9F2A3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Total Deposits</span>
-              <div className="h-10 w-10 rounded-xl bg-[#E9F2A3]/10 flex items-center justify-center text-[#E9F2A3]">
+              <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">Total Deposits</span>
+              <div className="h-9 w-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
                 <Coins size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">
               ${(savings.summary.totalDeposits || savings.summary.combinedSavings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
-            <p className="text-sm text-white/40 mt-1">
+            <p className="text-xs text-zinc-500 font-mono mt-1">
               USDC: ${savings.summary.totalUSDC.toLocaleString(undefined, { maximumFractionDigits: 2 })} | USDT: ${savings.summary.totalUSDT.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </p>
           </GlassCard>
 
           <GlassCard className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Utilizable Balance</span>
-              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+              <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">Utilizable Balance</span>
+              <div className="h-9 w-9 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
                 <TrendingUp size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-emerald-600 tracking-tight">
               ${(savings.summary.utilizableBalance || ((savings.summary.totalDeposits || savings.summary.combinedSavings || 0) * 0.8)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
-            <p className="text-sm text-white/40 mt-1">80% available for yield allocation</p>
+            <p className="text-xs text-zinc-500 font-sans mt-1">80% available for yield allocation</p>
           </GlassCard>
 
           <GlassCard className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-bold text-white/40 uppercase tracking-widest">Required Reserve</span>
-              <div className="h-10 w-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
+              <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">Required Reserve</span>
+              <div className="h-9 w-9 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
                 <ShieldCheck size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-red-600 tracking-tight">
               ${(savings.summary.requiredReserve || ((savings.summary.totalDeposits || savings.summary.combinedSavings || 0) * 0.2)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h2>
-            <p className="text-sm text-white/40 mt-1">20% liquidity buffer for safety</p>
+            <p className="text-xs text-zinc-500 font-sans mt-1">20% liquidity buffer for safety</p>
           </GlassCard>
         </div>
       )}
 
       {/* Tabs list */}
-      <div className="flex border-b border-white/5 gap-6">
+      <div className="flex border-b border-zinc-200 gap-6">
         <button
           onClick={() => setActiveTab("ledger")}
           className={cn(
-            "pb-4 text-base font-bold transition-all relative outline-none",
-            activeTab === "ledger" ? "text-white" : "text-white/40 hover:text-white/60"
+            "pb-3 text-sm font-sans font-bold transition-all relative outline-none cursor-pointer",
+            activeTab === "ledger" ? "text-brand-purple font-extrabold" : "text-zinc-500 hover:text-zinc-900"
           )}
         >
           <span className="flex items-center gap-2">
@@ -206,8 +199,8 @@ export default function AdminDashboard() {
         <button
           onClick={() => setActiveTab("savings")}
           className={cn(
-            "pb-4 text-base font-bold transition-all relative outline-none",
-            activeTab === "savings" ? "text-white" : "text-white/40 hover:text-white/60"
+            "pb-3 text-sm font-sans font-bold transition-all relative outline-none cursor-pointer",
+            activeTab === "savings" ? "text-brand-purple font-extrabold" : "text-zinc-500 hover:text-zinc-900"
           )}
         >
           <span className="flex items-center gap-2">
@@ -221,8 +214,8 @@ export default function AdminDashboard() {
         <button
           onClick={() => setActiveTab("users")}
           className={cn(
-            "pb-4 text-base font-bold transition-all relative outline-none",
-            activeTab === "users" ? "text-white" : "text-white/40 hover:text-white/60"
+            "pb-3 text-sm font-sans font-bold transition-all relative outline-none cursor-pointer",
+            activeTab === "users" ? "text-brand-purple font-extrabold" : "text-zinc-500 hover:text-zinc-900"
           )}
         >
           <span className="flex items-center gap-2">
@@ -237,24 +230,24 @@ export default function AdminDashboard() {
       {/* Tab Contents */}
       {loading ? (
         <div className="space-y-6">
-          <div className="h-12 w-full bg-white/5 rounded-xl animate-pulse" />
-          <div className="h-64 w-full bg-white/5 rounded-2xl animate-pulse" />
+          <div className="h-12 w-full bg-zinc-100 rounded-xl animate-pulse" />
+          <div className="h-64 w-full bg-zinc-100 rounded-2xl animate-pulse" />
         </div>
       ) : (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="animate-in fade-in duration-300">
           
           {/* TAB 1: LEDGER */}
           {activeTab === "ledger" && (
             <div className="flex flex-col gap-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h3 className="text-xl font-bold text-white">Off-chain Virtual Ledger Log</h3>
+                <h3 className="text-xl font-display font-bold text-zinc-950">Off-chain Virtual Ledger Log</h3>
                 
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-white/40 uppercase tracking-widest shrink-0">Filter Type:</span>
+                  <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-wider shrink-0">Filter Type:</span>
                   <select
                     value={ledgerTypeFilter}
                     onChange={(e) => setLedgerTypeFilter(e.target.value)}
-                    className="bg-[#0E121C] border border-white/10 rounded-xl px-4 py-2 text-sm text-white font-medium outline-none focus:border-brand-purple transition-colors"
+                    className="bg-white border border-zinc-200 rounded-xl px-4 py-2 text-xs font-sans font-semibold text-zinc-800 outline-none focus:border-brand-purple transition-colors cursor-pointer"
                   >
                     <option value="all">All Operations</option>
                     <option value="stable_tags">Stable Tag Transfers</option>
@@ -271,21 +264,21 @@ export default function AdminDashboard() {
               <GlassCard className="p-0 overflow-x-auto">
                 <table className="w-full text-left border-collapse min-w-[900px]">
                   <thead>
-                    <tr className="border-b border-white/5 bg-white/[0.01]">
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">User / Email</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Type</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Asset</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Amount</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Counterparty (Stable Tag)</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Description</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Reference / Hash</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Date</th>
+                    <tr className="border-b border-zinc-200 bg-zinc-50/70 font-mono text-xs">
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">User / Email</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Type</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Asset</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Amount</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Counterparty (Stable Tag)</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Description</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Reference / Hash</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredLedger.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="p-8 text-center text-white/40">
+                        <td colSpan={8} className="p-8 text-center text-zinc-500 font-sans text-sm">
                           No ledger records found matching filter.
                         </td>
                       </tr>
@@ -295,56 +288,56 @@ export default function AdminDashboard() {
                         const isStableTag = entry.type === "transfer_in" || entry.type === "transfer_out";
 
                         return (
-                          <tr key={entry._id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                          <tr key={entry._id} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
                             <td className="p-4">
                               <div className="flex flex-col">
-                                <span className="font-bold text-white text-sm">
+                                <span className="font-sans font-bold text-zinc-950 text-sm">
                                   {entry.userId?.firstName ? `${entry.userId.firstName} ${entry.userId.lastName}` : "User"}
                                 </span>
-                                <span className="text-sm text-white/40">{entry.userId?.email || "unknown@stablebank"}</span>
+                                <span className="text-xs text-zinc-500 font-sans">{entry.userId?.email || "unknown@stablebank"}</span>
                               </div>
                             </td>
                             <td className="p-4">
                               <span className={cn(
-                                "text-sm font-bold uppercase px-2.5 py-1 rounded-full border",
-                                entry.type === "deposit" && "bg-green-500/10 text-green-400 border-green-500/20",
-                                entry.type === "withdrawal" && "bg-red-500/10 text-red-400 border-red-500/20",
-                                isStableTag && "bg-purple-500/10 text-purple-400 border-purple-500/20",
-                                entry.type === "reward" && "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-                                entry.type === "fee" && "bg-white/5 text-white/60 border-white/10"
+                                "text-xs font-mono font-bold uppercase px-2.5 py-1 rounded-full border",
+                                entry.type === "deposit" && "bg-emerald-50 text-emerald-700 border-emerald-200",
+                                entry.type === "withdrawal" && "bg-red-50 text-red-700 border-red-200",
+                                isStableTag && "bg-purple-50 text-brand-purple border-purple-200",
+                                entry.type === "reward" && "bg-amber-50 text-amber-700 border-amber-200",
+                                entry.type === "fee" && "bg-zinc-100 text-zinc-700 border-zinc-200"
                               )}>
                                 {entry.type.replace("_", " ")}
                               </span>
                             </td>
-                            <td className="p-4 font-mono font-bold text-sm text-white">{entry.currency}</td>
-                            <td className={cn("p-4 font-mono font-black text-sm", isPositive ? "text-green-400" : "text-red-400")}>
+                            <td className="p-4 font-mono font-bold text-xs text-zinc-900">{entry.currency}</td>
+                            <td className={cn("p-4 font-mono font-bold text-xs", isPositive ? "text-emerald-600" : "text-red-600")}>
                               {isPositive ? "+" : ""}{entry.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
                             </td>
                             <td className="p-4">
                               {entry.counterpartyId ? (
                                 <div className="flex flex-col">
-                                  <span className="text-sm font-mono text-[#E9F2A3] font-bold">
+                                  <span className="text-xs font-mono text-brand-purple font-bold">
                                     @{entry.counterpartyId.bankTag || "no-tag"}
                                   </span>
-                                  <span className="text-md text-white/30">{entry.counterpartyId.email}</span>
+                                  <span className="text-xs text-zinc-400 font-sans">{entry.counterpartyId.email}</span>
                                 </div>
                               ) : (
-                                <span className="text-sm text-white/20">—</span>
+                                <span className="text-xs text-zinc-400">—</span>
                               )}
                             </td>
-                            <td className="p-4 text-sm text-white/70 max-w-[200px] truncate" title={entry.description}>
+                            <td className="p-4 text-xs text-zinc-600 max-w-[200px] truncate font-sans" title={entry.description}>
                               {entry.description || "No description"}
                             </td>
-                            <td className="p-4 font-mono text-sm text-white/40 max-w-[120px] truncate" title={entry.referenceId}>
+                            <td className="p-4 font-mono text-xs text-zinc-400 max-w-[120px] truncate" title={entry.referenceId}>
                               {entry.referenceId ? (
-                                <span className="flex items-center gap-1 hover:text-white cursor-pointer transition-colors">
+                                <span className="flex items-center gap-1 hover:text-zinc-900 cursor-pointer transition-colors">
                                   {entry.referenceId.substring(0, 10)}...
                                 </span>
                               ) : (
                                 "—"
                               )}
                             </td>
-                            <td className="p-4 text-sm text-white/40">
+                            <td className="p-4 text-xs font-mono text-zinc-500">
                               {new Date(entry.createdAt).toLocaleString()}
                             </td>
                           </tr>
@@ -360,52 +353,52 @@ export default function AdminDashboard() {
           {/* TAB 2: DEPOSITS REVIEW */}
           {activeTab === "savings" && savings && (
             <div className="flex flex-col gap-6">
-              <h3 className="text-xl font-bold text-white">Deposits Leaderboard & Balances</h3>
+              <h3 className="text-xl font-display font-bold text-zinc-950">Deposits Leaderboard & Balances</h3>
               
               <GlassCard className="p-0 overflow-x-auto">
                 <table className="w-full text-left border-collapse min-w-[700px]">
                   <thead>
-                    <tr className="border-b border-white/5 bg-white/[0.01]">
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Rank</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">User / Email</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Stable Tag</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest text-right">USDC Virtual Balance</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest text-right">USDT Virtual Balance</th>
-                      <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest text-right">Combined Deposits</th>
+                    <tr className="border-b border-zinc-200 bg-zinc-50/70 font-mono text-xs">
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Rank</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">User / Email</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Stable Tag</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider text-right">USDC Virtual Balance</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider text-right">USDT Virtual Balance</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider text-right">Combined Deposits</th>
                     </tr>
                   </thead>
                   <tbody>
                     {savings.individualSavings.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="p-8 text-center text-white/40">
+                        <td colSpan={6} className="p-8 text-center text-zinc-500 font-sans text-sm">
                           No deposit records found.
                         </td>
                       </tr>
                     ) : (
                       savings.individualSavings.map((saver, idx) => (
-                        <tr key={saver.userId} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                          <td className="p-4 font-bold text-sm">
+                        <tr key={saver.userId} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+                          <td className="p-4 font-mono font-bold text-xs">
                             {idx === 0 ? (
-                              <span className="text-yellow-400 flex items-center gap-1 font-black">🥇 1</span>
+                              <span className="text-amber-600 flex items-center gap-1 font-bold">🥇 1</span>
                             ) : idx === 1 ? (
-                              <span className="text-slate-300 flex items-center gap-1 font-black">🥈 2</span>
+                              <span className="text-zinc-500 flex items-center gap-1 font-bold">🥈 2</span>
                             ) : idx === 2 ? (
-                              <span className="text-amber-600 flex items-center gap-1 font-black">🥉 3</span>
+                              <span className="text-amber-800 flex items-center gap-1 font-bold">🥉 3</span>
                             ) : (
-                              <span className="text-white/40 pl-6">{idx + 1}</span>
+                              <span className="text-zinc-400 pl-6">{idx + 1}</span>
                             )}
                           </td>
-                          <td className="p-4 text-sm font-bold text-white">{saver.email}</td>
-                          <td className="p-4 font-mono font-bold text-sm text-[#E9F2A3]">
+                          <td className="p-4 text-sm font-sans font-bold text-zinc-950">{saver.email}</td>
+                          <td className="p-4 font-mono font-bold text-xs text-brand-purple">
                             {saver.bankTag ? `@${saver.bankTag}` : "—"}
                           </td>
-                          <td className="p-4 font-mono text-sm text-white/70 text-right">
+                          <td className="p-4 font-mono text-xs text-zinc-600 text-right">
                             ${saver.usdcBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </td>
-                          <td className="p-4 font-mono text-sm text-white/70 text-right">
+                          <td className="p-4 font-mono text-xs text-zinc-600 text-right">
                             ${saver.usdtBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </td>
-                          <td className="p-4 font-mono text-right font-black text-sm text-[#E9F2A3]">
+                          <td className="p-4 font-mono text-right font-black text-xs text-emerald-600">
                             ${saver.totalSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </td>
                         </tr>
@@ -424,16 +417,16 @@ export default function AdminDashboard() {
               {/* Left Side: Users List */}
               <div className="flex flex-col gap-6 flex-1 w-full">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <h3 className="text-xl font-bold text-white">Platform Users</h3>
+                  <h3 className="text-xl font-display font-bold text-zinc-950">Platform Users</h3>
                   
                   <div className="relative w-full sm:max-w-xs">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" size={16} />
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" size={16} />
                     <input
                       type="text"
                       placeholder="Search email, stable tag, role..."
                       value={userQuery}
                       onChange={(e) => setUserQuery(e.target.value)}
-                      className="w-full h-10 bg-black/40 border border-white/10 rounded-xl pl-10 pr-4 text-sm text-white outline-none focus:border-brand-purple transition-colors"
+                      className="w-full h-10 bg-zinc-50 border border-zinc-200 rounded-xl pl-10 pr-4 text-xs font-sans text-zinc-900 outline-none focus:border-brand-purple focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
@@ -441,75 +434,75 @@ export default function AdminDashboard() {
                 <GlassCard className="p-0 overflow-x-auto w-full">
                   <table className="w-full text-left border-collapse min-w-[700px]">
                     <thead>
-                      <tr className="border-b border-white/5 bg-white/[0.01]">
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Email / Tag</th>
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Role</th>
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">KYC Status</th>
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Account Type</th>
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Status</th>
-                        <th className="p-4 text-sm font-bold text-white/40 uppercase tracking-widest">Joined Date</th>
+                      <tr className="border-b border-zinc-200 bg-zinc-50/70 font-mono text-xs">
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Email / Tag</th>
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Role</th>
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">KYC Status</th>
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Account Type</th>
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Status</th>
+                        <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Joined Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredUsers.length === 0 ? (
                         <tr>
-                          <td colSpan={6} className="p-8 text-center text-white/40">
+                          <td colSpan={6} className="p-8 text-center text-zinc-500 font-sans text-sm">
                             No users found matching query.
                           </td>
                         </tr>
                       ) : (
                         filteredUsers.map((user) => (
-                          <tr key={user._id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                          <tr key={user._id} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
                             <td className="p-4">
                               <div className="flex flex-col">
-                                <span className="text-sm font-bold text-white">{user.email}</span>
-                                <span className="text-sm text-[#E9F2A3] font-mono font-bold">
+                                <span className="text-sm font-sans font-bold text-zinc-950">{user.email}</span>
+                                <span className="text-xs text-brand-purple font-mono font-bold">
                                   {user.bankTag ? `@${user.bankTag}` : "no tag"}
                                 </span>
                               </div>
                             </td>
                             <td className="p-4">
                               <span className={cn(
-                                "text-sm font-bold px-2 py-0.5 rounded border uppercase",
-                                user.role === "admin" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-white/5 text-white/60 border-white/10"
+                                "text-xs font-mono font-bold px-2 py-0.5 rounded border uppercase",
+                                user.role === "admin" ? "bg-red-50 text-red-700 border-red-200" : "bg-zinc-100 text-zinc-700 border-zinc-200"
                               )}>
                                 {user.role}
                               </span>
                             </td>
                             <td className="p-4">
-                              <span className="flex items-center gap-1.5 text-sm font-semibold text-white">
+                              <span className="flex items-center gap-1.5 text-xs font-sans font-semibold text-zinc-900">
                                 {user.kycStatus === "approved" ? (
                                   <>
-                                    <CheckCircle size={14} className="text-green-500" />
+                                    <CheckCircle size={14} className="text-emerald-600" />
                                     <span>Approved</span>
                                   </>
                                 ) : user.kycStatus === "rejected" ? (
                                   <>
-                                    <XCircle size={14} className="text-red-500" />
+                                    <XCircle size={14} className="text-red-600" />
                                     <span>Rejected</span>
                                   </>
                                 ) : user.kycStatus === "pending" ? (
                                   <>
-                                    <Clock size={14} className="text-yellow-500" />
+                                    <Clock size={14} className="text-amber-600" />
                                     <span>Pending</span>
                                   </>
                                 ) : (
                                   <>
-                                    <Clock size={14} className="text-white/20" />
-                                    <span className="text-white/40">Not Started</span>
+                                    <Clock size={14} className="text-zinc-400" />
+                                    <span className="text-zinc-400">Not Started</span>
                                   </>
                                 )}
                               </span>
                             </td>
-                            <td className="p-4 text-sm text-white/70 uppercase font-semibold">{user.accountType}</td>
+                            <td className="p-4 text-xs font-mono text-zinc-600 uppercase font-semibold">{user.accountType}</td>
                             <td className="p-4">
                               <span className={cn(
                                 "h-2 w-2 rounded-full inline-block mr-2",
-                                user.status === "active" ? "bg-green-500" : "bg-red-500"
+                                user.status === "active" ? "bg-emerald-500" : "bg-red-500"
                               )} />
-                              <span className="text-sm text-white/70 capitalize">{user.status}</span>
+                              <span className="text-xs text-zinc-600 font-sans capitalize">{user.status}</span>
                             </td>
-                            <td className="p-4 text-sm text-white/40">
+                            <td className="p-4 text-xs font-mono text-zinc-500">
                               {new Date(user.createdAt).toLocaleDateString()}
                             </td>
                           </tr>
@@ -523,43 +516,43 @@ export default function AdminDashboard() {
               {/* Right Side: Promotion Action Tool */}
               <GlassCard className="w-full lg:w-96 shrink-0">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-10 w-10 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple">
+                  <div className="h-10 w-10 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple">
                     <UserPlus size={18} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">Promote Admin</h3>
-                    <p className="text-sm text-white/40">Add administrative privileges</p>
+                    <h3 className="text-lg font-display font-bold text-zinc-950">Promote Admin</h3>
+                    <p className="text-xs text-zinc-500 font-sans">Add administrative privileges</p>
                   </div>
                 </div>
 
                 <form onSubmit={handlePromote} className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-white/40 uppercase tracking-widest">User Email Address</label>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider">User Email Address</label>
                     <input
                       type="email"
                       required
                       placeholder="email@example.com"
                       value={promoteEmail}
                       onChange={(e) => setPromoteEmail(e.target.value)}
-                      className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white font-medium outline-none focus:border-brand-purple transition-colors"
+                      className="w-full h-11 bg-zinc-50 border border-zinc-200 rounded-xl px-4 text-xs font-sans text-zinc-900 outline-none focus:border-brand-purple focus:bg-white transition-colors"
                     />
                   </div>
 
                   <Button
                     type="submit"
                     disabled={submittingPromote}
-                    className="w-full h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-xl flex items-center justify-center gap-2"
+                    className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2 shadow-md shadow-brand-purple/20 cursor-pointer"
                   >
                     <ShieldCheck size={16} />
                     {submittingPromote ? "Assigning..." : "Assign Admin Privilege"}
                   </Button>
                 </form>
 
-                <div className="mt-8 pt-6 border-t border-white/5 space-y-4">
-                  <div className="flex items-center gap-2 text-sm font-bold text-[#E9F2A3]">
+                <div className="mt-8 pt-6 border-t border-zinc-100 space-y-3">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-purple uppercase tracking-wider">
                     <Sparkles size={14} /> Security Advisory
                   </div>
-                  <p className="text-sm text-white/40 leading-relaxed">
+                  <p className="text-xs text-zinc-600 font-sans leading-relaxed">
                     Administrators gain write access to fraud alerts, watchlist modifications, and are allowed to authorize/reject platform operations. Only promote trusted team members.
                   </p>
                 </div>
