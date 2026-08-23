@@ -26,7 +26,7 @@ import { cn } from "@/utils/cn";
 const GlassCard = ({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) => (
   <Card 
     className={cn(
-      "overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md hover:border-white/10 hover:bg-[#0E121C]/70 shadow-2xl shadow-black/40",
+      "overflow-hidden transition-all duration-200 border border-zinc-200 bg-white hover:border-zinc-300 shadow-sm rounded-2xl",
       className
     )}
     onClick={onClick}
@@ -35,31 +35,6 @@ const GlassCard = ({ children, className, onClick }: { children: React.ReactNode
       {children}
     </CardContent>
   </Card>
-);
-
-const SectionHeader = ({
-  title,
-  subtitle,
-  icon: Icon,
-}: {
-  title: string;
-  subtitle: string;
-  icon?: any;
-}) => (
-  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#252670] to-[#12123a] p-8 border border-white/10 shadow-lg">
-    <div className="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-brand-purple/20 blur-3xl" />
-    <div className="relative flex items-start gap-4">
-      {Icon && (
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 border border-white/10 shadow-inner">
-          <Icon className="text-[#E9F2A3]" size={24} />
-        </div>
-      )}
-      <div>
-        <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
-        <p className="text-white/60 mt-1 max-w-[400px] leading-relaxed">{subtitle}</p>
-      </div>
-    </div>
-  </div>
 );
 
 const TierProgress = ({ tierInfo, summary }: { tierInfo: TierInfo | null, summary: PointsSummary | null }) => {
@@ -71,17 +46,17 @@ const TierProgress = ({ tierInfo, summary }: { tierInfo: TierInfo | null, summar
     <div className="space-y-4">
       <div className="flex justify-between items-end">
         <div>
-          <p className="text-md font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Tier Progress</p>
-          <p className="text-white font-bold">{progress.toFixed(0)}% to {tierInfo?.nextTier || 'Max Tier'}</p>
+          <p className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-[0.15em] mb-1">Tier Progress</p>
+          <p className="text-zinc-900 font-display font-bold text-sm">{progress.toFixed(0)}% to {tierInfo?.nextTier || 'Max Tier'}</p>
         </div>
         <div className="text-right">
-          <p className="text-md font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Points Needed</p>
-          <p className="text-[#319F43] font-black">{tierInfo?.pointsToNextTier || 'Unlocked'}</p>
+          <p className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-[0.15em] mb-1">Points Needed</p>
+          <p className="text-emerald-600 font-mono font-bold text-sm">{tierInfo?.pointsToNextTier || 'Unlocked'}</p>
         </div>
       </div>
-      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+      <div className="h-2 w-full bg-zinc-100 rounded-full overflow-hidden">
         <div 
-          className="h-full bg-gradient-to-r from-brand-purple to-[#319F43] rounded-full transition-all duration-1000 ease-out" 
+          className="h-full bg-gradient-to-r from-brand-purple to-emerald-500 rounded-full transition-all duration-1000 ease-out" 
           style={{ width: `${progress}%` }} 
         />
       </div>
@@ -106,24 +81,24 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
       value: pointsSummary?.totalEarned || 0,
       description: "Total accumulation",
       icon: Trophy,
-      color: "text-brand-yellow",
-      bg: "bg-brand-yellow/10"
+      color: "text-amber-700",
+      bg: "bg-amber-50"
     },
     {
       label: "Redeemed Pts",
       value: pointsSummary?.totalRedeemed || 0,
       description: "Successfully spent",
       icon: Gift,
-      color: "text-[#319F43]",
-      bg: "bg-[#319F43]/10"
+      color: "text-emerald-600",
+      bg: "bg-emerald-50"
     },
     {
       label: "Member Tier",
       value: (tierInfo?.currentTier || "Bronze").charAt(0).toUpperCase() + (tierInfo?.currentTier || "Bronze").slice(1),
       description: "Current Rank",
       icon: Crown,
-      color: "text-white",
-      bg: "bg-white/10"
+      color: "text-zinc-900",
+      bg: "bg-zinc-100"
     },
   ];
 
@@ -133,13 +108,13 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
          {stats.map((stat) => (
            <GlassCard key={stat.label} className="p-6">
              <div className="flex items-center gap-4">
-                <div className={cn("h-12 w-12 rounded-2xl flex items-center justify-center border border-white/5", stat.bg)}>
+                <div className={cn("h-12 w-12 rounded-2xl flex items-center justify-center border border-zinc-200 shrink-0", stat.bg)}>
                   <stat.icon className={stat.color} size={24} />
                 </div>
                 <div>
-                  <p className="text-md font-bold text-white/30 uppercase tracking-widest">{stat.label}</p>
-                  <p className="text-2xl font-black text-white">{typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}</p>
-                  <p className="text-sm text-white/40 mt-0.5">{stat.description}</p>
+                  <p className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">{stat.label}</p>
+                  <p className="text-2xl font-mono font-black text-zinc-950">{typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}</p>
+                  <p className="text-xs text-zinc-500 font-sans mt-0.5">{stat.description}</p>
                 </div>
              </div>
            </GlassCard>
@@ -147,53 +122,52 @@ function OverviewTab({ pointsSummary, tierInfo, onDailyClaim, isClaiming }: { po
       </div>
 
       <GlassCard className="p-8 relative overflow-hidden group">
-        <div className="absolute top-0 right-0 h-40 w-40 bg-brand-purple/10 blur-3xl -mr-10 -mt-10 group-hover:bg-brand-purple/20 transition-all duration-700" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
            <div className="flex items-center gap-6">
-              <div className="h-16 w-16 bg-[#E9F2A3]/10 border border-[#E9F2A3]/20 rounded-3xl flex items-center justify-center relative">
-                 <CalendarCheck className="text-[#E9F2A3]" size={32} />
-                 <div className="absolute -top-1 -right-1 h-5 w-5 bg-[#319F43] rounded-full flex items-center justify-center border-2 border-[#0E121C]">
+              <div className="h-16 w-16 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-center relative shrink-0">
+                 <CalendarCheck className="text-amber-700" size={32} />
+                 <div className="absolute -top-1 -right-1 h-5 w-5 bg-emerald-600 rounded-full flex items-center justify-center border-2 border-white">
                     <Zap size={10} className="text-white fill-white" />
                  </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white tracking-tight">Daily Login Streak</h3>
-                <p className="text-white/40 text-sm mt-1">Claim your daily 100 points bonus now.</p>
+                <h3 className="text-xl font-display font-bold text-zinc-950 tracking-tight">Daily Login Streak</h3>
+                <p className="text-zinc-600 font-sans text-sm mt-1">Claim your daily 100 points bonus now.</p>
               </div>
            </div>
            <Button 
             onClick={onDailyClaim}
             disabled={isClaiming}
-            className="h-16 px-10 rounded-2xl bg-white text-black font-black text-lg hover:bg-white/90 disabled:opacity-50 transition-all shadow-xl shadow-white/5 active:scale-95"
+            className="h-12 px-8 rounded-full bg-brand-purple text-white font-sans font-bold text-sm hover:bg-brand-purple/90 disabled:opacity-50 transition-all shadow-md shadow-brand-purple/20 active:scale-95 cursor-pointer"
            >
-             {isClaiming ? <div className="h-5 w-5 animate-spin rounded-full border-2 border-black border-t-transparent" /> : "Claim Bonus"}
+             {isClaiming ? <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" /> : "Claim Bonus"}
            </Button>
         </div>
       </GlassCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-         <GlassCard className="p-6 border-brand-purple/20 group hover:border-brand-purple/40">
+         <GlassCard className="p-6 border-zinc-200 group hover:border-brand-purple/40">
            <div className="flex justify-between items-start mb-6">
-              <h3 className="text-lg font-bold text-white">Unlock Rewards</h3>
+              <h3 className="text-lg font-display font-bold text-zinc-950">Unlock Rewards</h3>
               <Gift className="text-brand-purple" size={20} />
            </div>
-           <p className="text-sm text-white/40 leading-relaxed max-w-[200px] mb-6">
+           <p className="text-sm text-zinc-600 font-sans leading-relaxed max-w-[280px] mb-6">
               Spend your accumulated points on exclusive digital assets, fee discounts, or gift cards.
            </p>
-           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-sm uppercase font-bold tracking-widest">
+           <Button variant="outline" className="w-full border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 rounded-xl h-11 text-xs font-mono font-bold uppercase tracking-wider cursor-pointer">
               View Rewards Shop
            </Button>
          </GlassCard>
 
-         <GlassCard className="p-6 border-[#E9F2A3]/20 group hover:border-[#E9F2A3]/40">
+         <GlassCard className="p-6 border-zinc-200 group hover:border-amber-400/40">
            <div className="flex justify-between items-start mb-6">
-              <h3 className="text-lg font-bold text-white">Tier Benefits</h3>
-              <Flame className="text-brand-yellow" size={20} />
+              <h3 className="text-lg font-display font-bold text-zinc-950">Tier Benefits</h3>
+              <Flame className="text-amber-600" size={20} />
            </div>
-           <p className="text-sm text-white/40 leading-relaxed max-w-[200px] mb-6">
+           <p className="text-sm text-zinc-600 font-sans leading-relaxed max-w-[280px] mb-6">
               Your current {(tierInfo?.multiplier || 1).toFixed(1)}x multiplier applies to all trading activities.
            </p>
-           <Button variant="outline" className="w-full border-white/5 bg-white/5 text-white hover:bg-white/10 rounded-xl h-11 text-sm uppercase font-bold tracking-widest">
+           <Button variant="outline" className="w-full border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 rounded-xl h-11 text-xs font-mono font-bold uppercase tracking-wider cursor-pointer">
               Examine Multipliers
            </Button>
          </GlassCard>
@@ -233,21 +207,21 @@ function EarnTab({ pointsConfig }: { pointsConfig: any }) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col gap-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {earnActivities.map((reward, i) => (
+        {earnActivities.map((reward) => (
           <GlassCard
             key={`${reward.group}-${reward.title}`}
-            className="p-6 group cursor-pointer hover:border-brand-purple/30 transition-all"
+            className="p-6 group cursor-pointer hover:border-brand-purple/40 transition-all"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="h-10 w-10 bg-brand-purple/10 border border-brand-purple/20 rounded-xl flex items-center justify-center">
                  <reward.icon className="text-brand-purple" size={20} />
               </div>
-              <p className="text-md font-bold text-white/20 uppercase tracking-widest">{reward.group}</p>
+              <p className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">{reward.group}</p>
             </div>
-            <h4 className="text-white font-bold group-hover:text-brand-purple transition-colors mb-2">{reward.title}</h4>
+            <h4 className="text-zinc-950 font-sans font-bold group-hover:text-brand-purple transition-colors mb-2">{reward.title}</h4>
             <div className="flex items-center gap-1">
-               <span className="text-2xl font-black text-[#E9F2A3]">+{reward.points}</span>
-               <span className="text-md font-bold text-[#E9F2A3]/60 uppercase mb-1">Pts</span>
+               <span className="text-2xl font-mono font-black text-brand-purple">+{reward.points}</span>
+               <span className="text-xs font-mono font-bold text-zinc-400 uppercase mb-1">Pts</span>
             </div>
           </GlassCard>
         ))}
@@ -258,10 +232,10 @@ function EarnTab({ pointsConfig }: { pointsConfig: any }) {
 
 function RedeemTab() {
   const redeemRewards = [
-    { title: "$5 Bonus Cash", cost: 500, label: "BONUS", color: "bg-blue-500" },
-    { title: "$10 Bonus Cash", cost: 1000, label: "BONUS", color: "bg-brand-purple" },
-    { title: "Standard Debit Card", cost: 2500, label: "EQUIPMENT", color: "bg-brand-yellow" },
-    { title: "Metal Debit Card", cost: 15000, label: "EXCLUSIVE", color: "bg-white" },
+    { title: "$5 Bonus Cash", cost: 500, label: "BONUS", color: "bg-blue-100 text-blue-800 border border-blue-200" },
+    { title: "$10 Bonus Cash", cost: 1000, label: "BONUS", color: "bg-brand-purple/15 text-brand-purple border border-brand-purple/30" },
+    { title: "Standard Debit Card", cost: 2500, label: "EQUIPMENT", color: "bg-amber-100 text-amber-800 border border-amber-200" },
+    { title: "Metal Debit Card", cost: 15000, label: "EXCLUSIVE", color: "bg-zinc-900 text-white" },
   ];
 
   return (
@@ -269,19 +243,19 @@ function RedeemTab() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {redeemRewards.map((reward) => (
           <GlassCard key={reward.title} className="p-6 relative overflow-hidden flex flex-col justify-between h-[180px]">
-             <div className={cn("absolute top-3 right-3 text-[8px] font-black px-2 py-0.5 rounded text-black uppercase", reward.color)}>
+             <div className={cn("absolute top-3 right-3 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase", reward.color)}>
                 {reward.label}
              </div>
              
              <div>
-                <h3 className="text-lg font-bold text-white leading-tight mb-1">{reward.title}</h3>
+                <h3 className="text-base font-display font-bold text-zinc-950 leading-tight mb-1">{reward.title}</h3>
                 <div className="flex items-center gap-1">
-                  <span className="text-xl font-black text-white">{reward.cost.toLocaleString()}</span>
-                  <span className="text-md font-bold text-white/40 uppercase mb-0.5">Pts</span>
+                  <span className="text-xl font-mono font-black text-zinc-950">{reward.cost.toLocaleString()}</span>
+                  <span className="text-xs font-mono font-bold text-zinc-400 uppercase mb-0.5">Pts</span>
                 </div>
              </div>
 
-             <Button className="w-full bg-white/5 border border-white/10 text-white hover:bg-white/10 font-bold text-md uppercase tracking-widest h-10 rounded-lg">
+             <Button className="w-full bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-900 font-sans font-bold text-xs uppercase tracking-wider h-10 rounded-xl cursor-pointer">
                 Redeem Now
              </Button>
           </GlassCard>
@@ -291,8 +265,7 @@ function RedeemTab() {
   );
 }
 
-function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInfo | null, pointsConfig: any, pointsSummary: PointsSummary | null }) {
-  const currentPoints = pointsSummary?.balance || 0;
+function TiersTab({ tierInfo, pointsConfig }: { tierInfo: TierInfo | null, pointsConfig: any }) {
   const tiersData = pointsConfig?.tiers || {};
   const tiers = Object.entries(tiersData).map(([name, data]: [string, any]) => ({
     name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -302,22 +275,13 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
     perks: [`${(data.multiplier * 100 - 100).toFixed(0)}% Bonus Points`, "Exclusive Features", "Priority Access"],
   }));
 
-  const getTierGradient = (name: string) => {
-    if (name.includes("Bronze")) return "from-[#CD7F32]/40 to-black/40 border-[#CD7F32]/20";
-    if (name.includes("Silver")) return "from-[#C0C0C0]/40 to-black/40 border-[#C0C0C0]/20";
-    if (name.includes("Gold")) return "from-[#FFD700]/30 to-black/40 border-[#FFD700]/20";
-    if (name.includes("Platinum")) return "from-[#E5E4E2]/20 to-black/40 border-[#E5E4E2]/20";
-    if (name.includes("Diamond")) return "from-blue-500/20 to-black/40 border-blue-500/20";
-    return "from-white/10 to-black/40 border-white/5";
-  };
-
   const getTierIconColor = (name: string) => {
-    if (name.includes("Bronze")) return "text-[#CD7F32]";
-    if (name.includes("Silver")) return "text-[#C0C0C0]";
-    if (name.includes("Gold")) return "text-[#FFD700]";
-    if (name.includes("Platinum")) return "text-[#E5E4E2]";
-    if (name.includes("Diamond")) return "text-blue-400";
-    return "text-white";
+    if (name.includes("Bronze")) return "text-amber-800";
+    if (name.includes("Silver")) return "text-zinc-500";
+    if (name.includes("Gold")) return "text-amber-600";
+    if (name.includes("Platinum")) return "text-indigo-600";
+    if (name.includes("Diamond")) return "text-blue-600";
+    return "text-zinc-900";
   };
 
   return (
@@ -330,24 +294,23 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
             <GlassCard
               key={tier.name}
               className={cn(
-                "p-8 bg-gradient-to-br transition-all duration-500",
-                getTierGradient(tier.name),
-                isCurrent && "ring-2 ring-brand-purple/40 border-brand-purple/40"
+                "p-8 bg-white border border-zinc-200 shadow-sm transition-all duration-300",
+                isCurrent && "ring-2 ring-brand-purple border-brand-purple"
               )}
             >
               <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
-                 <div className="h-24 w-24 rounded-full bg-black/40 flex items-center justify-center border border-white/5 shadow-2xl shrink-0">
-                    <Crown size={48} className={getTierIconColor(tier.name)} />
+                 <div className="h-20 w-20 rounded-2xl bg-zinc-50 flex items-center justify-center border border-zinc-200 shadow-xs shrink-0">
+                    <Crown size={40} className={getTierIconColor(tier.name)} />
                  </div>
                  
                  <div className="flex-1 space-y-4">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                        <div>
-                          <h3 className="text-3xl font-black text-white tracking-tighter">{tier.name} Tier</h3>
-                          <p className="text-sm font-bold text-white/40 uppercase tracking-widest">{tier.pointsRequired.toLocaleString()} Points Needed</p>
+                          <h3 className="text-2xl font-display font-black text-zinc-950 tracking-tight">{tier.name} Tier</h3>
+                          <p className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">{tier.pointsRequired.toLocaleString()} Points Needed</p>
                        </div>
                        {isCurrent && (
-                         <div className="px-4 py-1.5 rounded-full bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-sm font-black uppercase tracking-widest">
+                         <div className="px-3.5 py-1 rounded-full bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-xs font-mono font-bold uppercase tracking-wider">
                             Current Tier
                          </div>
                        )}
@@ -355,16 +318,16 @@ function TiersTab({ tierInfo, pointsConfig, pointsSummary }: { tierInfo: TierInf
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                        {tier.perks.map(perk => (
-                         <div key={perk} className="flex items-center gap-2 text-white/60 text-sm font-medium">
-                            <Shield size={14} className="text-[#319F43] shrink-0" />
+                         <div key={perk} className="flex items-center gap-2 text-zinc-600 font-sans text-xs font-medium">
+                            <Shield size={14} className="text-emerald-600 shrink-0" />
                             {perk}
                          </div>
                        ))}
                     </div>
 
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between text-sm font-bold uppercase tracking-tighter">
-                       <span className="text-white/40">Earnings Multiplier</span>
-                       <span className="text-white text-lg font-black">{tier.multiplier.toFixed(1)}x</span>
+                    <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider">
+                       <span className="text-zinc-500">Earnings Multiplier</span>
+                       <span className="text-zinc-950 font-mono text-base font-black">{tier.multiplier.toFixed(1)}x</span>
                     </div>
                  </div>
               </div>
@@ -437,40 +400,34 @@ export default function URewards() {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6">
         <div className="relative">
-          <div className="h-20 w-20 animate-spin rounded-full border-2 border-brand-purple border-t-transparent shadow-xl shadow-brand-purple/20" />
-          <Zap className="absolute inset-0 m-auto text-brand-purple animate-pulse" size={24} />
+          <div className="h-16 w-16 animate-spin rounded-full border-3 border-brand-purple border-t-transparent" />
+          <Zap className="absolute inset-0 m-auto text-brand-purple animate-pulse" size={20} />
         </div>
-        <p className="text-white/40 font-bold uppercase tracking-widest text-md animate-pulse">Synchronizing Rewards...</p>
+        <p className="text-zinc-500 font-mono font-bold uppercase tracking-widest text-xs animate-pulse">Synchronizing Rewards...</p>
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-[calc(100vh-100px)] flex flex-col gap-12 pb-20 max-w-[1000px]">
-      {/* Background Decorative Glow */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute top-[30%] left-[15%] h-[400px] w-[400px] rounded-full bg-brand-purple/10 blur-[120px]" />
-        <div className="absolute bottom-[20%] right-[10%] h-[350px] w-[350px] rounded-full bg-brand-yellow/5 blur-[100px]" />
-      </div>
-
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-8">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-black text-white tracking-tighter sm:text-5xl">
+    <div className="relative min-h-[calc(100vh-100px)] flex flex-col gap-8 pb-20 max-w-[1440px] mx-auto w-full">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-1">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950 tracking-tight">
             Loyalty <span className="text-brand-purple">Rewards</span>
           </h1>
-          <p className="text-brand-white/40 text-base max-w-[500px] font-medium leading-relaxed">
+          <p className="text-zinc-600 text-sm sm:text-base max-w-[500px] font-sans leading-relaxed">
             Maximize your earnings with tiered multipliers and exclusive payouts. Every action inside StableBank builds your financial profile.
           </p>
         </div>
 
-        <GlassCard className="!bg-white/[0.03] border-white/10 px-8 py-6 min-w-[320px]">
+        <GlassCard className="border-zinc-200 px-6 py-5 min-w-[300px]">
            <TierProgress tierInfo={tierInfo} summary={pointsSummary} />
         </GlassCard>
       </div>
 
-      <div className="relative z-10 flex flex-col gap-12">
+      <div className="relative z-10 flex flex-col gap-8">
         {/* Modern Tab Switcher */}
-        <div className="flex w-full items-center p-1.5 rounded-3xl bg-[#0E121C]/80 border border-white/5 backdrop-blur-xl sm:w-fit lg:min-w-[480px]">
+        <div className="flex w-full items-center p-1 rounded-2xl bg-zinc-100 border border-zinc-200 sm:w-fit">
           {tabs.map((tab) => {
             const isSelected = tab.key === activeTab;
             return (
@@ -478,15 +435,12 @@ export default function URewards() {
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={cn(
-                  "relative flex flex-1 items-center justify-center gap-2.5 py-4 px-6 rounded-2xl text-md font-black uppercase tracking-widest transition-all duration-500 overflow-hidden",
-                  isSelected ? "text-white" : "text-white/30 hover:text-white/60"
+                  "relative flex flex-1 items-center justify-center gap-2 py-2.5 px-5 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer",
+                  isSelected ? "bg-brand-purple text-white shadow-xs" : "text-zinc-600 hover:text-zinc-950"
                 )}
               >
-                {isSelected && (
-                  <div className="absolute inset-0 bg-brand-purple shadow-lg shadow-brand-purple/40 animate-in fade-in zoom-in-95 duration-300" />
-                )}
-                <tab.icon size={14} className="relative z-10" />
-                <span className="relative z-10">{tab.label}</span>
+                <tab.icon size={14} />
+                <span>{tab.label}</span>
               </button>
             );
           })}
@@ -503,7 +457,7 @@ export default function URewards() {
           )}
           {activeTab === "earn" && <EarnTab pointsConfig={pointsConfig} />}
           {activeTab === "redeem" && <RedeemTab />}
-          {activeTab === "tiers" && <TiersTab tierInfo={tierInfo} pointsConfig={pointsConfig} pointsSummary={pointsSummary} />}
+          {activeTab === "tiers" && <TiersTab tierInfo={tierInfo} pointsConfig={pointsConfig} />}
         </div>
       </div>
     </div>
