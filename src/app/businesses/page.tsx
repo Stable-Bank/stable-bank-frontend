@@ -70,7 +70,7 @@ export default function BusinessPage() {
                 <div className="max-w-largest mx-auto relative z-10 w-full">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="max-w-3xl">
-                            <SectionCard title="For Smart Companies" />
+                            <SectionCard title="For Smart Companies" category="ENTERPRISE" />
                             <h1 className="mt-8 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-zinc-950 leading-[1.05] tracking-tight">
                                 The Financial <br />
                                 <span className="text-brand-purple">
@@ -111,7 +111,7 @@ export default function BusinessPage() {
             <section className="relative py-24 px-4 sm:px-6 lg:px-10 border-t border-zinc-200 bg-zinc-50/50">
                 <div className="max-w-largest mx-auto">
                     <div className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Unified Hub" />
+                        <SectionCard title="Unified Hub" category="OPERATING SYSTEM" />
                         <h2 className="mt-6 text-4xl sm:text-5xl font-display font-extrabold text-zinc-950 mb-4 leading-tight">
                             One place for your entire balance sheet
                         </h2>
@@ -254,7 +254,7 @@ export default function BusinessPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-10 bg-zinc-50/50">
                 <div className="max-w-largest mx-auto">
                     <div className="mb-16 text-center flex flex-col items-center">
-                        <SectionCard title="Product" />
+                        <SectionCard title="Product" category="SUITE" />
                         <h2 className="mt-6 text-4xl sm:text-5xl font-display font-extrabold text-zinc-950 mb-4">Integrated Offerings</h2>
                         <p className="text-lg sm:text-xl text-zinc-600 max-w-2xl mx-auto font-sans">
                             One unified account built for the rigorous compliance standards of modern business.
