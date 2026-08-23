@@ -274,11 +274,11 @@ export default function SavingsPage() {
         <GlassCard className="relative overflow-hidden group">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest">Yield Interest Accrued</span>
-            <div className="h-9 w-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
+            <div className="h-9 w-9 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000]">
               <TrendingUp size={18} />
             </div>
           </div>
-          <h3 className="text-3xl font-mono font-black text-amber-700">${totalYield.toLocaleString(undefined, { minimumFractionDigits: 2 })}</h3>
+          <h3 className="text-3xl font-mono font-black text-[#556000]">${totalYield.toLocaleString(undefined, { minimumFractionDigits: 2 })}</h3>
           <p className="text-xs text-zinc-500 font-sans mt-2">Yield distributed to Flex account</p>
         </GlassCard>
 
