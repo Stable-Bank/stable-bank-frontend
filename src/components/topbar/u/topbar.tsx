@@ -20,9 +20,9 @@ export default function UTopbar() {
       : "SB";
 
   return (
-    <div className="flex items-center justify-between gap-3 sm:gap-4 w-full">
-      {/* Far Left: Profile icon linking to Settings */}
-      <div className="flex items-center">
+    <div className="flex items-center justify-between lg:justify-end gap-3 sm:gap-4 w-full">
+      {/* Far Left: Profile icon linking to Settings (Mobile Only) */}
+      <div className="flex lg:hidden items-center">
         <Link
           href={appRoutes.dashboard.settings}
           className="flex items-center gap-2.5 p-1 sm:p-1.5 pr-3 sm:pr-3.5 rounded-full bg-white border border-zinc-200 hover:border-brand-purple/40 hover:bg-zinc-50 shadow-xs transition-all duration-200 group cursor-pointer"
