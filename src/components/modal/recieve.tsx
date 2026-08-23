@@ -105,17 +105,17 @@ export default function RecieveModal() {
   const currentAccount = accountDetails[activeCurrency];
 
   return (
-    <DialogContent className="w-full !max-w-[440px] rounded-[28px] border border-white/10 bg-[#0A0D14]/95 backdrop-blur-2xl p-5 sm:p-6 shadow-2xl text-white animate-in zoom-in-95 duration-200 gap-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <DialogContent className="w-full !max-w-[440px] rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 shadow-2xl text-zinc-950 animate-in zoom-in-95 duration-200 gap-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
       <DialogHeader className="space-y-1">
         <DialogTitle className="flex items-center gap-3">
-          <div className="bg-brand-purple/20 border border-brand-purple/30 text-brand-purple flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl shadow-lg shadow-brand-purple/10">
+          <div className="bg-brand-purple/10 border border-brand-purple/20 text-brand-purple flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl shadow-sm">
             <ArrowDownLeft size={20} />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-1.5">
-              Add Funds <Sparkles size={14} className="text-[#E9F2A3]" />
+            <h2 className="text-lg sm:text-xl font-display font-extrabold text-zinc-950 tracking-tight flex items-center gap-1.5">
+              Add Funds <Sparkles size={14} className="text-brand-purple" />
             </h2>
-            <p className="text-xs text-white/50 font-medium">
+            <p className="text-xs text-zinc-500 font-sans font-medium">
               Choose your preferred deposit channel
             </p>
           </div>
@@ -123,20 +123,20 @@ export default function RecieveModal() {
       </DialogHeader>
 
       {/* Multi-Step Channel Selectors */}
-      <div className="grid grid-cols-3 bg-white/[0.03] border border-white/5 p-1 rounded-2xl gap-1">
+      <div className="grid grid-cols-3 bg-zinc-100 border border-zinc-200 p-1 rounded-2xl gap-1">
         <button
           onClick={() => setActiveChannel("wire")}
           className={cn(
             "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer gap-1",
             activeChannel === "wire"
-              ? "bg-brand-purple text-white shadow-md"
-              : "text-white/50 hover:text-white hover:bg-white/5"
+              ? "bg-brand-purple text-white shadow-xs"
+              : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50"
           )}
         >
           <div className="flex items-center gap-1">
             <MultiFlagIcon className="w-5 h-4" />
           </div>
-          <span className="text-[11px] truncate">Bank Wire</span>
+          <span className="text-[11px] font-sans truncate">Bank Wire</span>
         </button>
 
         <button
@@ -144,12 +144,12 @@ export default function RecieveModal() {
           className={cn(
             "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer gap-1",
             activeChannel === "crypto"
-              ? "bg-brand-purple text-white shadow-md"
-              : "text-white/50 hover:text-white hover:bg-white/5"
+              ? "bg-brand-purple text-white shadow-xs"
+              : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50"
           )}
         >
           <Wallet size={14} />
-          <span className="text-[11px] truncate">On-Chain</span>
+          <span className="text-[11px] font-sans truncate">On-Chain</span>
         </button>
 
         <button
@@ -157,12 +157,12 @@ export default function RecieveModal() {
           className={cn(
             "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer gap-1",
             activeChannel === "tag"
-              ? "bg-brand-purple text-white shadow-md"
-              : "text-white/50 hover:text-white hover:bg-white/5"
+              ? "bg-brand-purple text-white shadow-xs"
+              : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50"
           )}
         >
           <Send size={14} />
-          <span className="text-[11px] truncate">StableTag</span>
+          <span className="text-[11px] font-sans truncate">StableTag</span>
         </button>
       </div>
 
@@ -186,27 +186,27 @@ export default function RecieveModal() {
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-2 px-2 rounded-xl border text-xs font-bold transition-all cursor-pointer",
                     isSelected
-                      ? "bg-brand-yellow/15 border-brand-yellow/40 text-brand-yellow shadow-sm"
-                      : "bg-white/[0.02] border-white/5 text-white/50 hover:bg-white/5 hover:text-white"
+                      ? "bg-brand-purple/10 border-brand-purple text-brand-purple shadow-2xs font-extrabold"
+                      : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950"
                   )}
                 >
                   <IconComp className="w-4 h-4" />
-                  <span>{curr.code}</span>
+                  <span className="font-mono">{curr.code}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Account Details Panel */}
-          <div className="rounded-2xl border border-white/5 bg-[#070A10] p-4 space-y-3.5 shadow-inner">
-            <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 space-y-3.5 shadow-2xs">
+            <div className="flex justify-between items-center border-b border-zinc-200 pb-2.5">
               <div className="flex items-center gap-2">
                 {activeCurrency === "USD" && <USFlagIcon className="w-5 h-5" />}
                 {activeCurrency === "GBP" && <UKFlagIcon className="w-5 h-5" />}
                 {activeCurrency === "EUR" && <EUFlagIcon className="w-5 h-5" />}
-                <span className="text-xs font-bold text-white">{currentAccount.bankName}</span>
+                <span className="text-xs font-bold text-zinc-950 font-sans">{currentAccount.bankName}</span>
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                 {currentAccount.rail}
               </span>
             </div>
@@ -214,17 +214,17 @@ export default function RecieveModal() {
             <div className="space-y-2.5">
               {currentAccount.details.map((field) => (
                 <div key={field.label} className="flex justify-between items-center gap-3 text-xs">
-                  <span className="text-white/40 font-semibold">{field.label}</span>
+                  <span className="text-zinc-500 font-sans font-medium">{field.label}</span>
                   <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-white font-mono font-bold truncate max-w-[190px]" title={field.value}>
+                    <span className="text-zinc-950 font-mono font-bold truncate max-w-[190px]" title={field.value}>
                       {field.value}
                     </span>
                     <button
                       onClick={() => handleCopy(field.value, `${activeCurrency} ${field.label}`)}
-                      className="p-1 rounded-md hover:bg-white/10 text-white/40 hover:text-white transition-colors cursor-pointer shrink-0"
+                      className="p-1 rounded-md hover:bg-zinc-200 text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer shrink-0"
                     >
                       {copiedField === `${activeCurrency} ${field.label}` ? (
-                        <Check size={12} className="text-emerald-400" />
+                        <Check size={12} className="text-emerald-600" />
                       ) : (
                         <Copy size={12} />
                       )}
@@ -236,9 +236,9 @@ export default function RecieveModal() {
           </div>
 
           {/* Value Prop Alert */}
-          <div className="rounded-2xl bg-brand-yellow/10 border border-brand-yellow/20 p-3 flex items-start gap-2.5">
-            <Info size={16} className="text-brand-yellow shrink-0 mt-0.5" />
-            <p className="text-[11px] text-white/70 leading-relaxed">
+          <div className="rounded-2xl bg-amber-50 border border-amber-200 p-3 flex items-start gap-2.5">
+            <Info size={16} className="text-amber-700 shrink-0 mt-0.5" />
+            <p className="text-[11px] text-zinc-700 font-sans leading-relaxed">
               Deposits from your personal or business bank account are automatically credited to your stablecoin wallet at 1:1 with zero conversion markup.
             </p>
           </div>
@@ -258,20 +258,19 @@ export default function RecieveModal() {
                 className={cn(
                   "flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer",
                   selectedToken === token.symbol
-                    ? "bg-brand-purple/20 border-brand-purple/40 text-white"
-                    : "bg-white/[0.02] border-white/5 text-white/50 hover:bg-white/5"
+                    ? "bg-brand-purple/10 border-brand-purple text-brand-purple shadow-2xs font-extrabold"
+                    : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100"
                 )}
               >
                 <TokenIcon symbol={token.symbol} variant="branded" size={16} className="rounded-full" />
-                <span>{token.label}</span>
+                <span className="font-mono">{token.label}</span>
               </button>
             ))}
           </div>
 
           {/* QR Code Container */}
-          <div className="relative p-3.5 rounded-2xl bg-[#070A10] border border-white/5 shadow-inner group">
-            <div className="absolute inset-0 bg-brand-purple/5 rounded-2xl filter blur-xl group-hover:bg-brand-purple/10 transition-colors" />
-            <div className="relative bg-white p-2 rounded-xl">
+          <div className="relative p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 shadow-2xs group">
+            <div className="relative bg-white p-2 rounded-xl border border-zinc-200 shadow-2xs">
               {addressValue ? (
                 <QRCodeSVG
                   value={addressValue}
@@ -281,37 +280,37 @@ export default function RecieveModal() {
                   level="M"
                 />
               ) : (
-                <div className="h-32 w-32 flex items-center justify-center text-black/40 text-xs font-mono">No address</div>
+                <div className="h-32 w-32 flex items-center justify-center text-zinc-400 text-xs font-mono">No address</div>
               )}
             </div>
           </div>
 
           {/* Copyable Address */}
           <div className="w-full space-y-1.5">
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest block text-center">
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest block text-center">
               Your Multi-Chain Wallet Address
             </span>
             <button
               onClick={() => handleCopy(addressValue, "Wallet Address")}
-              className="flex w-full items-center justify-between gap-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 px-3.5 py-2.5 text-xs font-semibold transition-all group cursor-pointer"
+              className="flex w-full items-center justify-between gap-3 rounded-2xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 px-3.5 py-2.5 text-xs font-semibold transition-all group cursor-pointer"
             >
-              <span className="text-[#E9F2A3] font-mono tracking-wide truncate max-w-[280px]">
+              <span className="text-brand-purple font-mono tracking-wide truncate max-w-[280px] font-bold">
                 {addressValue || "unidentified"}
               </span>
               {copiedField === "Wallet Address" ? (
-                <Check size={14} className="text-emerald-400 shrink-0" />
+                <Check size={14} className="text-emerald-600 shrink-0" />
               ) : (
-                <Copy size={14} className="text-white/40 group-hover:text-white transition-colors shrink-0" />
+                <Copy size={14} className="text-zinc-400 group-hover:text-zinc-900 transition-colors shrink-0" />
               )}
             </button>
           </div>
 
           {/* Networks Row */}
-          <div className="w-full space-y-2 border-t border-white/5 pt-3">
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest block text-center">
+          <div className="w-full space-y-2 border-t border-zinc-200 pt-3">
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest block text-center">
               Supported Networks
             </span>
-            <div className="flex items-center justify-center gap-2.5 flex-wrap">
+            <div className="flex items-center justify-center gap-2 flex-wrap">
               {networks.map((net) => (
                 <button
                   key={net.id}
@@ -320,21 +319,21 @@ export default function RecieveModal() {
                   className={cn(
                     "flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-[11px] font-bold transition-all cursor-pointer",
                     selectedNetwork === net.id
-                      ? "bg-brand-purple/20 border-brand-purple/40 text-white"
-                      : "bg-white/[0.02] border-white/5 text-white/40 hover:text-white"
+                      ? "bg-brand-purple/10 border-brand-purple text-brand-purple font-extrabold"
+                      : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-950"
                   )}
                 >
                   <NetworkIcon id={net.id} variant="branded" size={14} className="rounded-full" />
-                  <span>{net.name}</span>
+                  <span className="font-sans">{net.name}</span>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Safety Notice */}
-          <div className="w-full flex gap-2 rounded-2xl bg-brand-yellow/10 border border-brand-yellow/20 p-2.5 text-left">
-            <ShieldAlert size={16} className="text-brand-yellow shrink-0 mt-0.5" />
-            <p className="text-[10px] text-white/70 leading-snug">
+          <div className="w-full flex gap-2 rounded-2xl bg-amber-50 border border-amber-200 p-2.5 text-left">
+            <ShieldAlert size={16} className="text-amber-700 shrink-0 mt-0.5" />
+            <p className="text-[10px] text-zinc-700 font-sans leading-snug">
               Send only EVM-compatible stablecoins (USDC, USDT, EURC, DAI) on supported networks.
             </p>
           </div>
@@ -344,8 +343,8 @@ export default function RecieveModal() {
       {/* Channel 3: StableTag Internal Transfer */}
       {activeChannel === "tag" && (
         <div className="flex flex-col items-center gap-4 animate-in fade-in duration-300">
-          <div className="relative p-3.5 rounded-2xl bg-[#070A10] border border-white/5 shadow-inner group">
-            <div className="relative bg-white p-2 rounded-xl">
+          <div className="relative p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 shadow-2xs group">
+            <div className="relative bg-white p-2 rounded-xl border border-zinc-200 shadow-2xs">
               {tagValue ? (
                 <QRCodeSVG
                   value={tagValue}
@@ -355,25 +354,25 @@ export default function RecieveModal() {
                   level="M"
                 />
               ) : (
-                <div className="h-32 w-32 flex items-center justify-center text-black/40 text-xs font-mono">No tag found</div>
+                <div className="h-32 w-32 flex items-center justify-center text-zinc-400 text-xs font-mono">No tag found</div>
               )}
             </div>
           </div>
 
           <div className="w-full flex flex-col items-center gap-1.5">
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Your StableTag</span>
+            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Your StableTag</span>
             <button
               onClick={() => handleCopy(tagValue, "StableTag")}
-              className="flex w-full items-center justify-between gap-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 px-4 py-3 text-sm font-semibold transition-all group cursor-pointer"
+              className="flex w-full items-center justify-between gap-4 rounded-2xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 px-4 py-3 text-sm font-semibold transition-all group cursor-pointer"
             >
-              <span className="text-[#E9F2A3] font-mono font-bold tracking-wider">${tagValue || "not set"}</span>
+              <span className="text-brand-purple font-mono font-bold tracking-wider">${tagValue || "not set"}</span>
               {copiedField === "StableTag" ? (
-                <Check size={16} className="text-emerald-400 shrink-0" />
+                <Check size={16} className="text-emerald-600 shrink-0" />
               ) : (
-                <Copy size={16} className="text-white/40 group-hover:text-white transition-colors shrink-0" />
+                <Copy size={16} className="text-zinc-400 group-hover:text-zinc-900 transition-colors shrink-0" />
               )}
             </button>
-            <p className="text-xs text-white/40 text-center px-2 mt-1 leading-relaxed">
+            <p className="text-xs text-zinc-500 font-sans text-center px-2 mt-1 leading-relaxed">
               Share your tag with other StableBank users to receive instant, zero-gas internal transfers.
             </p>
           </div>
