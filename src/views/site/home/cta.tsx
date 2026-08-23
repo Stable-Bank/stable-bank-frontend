@@ -2,24 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { appRoutes } from "@/lib/navigation";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+import SectionCard from "@/components/cards/section";
 
 export default function CTA() {
     return (
         <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
             <div className="max-w-largest mx-auto relative">
-                <div className="relative rounded-3xl sm:rounded-[36px] overflow-hidden border border-zinc-200 bg-gradient-to-br from-indigo-50/70 via-white to-purple-50/60 shadow-lg">
+                <div className="relative rounded-3xl sm:rounded-[36px] overflow-hidden border border-zinc-200 bg-gradient-to-br from-purple-50/50 via-white to-zinc-50 shadow-lg">
                     {/* Content */}
                     <div className="relative px-6 sm:px-10 md:px-16 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24">
                         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                             {/* Left side - Text content */}
                             <div className="text-center lg:text-left">
-                                <div className="inline-flex items-center gap-2 rounded-full bg-brand-purple/10 px-4 py-1.5 mb-6 sm:mb-8 font-mono text-xs font-semibold text-brand-purple uppercase tracking-wider shadow-sm">
-                                    <Sparkles className="h-3.5 w-3.5 text-brand-purple" />
-                                    <span>Start Your Journey</span>
+                                <div className="mb-6 sm:mb-8">
+                                    <SectionCard title="Start Your Journey" category="GET STARTED" />
                                 </div>
 
                                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 mb-4 sm:mb-6 leading-tight">
