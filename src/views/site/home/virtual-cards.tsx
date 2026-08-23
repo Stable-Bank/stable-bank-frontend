@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { cn } from "@/utils/cn";
-import { CreditCard, Eye, EyeOff, ShieldCheck, Zap, Lock, Copy, Check } from "lucide-react";
+import { CreditCard, ShieldCheck, Zap, Lock } from "lucide-react";
 import SectionCard from "@/components/cards/section";
 
 export default function VirtualCards() {
-  const [showDetails, setShowDetails] = useState(true);
-  const [spendLimit, setSpendLimit] = useState(1500);
-  const [copied, setCopied] = useState(false);
+  const [showDetails] = useState(true);
 
   // 3D Tilt Effect States
   const [rotateX, setRotateX] = useState(0);
@@ -35,20 +32,8 @@ export default function VirtualCards() {
     setRotateY(0);
   };
 
-  const handleCopyDetails = () => {
-    navigator.clipboard.writeText("4102984523718492");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
-      {/* Background glow effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 right-0 w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 left-0 w-[500px] h-[500px] bg-brand-yellow/5 rounded-full blur-3xl" />
-      </div>
-
       <div className="max-w-largest mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
@@ -56,30 +41,30 @@ export default function VirtualCards() {
           <div className="lg:col-span-6 flex flex-col items-start text-left">
             <SectionCard title="VIRTUAL CARDS" />
             
-            <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-brand-white leading-tight">
+            <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 leading-tight">
               Spend USDT Like Cash,<br />
-              <span className="text-brand-yellow">Instantly.</span>
+              <span className="text-brand-purple">Instantly.</span>
             </h2>
             
-            <p className="mt-6 text-base sm:text-lg text-white/70 max-w-xl">
+            <p className="mt-6 text-base sm:text-lg text-zinc-600 max-w-xl font-sans">
               Create virtual debit cards in seconds to spend your USDC, USDT, and EURC anywhere Visa is accepted. Enjoy full autonomy and premium security.
             </p>
 
-            <ul className="mt-8 space-y-4 text-sm sm:text-base text-white/80">
+            <ul className="mt-8 space-y-4 text-sm sm:text-base text-zinc-700 font-sans">
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-6 w-6 rounded-full bg-brand-purple/10 flex items-center justify-center text-brand-purple shrink-0">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <span><strong>Instant Issuance</strong> — Generate new cards for shopping or recurring payments immediately.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-brand-yellow/20 flex items-center justify-center text-brand-yellow shrink-0">
+                <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center text-brand-purple shrink-0">
                   <Zap className="h-4 w-4" />
                 </div>
                 <span><strong>Stable Settlement</strong> — No pre-funding needed; funds settle directly from your stablecoin wallet.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0">
+                <div className="h-6 w-6 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-700 shrink-0">
                   <Lock className="h-4 w-4" />
                 </div>
                 <span><strong>Single-Use Burners</strong> — Cards automatically self-destruct after one transaction for maximum safety.</span>
@@ -95,7 +80,7 @@ export default function VirtualCards() {
               <div 
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="relative aspect-[1.586/1] w-full rounded-3xl p-6 sm:p-8 overflow-hidden border border-white/15 bg-gradient-to-br from-[#1c1830] via-[#0b0a14] to-[#121124] shadow-2xl flex flex-col justify-between cursor-pointer select-none"
+                className="relative aspect-[1.586/1] w-full rounded-3xl p-6 sm:p-8 overflow-hidden border border-zinc-800 bg-gradient-to-br from-[#1E1B2E] via-[#0F0E17] to-[#161520] shadow-2xl flex flex-col justify-between cursor-pointer select-none"
                 style={{
                   transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${rotateX !== 0 || rotateY !== 0 ? 1.04 : 1}, ${rotateX !== 0 || rotateY !== 0 ? 1.04 : 1}, 1)`,
                   transition: rotateX === 0 && rotateY === 0 ? "all 0.5s ease" : "transform 0.1s ease, border-color 0.5s ease, box-shadow 0.5s ease",
@@ -103,31 +88,31 @@ export default function VirtualCards() {
                 }}
               >
                 {/* Background decorative gradient mesh inside the card */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-brand-purple)_0%,transparent_60%)] opacity-30 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#4649d6_0%,transparent_60%)] opacity-40 pointer-events-none" />
                 
                 {/* Card Top Row */}
                 <div className="relative flex justify-between items-start z-10" style={{ transform: "translateZ(30px)" }}>
                   <div>
-                    <span className="text-[10px] sm:text-xs font-bold tracking-widest text-white/50 uppercase">StableBank</span>
-                    <h4 className="text-sm sm:text-base font-extrabold text-brand-white mt-0.5">Black Metal</h4>
+                    <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/50 uppercase">StableBank</span>
+                    <h4 className="text-sm sm:text-base font-display font-extrabold text-white mt-0.5">Black Metal</h4>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase shrink-0 tracking-wider bg-emerald-500/20 text-emerald-400">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase shrink-0 tracking-wider bg-emerald-500/20 text-emerald-400">
                       Active
                     </span>
-                    <CreditCard className="h-6 w-6 text-brand-yellow" />
+                    <CreditCard className="h-6 w-6 text-brand-purple" />
                   </div>
                 </div>
 
                 {/* Chip Representation */}
                 <div 
-                  className="relative z-10 mt-3 sm:mt-4 h-8 w-11 rounded bg-gradient-to-br from-brand-yellow/40 via-brand-yellow/10 to-brand-yellow/30 border border-brand-yellow/30 opacity-80" 
+                  className="relative z-10 mt-3 sm:mt-4 h-8 w-11 rounded bg-gradient-to-br from-amber-400/50 via-amber-200/20 to-amber-400/40 border border-amber-400/40 opacity-90" 
                   style={{ transform: "translateZ(25px)" }}
                 />
 
                 {/* Card Number */}
                 <div 
-                  className="relative z-10 text-lg sm:text-2xl font-mono tracking-widest text-brand-white my-4 sm:my-6 select-all"
+                  className="relative z-10 text-lg sm:text-2xl font-mono tracking-widest text-white my-4 sm:my-6 select-all font-semibold"
                   style={{ transform: "translateZ(40px)" }}
                 >
                   {showDetails ? "4102 9845 2371 8492" : "•••• •••• •••• 8492"}
@@ -136,17 +121,17 @@ export default function VirtualCards() {
                 {/* Card Bottom Row */}
                 <div className="relative flex justify-between items-end z-10" style={{ transform: "translateZ(30px)" }}>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] font-bold text-white/40 tracking-wider block uppercase">Card Holder</span>
-                    <span className="text-xs sm:text-sm font-semibold text-brand-white">StableBank User</span>
+                    <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white/40 tracking-wider block uppercase">Card Holder</span>
+                    <span className="text-xs sm:text-sm font-semibold text-white">StableBank User</span>
                   </div>
                   <div className="flex gap-4 sm:gap-6">
                     <div>
-                      <span className="text-[9px] sm:text-[10px] font-bold text-white/40 tracking-wider block uppercase">Expires</span>
-                      <span className="text-xs sm:text-sm font-mono font-semibold text-brand-white">12 / 30</span>
+                      <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white/40 tracking-wider block uppercase">Expires</span>
+                      <span className="text-xs sm:text-sm font-mono font-semibold text-white">12 / 30</span>
                     </div>
                     <div>
-                      <span className="text-[9px] sm:text-[10px] font-bold text-white/40 tracking-wider block uppercase">CVV</span>
-                      <span className="text-xs sm:text-sm font-mono font-semibold text-brand-white">
+                      <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white/40 tracking-wider block uppercase">CVV</span>
+                      <span className="text-xs sm:text-sm font-mono font-semibold text-white">
                         {showDetails ? "382" : "•••"}
                       </span>
                     </div>
