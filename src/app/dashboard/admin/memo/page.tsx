@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bell, Send, ShieldAlert, Sparkles } from "lucide-react";
+import { Send, ShieldAlert, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
 import { adminService } from "@/services/adminService";
 
 const GlassCard = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <Card className={cn("overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40", className)}>
+  <Card className={cn("overflow-hidden transition-all duration-200 border border-zinc-200 bg-white shadow-sm rounded-2xl", className)}>
     <CardContent className="p-6">
       {children}
     </CardContent>
@@ -47,13 +47,13 @@ export default function AdminMemoPage() {
   };
 
   return (
-    <div className="flex animate-in fade-in flex-col gap-8 pb-20 p-2 sm:p-4 lg:p-6 max-w-4xl mx-auto">
+    <div className="flex animate-in fade-in flex-col gap-8 pb-20 max-w-[1440px] mx-auto w-full">
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-4xl font-black text-white tracking-tighter flex items-center gap-3">
-          Broadcast Memo <span className="text-sm bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full font-bold border border-brand-purple/30 uppercase tracking-wider">System Alert</span>
+      <div className="space-y-1">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950 tracking-tight flex items-center gap-3">
+          Broadcast Memo <span className="text-xs bg-brand-purple/10 text-brand-purple px-3 py-1 rounded-full font-mono font-bold border border-brand-purple/20 uppercase tracking-wider">System Alert</span>
         </h1>
-        <p className="text-white/40 text-base">
+        <p className="text-zinc-600 text-sm sm:text-base max-w-[600px] font-sans">
           Send a push notification and virtual inbox alert to all registered users of the StableBank platform in real-time.
         </p>
       </div>
@@ -62,25 +62,25 @@ export default function AdminMemoPage() {
         {/* Memo Form */}
         <div className="md:col-span-2">
           <GlassCard>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-md font-bold text-white/40 uppercase tracking-widest block">Alert Title</label>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-1.5">
+                <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Alert Title</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Scheduled System Upgrade or New High-Yield Vaults"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white font-medium outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all"
+                  className="w-full h-11 bg-zinc-50 border border-zinc-200 rounded-xl px-4 text-xs sm:text-sm text-zinc-900 font-sans outline-none focus:border-brand-purple focus:bg-white transition-all"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="text-md font-bold text-white/40 uppercase tracking-widest block">Notification Category</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Notification Category</label>
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="w-full h-12 bg-black/40 border border-white/10 rounded-xl px-4 text-sm text-white font-medium outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all"
+                  className="w-full h-11 bg-zinc-50 border border-zinc-200 rounded-xl px-4 text-xs sm:text-sm text-zinc-900 font-sans outline-none focus:border-brand-purple focus:bg-white transition-all cursor-pointer"
                 >
                   <option value="system">System Notification</option>
                   <option value="security">Security Alert</option>
@@ -88,22 +88,22 @@ export default function AdminMemoPage() {
                 </select>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-md font-bold text-white/40 uppercase tracking-widest block">Detailed Message Body</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Detailed Message Body</label>
                 <textarea
                   required
                   rows={6}
                   placeholder="Draft your announcement message here..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm text-white font-medium outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all resize-none"
+                  className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-xs sm:text-sm text-zinc-900 font-sans outline-none focus:border-brand-purple focus:bg-white transition-all resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-brand-purple/10"
+                className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2.5 transition-all shadow-md shadow-brand-purple/20 cursor-pointer"
               >
                 <Send size={16} />
                 {submitting ? "Broadcasting..." : "Broadcast Memo Now"}
@@ -114,27 +114,26 @@ export default function AdminMemoPage() {
 
         {/* Info Column */}
         <div className="space-y-6">
-          <GlassCard className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-100" />
-            <div className="relative space-y-4">
-              <div className="flex items-center gap-2 text-sm font-bold text-[#E9F2A3]">
+          <GlassCard className="relative overflow-hidden group border-indigo-100 bg-indigo-50/40">
+            <div className="relative space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-purple uppercase tracking-wider">
                 <Sparkles size={14} /> Real-time Delivery
               </div>
-              <p className="text-md text-white/50 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
                 Memos are stored in each user&apos;s notification list and pushed instantly to all online users using Server-Sent Events (SSE).
               </p>
-              <p className="text-md text-white/50 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
                 Make sure formatting, tone, and information are verified before clicking broadcast.
               </p>
             </div>
           </GlassCard>
 
-          <GlassCard className="border-red-500/10">
-            <div className="relative space-y-4">
-              <div className="flex items-center gap-2 text-sm font-bold text-rose-400">
+          <GlassCard className="border-red-200 bg-red-50/40">
+            <div className="relative space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-red-600 uppercase tracking-wider">
                 <ShieldAlert size={14} /> Attention
               </div>
-              <p className="text-md text-white/50 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
                 This action is non-reversible. Standard system notifications cannot be withdrawn from user inboxes once sent.
               </p>
             </div>
