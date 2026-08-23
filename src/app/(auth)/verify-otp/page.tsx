@@ -66,7 +66,7 @@ export default function VerifyOtp() {
       await apiClient.post("/auth/send-otp", { email });
       setTimer(60);
       toast.success("New OTP sent to your email.");
-    } catch (error) {
+    } catch {
       toast.error("Failed to resend OTP.");
     }
   }
@@ -74,15 +74,15 @@ export default function VerifyOtp() {
   return (
     <form onSubmit={handleVerify} className="flex w-full flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-sm sm:text-sm font-medium backdrop-blur-md">
+        <div className="flex w-fit items-center gap-2 rounded-full border border-zinc-300 bg-zinc-100/80 px-3.5 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider shadow-sm">
           <ShieldCheck size={14} className="text-brand-purple" />
           <span>Security Verification</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-zinc-950">
           Check your <span className="text-brand-purple">inbox.</span>
         </h1>
-        <p className="text-white/50 text-sm sm:text-base leading-relaxed">
-          We&apos;ve sent a 6-digit security code to <span className="text-white font-semibold underline decoration-brand-purple/30 underline-offset-4">{email}</span>. Please enter it below.
+        <p className="text-zinc-600 text-sm sm:text-base font-sans leading-relaxed">
+          We&apos;ve sent a 6-digit security code to <span className="text-zinc-900 font-semibold underline decoration-brand-purple/30 underline-offset-4">{email}</span>. Please enter it below.
         </p>
       </div>
 
@@ -99,23 +99,23 @@ export default function VerifyOtp() {
           <Button
             type="submit"
             disabled={loading || otp.length !== 6}
-            className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-2xl text-base font-bold transition-all active:scale-[0.98] shadow-lg shadow-brand-purple/20"
+            className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-full text-base font-bold transition-all active:scale-[0.98] shadow-md shadow-brand-purple/20"
           >
             {loading ? "Verifying..." : "Verify Identity"}
           </Button>
 
-          <div className="flex items-center justify-center gap-2 text-sm">
-            <span className="text-white/40">Didn&apos;t receive it?</span>
+          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-sans">
+            <span className="text-zinc-500">Didn&apos;t receive it?</span>
             <button
               type="button"
               onClick={handleResend}
               disabled={timer > 0}
               className={cn(
-                "font-bold transition-colors",
-                timer > 0 ? "text-white/20 cursor-not-allowed" : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
+                "font-bold transition-colors cursor-pointer",
+                timer > 0 ? "text-zinc-400 cursor-not-allowed" : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
               )}
             >
-              Resend Code {timer > 0 && <span className="font-mono text-white/40 text-sm ml-1">({timer}s)</span>}
+              Resend Code {timer > 0 && <span className="font-mono text-zinc-400 text-xs ml-1">({timer}s)</span>}
             </button>
           </div>
         </div>
