@@ -121,20 +121,20 @@ export default function ResetPassword() {
   return (
     <div className="flex w-full flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="flex w-fit items-center gap-2.5 rounded-full bg-white/5 border border-white/10 py-1.5 px-4 text-sm sm:text-sm font-medium backdrop-blur-md">
+        <div className="flex w-fit items-center gap-2 rounded-full border border-zinc-300 bg-zinc-100/80 px-3.5 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider shadow-sm">
           <LockKeyhole size={14} className="text-brand-purple" />
           <span>{step === 1 ? "Identity Verification" : "Security Setup"}</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-zinc-950">
           {step === 1 ? (
             <>Check your <span className="text-brand-purple">inbox.</span></>
           ) : (
             <>Secure your <span className="text-brand-purple">account.</span></>
           )}
         </h1>
-        <p className="text-white/50 text-sm sm:text-base leading-relaxed">
+        <p className="text-zinc-600 text-sm sm:text-base font-sans">
           {step === 1 ? (
-            <>We&apos;ve sent a 6-digit security code to <span className="text-white font-semibold underline decoration-brand-purple/30 underline-offset-4">{email}</span></>
+            <>We&apos;ve sent a 6-digit security code to <span className="text-zinc-900 font-semibold underline decoration-brand-purple/30 underline-offset-4">{email}</span></>
           ) : (
             "Create a new strong password to protect your funds."
           )}
@@ -158,9 +158,9 @@ export default function ResetPassword() {
                 onClick={handleResendCode}
                 disabled={resendTimer > 0}
                 className={cn(
-                  "text-sm font-medium transition-all",
+                  "text-xs sm:text-sm font-medium transition-all cursor-pointer font-sans",
                   resendTimer > 0 
-                  ? "text-white/20 cursor-not-allowed" 
+                  ? "text-zinc-400 cursor-not-allowed" 
                   : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
                 )}
               >
@@ -173,14 +173,14 @@ export default function ResetPassword() {
             <Button
               type="submit"
               disabled={resetData.otp.length !== 6 || resetData.loading}
-              className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-2xl text-base font-bold transition-all active:scale-[0.98] shadow-lg shadow-brand-purple/20"
+              className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-full text-base font-bold transition-all active:scale-[0.98] shadow-md shadow-brand-purple/20"
             >
               {resetData.loading ? "Verifying code..." : "Continue to Password"}
             </Button>
             <button 
               type="button"
               onClick={() => router.back()}
-              className="text-sm text-white/40 hover:text-white transition-colors text-center"
+              className="text-xs sm:text-sm text-zinc-500 hover:text-zinc-900 transition-colors text-center cursor-pointer font-sans"
             >
               Wrong email? Go back
             </button>
@@ -189,19 +189,19 @@ export default function ResetPassword() {
       ) : (
         <form onSubmit={handleReset} className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <div className="group relative h-12 sm:h-14 rounded-2xl bg-white/5 border border-white/10 focus-within:border-brand-purple/50 focus-within:bg-white/10 transition-all">
+            <div className="group relative h-12 sm:h-14 rounded-xl bg-zinc-50 border border-zinc-200 focus-within:border-brand-purple focus-within:bg-white transition-all shadow-xs">
               <input
                 type={showPassword ? "text" : "password"}
                 autoFocus
                 value={resetData.password}
                 onChange={(e) => updateResetData("password", e.target.value)}
                 placeholder="New Password"
-                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit pl-5 pr-12 text-sm sm:text-base text-white ring-0 outline-0"
+                className="hide-autofill h-full w-full rounded-xl border-0 bg-transparent pl-5 pr-12 text-sm sm:text-base text-zinc-900 placeholder:text-zinc-400 ring-0 outline-0 font-sans"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute top-1/2 right-4 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer p-1 focus:outline-none"
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1 focus:outline-none"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
@@ -211,18 +211,18 @@ export default function ResetPassword() {
                 )}
               </button>
             </div>
-            <div className="group relative h-12 sm:h-14 rounded-2xl bg-white/5 border border-white/10 focus-within:border-brand-purple/50 focus-within:bg-white/10 transition-all">
+            <div className="group relative h-12 sm:h-14 rounded-xl bg-zinc-50 border border-zinc-200 focus-within:border-brand-purple focus-within:bg-white transition-all shadow-xs">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 value={resetData.confirmPassword}
                 onChange={(e) => updateResetData("confirmPassword", e.target.value)}
                 placeholder="Confirm New Password"
-                className="hide-autofill h-full w-full rounded-2xl border-0 bg-inherit pl-5 pr-12 text-sm sm:text-base text-white ring-0 outline-0"
+                className="hide-autofill h-full w-full rounded-xl border-0 bg-transparent pl-5 pr-12 text-sm sm:text-base text-zinc-900 placeholder:text-zinc-400 ring-0 outline-0 font-sans"
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
-                className="absolute top-1/2 right-4 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer p-1 focus:outline-none"
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer p-1 focus:outline-none"
                 aria-label={showConfirmPassword ? "Hide password" : "Show password"}
               >
                 {showConfirmPassword ? (
@@ -238,14 +238,14 @@ export default function ResetPassword() {
             <Button
               type="submit"
               disabled={resetData.loading}
-              className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-2xl text-base font-bold transition-all active:scale-[0.98] shadow-lg shadow-brand-purple/20"
+              className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-full text-base font-bold transition-all active:scale-[0.98] shadow-md shadow-brand-purple/20"
             >
               {resetData.loading ? "Updating Security..." : "Confirm & Reset Password"}
             </Button>
             <button 
               type="button"
               onClick={() => setStep(1)}
-              className="text-sm text-white/40 hover:text-white transition-colors text-center"
+              className="text-xs sm:text-sm text-zinc-500 hover:text-zinc-900 transition-colors text-center cursor-pointer font-sans"
             >
               Back to code entry
             </button>
