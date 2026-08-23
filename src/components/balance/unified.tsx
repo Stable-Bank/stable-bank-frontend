@@ -28,32 +28,31 @@ export default function UnifiedBalance() {
   };
 
   return (
-    <div className="w-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] bg-[#0E121C] px-4 sm:px-5 lg:px-6 py-5 sm:py-6 lg:py-8">
-      <h2 className="flex items-center gap-1.5 sm:gap-2 text-base sm:text-lg lg:text-xl font-medium">
+    <div className="w-full rounded-2xl bg-white border border-zinc-200 px-5 sm:px-6 py-6 sm:py-8 shadow-sm">
+      <h2 className="flex items-center gap-1.5 sm:gap-2 text-base sm:text-lg lg:text-xl font-display font-bold text-zinc-950">
         <span>Unified Balance</span>
         <RefreshCcw
-          size={12}
-          className={`sm:w-[14px] sm:h-[14px] cursor-pointer hover:opacity-80 transition-opacity ${isLoading ? "animate-spin" : ""}`}
-          color="#4649D6"
+          size={14}
+          className={`cursor-pointer text-brand-purple hover:opacity-80 transition-opacity ${isLoading ? "animate-spin" : ""}`}
           onClick={handleRefresh}
         />
       </h2>
 
-      <div className="mt-2 sm:mt-2.5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-3">
+      <div className="mt-2 sm:mt-2.5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
         {isLoading && !balance ? (
-          <div className="h-12 w-32 animate-pulse rounded bg-white/10" />
+          <div className="h-12 w-32 animate-pulse rounded-xl bg-zinc-100" />
         ) : error ? (
           <div className="flex flex-col gap-1">
-            <p className="text-xl sm:text-2xl font-bold text-red-400">Unable to load balance</p>
+            <p className="text-xl sm:text-2xl font-display font-bold text-red-600">Unable to load balance</p>
             <button 
               onClick={handleRefresh}
-              className="w-fit text-sm font-medium text-brand-purple hover:text-brand-purple/80 underline underline-offset-4 transition-colors"
+              className="w-fit text-xs sm:text-sm font-sans font-bold text-brand-purple hover:underline transition-colors cursor-pointer"
             >
               Try again
             </button>
           </div>
         ) : (
-          <p className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+          <p className="text-3xl sm:text-4xl lg:text-5xl font-mono font-black tracking-tight text-zinc-950">
             ${balance?.totalUSD?.toFixed(2) || "0.00"}
           </p>
         )}
@@ -61,14 +60,14 @@ export default function UnifiedBalance() {
         <div className="flex items-center gap-2 sm:gap-3">
           <div
             onClick={handleSend}
-            className="bg-brand-purple flex aspect-square h-8 w-8 sm:h-9 sm:w-9 shrink-0 cursor-pointer items-center justify-center rounded-full hover:opacity-90 transition-opacity"
+            className="bg-brand-purple text-white flex aspect-square h-8 w-8 sm:h-9 sm:w-9 shrink-0 cursor-pointer items-center justify-center rounded-full hover:bg-brand-purple/90 transition-opacity shadow-xs"
           >
             <ArrowUpRight size={16} className="sm:w-5 sm:h-5" />
           </div>
 
           <Dialog>
             <DialogTrigger className="cursor-pointer">
-              <div className="bg-brand-purple flex aspect-square h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full hover:opacity-90 transition-opacity">
+              <div className="bg-brand-purple text-white flex aspect-square h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full hover:bg-brand-purple/90 transition-opacity shadow-xs">
                 <ArrowDownLeft size={16} className="sm:w-5 sm:h-5" />
               </div>
             </DialogTrigger>
@@ -78,9 +77,9 @@ export default function UnifiedBalance() {
       </div>
 
       {isLoading && !balance ? (
-        <div className="mt-2 h-6 w-48 animate-pulse rounded bg-white/10" />
+        <div className="mt-2 h-6 w-48 animate-pulse rounded bg-zinc-100" />
       ) : (
-        <p className="text-brand-yellow mt-2 text-sm sm:text-base font-medium">
+        <p className="text-brand-purple mt-2 text-xs sm:text-sm font-mono font-bold">
           DeFi Balance: ${balance?.defiBalanceUSD?.toFixed(2) || "0.00"}
         </p>
       )}
