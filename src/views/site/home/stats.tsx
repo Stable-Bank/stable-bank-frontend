@@ -101,16 +101,13 @@ function StatCard({ stat, delay }: { stat: typeof stats[0]; delay: number }) {
         <div
             ref={cardRef}
             className={cn(
-                "group relative text-center px-4 sm:px-6 py-8 sm:py-10 transition-all duration-700 transform",
+                "group relative text-center px-4 sm:px-6 py-8 sm:py-10 transition-all duration-700 transform rounded-2xl bg-white border border-zinc-200 shadow-sm hover:shadow-md",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
         >
-            {/* Glow effect on hover */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-brand-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
             {/* Value */}
             <div className="relative mb-2">
-                <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-white">
+                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-mono font-black text-brand-purple tracking-tight">
                     {stat.prefix}
                     {formatNumber(count)}
                     {stat.suffix}
@@ -118,10 +115,10 @@ function StatCard({ stat, delay }: { stat: typeof stats[0]; delay: number }) {
             </div>
 
             {/* Label */}
-            <h3 className="relative text-lg sm:text-xl font-semibold text-brand-yellow mb-1">
+            <h3 className="relative text-base sm:text-lg font-bold text-zinc-900 mb-1 font-sans">
                 {stat.label}
             </h3>
-            <p className="relative text-sm sm:text-base text-white/50">
+            <p className="relative text-xs sm:text-sm text-zinc-500 font-sans">
                 {stat.description}
             </p>
         </div>
@@ -131,26 +128,11 @@ function StatCard({ stat, delay }: { stat: typeof stats[0]; delay: number }) {
 export default function Stats() {
     return (
         <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
-            {/* Background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-purple/5 rounded-full blur-3xl" />
-            </div>
-
             <div className="max-w-largest mx-auto relative">
                 {/* Stats grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                     {stats.map((stat, index) => (
                         <StatCard key={stat.label} stat={stat} delay={index * 150} />
-                    ))}
-                </div>
-
-                {/* Divider lines */}
-                <div className="hidden lg:flex absolute inset-0 items-center justify-around pointer-events-none">
-                    {[1, 2, 3].map((i) => (
-                        <div
-                            key={i}
-                            className="w-px h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent"
-                        />
                     ))}
                 </div>
             </div>
