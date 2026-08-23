@@ -51,22 +51,22 @@ export default function RegenerateCardModal({
   if (!card) return null;
 
   return (
-    <DialogContent className="w-full !max-w-[400px] rounded-[20px] border-none bg-[#0E121C] px-[18px] py-5">
+    <DialogContent className="w-full !max-w-[400px] rounded-3xl border border-zinc-200 bg-white px-6 py-6 shadow-2xl text-zinc-950">
       <DialogHeader>
-        <DialogTitle className="flex flex-col gap-3 font-medium">
-          <p className="text-base">Regenerate Card Details</p>
-          <p className="text-sm text-white/60">
+        <DialogTitle className="flex flex-col gap-2">
+          <p className="font-display font-bold text-lg text-zinc-950">Regenerate Card Details</p>
+          <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
             This will generate new card numbers and security codes. Update any
             saved payment methods.
           </p>
         </DialogTitle>
       </DialogHeader>
 
-      <DialogFooter className="grid grid-cols-2 gap-7">
+      <DialogFooter className="grid grid-cols-2 gap-4 mt-4">
         <DialogClose asChild>
           <Button
             disabled={isProcessing}
-            className="rounded-[20px] bg-[#1F2937] py-3 text-base font-medium"
+            className="rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 h-11 text-sm font-sans font-bold cursor-pointer"
           >
             Cancel
           </Button>
@@ -75,7 +75,7 @@ export default function RegenerateCardModal({
         <Button
           onClick={handleRegenerate}
           disabled={isProcessing}
-          className="bg-brand-purple rounded-[20px] py-3 text-base font-medium disabled:opacity-50"
+          className="bg-brand-purple hover:bg-brand-purple/90 text-white rounded-full h-11 text-sm font-sans font-bold shadow-md shadow-brand-purple/20 disabled:opacity-50 cursor-pointer"
         >
           {isProcessing ? "Processing..." : "Regenerate"}
         </Button>
