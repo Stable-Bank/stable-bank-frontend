@@ -46,7 +46,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
 
       {/* Logo */}
       <Image
-        src={"/images/brand/full-logo-white.svg"}
+        src={"/images/brand/full-logo-purple.svg"}
         alt="stable bank logo"
         width={300}
         height={35}
