@@ -129,8 +129,8 @@ export default function UVCard() {
   if (cards.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <p className="text-xl text-white/60">No virtual cards yet</p>
-        <Button className="bg-brand-purple text-white">
+        <p className="text-xl text-zinc-500 font-sans">No virtual cards yet</p>
+        <Button className="bg-brand-purple hover:bg-brand-purple/90 text-white rounded-full font-bold shadow-md shadow-brand-purple/20">
           <Plus size={20} className="mr-2" />
           Create Virtual Card
         </Button>
@@ -139,10 +139,10 @@ export default function UVCard() {
   }
 
   return (
-    <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
+    <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8 max-w-[1440px] mx-auto w-full">
       <div>
-        <h1 className="text-xl sm:text-2xl font-semibold text-[#E9F2A3]">Virtual Card</h1>
-        <p className="text-brand-white text-sm sm:text-sm font-normal">
+        <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-zinc-950">Virtual Card</h1>
+        <p className="text-zinc-600 text-sm sm:text-base font-sans mt-0.5">
           Manage your crypto-funded virtual card
         </p>
       </div>
@@ -154,32 +154,32 @@ export default function UVCard() {
             alt="Stablebank Card"
             width={500}
             height={220}
-            className="h-auto w-full object-contain"
+            className="h-auto w-full object-contain drop-shadow-md"
           />
           {selectedCard && (
             <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
               <div className="flex justify-between">
-                <span className="text-sm font-medium">StableBank</span>
+                <span className="text-sm font-bold font-sans">StableBank</span>
                 <span
                   className={cn(
-                    "text-sm font-semibold px-2 py-1 rounded",
+                    "text-xs font-mono font-bold px-2 py-0.5 rounded-full uppercase",
                     selectedCard.status === "active"
-                      ? "bg-green-500"
+                      ? "bg-emerald-500/90 text-white"
                       : selectedCard.status === "frozen"
-                        ? "bg-blue-500"
-                        : "bg-red-500"
+                        ? "bg-blue-500/90 text-white"
+                        : "bg-red-500/90 text-white"
                   )}
                 >
                   {selectedCard.status.toUpperCase()}
                 </span>
               </div>
               <div>
-                <p className="text-lg font-mono tracking-wider">
+                <p className="text-lg sm:text-xl font-mono font-bold tracking-wider">
                   {selectedCard.cardNumber}
                 </p>
-                <div className="mt-2 flex justify-between text-sm">
+                <div className="mt-2 flex justify-between text-xs sm:text-sm font-sans font-medium">
                   <span>{selectedCard.cardholderName}</span>
-                  <span>
+                  <span className="font-mono">
                     {selectedCard.expiryMonth}/{selectedCard.expiryYear}
                   </span>
                 </div>
@@ -193,14 +193,14 @@ export default function UVCard() {
         <button
           onClick={handleFreezeCard}
           disabled={isProcessing || !selectedCard}
-          className="flex items-center justify-center gap-1 sm:gap-1.5 rounded-[6px] bg-[#0E121C] px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 text-base sm:text-lg lg:text-[22px] font-bold text-white/60 hover:text-white/80 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center justify-center gap-2 rounded-xl bg-white border border-zinc-200 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-sans font-bold text-zinc-800 hover:text-zinc-950 hover:bg-zinc-50 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Image
             src={"/images/svg/freeze.svg"}
             alt="freeze icon"
-            width={20}
-            height={20}
-            className="sm:w-[22px] sm:h-[22px] lg:w-[26px] lg:h-[26px]"
+            width={18}
+            height={18}
+            className="sm:w-[20px] sm:h-[20px]"
           />
           <span>
             {selectedCard?.status === "active" ? "Freeze Card" : "Unfreeze Card"}
@@ -210,9 +210,9 @@ export default function UVCard() {
         <Dialog>
           <DialogTrigger
             disabled={!selectedCard}
-            className="flex cursor-pointer items-center justify-center gap-1 sm:gap-1.5 rounded-[6px] bg-[#0E121C] px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 text-base sm:text-lg lg:text-[22px] font-bold text-white/60 hover:text-white/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-white border border-zinc-200 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-sans font-bold text-zinc-800 hover:text-zinc-950 hover:bg-zinc-50 shadow-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <RefreshCw size={20} className="sm:w-[22px] sm:h-[22px] lg:w-[26px] lg:h-[26px]" />
+            <RefreshCw size={18} className="sm:w-[20px] sm:h-[20px]" />
             <span>Regenerate</span>
           </DialogTrigger>
           <RegenerateCardModal card={selectedCard} onSuccess={() => {}} />
@@ -221,9 +221,9 @@ export default function UVCard() {
         <Dialog>
           <DialogTrigger
             disabled={!selectedCard}
-            className="flex cursor-pointer items-center justify-center gap-1 sm:gap-1.5 rounded-[6px] bg-[#0E121C] px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 text-base sm:text-lg lg:text-[22px] font-bold text-white/60 hover:text-white/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-white border border-zinc-200 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-sans font-bold text-red-600 hover:text-red-700 hover:bg-red-50 shadow-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Trash2 size={20} className="sm:w-[22px] sm:h-[22px] lg:w-[26px] lg:h-[26px]" />
+            <Trash2 size={18} className="sm:w-[20px] sm:h-[20px]" />
             <span>Delete Card</span>
           </DialogTrigger>
           <DeleteVirtualCardModal card={selectedCard} onConfirm={handleDeleteCard} />
@@ -267,14 +267,14 @@ const VCardTabs: React.FC<VCardTabsProps> = ({
 }) => {
   return (
     <div className="">
-      <div className="mb-4 sm:mb-5 flex w-full sm:w-fit rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] bg-[#0E121C] p-1 overflow-x-auto">
+      <div className="mb-4 sm:mb-5 flex w-full sm:w-fit rounded-xl bg-zinc-100 border border-zinc-200 p-1 overflow-x-auto">
         {tabs.map((tab) => (
           <Button
             key={tab.key}
             onClick={() => onTabChange(tab.key)}
             className={cn(
-              "transform rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-sm font-medium transition-all duration-200 ease-linear whitespace-nowrap",
-              activeTab === tab.key ? "bg-brand-purple" : "bg-transparent"
+              "transform rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-sans font-bold transition-all duration-200 ease-linear whitespace-nowrap cursor-pointer",
+              activeTab === tab.key ? "bg-brand-purple text-white shadow-xs" : "bg-transparent text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50"
             )}
           >
             {tab.label}
@@ -293,48 +293,48 @@ const VCardTabs: React.FC<VCardTabsProps> = ({
 function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
   if (!balance || !balance.chains || balance.chains.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 text-center">
-        <p className="text-white/60">No funding sources available</p>
-        <p className="text-sm text-white/40">Add funds to your wallet to use your card</p>
+      <div className="flex flex-col items-center justify-center py-10 text-center border border-dashed border-zinc-200 rounded-2xl bg-zinc-50 p-6">
+        <p className="text-zinc-700 font-sans font-semibold text-sm">No funding sources available</p>
+        <p className="text-xs text-zinc-400 font-sans mt-0.5">Add funds to your wallet to use your card</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-[#E9F2A3]">
+      <h2 className="text-lg sm:text-xl font-display font-bold text-zinc-950">
         Funding Sources
       </h2>
-      <p className="text-brand-white mb-5 sm:mb-6 lg:mb-8 text-sm sm:text-sm">
+      <p className="text-zinc-600 mb-5 sm:mb-6 font-sans text-xs sm:text-sm mt-0.5">
         Cards will pull funds in priority order from your available balances
       </p>
 
-      <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
+      <div className="flex flex-col gap-3 sm:gap-4">
         {balance.chains.map((chain, i) => (
           <Card
             key={chain.chainId}
-            className="rounded-[10px] sm:rounded-[12px] lg:rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] !py-3 sm:!py-4 !pr-4 sm:!pr-8 lg:!pr-12 !pl-2.5 sm:!pl-3.5 shadow-md"
+            className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm"
           >
             <CardContent className="flex items-center justify-between px-0 py-0 gap-2">
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full shrink-0 bg-gradient-to-br from-purple-500 to-blue-500">
-                  <span className="text-lg font-bold">
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl shrink-0 bg-brand-purple/10 border border-brand-purple/20 text-brand-purple font-mono font-bold">
+                  <span className="text-base font-bold">
                     {chain.chainName.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <p className="text-base sm:text-lg lg:text-2xl font-semibold">
+                  <p className="text-sm sm:text-base font-sans font-bold text-zinc-950">
                     {chain.chainName}
                   </p>
-                  <p className="text-sm sm:text-sm text-[#E9E9E9]">Priority #{i + 1}</p>
+                  <p className="text-xs font-mono font-semibold text-zinc-400">Priority #{i + 1}</p>
                 </div>
               </div>
 
               <div className="text-right">
-                <p className="text-base sm:text-lg lg:text-2xl font-semibold text-[#E9F2A3]">
+                <p className="text-sm sm:text-base font-mono font-bold text-zinc-950">
                   ${(chain.balanceUSD || 0).toFixed(2)}
                 </p>
-                <p className="text-sm sm:text-sm text-[#E9E9E9]">
+                <p className="text-xs font-sans text-zinc-500">
                   {chain.tokens?.length || 0} token{chain.tokens?.length !== 1 ? "s" : ""}
                 </p>
               </div>
@@ -349,10 +349,10 @@ function FundingTab({ balance }: { balance: UnifiedBalance | null }) {
 function TransactionTab({ transactions }: { transactions: CardTransaction[] }) {
   if (!transactions || transactions.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 text-center">
-        <p className="text-white/60">No transactions yet</p>
-        <p className="text-sm text-white/40">
-          Your card transactions will appear here
+      <div className="flex flex-col items-center justify-center py-10 text-center border border-dashed border-zinc-200 rounded-2xl bg-zinc-50 p-6">
+        <p className="text-zinc-700 font-sans font-semibold text-sm">No transactions yet</p>
+        <p className="text-xs text-zinc-400 font-sans mt-0.5">
+          Your card transaction history will appear here
         </p>
       </div>
     );
@@ -360,32 +360,32 @@ function TransactionTab({ transactions }: { transactions: CardTransaction[] }) {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-[#E9F2A3]">Recent Transactions</h2>
-      <p className="text-brand-white mb-8 text-sm">
+      <h2 className="text-lg sm:text-xl font-display font-bold text-zinc-950">Recent Transactions</h2>
+      <p className="text-zinc-600 mb-5 font-sans text-xs sm:text-sm mt-0.5">
         Your card transaction history
       </p>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-3">
         {transactions.map((tx) => (
           <Card
             key={tx.id}
-            className="rounded-[14px] border-[0.2px] border-solid border-white/60 bg-[#0E121C] !px-0 !py-0 shadow-md"
+            className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm"
           >
-            <CardContent className="flex items-center justify-between px-6 py-4">
+            <CardContent className="flex items-center justify-between px-0 py-0">
               <div className="flex items-center gap-3">
                 <div>
-                  <p className="text-2xl font-semibold">{tx.merchant}</p>
-                  <p className="text-sm text-[#E9E9E9]">
+                  <p className="text-sm sm:text-base font-sans font-bold text-zinc-950">{tx.merchant}</p>
+                  <p className="text-xs text-zinc-500 font-sans">
                     {new Date(tx.transactionDate).toLocaleDateString()}
                   </p>
                   <div
                     className={cn(
-                      "flex items-center gap-1 font-semibold",
+                      "flex items-center gap-1 text-xs font-mono font-bold mt-1",
                       tx.status === "approved"
-                        ? "text-[#319F43]"
+                        ? "text-emerald-600"
                         : tx.status === "declined"
-                          ? "text-[#FE0420]"
-                          : "text-[#FFA500]"
+                          ? "text-red-600"
+                          : "text-amber-600"
                     )}
                   >
                     <CircleCheckBig size={12} />
@@ -395,22 +395,22 @@ function TransactionTab({ transactions }: { transactions: CardTransaction[] }) {
               </div>
 
               <div className="text-right">
-                <p className="text-2xl font-semibold text-[#E9F2A3]">
+                <p className="text-sm sm:text-base font-mono font-bold text-zinc-950">
                   ${(tx.amount || 0).toFixed(2)}
                 </p>
-                <p className="text-sm text-[#E9E9E9]">{tx.currency}</p>
+                <p className="text-xs font-mono text-zinc-500">{tx.currency}</p>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="mt-8 flex gap-1.5 rounded-[8px] bg-[#EFF6FF] p-2">
-        <Info size={24} color="#4649D6" />
+      <div className="mt-6 flex gap-2.5 rounded-2xl bg-indigo-50/80 border border-indigo-100 p-4">
+        <Info size={20} className="text-brand-purple shrink-0 mt-0.5" />
 
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-base font-bold text-[#0E121C]">Important Note</h2>
-          <p className="text-sm text-[#4649D6]">
+          <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-900">Important Note</h2>
+          <p className="text-xs text-zinc-700 font-sans leading-relaxed">
             Your card automatically converts crypto to fiat at the time of
             purchase. Ensure you have sufficient balance in your priority
             funding sources
