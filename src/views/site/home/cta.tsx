@@ -13,14 +13,14 @@ export default function CTA() {
     return (
         <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
             <div className="max-w-largest mx-auto relative">
-                <div className="relative rounded-3xl sm:rounded-[36px] overflow-hidden border border-zinc-200 bg-gradient-to-br from-purple-50/50 via-white to-zinc-50 shadow-lg">
+                <div className="relative rounded-3xl sm:rounded-[36px] overflow-hidden border border-zinc-200 bg-gradient-to-br from-purple-50/50 via-white to-[#F7FBE8]/50 shadow-lg">
                     {/* Content */}
                     <div className="relative px-6 sm:px-10 md:px-16 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24">
                         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                             {/* Left side - Text content */}
                             <div className="text-center lg:text-left">
                                 <div className="mb-6 sm:mb-8">
-                                    <SectionCard title="Start Your Journey" category="GET STARTED" />
+                                    <SectionCard title="Start Your Journey" category="GET STARTED" variant="yellow" />
                                 </div>
 
                                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 mb-4 sm:mb-6 leading-tight">
