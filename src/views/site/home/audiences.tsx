@@ -6,68 +6,56 @@ import { SectionCard } from "@/components/cards";
 export default function Audiences() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-10 relative">
-      <div className="absolute inset-0 bg-brand-black" />
-      <div 
-        className="absolute inset-0 bg-[url('/images/svg/grid-pattern.svg')] opacity-5 pointer-events-none" 
-        style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-          maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
-        }}
-      />
-      
       <div className="max-w-largest mx-auto relative z-10">
         <div className="mb-16 text-center flex flex-col items-center">
           <SectionCard title="For Everyone" />
-          <h2 className="mt-8 text-4xl sm:text-5xl font-bold text-white mb-6">
+          <h2 className="mt-8 text-4xl sm:text-5xl font-display font-extrabold text-zinc-950 mb-6">
             Banking built for <span className="text-brand-purple">your scale</span>
           </h2>
-          <p className="text-xl text-white/60 max-w-2xl">
+          <p className="text-xl text-zinc-600 max-w-2xl font-sans">
             Whether you&apos;re managing personal crypto, scaling a global startup, or running an institutional treasury.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Individuals */}
-          <div className="group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-brand-purple/30 transition-all duration-500 overflow-hidden flex flex-col h-full">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-purple/10 rounded-full blur-3xl group-hover:bg-brand-purple/20 transition-all" />
-            <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-purple transition-all duration-500">
+          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
+            <div className="w-14 h-14 bg-brand-purple/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
               <User className="w-7 h-7 text-brand-purple group-hover:text-white transition-colors" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Individuals</h3>
-            <p className="text-white/50 leading-relaxed mb-8 flex-1">
+            <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Individuals</h3>
+            <p className="text-zinc-600 leading-relaxed mb-8 flex-1 font-sans">
               Your personal super-wallet. Spend stablecoins globally with virtual cards, send funds instantly, and earn yield seamlessly.
             </p>
-            <Link href={appRoutes.auth.signUp} className="flex items-center text-white/40 font-semibold group-hover:text-brand-purple transition-colors">
+            <Link href={appRoutes.auth.signUp} className="flex items-center text-zinc-500 font-semibold group-hover:text-brand-purple transition-colors font-mono text-sm">
               Open Personal Account <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {/* Businesses */}
-          <div className="group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-brand-yellow/30 transition-all duration-500 overflow-hidden flex flex-col h-full">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/10 rounded-full blur-3xl group-hover:bg-brand-yellow/20 transition-all" />
-            <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-yellow transition-all duration-500">
-              <Building2 className="w-7 h-7 text-brand-yellow group-hover:text-black transition-colors" />
+          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
+            <div className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
+              <Building2 className="w-7 h-7 text-brand-purple group-hover:text-white transition-colors" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Businesses</h3>
-            <p className="text-white/50 leading-relaxed mb-8 flex-1">
+            <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Businesses</h3>
+            <p className="text-zinc-600 leading-relaxed mb-8 flex-1 font-sans">
               The financial infrastructure for global teams. Run cross-border payroll, issue team cards, and manage treasury in one view.
             </p>
-            <Link href={appRoutes.auth.signUp} className="flex items-center text-white/40 font-semibold group-hover:text-brand-yellow transition-colors">
+            <Link href={appRoutes.auth.signUp} className="flex items-center text-zinc-500 font-semibold group-hover:text-brand-purple transition-colors font-mono text-sm">
               Open Business Account <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {/* Institutions */}
-          <div className="group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-brand-green/30 transition-all duration-500 overflow-hidden flex flex-col h-full">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/10 rounded-full blur-3xl group-hover:bg-brand-green/20 transition-all" />
-            <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-green transition-all duration-500">
-              <Landmark className="w-7 h-7 text-brand-green group-hover:text-black transition-colors" />
+          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
+            <div className="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300">
+              <Landmark className="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Institutions</h3>
-            <p className="text-white/50 leading-relaxed mb-8 flex-1">
+            <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Institutions</h3>
+            <p className="text-zinc-600 leading-relaxed mb-8 flex-1 font-sans">
               Prime brokerage and qualified custody. Engineered for scale, compliance, and maximum operational security.
             </p>
-            <Link href="/institutions" className="flex items-center text-white/40 font-semibold group-hover:text-brand-green transition-colors">
+            <Link href="/institutions" className="flex items-center text-zinc-500 font-semibold group-hover:text-emerald-600 transition-colors font-mono text-sm">
               Explore Institutional Tier <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
