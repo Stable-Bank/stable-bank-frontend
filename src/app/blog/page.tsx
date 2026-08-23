@@ -164,7 +164,7 @@ export default function BlogPage() {
                 <div className="max-w-largest mx-auto">
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 sm:mb-12">
                         <div>
-                            <SectionCard title="Blog" />
+                            <SectionCard title="Blog" category="EDITORIAL" />
                             <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950">
                                 Insights & Updates
                             </h1>
