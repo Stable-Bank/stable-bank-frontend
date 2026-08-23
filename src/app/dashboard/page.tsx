@@ -927,7 +927,7 @@ export default function UHome() {
                         <div className={cn(
                           "h-10 w-10 rounded-xl flex items-center justify-center shrink-0 border",
                           tx.type === "cross_chain"
-                            ? "bg-blue-50 border-blue-200 text-blue-600"
+                            ? "bg-purple-50 border-brand-purple/20 text-brand-purple"
                             : isOutbound
                               ? "bg-red-50 border-red-200 text-red-600"
                               : "bg-emerald-50 border-emerald-200 text-emerald-600"
@@ -1056,7 +1056,7 @@ export default function UHome() {
                             isSafeLock ? "bg-amber-50 border-amber-200 text-amber-700" :
                             isPiggy ? "bg-brand-purple/10 border-brand-purple/20 text-brand-purple" :
                             isTarget ? "bg-emerald-50 border-emerald-200 text-emerald-600" :
-                            "bg-blue-50 border-blue-200 text-blue-600"
+                            "bg-purple-50 border-brand-purple/20 text-brand-purple"
                           )}>
                             {isSafeLock ? <Lock size={16} /> : isPiggy ? <PiggyBank size={16} /> : isTarget ? <Target size={16} /> : <Unlock size={16} />}
                           </div>
@@ -1086,7 +1086,7 @@ export default function UHome() {
                                 "h-full rounded-full transition-all duration-1000",
                                 isSafeLock ? "bg-amber-500" :
                                 isPiggy ? "bg-brand-purple" :
-                                isTarget ? "bg-emerald-500" : "bg-blue-500"
+                                isTarget ? "bg-emerald-500" : "bg-brand-purple"
                               )}
                               style={{ width: `${progress}%` }}
                             />
