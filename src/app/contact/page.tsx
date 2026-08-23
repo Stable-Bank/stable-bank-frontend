@@ -75,16 +75,16 @@ const faqs = [
 
 function FAQItem({ faq, isOpen, onClick }: { faq: typeof faqs[0]; isOpen: boolean; onClick: () => void }) {
     return (
-        <div className="border-b border-white/10">
+        <div className="border-b border-zinc-200">
             <button
                 onClick={onClick}
-                className="w-full py-6 flex items-center justify-between text-left group"
+                className="w-full py-6 flex items-center justify-between text-left group cursor-pointer"
             >
-                <span className="text-base sm:text-lg font-medium text-brand-white group-hover:text-brand-yellow transition-colors pr-4">
+                <span className="text-base sm:text-lg font-medium text-zinc-900 group-hover:text-brand-purple transition-colors pr-4">
                     {faq.question}
                 </span>
                 <ChevronDown
-                    className={`h-5 w-5 text-white/40 flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-brand-purple" : ""
+                    className={`h-5 w-5 text-zinc-400 flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-brand-purple" : ""
                         }`}
                 />
             </button>
@@ -92,7 +92,7 @@ function FAQItem({ faq, isOpen, onClick }: { faq: typeof faqs[0]; isOpen: boolea
                 className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6" : "max-h-0"
                     }`}
             >
-                <p className="text-white/60 text-sm sm:text-base leading-relaxed">
+                <p className="text-zinc-600 text-sm sm:text-base leading-relaxed font-sans">
                     {faq.answer}
                 </p>
             </div>
@@ -125,12 +125,12 @@ export default function ContactPage() {
             {/* Hero */}
             <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-10">
                 <div className="max-w-largest mx-auto">
-                    <div className="text-center max-w-3xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
                         <SectionCard title="Contact Us" />
-                        <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-bold text-brand-white">
-                            Get in <span className="text-brand-yellow">Touch</span>
+                        <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-black text-zinc-950">
+                            Get in <span className="text-brand-purple">Touch</span>
                         </h1>
-                        <p className="mt-4 text-lg sm:text-xl text-white/60">
+                        <p className="mt-4 text-lg sm:text-xl text-zinc-600 font-sans">
                             Have questions or need help? We&apos;re here for you. Reach out
                             through any channel below.
                         </p>
@@ -148,16 +148,16 @@ export default function ContactPage() {
                                 href={info.href}
                                 target={info.href.startsWith("http") ? "_blank" : undefined}
                                 rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                className="group p-6 rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all duration-300"
+                                className="group p-6 rounded-2xl border border-zinc-200 bg-white hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 shadow-sm"
                             >
-                                <div className="h-12 w-12 rounded-2xl bg-brand-purple/20 group-hover:bg-brand-purple flex items-center justify-center mb-4 transition-colors">
+                                <div className="h-12 w-12 rounded-xl bg-brand-purple/10 group-hover:bg-brand-purple flex items-center justify-center mb-4 transition-colors">
                                     <info.icon className="h-6 w-6 text-brand-purple group-hover:text-white transition-colors" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-brand-white mb-1">
+                                <h3 className="text-lg font-display font-bold text-zinc-950 mb-1">
                                     {info.title}
                                 </h3>
-                                <p className="text-sm text-white/50 mb-3">{info.description}</p>
-                                <span className="text-sm text-brand-purple font-medium">
+                                <p className="text-xs sm:text-sm text-zinc-500 mb-3 font-sans">{info.description}</p>
+                                <span className="text-xs sm:text-sm text-brand-purple font-mono font-medium">
                                     {info.value}
                                 </span>
                             </a>
@@ -167,18 +167,18 @@ export default function ContactPage() {
             </section>
 
             {/* Contact Form & FAQ */}
-            <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-10 bg-gradient-to-b from-brand-purple/5 to-transparent">
+            <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-10 border-t border-zinc-200 bg-zinc-50/50">
                 <div className="max-w-largest mx-auto">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
                         {/* Contact Form */}
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-brand-white mb-6">
+                        <div className="p-8 rounded-2xl bg-white border border-zinc-200 shadow-sm">
+                            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-zinc-950 mb-6">
                                 Send us a message
                             </h2>
-                            <form onSubmit={handleSubmit} className="space-y-5">
-                                <div className="grid sm:grid-cols-2 gap-5">
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-white/70 mb-2">
+                                        <label className="block text-xs font-mono font-semibold text-zinc-700 uppercase tracking-wider mb-2">
                                             Your Name
                                         </label>
                                         <input
@@ -189,11 +189,11 @@ export default function ContactPage() {
                                             }
                                             placeholder="John Doe"
                                             required
-                                            className="w-full h-12 px-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-purple transition-colors"
+                                            className="w-full h-11 px-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-brand-purple focus:bg-white transition-colors text-sm font-sans"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-white/70 mb-2">
+                                        <label className="block text-xs font-mono font-semibold text-zinc-700 uppercase tracking-wider mb-2">
                                             Email Address
                                         </label>
                                         <input
@@ -204,13 +204,13 @@ export default function ContactPage() {
                                             }
                                             placeholder="john@example.com"
                                             required
-                                            className="w-full h-12 px-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-purple transition-colors"
+                                            className="w-full h-11 px-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-brand-purple focus:bg-white transition-colors text-sm font-sans"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/70 mb-2">
+                                    <label className="block text-xs font-mono font-semibold text-zinc-700 uppercase tracking-wider mb-2">
                                         Subject
                                     </label>
                                     <input
@@ -221,12 +221,12 @@ export default function ContactPage() {
                                         }
                                         placeholder="How can we help?"
                                         required
-                                        className="w-full h-12 px-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-purple transition-colors"
+                                        className="w-full h-11 px-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-brand-purple focus:bg-white transition-colors text-sm font-sans"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/70 mb-2">
+                                    <label className="block text-xs font-mono font-semibold text-zinc-700 uppercase tracking-wider mb-2">
                                         Message
                                     </label>
                                     <textarea
@@ -237,14 +237,14 @@ export default function ContactPage() {
                                         placeholder="Tell us more about your inquiry..."
                                         required
                                         rows={5}
-                                        className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-brand-purple transition-colors resize-none"
+                                        className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-brand-purple focus:bg-white transition-colors resize-none text-sm font-sans"
                                     />
                                 </div>
 
                                 <Button
                                     type="submit"
                                     disabled={formSubmitted}
-                                    className="w-full sm:w-auto h-12 px-8 rounded-full text-base font-semibold"
+                                    className="w-full sm:w-auto h-12 px-8 rounded-full text-base font-bold bg-brand-purple hover:bg-brand-purple/90 text-white shadow-md shadow-brand-purple/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                                 >
                                     {formSubmitted ? (
                                         <>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                                     ) : (
                                         <>
                                             Send Message
-                                            <Send className="h-5 w-5 ml-2" />
+                                            <Send className="h-4 w-4 ml-2" />
                                         </>
                                     )}
                                 </Button>
@@ -263,10 +263,10 @@ export default function ContactPage() {
 
                         {/* FAQ */}
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-brand-white mb-6">
+                            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-zinc-950 mb-6">
                                 Frequently Asked Questions
                             </h2>
-                            <div className="border-t border-white/10">
+                            <div className="border-t border-zinc-200">
                                 {faqs.map((faq, index) => (
                                     <FAQItem
                                         key={index}
