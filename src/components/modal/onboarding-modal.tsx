@@ -13,7 +13,6 @@ import { apiClient } from "@/config/axios";
 import { toast } from "sonner";
 import {
   Sparkles,
-  User,
   Check,
   ChevronRight,
   ChevronLeft,
@@ -22,8 +21,6 @@ import {
   CreditCard,
   FileText,
   BadgeCheck,
-  AlertCircle,
-  Building,
   Fingerprint
 } from "lucide-react";
 import { cn } from "@/utils/cn";
@@ -174,20 +171,20 @@ export default function OnboardingModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full !max-w-[480px] rounded-[32px] border border-white/10 bg-[#0A0D14]/95 backdrop-blur-2xl p-6 sm:p-7 shadow-2xl text-white animate-in zoom-in-95 duration-200 gap-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <DialogContent className="w-full !max-w-[480px] rounded-3xl border border-zinc-200 bg-white p-6 sm:p-7 shadow-2xl text-zinc-950 animate-in zoom-in-95 duration-200 gap-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
         
         {/* Header & Stepper */}
         <DialogHeader className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-brand-purple/20 border border-brand-purple/30 text-brand-purple flex items-center justify-center">
+              <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-brand-purple flex items-center justify-center">
                 <Sparkles size={18} />
               </div>
               <div>
-                <DialogTitle className="text-base sm:text-lg font-black text-white tracking-tight">
+                <DialogTitle className="text-base sm:text-lg font-display font-bold text-zinc-950 tracking-tight">
                   {step === 4 ? "Account Verified" : isBusiness ? "Corporate KYB Setup" : "Account Setup & KYC"}
                 </DialogTitle>
-                <p className="text-[11px] text-white/40 font-medium">
+                <p className="text-[11px] text-zinc-500 font-sans font-medium">
                   {step === 1 && (isBusiness ? "Step 1 of 3: Company Profile" : "Step 1 of 3: Full Legal Name")}
                   {step === 2 && (isBusiness ? "Step 2 of 3: Corporate StableTag" : "Step 2 of 3: Custom StableTag")}
                   {step === 3 && (isBusiness ? "Step 3 of 3: Registration Document" : "Step 3 of 3: ID Verification")}
@@ -198,7 +195,7 @@ export default function OnboardingModal({
 
             {/* Stepper Dots */}
             {step < 4 && (
-              <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
+              <div className="flex items-center gap-1.5 bg-zinc-100 border border-zinc-200 px-2.5 py-1 rounded-full">
                 {[1, 2, 3].map((s) => (
                   <div
                     key={s}
@@ -207,8 +204,8 @@ export default function OnboardingModal({
                       step === s
                         ? "w-5 bg-brand-purple"
                         : step > s
-                        ? "w-2 bg-emerald-400"
-                        : "w-2 bg-white/20"
+                        ? "w-2 bg-emerald-500"
+                        : "w-2 bg-zinc-300"
                     )}
                   />
                 ))}
@@ -220,9 +217,9 @@ export default function OnboardingModal({
         {/* STEP 1: Full Legal Name & Profile */}
         {step === 1 && (
           <form onSubmit={handleStep1Submit} className="flex flex-col gap-4 animate-in fade-in duration-300">
-            <div className="rounded-2xl bg-brand-purple/10 border border-brand-purple/20 p-3.5 flex items-start gap-2.5">
+            <div className="rounded-2xl bg-purple-50/60 border border-brand-purple/20 p-3.5 flex items-start gap-2.5">
               <ShieldCheck size={18} className="text-brand-purple shrink-0 mt-0.5" />
-              <p className="text-xs text-white/70 leading-relaxed">
+              <p className="text-xs text-zinc-700 font-sans leading-relaxed">
                 {isBusiness
                   ? "Corporate registration details are required for treasury activation and business card issuance."
                   : "Your legal name is required for issuance of your Visa virtual debit card and regulatory compliance."}
@@ -231,7 +228,7 @@ export default function OnboardingModal({
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
+                <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">
                   {isBusiness ? "Company Name" : "First Name"}
                 </label>
                 <input
@@ -240,12 +237,12 @@ export default function OnboardingModal({
                   placeholder={isBusiness ? "e.g. Acme Corp" : "e.g. Alexander"}
                   value={formData.firstName}
                   onChange={(e) => handleInputChange("firstName", e.target.value)}
-                  className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 px-3.5 text-sm text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                  className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-sans text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
+                <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">
                   {isBusiness ? "EIN / Reg Number" : "Last Name"}
                 </label>
                 <input
@@ -254,24 +251,24 @@ export default function OnboardingModal({
                   placeholder={isBusiness ? "e.g. 12-3456789" : "e.g. Vance"}
                   value={formData.lastName}
                   onChange={(e) => handleInputChange("lastName", e.target.value)}
-                  className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 px-3.5 text-sm text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                  className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-sans text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">Date of Birth</label>
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">Date of Birth</label>
               <input
                 type="date"
                 required
                 value={formData.dob}
                 onChange={(e) => handleInputChange("dob", e.target.value)}
-                className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 px-3.5 text-sm text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-sans text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">Country of Residence</label>
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">Country of Residence</label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {countries.map((c) => {
                   const Icon = c.icon;
@@ -284,12 +281,12 @@ export default function OnboardingModal({
                       className={cn(
                         "flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl border text-xs font-bold transition-all cursor-pointer",
                         isSelected
-                          ? "bg-brand-yellow/15 border-brand-yellow/40 text-brand-yellow"
-                          : "bg-white/[0.02] border-white/5 text-white/50 hover:bg-white/5 hover:text-white"
+                          ? "bg-brand-purple/10 border-brand-purple text-brand-purple font-extrabold shadow-2xs"
+                          : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950"
                       )}
                     >
                       <Icon className="w-4 h-4" />
-                      <span>{c.code}</span>
+                      <span className="font-mono">{c.code}</span>
                     </button>
                   );
                 })}
@@ -298,7 +295,7 @@ export default function OnboardingModal({
 
             <Button
               type="submit"
-              className="mt-2 w-full h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-brand-purple/20"
+              className="mt-2 w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-brand-purple/20"
             >
               Continue to StableTag <ChevronRight size={16} />
             </Button>
@@ -308,45 +305,45 @@ export default function OnboardingModal({
         {/* STEP 2: Custom StableTag Setup */}
         {step === 2 && (
           <form onSubmit={handleStep2Submit} className="flex flex-col gap-4 animate-in fade-in duration-300">
-            <div className="rounded-2xl bg-brand-yellow/10 border border-brand-yellow/20 p-3.5 flex items-start gap-2.5">
-              <Fingerprint size={18} className="text-brand-yellow shrink-0 mt-0.5" />
-              <p className="text-xs text-white/70 leading-relaxed">
+            <div className="rounded-2xl bg-amber-50 border border-amber-200 p-3.5 flex items-start gap-2.5">
+              <Fingerprint size={18} className="text-amber-700 shrink-0 mt-0.5" />
+              <p className="text-xs text-zinc-700 font-sans leading-relaxed">
                 Your StableTag is your universal handle for instant, zero-fee internal transfers between members.
               </p>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">Choose Your StableTag</label>
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">Choose Your StableTag</label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-[#E9F2A3] font-mono">$</span>
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-brand-purple font-mono">$</span>
                 <input
                   type="text"
                   required
                   placeholder="e.g. alex_vance"
                   value={formData.bankTag}
                   onChange={(e) => handleInputChange("bankTag", e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
-                  className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 pl-8 pr-28 text-sm font-mono text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                  className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 pl-8 pr-28 text-xs sm:text-sm font-mono text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
                 />
                 <button
                   type="button"
                   onClick={handleCheckBankTag}
                   disabled={tagChecking || !formData.bankTag}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white transition-all cursor-pointer disabled:opacity-40"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-[11px] font-sans font-bold text-zinc-900 transition-all cursor-pointer disabled:opacity-40"
                 >
                   {tagChecking ? "Checking..." : tagAvailable ? "Available ✓" : "Check Tag"}
                 </button>
               </div>
-              <span className="text-[10px] text-white/40 block">Letters, numbers, and underscores only.</span>
+              <span className="text-[10px] text-zinc-500 font-sans block">Letters, numbers, and underscores only.</span>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">Account Display Name</label>
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">Account Display Name</label>
               <input
                 type="text"
                 placeholder="e.g. Alex Vance"
                 value={formData.displayName}
                 onChange={(e) => handleInputChange("displayName", e.target.value)}
-                className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 px-3.5 text-sm text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-sans text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
               />
             </div>
 
@@ -355,13 +352,13 @@ export default function OnboardingModal({
                 type="button"
                 variant="outline"
                 onClick={() => setStep(1)}
-                className="w-1/3 h-12 rounded-2xl border-white/10 text-white hover:bg-white/5 font-bold text-sm cursor-pointer"
+                className="w-1/3 h-11 rounded-full border-zinc-200 text-zinc-800 hover:bg-zinc-100 font-sans font-bold text-xs sm:text-sm cursor-pointer"
               >
                 <ChevronLeft size={16} className="mr-1" /> Back
               </Button>
               <Button
                 type="submit"
-                className="w-2/3 h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-brand-purple/20"
+                className="w-2/3 h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-brand-purple/20"
               >
                 Continue to ID <ChevronRight size={16} />
               </Button>
@@ -373,7 +370,7 @@ export default function OnboardingModal({
         {step === 3 && (
           <form onSubmit={handleFinalSubmit} className="flex flex-col gap-4 animate-in fade-in duration-300">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">
                 {isBusiness ? "Select Corporate Document Type" : "Select Document Type"}
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -397,10 +394,10 @@ export default function OnboardingModal({
                       type="button"
                       onClick={() => handleInputChange("documentType", doc.id)}
                       className={cn(
-                        "flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer gap-1 text-center",
+                        "flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border text-[11px] font-bold transition-all cursor-pointer gap-1 text-center font-sans",
                         isSelected
-                          ? "bg-brand-purple/20 border-brand-purple/40 text-white shadow-sm"
-                          : "bg-white/[0.02] border-white/5 text-white/50 hover:bg-white/5 hover:text-white"
+                          ? "bg-brand-purple/10 border-brand-purple text-brand-purple shadow-2xs font-extrabold"
+                          : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950"
                       )}
                     >
                       <Icon size={16} />
@@ -412,7 +409,7 @@ export default function OnboardingModal({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">
                 {isBusiness ? "Document Registration Number" : "Document ID Number"}
               </label>
               <input
@@ -421,33 +418,33 @@ export default function OnboardingModal({
                 placeholder={isBusiness ? "e.g. RC-982341 or 12-3456789" : "e.g. A98234102"}
                 value={formData.documentNumber}
                 onChange={(e) => handleInputChange("documentNumber", e.target.value)}
-                className="w-full h-11 rounded-xl bg-white/[0.03] border border-white/10 px-3.5 text-sm font-mono text-white placeholder:text-white/30 focus:border-brand-purple/50 focus:bg-white/[0.06] outline-none transition-all"
+                className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-mono text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none transition-all"
               />
             </div>
 
             {/* Document File Dropzone */}
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
+              <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">
                 {isBusiness ? "Upload Official Company Document" : "Photo / Document Scan"}
               </label>
-              <label className="border border-dashed border-white/15 hover:border-brand-purple/40 bg-white/[0.02] hover:bg-white/[0.04] rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all">
+              <label className="border border-dashed border-zinc-300 hover:border-brand-purple bg-zinc-50 hover:bg-zinc-100 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all">
                 <input
                   type="file"
                   accept="image/*,.pdf"
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <Upload size={20} className="text-white/40 mb-1.5" />
-                <span className="text-xs font-bold text-white">
+                <Upload size={20} className="text-zinc-400 mb-1.5" />
+                <span className="text-xs font-sans font-bold text-zinc-900">
                   {formData.idFileName || "Click to upload ID photo"}
                 </span>
-                <span className="text-[10px] text-white/40 mt-0.5">JPEG, PNG, or PDF up to 10MB</span>
+                <span className="text-[10px] text-zinc-500 font-sans mt-0.5">JPEG, PNG, or PDF up to 10MB</span>
               </label>
             </div>
 
-            <div className="rounded-2xl bg-white/[0.02] border border-white/5 p-3 flex items-center gap-2.5">
-              <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
-              <p className="text-[11px] text-white/60 leading-snug">
+            <div className="rounded-2xl bg-zinc-50 border border-zinc-200 p-3 flex items-center gap-2.5">
+              <ShieldCheck size={16} className="text-emerald-600 shrink-0" />
+              <p className="text-[11px] text-zinc-600 font-sans leading-snug">
                 Encrypted with qualified custodian partner verification. Data is never sold.
               </p>
             </div>
@@ -457,14 +454,14 @@ export default function OnboardingModal({
                 type="button"
                 variant="outline"
                 onClick={() => setStep(2)}
-                className="w-1/3 h-12 rounded-2xl border-white/10 text-white hover:bg-white/5 font-bold text-sm cursor-pointer"
+                className="w-1/3 h-11 rounded-full border-zinc-200 text-zinc-800 hover:bg-zinc-100 font-sans font-bold text-xs sm:text-sm cursor-pointer"
               >
                 <ChevronLeft size={16} className="mr-1" /> Back
               </Button>
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-2/3 h-12 bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-500/20"
+                className="w-2/3 h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-brand-purple/20"
               >
                 {loading ? "Verifying..." : "Submit Verification ✓"}
               </Button>
@@ -475,30 +472,30 @@ export default function OnboardingModal({
         {/* STEP 4: Success Screen */}
         {step === 4 && (
           <div className="flex flex-col items-center text-center py-4 gap-4 animate-in zoom-in-95 duration-300">
-            <div className="h-16 w-16 rounded-3xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shadow-xl shadow-emerald-500/10 animate-bounce-custom">
+            <div className="h-16 w-16 rounded-3xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shadow-md animate-bounce-custom">
               <Check size={32} />
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-xl font-bold text-white">Identity Details Submitted!</h3>
-              <p className="text-xs text-white/60 max-w-[320px] leading-relaxed">
+              <h3 className="text-xl font-display font-extrabold text-zinc-950">Identity Details Submitted!</h3>
+              <p className="text-xs text-zinc-600 font-sans max-w-[320px] leading-relaxed">
                 Your profile has been updated and your StableTag is ready to receive transfers.
               </p>
             </div>
 
-            <div className="bg-[#070A10] border border-white/5 rounded-2xl p-3.5 w-full flex items-center justify-between">
+            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-3.5 w-full flex items-center justify-between">
               <div className="text-left">
-                <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest block">Active StableTag</span>
-                <span className="text-sm font-bold text-[#E9F2A3] font-mono">${formData.bankTag}</span>
+                <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase tracking-widest block">Active StableTag</span>
+                <span className="text-sm font-mono font-bold text-brand-purple">${formData.bankTag}</span>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[10px] uppercase">
+              <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono font-bold text-[10px] uppercase">
                 Active
               </span>
             </div>
 
             <Button
               onClick={() => onOpenChange(false)}
-              className="w-full h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-2xl text-sm cursor-pointer mt-2"
+              className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full text-xs sm:text-sm cursor-pointer mt-2 shadow-md shadow-brand-purple/20"
             >
               Go to Dashboard
             </Button>
