@@ -155,7 +155,7 @@ export default function VirtualAccounts() {
 
           {/* Copy Side */}
           <div className="lg:col-span-6 lg:order-1 flex flex-col items-start text-left">
-            <SectionCard title="VIRTUAL ACCOUNTS" />
+            <SectionCard title="VIRTUAL ACCOUNTS" category="GLOBAL RAILS" />
             
             <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 leading-tight">
               Global Accounts.<br />
@@ -168,19 +168,19 @@ export default function VirtualAccounts() {
 
             <ul className="mt-8 space-y-4 text-sm sm:text-base text-zinc-700 font-sans">
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-brand-purple/10 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
                   <RefreshCw className="h-4 w-4" />
                 </div>
                 <span><strong>Instant Crypto Conversion</strong> — Incoming fiat deposits automatically convert to USDC or USDT at market rates.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
                   <Globe className="h-4 w-4" />
                 </div>
                 <span><strong>Zero Cross-Border Fees</strong> — Receive international employer payments or contractor invoices without standard high wire charges.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-700 shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0">
                   <Info className="h-4 w-4" />
                 </div>
                 <span><strong>ACH & SEPA Ready</strong> — Settle local payments seamlessly over direct country-specific payment pathways.</span>
