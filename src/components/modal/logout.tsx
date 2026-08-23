@@ -28,22 +28,22 @@ export default function LogoutModal() {
   };
 
   return (
-    <DialogContent className="w-full !max-w-[400px] rounded-[20px] border-none bg-[#0E121C] px-[18px] py-5">
+    <DialogContent className="w-full !max-w-[400px] rounded-3xl border border-zinc-200 bg-white px-6 py-6 shadow-2xl text-zinc-950">
       <DialogHeader>
-        <DialogTitle className="flex items-center gap-5">
-          <div className="flex aspect-square h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-[#FE0420] font-sans">
-            <Power size={15} color="#ffffff" strokeWidth={2} />
+        <DialogTitle className="flex items-center gap-4">
+          <div className="flex aspect-square h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-red-600 border border-red-200">
+            <Power size={18} strokeWidth={2.5} />
           </div>
-          <span>Are you sure you want to Log Out?</span>
+          <span className="font-display font-bold text-lg text-zinc-950">Are you sure you want to Log Out?</span>
         </DialogTitle>
       </DialogHeader>
 
-      <DialogFooter className="grid grid-cols-2 gap-7">
+      <DialogFooter className="grid grid-cols-2 gap-4 mt-4">
         <DialogClose asChild>
           <Button
             type="button"
             disabled={loading}
-            className="rounded-[20px] bg-[#1F2937] py-3 text-base font-medium"
+            className="rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 h-11 text-sm font-sans font-bold cursor-pointer"
           >
             Cancel
           </Button>
@@ -53,7 +53,7 @@ export default function LogoutModal() {
           type="button"
           onClick={handleLogout}
           disabled={loading}
-          className="rounded-[20px] bg-[#FE0420] py-3 text-base font-medium"
+          className="rounded-full bg-red-600 hover:bg-red-700 text-white h-11 text-sm font-sans font-bold shadow-md shadow-red-600/20 cursor-pointer"
         >
           {loading ? "Logging out..." : "Log Out"}
         </Button>
