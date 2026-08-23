@@ -4,7 +4,7 @@ export const topUsers = [
     username: "fony.bank",
     avatar:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-    bgColor: "from-purple-500 to-blue-500",
+    bgColor: "from-purple-600 to-indigo-700",
   },
   {
     id: 2,
@@ -32,14 +32,14 @@ export const topUsers = [
     username: "fony.bank",
     avatar:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    bgColor: "from-blue-400 to-blue-600",
+    bgColor: "from-purple-500 to-indigo-600",
   },
   {
     id: 6,
     username: "fony.bank",
     avatar:
       "https://images.unsplash.com/photo-1494790108755-2616c6b4f20e?w=150&h=150&fit=crop&crop=face",
-    bgColor: "from-gray-200 to-blue-400",
+    bgColor: "from-zinc-300 to-purple-400",
   },
 ];
 
@@ -77,7 +77,7 @@ export const topSenders = [
     username: "fony.bank",
     avatar:
       "https://images.unsplash.com/photo-1494790108755-2616c6b4f20e?w=150&h=150&fit=crop&crop=face",
-    bgColor: "from-gray-200 to-blue-400",
+    bgColor: "from-zinc-300 to-purple-400",
   },
   {
     id: 6,
