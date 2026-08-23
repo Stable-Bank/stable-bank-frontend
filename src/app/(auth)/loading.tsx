@@ -1,9 +1,9 @@
 export default function AuthLoading() {
   return (
-    <div className="bg-brand-black relative grid min-h-screen grid-cols-1 lg:grid-cols-2 text-white">
+    <div className="bg-zinc-50 relative grid min-h-screen grid-cols-1 lg:grid-cols-2 text-zinc-950">
       {/* Mobile Background with Overlay */}
       <div className="lg:hidden absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-black/80 via-brand-black/90 to-brand-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/90 to-white" />
       </div>
 
       {/* Content Section */}
@@ -11,26 +11,26 @@ export default function AuthLoading() {
         <div className="flex w-full max-w-[480px] flex-col items-center justify-center gap-10">
           {/* Logo Skeleton */}
           <div className="w-full">
-            <div className="h-9 w-[300px] bg-muted/20 animate-pulse rounded" />
+            <div className="h-9 w-[300px] bg-zinc-200 animate-pulse rounded-xl" />
           </div>
 
           {/* Form Skeleton */}
           <div className="flex w-full flex-col gap-6">
             <div className="space-y-4">
-              <div className="h-8 w-48 bg-muted/20 animate-pulse rounded" />
-              <div className="h-4 w-full bg-muted/20 animate-pulse rounded" />
+              <div className="h-8 w-48 bg-zinc-200 animate-pulse rounded-xl" />
+              <div className="h-4 w-full bg-zinc-200 animate-pulse rounded-lg" />
             </div>
 
             <div className="space-y-4">
               {[1, 2].map((i) => (
                 <div key={i} className="space-y-2">
-                  <div className="h-4 w-20 bg-muted/20 animate-pulse rounded" />
-                  <div className="h-12 w-full bg-muted/20 animate-pulse rounded-xl" />
+                  <div className="h-4 w-20 bg-zinc-200 animate-pulse rounded" />
+                  <div className="h-12 w-full bg-zinc-200 animate-pulse rounded-xl" />
                 </div>
               ))}
             </div>
 
-            <div className="h-12 w-full bg-brand-purple/20 animate-pulse rounded-[40px]" />
+            <div className="h-12 w-full bg-brand-purple/20 animate-pulse rounded-full" />
           </div>
 
           {/* Loading Indicator */}
@@ -43,7 +43,7 @@ export default function AuthLoading() {
       </div>
 
       {/* Desktop Image Section */}
-      <div className="hidden lg:block relative bg-muted/5" />
+      <div className="hidden lg:block relative bg-zinc-100" />
     </div>
   );
 }
