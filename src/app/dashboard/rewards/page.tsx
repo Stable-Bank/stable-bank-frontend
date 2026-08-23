@@ -232,7 +232,7 @@ function EarnTab({ pointsConfig }: { pointsConfig: any }) {
 
 function RedeemTab() {
   const redeemRewards = [
-    { title: "$5 Bonus Cash", cost: 500, label: "BONUS", color: "bg-blue-100 text-blue-800 border border-blue-200" },
+    { title: "$5 Bonus Cash", cost: 500, label: "BONUS", color: "bg-emerald-100 text-emerald-800 border border-emerald-200" },
     { title: "$10 Bonus Cash", cost: 1000, label: "BONUS", color: "bg-brand-purple/15 text-brand-purple border border-brand-purple/30" },
     { title: "Standard Debit Card", cost: 2500, label: "EQUIPMENT", color: "bg-amber-100 text-amber-800 border border-amber-200" },
     { title: "Metal Debit Card", cost: 15000, label: "EXCLUSIVE", color: "bg-zinc-900 text-white" },
@@ -279,8 +279,8 @@ function TiersTab({ tierInfo, pointsConfig }: { tierInfo: TierInfo | null, point
     if (name.includes("Bronze")) return "text-amber-800";
     if (name.includes("Silver")) return "text-zinc-500";
     if (name.includes("Gold")) return "text-amber-600";
-    if (name.includes("Platinum")) return "text-indigo-600";
-    if (name.includes("Diamond")) return "text-blue-600";
+    if (name.includes("Platinum")) return "text-zinc-900";
+    if (name.includes("Diamond")) return "text-brand-purple";
     return "text-zinc-900";
   };
 
