@@ -23,8 +23,8 @@ const values = [
         title: "Security First",
         description:
             "Your assets are protected with military-grade encryption and multi-signature security.",
-        color: "text-blue-600",
-        bgColor: "bg-blue-50",
+        color: "text-brand-purple",
+        bgColor: "bg-brand-purple/10",
     },
     {
         icon: Eye,
@@ -59,7 +59,7 @@ export default function AboutPage() {
             <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden">
                 <div className="max-w-largest mx-auto relative">
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionCard title="About Us" />
+                        <SectionCard title="About Us" category="MISSION" />
 
                         <h1 className="mt-6 sm:mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-zinc-950 leading-tight">
                             Banking for the{" "}
@@ -139,7 +139,7 @@ export default function AboutPage() {
             <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10">
                 <div className="max-w-largest mx-auto">
                     <div className="text-center mb-12 sm:mb-16">
-                        <SectionCard title="Our Values" />
+                        <SectionCard title="Our Values" category="FOUNDATION" />
                         <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-zinc-950">
                             What We Stand For
                         </h2>
