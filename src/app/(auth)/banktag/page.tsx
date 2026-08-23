@@ -110,51 +110,49 @@ export default function CreateBankTag() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-7">
       <div className="flex flex-col gap-3">
-        <div className="flex w-fit items-center gap-3.5 rounded-full bg-[#0F0F0F] py-2 pr-16 pl-2.5 text-base font-medium shadow-2xl shadow-[#171E2E]">
-          <Sparkles size={18} />
+        <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-zinc-100 border border-zinc-200 py-1.5 pr-8 pl-3 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-sm">
+          <Sparkles size={14} className="text-brand-purple" />
           <span>Create your Unique Banktag</span>
         </div>
-        <h1 className="text-4xl font-semibold">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950">
           Select and reserve a{" "}
-          <span className="text-brand-yellow">username.</span>
+          <span className="text-brand-purple">username.</span>
         </h1>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <div className="relative h-[52px] rounded-[8px] bg-[#0F0F0F] text-base font-medium text-white placeholder:text-white/60">
+      <div className="flex flex-col gap-4 sm:gap-5">
+        <div className="relative h-[48px] sm:h-[52px] rounded-xl bg-zinc-50 border border-zinc-200 text-sm sm:text-base font-medium text-zinc-900 placeholder:text-zinc-400 focus-within:border-brand-purple focus-within:bg-white transition-all shadow-xs">
           <input
             type="text"
             value={tagData.bankTag}
             onChange={(e) => updateTagData("bankTag", e.target.value)}
             placeholder="Input desired banktag"
-            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-4 ring-0 outline-0"
+            className="hide-autofill h-full w-full rounded-xl border-0 bg-transparent px-4 pr-10 ring-0 outline-0 text-zinc-900 placeholder:text-zinc-400 font-sans"
           />
           <MoveRight
-            size={24}
-            className="absolute top-1/2 right-2 -translate-1/2 transform"
-            color="#FFFFFF52"
+            size={20}
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-zinc-400"
           />
         </div>
 
-        <div className="relative h-[52px] rounded-[8px] bg-[#0F0F0F] text-base font-medium text-white placeholder:text-white/60">
+        <div className="relative h-[48px] sm:h-[52px] rounded-xl bg-zinc-50 border border-zinc-200 text-sm sm:text-base font-medium text-zinc-900 placeholder:text-zinc-400 focus-within:border-brand-purple focus-within:bg-white transition-all shadow-xs">
           <input
             type="text"
             value={tagData.displayName}
             onChange={(e) => updateTagData("displayName", e.target.value)}
             placeholder="Input desired display name"
-            className="hide-autofill h-full w-full rounded-[8px] border-0 bg-inherit px-4 ring-0 outline-0"
+            className="hide-autofill h-full w-full rounded-xl border-0 bg-transparent px-4 pr-10 ring-0 outline-0 text-zinc-900 placeholder:text-zinc-400 font-sans"
           />
           <MoveRight
-            size={24}
-            className="absolute top-1/2 right-2 -translate-1/2 transform"
-            color="#FFFFFF52"
+            size={20}
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-zinc-400"
           />
         </div>
       </div>
 
       <Button
         disabled={tagData.loading}
-        className="text-brand-white bg-brand-purple flex h-12 cursor-pointer items-center justify-center rounded-[40px] px-8 text-base font-semibold"
+        className="text-white bg-brand-purple hover:bg-brand-purple/90 flex h-12 cursor-pointer items-center justify-center rounded-full px-8 text-base font-bold shadow-md shadow-brand-purple/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         {tagData.loading ? "Checking..." : "Create Banktag"}
       </Button>
