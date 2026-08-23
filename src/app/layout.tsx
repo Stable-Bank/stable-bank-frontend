@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
-import { Darker_Grotesque } from "next/font/google";
+import { Plus_Jakarta_Sans, Darker_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import "./globals.css";
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
 const darkerGrotesque = Darker_Grotesque({
   variable: "--font-grotesque",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800", "900"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -52,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${darkerGrotesque.variable} font-grotesque antialiased`}
+        className={`${plusJakartaSans.variable} ${darkerGrotesque.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen`}
       >
         <AuthProvider>
           <NotificationProvider>
