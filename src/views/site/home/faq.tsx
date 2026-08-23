@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { MessageCircleQuestion, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import React, { useState } from "react";
 
 const faqData = [
@@ -87,6 +87,8 @@ function AccordionItem({
   );
 }
 
+import SectionCard from "@/components/cards/section";
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -96,9 +98,8 @@ export default function FAQ() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Left Column: Sticky Header */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 h-fit">
-            <div className="flex w-fit items-center gap-2 rounded-full border border-zinc-300 bg-zinc-100/80 px-4 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider mb-6 shadow-sm">
-              <MessageCircleQuestion className="h-3.5 w-3.5 text-brand-purple" />
-              <span>Got Questions?</span>
+            <div className="mb-6">
+              <SectionCard title="Got Questions?" category="KNOWLEDGE BASE" />
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-zinc-950 mb-6 leading-tight">
