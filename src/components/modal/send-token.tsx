@@ -355,15 +355,15 @@ export default function SendTokenModal({
   const totalDeduction = parseFloat(amount || "0") + (fee?.feeUSD || 0);
 
   return (
-    <DialogContent className="w-full !max-w-[550px] rounded-[30px] border-none bg-[#0E121C]/95 backdrop-blur-xl p-0 overflow-hidden shadow-2xl shadow-black/80 animate-in fade-in zoom-in-95 duration-200">
+    <DialogContent className="w-full !max-w-[550px] rounded-3xl border border-zinc-200 bg-white p-0 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200 text-zinc-950">
       
       {/* Dynamic Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-white/5 flex items-center justify-between">
-        <DialogTitle className="text-lg font-bold text-white flex items-center gap-2">
+      <div className="px-6 pt-6 pb-4 border-b border-zinc-200 flex items-center justify-between">
+        <DialogTitle className="text-lg font-display font-bold text-zinc-950 flex items-center gap-2">
           <Sparkles size={16} className="text-brand-purple animate-pulse" />
           Send Funds
         </DialogTitle>
-        <span className="text-md font-black text-white/30 tracking-widest uppercase bg-white/5 px-2 py-0.5 rounded-full">
+        <span className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200">
           Step {step} of 5
         </span>
       </div>
@@ -371,17 +371,17 @@ export default function SendTokenModal({
       {/* STEP 1: SELECT RECIPIENT */}
       {step === 1 && (
         <div className="p-6 space-y-6">
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-white/40 uppercase tracking-widest block">Recipient BankTag or EVM Address</label>
-            <div className="relative flex items-center rounded-2xl bg-black/40 border border-white/10 focus-within:border-brand-purple transition-all px-4 py-3.5 gap-3">
-              <Search size={18} className="text-white/40" />
+          <div className="space-y-1.5">
+            <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Recipient BankTag or EVM Address</label>
+            <div className="relative flex items-center rounded-2xl bg-zinc-50 border border-zinc-200 focus-within:border-brand-purple focus-within:bg-white transition-all px-4 py-3 gap-3">
+              <Search size={18} className="text-zinc-400" />
               <input
                 id="recipient-tag-input"
                 type="text"
                 placeholder="Enter @BankTag or 0xAddress..."
                 value={searchTag}
                 onChange={(e) => setSearchTag(e.target.value)}
-                className="w-full bg-transparent border-0 outline-none text-white placeholder-white/30 text-sm font-medium"
+                className="w-full bg-transparent border-0 outline-none text-zinc-900 placeholder-zinc-400 text-sm font-sans font-medium"
               />
               {isResolving && <Loader2 size={16} className="text-brand-purple animate-spin shrink-0" />}
             </div>
@@ -391,9 +391,9 @@ export default function SendTokenModal({
           {resolvedRecipient ? (
             <div 
               id="resolved-recipient-card"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-brand-purple/10 border border-brand-purple/20 shadow-lg shadow-brand-purple/[0.02] animate-in slide-in-from-bottom-3 duration-250"
+              className="flex items-center gap-4 p-4 rounded-2xl bg-purple-50/60 border border-brand-purple/20 shadow-xs animate-in slide-in-from-bottom-3 duration-250"
             >
-              <div className="h-14 w-14 shrink-0 rounded-2xl overflow-hidden relative border border-white/10">
+              <div className="h-14 w-14 shrink-0 rounded-2xl overflow-hidden relative border border-zinc-200 bg-white">
                 {avatarSrc ? (
                   <Image
                     src={avatarSrc.startsWith("http") 
@@ -409,26 +409,26 @@ export default function SendTokenModal({
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-white font-bold text-base leading-snug">
+                <p className="text-zinc-950 font-sans font-bold text-base leading-snug">
                   {resolvedRecipient.firstName} {resolvedRecipient.lastName}
                 </p>
-                <p className="text-brand-purple text-sm font-black tracking-wide font-mono mt-0.5">
+                <p className="text-brand-purple text-sm font-bold tracking-wide font-mono mt-0.5">
                   {resolvedRecipient.bankTag}
                 </p>
               </div>
-              <div className="h-8 w-8 rounded-full bg-brand-purple text-white flex items-center justify-center shrink-0 border border-white/10">
+              <div className="h-8 w-8 rounded-full bg-brand-purple text-white flex items-center justify-center shrink-0 shadow-xs">
                 <Check size={16} className="stroke-[3]" />
               </div>
             </div>
           ) : searchError && !isResolving ? (
-            <div className="flex flex-col items-center justify-center py-6 text-center border border-dashed rounded-2xl bg-[#1A1110]/20 border-rose-500/10">
+            <div className="flex flex-col items-center justify-center py-6 text-center border border-dashed rounded-2xl bg-zinc-50 border-zinc-200">
               {searchError.includes("yourself") ? (
-                <ShieldAlert size={28} className="text-amber-400 mb-2 animate-bounce" />
+                <ShieldAlert size={28} className="text-amber-500 mb-2 animate-bounce" />
               ) : (
-                <HelpCircle size={28} className="text-white/20 mb-2" />
+                <HelpCircle size={28} className="text-zinc-400 mb-2" />
               )}
-              <p className="text-white/50 text-sm font-bold">{searchError}</p>
-              <p className="text-white/30 text-sm mt-0.5">
+              <p className="text-zinc-700 text-sm font-bold font-sans">{searchError}</p>
+              <p className="text-zinc-400 text-xs mt-0.5 font-sans">
                 {searchError.includes("yourself")
                   ? "Please enter a different recipient's @BankTag."
                   : "Make sure to type the exact @BankTag"}
@@ -438,22 +438,22 @@ export default function SendTokenModal({
 
           {/* Recent Recipients */}
           {isLoadingRecipients ? (
-            <div className="flex items-center gap-2 text-sm text-white/40 py-2">
+            <div className="flex items-center gap-2 text-xs text-zinc-500 py-2 font-sans">
               <Loader2 size={12} className="animate-spin text-brand-purple" />
               <span>Loading recent recipients...</span>
             </div>
           ) : recentRecipients.length > 0 && !resolvedRecipient ? (
-            <div className="space-y-3">
-              <span className="text-sm font-bold text-white/30 uppercase tracking-widest block">Recent Recipients</span>
+            <div className="space-y-2.5">
+              <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider block">Recent Recipients</span>
               <div className="flex flex-col gap-2">
                 {recentRecipients.map((rec, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => handleSelectRecent(rec)}
-                    className="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-all text-left w-full group"
+                    className="flex items-center gap-3 p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 transition-all text-left w-full group cursor-pointer"
                   >
-                    <div className="h-10 w-10 shrink-0 rounded-xl overflow-hidden relative border border-white/10 group-hover:scale-105 transition-transform">
+                    <div className="h-10 w-10 shrink-0 rounded-xl overflow-hidden relative border border-zinc-200 bg-white group-hover:scale-105 transition-transform">
                       {rec.avatarUrl ? (
                         <Image
                           src={rec.avatarUrl.startsWith("http") 
@@ -469,10 +469,10 @@ export default function SendTokenModal({
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-bold leading-tight">{rec.firstName}</p>
-                      <p className="text-white/40 text-md font-bold font-mono mt-0.5">{rec.bankTag}</p>
+                      <p className="text-zinc-950 text-sm font-sans font-bold leading-tight">{rec.firstName}</p>
+                      <p className="text-zinc-500 text-xs font-mono font-bold mt-0.5">{rec.bankTag}</p>
                     </div>
-                    <ArrowRight size={14} className="text-white/20 group-hover:text-brand-purple group-hover:translate-x-1 transition-all" />
+                    <ArrowRight size={14} className="text-zinc-400 group-hover:text-brand-purple group-hover:translate-x-1 transition-all" />
                   </button>
                 ))}
               </div>
@@ -484,7 +484,7 @@ export default function SendTokenModal({
               id="send-continue-btn-step1"
               onClick={handleNextStep}
               disabled={!resolvedRecipient || isResolving}
-              className="w-full h-12 bg-white hover:bg-white/90 text-black font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-brand-purple/20"
             >
               Continue
               <ArrowRight size={16} />
@@ -498,8 +498,8 @@ export default function SendTokenModal({
         <div className="p-6 space-y-6">
           {/* Recipient Header Summary */}
           {resolvedRecipient && (
-            <div className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-2xl">
-              <div className="h-10 w-10 shrink-0 rounded-xl overflow-hidden relative border border-white/10">
+            <div className="flex items-center gap-3 p-3 bg-zinc-50 border border-zinc-200 rounded-2xl">
+              <div className="h-10 w-10 shrink-0 rounded-xl overflow-hidden relative border border-zinc-200 bg-white">
                 {avatarSrc ? (
                   <Image
                     src={avatarSrc.startsWith("http") 
@@ -515,15 +515,15 @@ export default function SendTokenModal({
                 )}
               </div>
               <div>
-                <p className="text-white/40 text-md font-bold uppercase tracking-wider">Sending To</p>
-                <p className="text-white text-sm font-bold mt-0.5">
+                <p className="text-zinc-400 text-xs font-mono font-bold uppercase tracking-wider">Sending To</p>
+                <p className="text-zinc-950 text-sm font-sans font-bold mt-0.5">
                   {resolvedRecipient.firstName} ({resolvedRecipient.bankTag})
                 </p>
               </div>
               <button 
                 type="button" 
                 onClick={() => setStep(1)} 
-                className="ml-auto text-sm font-bold text-brand-purple hover:underline"
+                className="ml-auto text-xs font-mono font-bold text-brand-purple hover:underline cursor-pointer"
               >
                 Change
               </button>
@@ -532,17 +532,17 @@ export default function SendTokenModal({
 
           <div className="space-y-4">
             {/* Amount Field */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-baseline">
-                <label className="text-sm font-bold text-white/40 uppercase tracking-widest">
+                <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider">
                   {resolvedRecipient ? "Amount (USD)" : "Amount (USDC)"}
                 </label>
-                <span className="text-md font-bold text-white/40">
-                  Spendable Balance: <strong className="text-white">${availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong>
+                <span className="text-xs text-zinc-500 font-sans">
+                  Spendable Balance: <strong className="text-zinc-950 font-mono font-bold">${availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong>
                 </span>
               </div>
               
-              <div className="relative flex items-center rounded-2xl bg-black/40 border border-white/10 focus-within:border-brand-purple transition-all px-4 py-3">
+              <div className="relative flex items-center rounded-2xl bg-zinc-50 border border-zinc-200 focus-within:border-brand-purple focus-within:bg-white transition-all px-4 py-3">
                 <DollarSign size={20} className="text-brand-purple shrink-0" />
                 <input
                   id="send-amount-input"
@@ -550,44 +550,44 @@ export default function SendTokenModal({
                   placeholder="0.00"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="w-full bg-transparent border-0 outline-none text-white text-xl font-bold placeholder-white/20 pl-1"
+                  className="w-full bg-transparent border-0 outline-none text-zinc-950 text-xl font-mono font-bold placeholder-zinc-400 pl-1"
                 />
                  <button
                   type="button"
                   onClick={handleMaxAmount}
-                  className="bg-brand-purple/20 text-brand-purple text-sm font-black px-3 py-1.5 rounded-lg border border-brand-purple/30 hover:bg-brand-purple hover:text-white transition-colors"
+                  className="bg-brand-purple/10 text-brand-purple text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-brand-purple/20 hover:bg-brand-purple hover:text-white transition-colors cursor-pointer"
                 >
                   MAX
                 </button>
               </div>
               {amount && (parseFloat(amount) + (fee?.feeUSD || 0)) > availableBalance && (
-                <p className="text-sm text-rose-400 font-medium">Insufficient available balance (includes fee).</p>
+                <p className="text-xs text-red-600 font-sans font-medium">Insufficient available balance (includes fee).</p>
               )}
             </div>
 
             {/* Remark Field */}
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-white/40 uppercase tracking-widest block">Remark (Optional)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Remark (Optional)</label>
               <textarea
                 id="send-description-input"
                 placeholder="What is this for?"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={2}
-                className="w-full rounded-2xl bg-black/40 border border-white/10 focus:border-brand-purple transition-all p-3 text-sm text-white placeholder-white/20 outline-none resize-none"
+                className="w-full rounded-2xl bg-zinc-50 border border-zinc-200 focus:border-brand-purple focus:bg-white transition-all p-3 text-xs sm:text-sm text-zinc-900 font-sans placeholder-zinc-400 outline-none resize-none"
               />
             </div>
 
             {/* Fee summary block */}
             {isCalculatingFee ? (
-              <div className="flex items-center gap-2 text-sm text-white/40 py-1">
+              <div className="flex items-center gap-2 text-xs text-zinc-500 py-1 font-sans">
                 <Loader2 size={12} className="animate-spin text-brand-purple" />
                 Calculating transaction fee...
               </div>
             ) : fee ? (
-              <div className="flex items-center justify-between text-sm py-1 text-white/50 border-t border-white/5 pt-2">
+              <div className="flex items-center justify-between text-xs py-1 text-zinc-500 border-t border-zinc-200 pt-2 font-sans">
                 <span>Estimated Fee:</span>
-                <span className="font-bold text-white">${fee.feeUSD?.toFixed(2) || "0.00"}</span>
+                <span className="font-mono font-bold text-zinc-950">${fee.feeUSD?.toFixed(2) || "0.00"}</span>
               </div>
             ) : null}
           </div>
@@ -596,7 +596,7 @@ export default function SendTokenModal({
           <div className="flex gap-3 pt-2">
             <Button
               onClick={handlePrevStep}
-              className="flex-1 h-12 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl flex items-center justify-center gap-2 border border-white/10 cursor-pointer"
+              className="flex-1 h-11 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-sans font-bold rounded-full flex items-center justify-center gap-2 border border-zinc-200 cursor-pointer"
             >
               <ArrowLeft size={16} />
               Back
@@ -605,7 +605,7 @@ export default function SendTokenModal({
               id="send-continue-btn-step2"
               onClick={handleNextStep}
               disabled={!amount || parseFloat(amount) <= 0 || (parseFloat(amount) + (fee?.feeUSD || 0)) > availableBalance}
-              className="flex-1 h-12 bg-white hover:bg-white/90 text-black font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="flex-1 h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-brand-purple/20"
             >
               Continue
               <ArrowRight size={16} />
@@ -618,32 +618,32 @@ export default function SendTokenModal({
       {step === 3 && (
         <div className="p-6 space-y-6">
           <div className="flex flex-col items-center text-center space-y-3">
-            <div className="h-12 w-12 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center shrink-0 shadow-lg">
+            <div className="h-12 w-12 rounded-2xl bg-red-50 text-red-600 border border-red-200 flex items-center justify-center shrink-0 shadow-2xs">
               <Lock size={20} />
             </div>
             <div className="space-y-1">
-              <h3 className="text-white text-base font-bold">Transaction Authentication</h3>
-              <p className="text-white/40 text-sm max-w-[320px]">
+              <h3 className="text-zinc-950 text-base font-display font-bold">Transaction Authentication</h3>
+              <p className="text-zinc-500 text-xs sm:text-sm max-w-[320px] font-sans">
                 Please enter your account password to authorize and sign this transfer.
               </p>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-white/40 uppercase tracking-widest block">Verify Password</label>
-            <div className="relative flex items-center rounded-2xl bg-black/40 border border-white/10 focus-within:border-brand-purple transition-all px-4 py-3.5">
+          <div className="space-y-1.5">
+            <label className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider block">Verify Password</label>
+            <div className="relative flex items-center rounded-2xl bg-zinc-50 border border-zinc-200 focus-within:border-brand-purple focus-within:bg-white transition-all px-4 py-3">
               <input
                 id="send-password-input"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-0 outline-none text-white text-sm font-semibold tracking-wider placeholder-white/20 pr-10"
+                className="w-full bg-transparent border-0 outline-none text-zinc-950 text-sm font-sans font-semibold tracking-wider placeholder-zinc-400 pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 text-sm font-bold text-white/40 hover:text-white"
+                className="absolute right-4 text-xs font-mono font-bold text-zinc-500 hover:text-zinc-900 cursor-pointer"
               >
                 {showPassword ? "HIDE" : "SHOW"}
               </button>
@@ -654,7 +654,7 @@ export default function SendTokenModal({
           <div className="flex gap-3 pt-2">
             <Button
               onClick={handlePrevStep}
-              className="flex-1 h-12 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl flex items-center justify-center gap-2 border border-white/10 cursor-pointer"
+              className="flex-1 h-11 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-sans font-bold rounded-full flex items-center justify-center gap-2 border border-zinc-200 cursor-pointer"
             >
               <ArrowLeft size={16} />
               Back
@@ -663,7 +663,7 @@ export default function SendTokenModal({
               id="send-continue-btn-step3"
               onClick={handleNextStep}
               disabled={!password}
-              className="flex-1 h-12 bg-white hover:bg-white/90 text-black font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="flex-1 h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-brand-purple/20"
             >
               Verify
               <ArrowRight size={16} />
@@ -676,20 +676,20 @@ export default function SendTokenModal({
       {step === 4 && (
         <div className="p-6 space-y-6">
           <div className="space-y-4">
-            <span className="text-sm font-bold text-white/30 uppercase tracking-widest block">Transaction Summary</span>
+            <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider block">Transaction Summary</span>
 
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
+            <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-3.5">
               {/* From User */}
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-white/40">From:</span>
-                <span className="font-bold text-white font-mono">{user?.bankTag ? `@${user.bankTag}` : "Your Balance"}</span>
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <span className="text-zinc-500 font-sans">From:</span>
+                <span className="font-mono font-bold text-zinc-950">{user?.bankTag ? `@${user.bankTag}` : "Your Balance"}</span>
               </div>
 
               {/* To User */}
-              <div className="flex justify-between items-center text-sm border-t border-white/5 pt-3">
-                <span className="text-white/40">To Recipient:</span>
+              <div className="flex justify-between items-center text-xs sm:text-sm border-t border-zinc-200 pt-3">
+                <span className="text-zinc-500 font-sans">To Recipient:</span>
                 <div className="flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-lg overflow-hidden relative border border-white/10">
+                  <div className="h-6 w-6 rounded-lg overflow-hidden relative border border-zinc-200 bg-white">
                     {avatarSrc ? (
                       <Image
                         src={avatarSrc.startsWith("http") 
@@ -704,35 +704,35 @@ export default function SendTokenModal({
                       renderAvatarPlaceholder()
                     )}
                   </div>
-                  <span className="font-bold text-white font-mono">{resolvedRecipient?.bankTag}</span>
+                  <span className="font-mono font-bold text-zinc-950">{resolvedRecipient?.bankTag}</span>
                 </div>
               </div>
 
               {/* Transfer Amount */}
-              <div className="flex justify-between items-center text-sm border-t border-white/5 pt-3">
-                <span className="text-white/40">Subtotal:</span>
-                <span className="font-bold text-white">${parseFloat(amount).toFixed(2)} {resolvedRecipient ? "USD" : "USDC"}</span>
+              <div className="flex justify-between items-center text-xs sm:text-sm border-t border-zinc-200 pt-3">
+                <span className="text-zinc-500 font-sans">Subtotal:</span>
+                <span className="font-mono font-bold text-zinc-950">${parseFloat(amount).toFixed(2)} {resolvedRecipient ? "USD" : "USDC"}</span>
               </div>
 
               {/* Fee */}
-              <div className="flex justify-between items-center text-sm border-t border-white/5 pt-3">
-                <span className="text-white/40">Transfer Fee:</span>
-                <span className="font-bold text-emerald-400">
+              <div className="flex justify-between items-center text-xs sm:text-sm border-t border-zinc-200 pt-3">
+                <span className="text-zinc-500 font-sans">Transfer Fee:</span>
+                <span className="font-mono font-bold text-emerald-600">
                   {fee?.feeUSD && fee.feeUSD > 0 ? `$${fee.feeUSD.toFixed(2)}` : "Free"}
                 </span>
               </div>
 
               {/* Total Deducted */}
-              <div className="flex justify-between items-center border-t border-white/10 pt-3 text-base">
-                <span className="font-black text-white">Total Deduction:</span>
-                <span className="font-black text-brand-yellow">${totalDeduction.toFixed(2)}</span>
+              <div className="flex justify-between items-center border-t border-zinc-200 pt-3 text-sm sm:text-base">
+                <span className="font-sans font-bold text-zinc-950">Total Deduction:</span>
+                <span className="font-mono font-black text-brand-purple">${totalDeduction.toFixed(2)}</span>
               </div>
 
               {/* Remark */}
               {description && (
-                <div className="border-t border-white/5 pt-3 text-sm">
-                  <span className="text-white/40 block mb-1">Remark:</span>
-                  <p className="text-white/70 italic bg-black/20 p-2.5 rounded-xl border border-white/5 leading-relaxed">
+                <div className="border-t border-zinc-200 pt-3 text-xs">
+                  <span className="text-zinc-500 font-sans block mb-1">Remark:</span>
+                  <p className="text-zinc-700 italic bg-white p-2.5 rounded-xl border border-zinc-200 font-sans leading-relaxed">
                     &quot;{description}&quot;
                   </p>
                 </div>
@@ -740,8 +740,8 @@ export default function SendTokenModal({
             </div>
 
             {resolvedRecipient?.isExternal && (
-              <div className="flex gap-2.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-md leading-relaxed animate-in fade-in duration-200">
-                <ShieldAlert size={16} className="shrink-0 mt-0.5 text-amber-400 animate-pulse" />
+              <div className="flex gap-2.5 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs leading-relaxed animate-in fade-in duration-200 font-sans">
+                <ShieldAlert size={16} className="shrink-0 mt-0.5 text-amber-700 animate-pulse" />
                 <span>
                   <strong>External Blockchain Withdrawal:</strong> This transfer will be processed on-chain and sent directly to the address provided on the BSC Testnet. Ensure the destination address is correct and supports USDC.
                 </span>
@@ -754,7 +754,7 @@ export default function SendTokenModal({
             <Button
               onClick={handlePrevStep}
               disabled={isProcessing}
-              className="flex-1 h-12 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl flex items-center justify-center gap-2 border border-white/10 disabled:opacity-50 cursor-pointer"
+              className="flex-1 h-11 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-sans font-bold rounded-full flex items-center justify-center gap-2 border border-zinc-200 disabled:opacity-50 cursor-pointer"
             >
               <ArrowLeft size={16} />
               Back
@@ -763,7 +763,7 @@ export default function SendTokenModal({
               id="confirm-send-btn"
               onClick={handleInitiateTransfer}
               disabled={isProcessing}
-              className="flex-1 h-12 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-lg shadow-brand-purple/20"
+              className="flex-1 h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-md shadow-brand-purple/20"
             >
               {isProcessing ? (
                 <>
@@ -788,30 +788,30 @@ export default function SendTokenModal({
             
             {txResult.success ? (
               <>
-                <div className="h-16 w-16 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center animate-bounce shadow-lg shadow-emerald-500/5">
+                <div className="h-16 w-16 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center animate-bounce shadow-sm">
                   <CheckCircle2 size={36} />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-white text-lg font-black tracking-tight">Transfer Successful!</h3>
-                  <p className="text-white/60 text-sm max-w-[280px] leading-relaxed">
+                  <h3 className="text-zinc-950 text-lg font-display font-extrabold tracking-tight">Transfer Successful!</h3>
+                  <p className="text-zinc-600 text-xs sm:text-sm max-w-[280px] leading-relaxed font-sans">
                     {txResult.message}
                   </p>
                 </div>
 
                 {txResult.txId && (
-                  <div className="bg-black/30 border border-white/5 px-3 py-2 rounded-xl text-md font-mono text-white/40 select-all max-w-[280px] truncate">
+                  <div className="bg-zinc-50 border border-zinc-200 px-3 py-2 rounded-xl text-xs font-mono text-zinc-500 select-all max-w-[280px] truncate">
                     Ref ID: {txResult.txId}
                   </div>
                 )}
               </>
             ) : (
               <>
-                <div className="h-16 w-16 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center animate-pulse shadow-lg shadow-rose-500/5">
+                <div className="h-16 w-16 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center justify-center animate-pulse shadow-sm">
                   <XCircle size={36} />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-white text-lg font-black tracking-tight">Transaction Failed</h3>
-                  <p className="text-white/60 text-sm max-w-[280px] leading-relaxed">
+                  <h3 className="text-zinc-950 text-lg font-display font-extrabold tracking-tight">Transaction Failed</h3>
+                  <p className="text-zinc-600 text-xs sm:text-sm max-w-[280px] leading-relaxed font-sans">
                     {txResult.message}
                   </p>
                 </div>
@@ -825,7 +825,7 @@ export default function SendTokenModal({
                 <Button
                   id="send-done-btn"
                   onClick={onClose}
-                  className="w-full h-12 bg-white hover:bg-white/90 text-black font-bold rounded-xl cursor-pointer"
+                  className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full cursor-pointer shadow-md shadow-brand-purple/20"
                 >
                   Done
                 </Button>
@@ -834,7 +834,7 @@ export default function SendTokenModal({
               <Button
                 id="send-try-again-btn"
                 onClick={() => setStep(4)}
-                className="w-full h-12 bg-white hover:bg-white/90 text-black font-bold rounded-xl cursor-pointer"
+                className="w-full h-11 bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full cursor-pointer shadow-md shadow-brand-purple/20"
               >
                 Try Again
               </Button>
