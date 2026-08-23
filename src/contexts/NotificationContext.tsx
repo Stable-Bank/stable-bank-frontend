@@ -29,7 +29,7 @@ const getTypeIcon = (type: Notification["type"]) => {
     case "promotion":
       return <Sparkles className="text-amber-400 h-5 w-5" />;
     case "referral":
-      return <Gift className="text-blue-400 h-5 w-5" />;
+      return <Gift className="text-brand-purple h-5 w-5" />;
     default:
       return <Bell className="text-brand-purple h-5 w-5" />;
   }
