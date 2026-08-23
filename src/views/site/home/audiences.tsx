@@ -33,21 +33,21 @@ export default function Audiences() {
           </div>
 
           {/* Businesses */}
-          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
-            <div className="w-14 h-14 bg-purple-50 border border-brand-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
-              <Building2 className="w-7 h-7 text-brand-purple group-hover:text-white transition-colors" />
+          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-[#B0BE19]/60 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
+            <div className="w-14 h-14 bg-[#F5FACD] border border-[#D9E956]/70 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-yellow transition-all duration-300">
+              <Building2 className="w-7 h-7 text-[#556000] group-hover:text-zinc-950 transition-colors" />
             </div>
             <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Businesses</h3>
             <p className="text-zinc-600 leading-relaxed mb-8 flex-1 font-sans">
               The financial infrastructure for global teams. Run cross-border payroll, issue team cards, and manage treasury in one view.
             </p>
-            <Link href={appRoutes.auth.signUp} className="flex items-center text-zinc-500 font-semibold group-hover:text-brand-purple transition-colors font-mono text-sm">
+            <Link href={appRoutes.auth.signUp} className="flex items-center text-zinc-500 font-semibold group-hover:text-[#556000] transition-colors font-mono text-sm">
               Open Business Account <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
           {/* Institutions */}
-          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
+          <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-emerald-500/50 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
             <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300">
               <Landmark className="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors" />
             </div>
