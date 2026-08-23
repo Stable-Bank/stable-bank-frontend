@@ -44,8 +44,8 @@ export default function MobileBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-[#0E121C]/95 backdrop-blur-lg border-t border-white/10 safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
-      <div className="flex items-center justify-around px-2 py-2.5">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-lg border-t border-zinc-200 safe-area-bottom shadow-lg">
+      <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           // Exact match for home, startsWith for others
           const isActive = item.route === appRoutes.dashboard.home
@@ -60,22 +60,19 @@ export default function MobileBottomNav() {
               className={cn(
                 "flex flex-col items-center justify-center gap-1 px-2 py-1.5 rounded-lg transition-all duration-200 min-w-[56px] active:scale-95",
                 isActive
-                  ? "text-brand-purple bg-brand-purple/10"
-                  : "text-white/60 hover:text-white/80 active:bg-white/5"
+                  ? "text-brand-purple bg-brand-purple/10 font-bold"
+                  : "text-zinc-500 hover:text-zinc-900 active:bg-zinc-100 font-medium"
               )}
             >
               <Icon
-                size={22}
+                size={20}
                 className={cn(
                   "transition-all duration-200",
                   isActive && "scale-110"
                 )}
                 strokeWidth={isActive ? 2.5 : 2}
               />
-              <span className={cn(
-                "text-md font-medium transition-all duration-200",
-                isActive && "font-semibold"
-              )}>
+              <span className="text-xs font-sans">
                 {item.label}
               </span>
             </Link>
