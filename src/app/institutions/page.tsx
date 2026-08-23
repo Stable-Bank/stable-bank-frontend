@@ -113,7 +113,7 @@ export default function InstitutionsPage() {
             <section className="relative min-h-[80vh] flex items-center pt-16 pb-20 px-4 sm:px-6 lg:px-10 overflow-hidden">
                 <div className="max-w-largest mx-auto relative z-10 w-full">
                     <div className="text-center max-w-4xl mx-auto">
-                        <SectionCard title="StableBank Institutions" />
+                        <SectionCard title="StableBank Institutions" category="PRIME" />
                         <h1 className="mt-8 text-5xl sm:text-6xl md:text-8xl font-display font-black text-zinc-950 leading-[1.05] tracking-tight">
                             Engineered for scale. <br />
                             <span className="text-brand-purple">
@@ -140,7 +140,7 @@ export default function InstitutionsPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-10 border-y border-zinc-200 bg-zinc-50/50 relative overflow-hidden">
                 <div className="max-w-largest mx-auto">
                     <div className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Capabilities" />
+                        <SectionCard title="Capabilities" category="INFRASTRUCTURE" />
                         <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950 mb-4">
                             Institutional <span className="text-brand-purple">Platform</span>
                         </h2>
@@ -174,7 +174,7 @@ export default function InstitutionsPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-10 bg-white relative overflow-hidden">
                 <div className="max-w-largest mx-auto relative z-10">
                     <div className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Who We Serve" />
+                        <SectionCard title="Who We Serve" category="CLIENTELE" />
                         <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950 mb-4">
                             Powering Digital Asset <span className="text-brand-purple">Pioneers</span>
                         </h2>
