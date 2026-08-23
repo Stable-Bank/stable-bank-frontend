@@ -24,7 +24,7 @@ const values = [
         description:
             "Your assets are protected with military-grade encryption and multi-signature security.",
         color: "text-brand-purple",
-        bgColor: "bg-brand-purple/10",
+        bgColor: "bg-purple-50 border border-purple-100",
     },
     {
         icon: Eye,
@@ -32,15 +32,15 @@ const values = [
         description:
             "Every transaction is verifiable on-chain. No hidden fees, no surprises.",
         color: "text-emerald-600",
-        bgColor: "bg-emerald-50",
+        bgColor: "bg-emerald-50 border border-emerald-200",
     },
     {
         icon: Zap,
         title: "Constant Innovation",
         description:
             "We push the boundaries of what's possible in decentralized finance.",
-        color: "text-amber-600",
-        bgColor: "bg-amber-50",
+        color: "text-[#556000]",
+        bgColor: "bg-[#F5FACD] border border-[#D9E956]/70",
     },
     {
         icon: Heart,
@@ -48,7 +48,7 @@ const values = [
         description:
             "Every feature is designed with your experience and needs in mind.",
         color: "text-rose-600",
-        bgColor: "bg-rose-50",
+        bgColor: "bg-rose-50 border border-rose-200",
     },
 ];
 
