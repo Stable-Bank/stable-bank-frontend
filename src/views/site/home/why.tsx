@@ -37,7 +37,7 @@ export default function Why() {
         
         {/* Section Header */}
         <div className="mb-12 sm:mb-16 md:mb-20 text-center flex flex-col items-center">
-          <SectionCard title="WHY STABLEBANK" category="THE COMPARISON" />
+          <SectionCard title="WHY STABLEBANK" category="THE COMPARISON" variant="yellow" />
           
           <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950">
             Old Banking is <span className="text-brand-purple">Stuck in the Past</span>
@@ -56,7 +56,7 @@ export default function Why() {
             <div>
               <div className="flex justify-between items-center mb-6 border-b border-zinc-200 pb-4">
                 <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 font-semibold">Feature comparison</span>
-                <span className="text-xs font-mono font-bold text-brand-purple flex items-center gap-1">
+                <span className="text-xs font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2.5 py-0.5 rounded-full border border-[#D0E244]/80 flex items-center gap-1">
                   <Sparkles className="h-3.5 w-3.5" /> Direct Settle
                 </span>
               </div>
@@ -113,10 +113,10 @@ export default function Why() {
             </div>
 
             {/* Card 2: Global by Default */}
-            <div className="group relative p-6 sm:p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-sm">
+            <div className="group relative p-6 sm:p-8 rounded-2xl bg-white border border-zinc-200 hover:border-[#B0BE19]/60 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-sm">
               <div>
-                <div className="w-12 h-12 bg-purple-50 border border-brand-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
-                  <Globe className="w-6 h-6 text-brand-purple group-hover:text-white transition-colors" />
+                <div className="w-12 h-12 bg-[#F5FACD] border border-[#D9E956]/70 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-yellow transition-all duration-300">
+                  <Globe className="w-6 h-6 text-[#556000] group-hover:text-zinc-950 transition-colors" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-display font-bold text-zinc-950 mb-3">Global by Default</h3>
                 <p className="text-sm text-zinc-600 leading-relaxed font-sans">
