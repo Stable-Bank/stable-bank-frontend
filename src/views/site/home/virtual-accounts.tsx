@@ -108,7 +108,7 @@ export default function VirtualAccounts() {
                     </h3>
                     <p className="text-xs text-zinc-500 mt-1 font-sans">{account.bankName}</p>
                   </div>
-                  <span className="text-xs font-mono font-bold text-brand-purple bg-brand-purple/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  <span className="text-xs font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2.5 py-1 rounded-full uppercase tracking-wider border border-[#D0E244]/80">
                     Local Route
                   </span>
                 </div>
@@ -143,7 +143,7 @@ export default function VirtualAccounts() {
                     <span>Supported: <strong>{account.network}</strong></span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <RefreshCw className="h-3.5 w-3.5 text-brand-purple animate-spin" style={{ animationDuration: "8s" }} />
+                    <RefreshCw className="h-3.5 w-3.5 text-emerald-600 animate-spin" style={{ animationDuration: "8s" }} />
                     <span>Auto-settles to Stablecoins</span>
                   </div>
                 </div>
@@ -168,19 +168,19 @@ export default function VirtualAccounts() {
 
             <ul className="mt-8 space-y-4 text-sm sm:text-base text-zinc-700 font-sans">
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000] shrink-0">
                   <RefreshCw className="h-4 w-4" />
                 </div>
                 <span><strong>Instant Crypto Conversion</strong> — Incoming fiat deposits automatically convert to USDC or USDT at market rates.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-brand-purple shrink-0">
                   <Globe className="h-4 w-4" />
                 </div>
                 <span><strong>Zero Cross-Border Fees</strong> — Receive international employer payments or contractor invoices without standard high wire charges.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
                   <Info className="h-4 w-4" />
                 </div>
                 <span><strong>ACH & SEPA Ready</strong> — Settle local payments seamlessly over direct country-specific payment pathways.</span>
