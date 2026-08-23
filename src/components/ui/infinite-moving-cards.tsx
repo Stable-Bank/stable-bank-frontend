@@ -90,37 +90,32 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <li
-            className="rounded-2xl bg-gradient-to-r from-[#B3B3B3] to-[#4D4D4D] p-[0.2px]"
+            className="w-[320px] sm:w-[380px] md:w-[420px] max-w-full shrink-0 rounded-2xl bg-white border border-zinc-200 p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow"
             key={item.name + idx}
           >
-            <div className="text-brand-white relative w-[350px] max-w-full shrink-0 rounded-2xl bg-black px-8 py-8 md:w-[450px]">
-              <blockquote>
-                {/* <div
-                  aria-hidden="true"
-                  className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-                ></div> */}
-                <span className="relative z-20 text-base leading-[1.6] font-normal">
-                  {item.quote}
-                </span>
-                <div className="relative z-20 mt-8 flex flex-row items-center gap-4">
-                  <Image
-                    src={item.image}
-                    alt=" user.img"
-                    width={48}
-                    height={48}
-                  />
+            <blockquote className="flex flex-col justify-between h-full">
+              <span className="relative z-20 text-sm sm:text-base leading-relaxed font-sans text-zinc-700">
+                {item.quote}
+              </span>
+              <div className="relative z-20 mt-6 flex flex-row items-center gap-3.5 pt-4 border-t border-zinc-100">
+                <Image
+                  src={item.image}
+                  alt="user"
+                  width={42}
+                  height={42}
+                  className="rounded-full ring-2 ring-brand-purple/20"
+                />
 
-                  <span className="flex flex-col gap-1">
-                    <span className="text-sm leading-[1.6] font-normal dark:text-gray-400">
-                      {item.name}
-                    </span>
-                    <span className="text-sm leading-[1.6] font-normal text-[#4D4D4D] dark:text-gray-400">
-                      {item.title}
-                    </span>
+                <span className="flex flex-col">
+                  <span className="text-sm font-sans font-bold text-zinc-950">
+                    {item.name}
                   </span>
-                </div>
-              </blockquote>
-            </div>
+                  <span className="text-xs font-sans text-zinc-500">
+                    {item.title}
+                  </span>
+                </span>
+              </div>
+            </blockquote>
           </li>
         ))}
       </ul>
