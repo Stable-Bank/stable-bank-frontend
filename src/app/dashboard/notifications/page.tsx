@@ -32,10 +32,10 @@ const GlassCard = ({
   <Card
     id={id}
     className={cn(
-      "overflow-hidden transition-all duration-300 border shadow-lg shadow-black/20",
+      "overflow-hidden transition-all duration-200 border rounded-2xl shadow-sm",
       unread
-        ? "border-brand-purple/35 bg-[#0E121C]/85 shadow-brand-purple/[0.03]"
-        : "border-white/5 bg-[#0E121C]/50 hover:bg-[#0E121C]/75",
+        ? "border-brand-purple/40 bg-purple-50/40"
+        : "border-zinc-200 bg-white hover:bg-zinc-50/50",
       className
     )}
   >
@@ -81,33 +81,33 @@ export default function NotificationsPage() {
       case "transaction":
         return (
           <div className={cn(
-            "h-10 w-10 rounded-full flex items-center justify-center shrink-0 shadow-inner",
-            isReceived ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-brand-purple/10 text-brand-purple border border-brand-purple/20"
+            "h-10 w-10 rounded-full flex items-center justify-center shrink-0 border",
+            isReceived ? "bg-emerald-50 text-emerald-600 border-emerald-200" : "bg-brand-purple/10 text-brand-purple border-brand-purple/20"
           )}>
             {isReceived ? <ArrowDownLeft size={18} /> : <ArrowUpRight size={18} />}
           </div>
         );
       case "security":
         return (
-          <div className="h-10 w-10 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center shrink-0 shadow-inner">
+          <div className="h-10 w-10 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center justify-center shrink-0">
             <Shield size={18} />
           </div>
         );
       case "promotion":
         return (
-          <div className="h-10 w-10 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 shadow-inner">
+          <div className="h-10 w-10 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0">
             <Sparkles size={18} />
           </div>
         );
       case "referral":
         return (
-          <div className="h-10 w-10 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0 shadow-inner">
+          <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0">
             <Gift size={18} />
           </div>
         );
       default:
         return (
-          <div className="h-10 w-10 rounded-full bg-slate-500/10 text-slate-400 border border-slate-500/20 flex items-center justify-center shrink-0 shadow-inner">
+          <div className="h-10 w-10 rounded-full bg-zinc-100 text-zinc-600 border border-zinc-200 flex items-center justify-center shrink-0">
             <Bell size={18} />
           </div>
         );
@@ -124,14 +124,14 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className="flex animate-in fade-in flex-col gap-8 pb-20">
+    <div className="flex animate-in fade-in flex-col gap-8 pb-20 max-w-[1440px] mx-auto w-full">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-white tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950 tracking-tight">
             Notifications
           </h1>
-          <p className="text-white/40 text-base max-w-[500px]">
+          <p className="text-zinc-600 text-sm sm:text-base font-sans max-w-[500px]">
             Keep track of incoming transfers, deposits, security updates, and promotional offers.
           </p>
         </div>
@@ -140,7 +140,7 @@ export default function NotificationsPage() {
           <Button
             id="mark-all-read-btn"
             onClick={markAllAsRead}
-            className="bg-white hover:bg-white/90 text-black font-bold rounded-xl h-11 shrink-0 flex items-center gap-2 border border-white/10 shadow-lg shadow-black/20"
+            className="bg-brand-purple hover:bg-brand-purple/90 text-white font-sans font-bold rounded-full h-11 shrink-0 flex items-center gap-2 shadow-md shadow-brand-purple/20 cursor-pointer"
           >
             <CheckCheck size={16} />
             Mark all read
@@ -149,7 +149,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex border-b border-white/5 gap-1.5 overflow-x-auto pb-1">
+      <div className="flex border-b border-zinc-200 gap-1.5 overflow-x-auto pb-1">
         {(["all", "transaction", "security", "promotion"] as const).map((tab) => {
           const tabLabels = {
             all: "All Alerts",
@@ -163,10 +163,10 @@ export default function NotificationsPage() {
               id={`filter-${tab}`}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "px-5 py-3 text-sm font-bold border-b-2 transition-all shrink-0 capitalize outline-none",
+                "px-5 py-3 text-xs sm:text-sm font-sans font-bold border-b-2 transition-all shrink-0 capitalize outline-none cursor-pointer",
                 activeTab === tab
                   ? "border-brand-purple text-brand-purple font-extrabold"
-                  : "border-transparent text-white/40 hover:text-white"
+                  : "border-transparent text-zinc-500 hover:text-zinc-900"
               )}
             >
               {tabLabels[tab]}
@@ -180,16 +180,16 @@ export default function NotificationsPage() {
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="animate-pulse h-24 bg-white/[0.02] border border-white/5 rounded-2xl" />
+              <div key={n} className="animate-pulse h-24 bg-zinc-100 border border-zinc-200 rounded-2xl" />
             ))}
           </div>
         ) : filteredNotifications.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/10 rounded-3xl bg-white/[0.01] backdrop-blur-sm">
-            <div className="h-16 w-16 rounded-full bg-white/[0.03] flex items-center justify-center text-white/20 border border-white/5 mb-4">
+          <div className="flex flex-col items-center justify-center py-20 border border-dashed border-zinc-200 rounded-3xl bg-zinc-50">
+            <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center text-zinc-400 border border-zinc-200 mb-4 shadow-2xs">
               <BellOff size={28} />
             </div>
-            <h3 className="text-white text-lg font-bold">All caught up!</h3>
-            <p className="text-white/40 text-sm mt-1 max-w-xs text-center leading-relaxed">
+            <h3 className="text-zinc-950 text-lg font-display font-bold">All caught up!</h3>
+            <p className="text-zinc-500 font-sans text-sm mt-1 max-w-xs text-center leading-relaxed">
               {activeTab === "all"
                 ? "You don't have any notifications right now."
                 : `You don't have any notifications in ${tabLabels[activeTab] || activeTab} right now.`}
@@ -213,19 +213,19 @@ export default function NotificationsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h4 className={cn(
-                        "text-base font-bold text-white",
-                        isUnread ? "font-extrabold" : "text-white/90"
+                        "text-base font-sans font-bold text-zinc-950",
+                        isUnread ? "font-extrabold" : "text-zinc-800"
                       )}>
                         {notif.title}
                       </h4>
                       {isUnread && (
-                        <span className="h-2 w-2 rounded-full bg-rose-500 animate-ping inline-block shrink-0" />
+                        <span className="h-2 w-2 rounded-full bg-brand-purple animate-ping inline-block shrink-0" />
                       )}
                     </div>
-                    <p className="text-white/60 text-sm mt-1 leading-relaxed break-words font-medium">
+                    <p className="text-zinc-600 font-sans text-sm mt-1 leading-relaxed break-words font-medium">
                       {notif.message}
                     </p>
-                    <div className="flex items-center gap-1.5 text-white/30 text-[11px] font-bold uppercase tracking-widest mt-2">
+                    <div className="flex items-center gap-1.5 text-zinc-400 font-mono text-[11px] font-bold uppercase tracking-widest mt-2">
                       <Clock size={12} />
                       <span>{getRelativeTime(notif.createdAt)}</span>
                     </div>
@@ -237,7 +237,7 @@ export default function NotificationsPage() {
                       <button
                         id={`mark-read-btn-${notif._id}`}
                         onClick={() => markAsRead(notif._id)}
-                        className="p-2 rounded-xl text-white/40 hover:text-emerald-400 hover:bg-emerald-500/10 transition-all"
+                        className="p-2 rounded-xl text-zinc-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all cursor-pointer"
                         title="Mark as read"
                       >
                         <CheckCheck size={16} />
@@ -246,7 +246,7 @@ export default function NotificationsPage() {
                     <button
                       id={`delete-btn-${notif._id}`}
                       onClick={() => deleteNotification(notif._id)}
-                      className="p-2 rounded-xl text-white/40 hover:text-rose-400 hover:bg-rose-500/10 transition-all"
+                      className="p-2 rounded-xl text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
                       title="Delete notification"
                     >
                       <Trash2 size={16} />
