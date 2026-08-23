@@ -166,7 +166,7 @@ export default function UVCard() {
                     selectedCard.status === "active"
                       ? "bg-emerald-500/90 text-white"
                       : selectedCard.status === "frozen"
-                        ? "bg-blue-500/90 text-white"
+                        ? "bg-amber-500/90 text-white"
                         : "bg-red-500/90 text-white"
                   )}
                 >
