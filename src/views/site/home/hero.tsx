@@ -15,7 +15,7 @@ export default function HeroHome() {
 
       <div className="relative z-10 flex flex-col items-center text-center">
         <div className="mb-6">
-          <SectionCard title="Spend USDT Like Cash" category="DEFI BANKING" />
+          <SectionCard title="Spend USDT Like Cash" category="DEFI BANKING" variant="yellow" />
         </div>
 
         <h1 className="text-center text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-zinc-950 tracking-tight leading-[1.05] max-w-5xl px-4">
@@ -55,12 +55,12 @@ export default function HeroHome() {
 
           {/* Right Floating Context Pill */}
           <div className="hidden lg:flex absolute right-4 xl:right-8 bottom-32 z-20 items-center gap-3 rounded-2xl bg-white/95 border border-zinc-200 p-3.5 shadow-xl backdrop-blur-xl animate-float" style={{ animationDelay: "2s" }}>
-            <div className="h-10 w-10 rounded-xl bg-brand-purple/10 text-brand-purple border border-brand-purple/20 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-[#F5FACD] text-[#556000] border border-[#D9E956]/70 flex items-center justify-center">
               <CreditCard size={20} />
             </div>
             <div className="text-left">
               <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider block">StableTag Instant</span>
-              <span className="text-xs font-mono font-bold text-brand-purple">$alex.vance ↔ $elena</span>
+              <span className="text-xs font-mono font-bold text-[#556000]">$alex.vance ↔ $elena</span>
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export default function HeroHome() {
               <div className="rounded-2xl bg-white border border-zinc-200 p-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">Unified Balance</span>
-                  <span className="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">+4.2% APY</span>
+                  <span className="text-[10px] font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2 py-0.5 rounded-full border border-[#D0E244]/80 shadow-2xs">+4.2% APY</span>
                 </div>
                 <div className="mt-1">
                   <span className="text-2xl sm:text-3xl font-mono font-black text-zinc-950 tracking-tight">$142,850.00</span>
@@ -105,7 +105,7 @@ export default function HeroHome() {
                     <ArrowUpRight size={13} />
                     <span>Send</span>
                   </div>
-                  <div className="flex items-center justify-center gap-1.5 py-1.5 rounded-xl bg-purple-50 text-brand-purple border border-brand-purple/20 text-[11px] font-sans font-bold">
+                  <div className="flex items-center justify-center gap-1.5 py-1.5 rounded-xl bg-[#F5FACD] text-[#556000] border border-[#D9E956]/70 text-[11px] font-sans font-bold shadow-2xs">
                     <ArrowDownLeft size={13} />
                     <span>Receive</span>
                   </div>
@@ -153,6 +153,16 @@ export default function HeroHome() {
                     <span className="text-xs font-sans font-bold text-zinc-900">USDT</span>
                   </div>
                   <span className="text-xs font-mono font-bold text-zinc-950">$38,650.00</span>
+                </div>
+
+                <div className="flex items-center justify-between px-1">
+                  <div className="flex items-center gap-2">
+                    <div className="h-6 w-6 rounded-full bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[10px] font-bold text-[#556000]">
+                      €
+                    </div>
+                    <span className="text-xs font-sans font-bold text-zinc-900">EURC</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-zinc-950">€10,000.00</span>
                 </div>
               </div>
 
