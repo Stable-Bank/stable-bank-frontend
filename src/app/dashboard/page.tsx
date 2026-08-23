@@ -28,7 +28,6 @@ import {
   ChevronRight,
   Plus,
   Copy,
-  Sparkles,
   ArrowRight,
   Activity,
   Inbox,
@@ -39,7 +38,6 @@ import {
   Target,
   Unlock,
   Users,
-  BookOpen,
   Coins,
   Check,
   Info,
@@ -117,23 +115,23 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
   const primaryCard = cards.length > 0 ? cards[0] : null;
 
   return (
-    <div className="rounded-[28px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-6 shadow-2xl relative overflow-hidden flex flex-col">
+    <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-sm relative overflow-hidden flex flex-col">
       <div className="flex justify-between items-center mb-5">
         <div>
-          <h4 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
+          <h4 className="text-base font-display font-bold text-zinc-950 tracking-tight flex items-center gap-2">
             <Wallet size={16} className="text-brand-purple" /> Accounts & Cards
           </h4>
-          <p className="text-white/40 text-xs mt-0.5">Your virtual bank coordinates & cards.</p>
+          <p className="text-zinc-500 text-xs font-sans mt-0.5">Your virtual bank coordinates & cards.</p>
         </div>
       </div>
 
       {/* Panel Selector Tabs */}
-      <div className="flex rounded-xl bg-white/[0.02] border border-white/5 p-1 mb-5">
+      <div className="flex rounded-xl bg-zinc-100 border border-zinc-200 p-1 mb-5">
         <button
           onClick={() => setActiveTab("accounts")}
           className={cn(
-            "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5",
-            activeTab === "accounts" ? "bg-brand-purple text-white shadow-md" : "text-white/60 hover:text-white"
+            "flex-1 py-2 text-xs sm:text-sm font-sans font-bold rounded-lg transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5",
+            activeTab === "accounts" ? "bg-brand-purple text-white shadow-xs" : "text-zinc-600 hover:text-zinc-950"
           )}
         >
           <MultiFlagIcon className="w-5 h-4" />
@@ -142,8 +140,8 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
         <button
           onClick={() => setActiveTab("cards")}
           className={cn(
-            "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5",
-            activeTab === "cards" ? "bg-brand-purple text-white shadow-md" : "text-white/60 hover:text-white"
+            "flex-1 py-2 text-xs sm:text-sm font-sans font-bold rounded-lg transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5",
+            activeTab === "cards" ? "bg-brand-purple text-white shadow-xs" : "text-zinc-600 hover:text-zinc-950"
           )}
         >
           <CreditCard size={14} />
@@ -167,10 +165,10 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
                   key={curr.code}
                   onClick={() => setActiveCurrency(curr.code)}
                   className={cn(
-                    "flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-bold rounded-xl border transition-all cursor-pointer",
+                    "flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-mono font-bold rounded-xl border transition-all cursor-pointer",
                     isSelected
-                      ? "bg-brand-yellow/15 border-brand-yellow/30 text-brand-yellow shadow-sm"
-                      : "bg-white/5 border-white/5 text-white/50 hover:bg-white/10 hover:text-white"
+                      ? "bg-brand-purple/10 border-brand-purple text-brand-purple shadow-2xs"
+                      : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
                   )}
                 >
                   <IconComponent className="w-3.5 h-3.5" />
@@ -181,13 +179,13 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
           </div>
 
           {/* Account Details Box */}
-          <div className="rounded-2xl border border-white/5 bg-white/[0.01] p-4 space-y-3">
-            <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4 space-y-3">
+            <div className="flex justify-between items-center border-b border-zinc-200 pb-2.5">
               <div className="flex items-center gap-2">
                 <activeAccount.icon className="w-4 h-4" />
-                <span className="text-xs font-bold text-white/60 uppercase tracking-wider">{activeAccount.bankName}</span>
+                <span className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider">{activeAccount.bankName}</span>
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                 {activeAccount.rail}
               </span>
             </div>
@@ -195,15 +193,15 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
             <div className="space-y-2.5">
               {activeAccount.details.map((field) => (
                 <div key={field.label} className="flex justify-between items-center gap-3 text-xs">
-                  <span className="text-white/40 font-semibold">{field.label}</span>
+                  <span className="text-zinc-500 font-sans font-medium">{field.label}</span>
                   <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-white font-mono font-bold truncate max-w-[180px]" title={field.value}>{field.value}</span>
+                    <span className="text-zinc-900 font-mono font-bold truncate max-w-[180px]" title={field.value}>{field.value}</span>
                     <button
                       onClick={() => handleCopy(field.value, `${activeCurrency}-${field.label}`)}
-                      className="p-1 rounded hover:bg-white/10 text-white/40 hover:text-white transition-colors cursor-pointer shrink-0"
+                      className="p-1 rounded hover:bg-zinc-200/60 text-zinc-400 hover:text-zinc-800 transition-colors cursor-pointer shrink-0"
                     >
                       {copiedField === `${activeCurrency}-${field.label}` ? (
-                        <Check size={12} className="text-emerald-400" />
+                        <Check size={12} className="text-emerald-600" />
                       ) : (
                         <Copy size={12} />
                       )}
@@ -214,7 +212,7 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
             </div>
           </div>
           
-          <div className="text-[11px] text-brand-yellow font-medium flex items-center gap-1.5 leading-snug">
+          <div className="text-[11px] text-brand-purple font-sans font-medium flex items-center gap-1.5 leading-snug">
             <Info size={13} className="shrink-0" />
             <span>Incoming wire deposits convert and credit into your stablecoin balance.</span>
           </div>
@@ -222,22 +220,22 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
       ) : (
         <div className="space-y-4">
           {isCardsLoading ? (
-            <div className="h-[140px] w-full animate-pulse rounded-2xl bg-white/5" />
+            <div className="h-[140px] w-full animate-pulse rounded-2xl bg-zinc-100" />
           ) : primaryCard ? (
             <div className="space-y-4">
               {/* Glassmorphic micro-card */}
               <div 
                 onClick={() => router.push(appRoutes.dashboard.vcard)}
-                className="relative aspect-[1.586/1] w-full rounded-2xl p-4 sm:p-5 overflow-hidden border border-white/10 bg-gradient-to-br from-[#1c1830] via-[#0b0a14] to-[#121124] shadow-xl flex flex-col justify-between cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
+                className="relative aspect-[1.586/1] w-full rounded-2xl p-4 sm:p-5 overflow-hidden border border-zinc-800 bg-gradient-to-br from-[#1c1830] via-[#0b0a14] to-[#121124] shadow-md flex flex-col justify-between cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
               >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-brand-purple)_0%,transparent_60%)] opacity-35 pointer-events-none" />
                 <div className="relative flex justify-between items-start z-10">
                   <div>
-                    <span className="text-[8px] font-bold tracking-widest text-white/50 uppercase">StableBank</span>
-                    <h5 className="text-xs font-bold text-white mt-0.5">Black Metal</h5>
+                    <span className="text-[8px] font-mono font-bold tracking-widest text-white/50 uppercase">StableBank</span>
+                    <h5 className="text-xs font-display font-bold text-white mt-0.5">Black Metal</h5>
                   </div>
                   <span className={cn(
-                    "text-[8px] px-1.5 py-0.5 rounded font-bold uppercase",
+                    "text-[8px] font-mono px-1.5 py-0.5 rounded font-bold uppercase",
                     primaryCard.status === "active" ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-white/60"
                   )}>
                     {primaryCard.status}
@@ -250,12 +248,12 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
 
                 <div className="relative flex justify-between items-end z-10 text-[9px]">
                   <div>
-                    <span className="text-white/40 block uppercase">Card Holder</span>
+                    <span className="text-white/40 block uppercase font-mono">Card Holder</span>
                     <span className="font-semibold text-white truncate max-w-[120px]">{primaryCard.cardholderName || "Stable Member"}</span>
                   </div>
                   <div className="flex gap-3">
                     <div>
-                      <span className="text-white/40 block uppercase">Expires</span>
+                      <span className="text-white/40 block uppercase font-mono">Expires</span>
                       <span className="font-mono font-semibold text-white">
                         {primaryCard.expiryMonth && primaryCard.expiryYear 
                           ? `${primaryCard.expiryMonth}/${primaryCard.expiryYear.toString().slice(-2)}`
@@ -269,21 +267,21 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
 
               <Button
                 onClick={() => router.push(appRoutes.dashboard.vcard)}
-                className="w-full bg-white/5 border border-white/10 text-white hover:bg-white/10 rounded-xl font-bold text-xs h-10 cursor-pointer flex items-center justify-center gap-1.5"
+                className="w-full bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-900 rounded-xl font-bold text-xs h-10 cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs"
               >
                 Manage Card Controls <ArrowRight size={14} />
               </Button>
             </div>
           ) : (
-            <div className="border border-dashed border-white/10 rounded-2xl p-5 text-center flex flex-col items-center justify-center bg-white/[0.01]">
-              <CreditCard size={28} className="text-white/20 mb-2" />
-              <p className="text-sm font-bold text-white">No active virtual cards</p>
-              <p className="text-white/40 text-xs mt-1 max-w-[200px] leading-relaxed">
+            <div className="border border-dashed border-zinc-300 rounded-2xl p-5 text-center flex flex-col items-center justify-center bg-zinc-50">
+              <CreditCard size={28} className="text-zinc-400 mb-2" />
+              <p className="text-sm font-display font-bold text-zinc-950">No active virtual cards</p>
+              <p className="text-zinc-500 text-xs mt-1 max-w-[200px] leading-relaxed font-sans">
                 Generate a Visa card in seconds to spend stablecoins instantly.
               </p>
               <Button
                 onClick={() => router.push(appRoutes.dashboard.vcard)}
-                className="mt-4 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-xl text-xs h-9 cursor-pointer"
+                className="mt-4 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-full text-xs h-9 cursor-pointer shadow-sm shadow-brand-purple/20"
               >
                 <Plus size={14} className="mr-1" /> Create Card
               </Button>
@@ -323,20 +321,17 @@ export default function UHome() {
 
   // Admin dashboard state
   const [adminUsers, setAdminUsers] = useState<any[]>([]);
-  const [adminLedger, setAdminLedger] = useState<any[]>([]);
   const [adminSavings, setAdminSavings] = useState<any>(null);
   const [isAdminLoading, setIsAdminLoading] = useState(false);
 
   const fetchAdminDashboardData = useCallback(async () => {
     setIsAdminLoading(true);
     try {
-      const [usersData, ledgerData, savingsData] = await Promise.all([
+      const [usersData, savingsData] = await Promise.all([
         adminService.getUsers(),
-        adminService.getLedger(),
         adminService.getSavings(),
       ]);
       setAdminUsers(usersData || []);
-      setAdminLedger(ledgerData || []);
       setAdminSavings(savingsData || null);
     } catch (err) {
       console.error("Failed to fetch admin dashboard data:", err);
@@ -488,25 +483,24 @@ export default function UHome() {
     return (
       <div className="flex animate-in fade-in flex-col gap-8 pb-20 p-2 sm:p-4 lg:p-6">
         {/* Header Banner */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-brand-purple/20 via-black/40 to-emerald-500/10 border border-white/10 rounded-[32px] p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 h-48 w-48 bg-brand-purple/10 rounded-full blur-3xl" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-indigo-50 via-purple-50 to-zinc-50 border border-zinc-200 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
           <div className="space-y-2 relative z-10">
             <div className="flex items-center gap-2">
-              <span className="text-xs bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full font-bold border border-brand-purple/30 uppercase tracking-wider">
+              <span className="text-xs bg-brand-purple/10 text-brand-purple px-3 py-1 rounded-full font-mono font-bold border border-brand-purple/20 uppercase tracking-wider">
                 Platform Administrator
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tighter">
-              Welcome, <span className="bg-gradient-to-r from-brand-purple via-pink-400 to-[#E9F2A3] bg-clip-text text-transparent">System Admin</span>
+            <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950 tracking-tight">
+              Welcome, <span className="text-brand-purple">System Admin</span>
             </h1>
-            <p className="text-white/40 text-sm font-medium">
-              Supervising StableBank&apos;s operations, virtual ledgers, and deposit stats. Logged in as <span className="text-white/70 font-bold">{user?.email}</span>
+            <p className="text-zinc-600 text-sm font-sans">
+              Supervising StableBank&apos;s operations, virtual ledgers, and deposit stats. Logged in as <span className="text-zinc-900 font-bold">{user?.email}</span>
             </p>
           </div>
           <Button
             onClick={fetchAdminDashboardData}
             disabled={isAdminLoading}
-            className="bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl h-12 px-5 border border-white/10 flex items-center gap-2.5 z-10 shrink-0 self-start md:self-center transition-all cursor-pointer"
+            className="bg-white hover:bg-zinc-50 text-zinc-900 font-bold rounded-full h-12 px-5 border border-zinc-200 shadow-sm flex items-center gap-2.5 z-10 shrink-0 self-start md:self-center transition-all cursor-pointer"
           >
             <RefreshCcw size={16} className={cn(isAdminLoading && "animate-spin")} />
             Refresh Portal Data
@@ -516,63 +510,59 @@ export default function UHome() {
         {/* Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Total Users */}
-          <div className="overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40 rounded-[24px] p-6 relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="overflow-hidden transition-all duration-300 border border-zinc-200 bg-white shadow-sm rounded-2xl p-6 relative group hover:shadow-md">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Total Users</span>
+              <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-widest">Total Users</span>
               <div className="h-10 w-10 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple">
                 <Users size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">{isAdminLoading ? "..." : adminUsers.length}</h2>
-            <p className="text-xs text-white/40 mt-1">Active platform accounts</p>
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">{isAdminLoading ? "..." : adminUsers.length}</h2>
+            <p className="text-xs text-zinc-500 font-sans mt-1">Active platform accounts</p>
           </div>
 
           {/* Total Deposits */}
-          <div className="overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40 rounded-[24px] p-6 relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#E9F2A3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="overflow-hidden transition-all duration-300 border border-zinc-200 bg-white shadow-sm rounded-2xl p-6 relative group hover:shadow-md">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Total Deposits</span>
-              <div className="h-10 w-10 rounded-xl bg-[#E9F2A3]/10 flex items-center justify-center text-[#E9F2A3]">
+              <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-widest">Total Deposits</span>
+              <div className="h-10 w-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-700">
                 <Coins size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">
               {isAdminLoading ? "..." : `$${(adminSavings?.summary?.totalDeposits || adminSavings?.summary?.combinedSavings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </h2>
-            <p className="text-xs text-white/40 mt-1">
+            <p className="text-xs text-zinc-500 font-sans mt-1">
               USDC: ${(adminSavings?.summary?.totalUSDC || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })} | USDT: ${(adminSavings?.summary?.totalUSDT || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </p>
           </div>
 
           {/* Utilizable Balance */}
-          <div className="overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40 rounded-[24px] p-6 relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="overflow-hidden transition-all duration-300 border border-zinc-200 bg-white shadow-sm rounded-2xl p-6 relative group hover:shadow-md">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Utilizable Balance</span>
-              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+              <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-widest">Utilizable Balance</span>
+              <div className="h-10 w-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
                 <TrendingUp size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">
               {isAdminLoading ? "..." : `$${(adminSavings?.summary?.utilizableBalance || ((adminSavings?.summary?.totalDeposits || adminSavings?.summary?.combinedSavings || 0) * 0.8)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </h2>
-            <p className="text-xs text-white/40 mt-1">80% available for yield allocation</p>
+            <p className="text-xs text-zinc-500 font-sans mt-1">80% available for yield allocation</p>
           </div>
 
           {/* Required Reserve */}
-          <div className="overflow-hidden transition-all duration-300 border border-white/5 bg-[#0E121C]/50 backdrop-blur-md shadow-2xl shadow-black/40 rounded-[24px] p-6 relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="overflow-hidden transition-all duration-300 border border-zinc-200 bg-white shadow-sm rounded-2xl p-6 relative group hover:shadow-md">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Required Reserve</span>
-              <div className="h-10 w-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400">
+              <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-widest">Required Reserve</span>
+              <div className="h-10 w-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
                 <Lock size={18} />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">
+            <h2 className="text-3xl font-mono font-black text-zinc-950 tracking-tight">
               {isAdminLoading ? "..." : `$${(adminSavings?.summary?.requiredReserve || ((adminSavings?.summary?.totalDeposits || adminSavings?.summary?.combinedSavings || 0) * 0.2)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </h2>
-            <p className="text-xs text-white/40 mt-1">20% liquidity buffer for safety</p>
+            <p className="text-xs text-zinc-500 font-sans mt-1">20% liquidity buffer for safety</p>
           </div>
         </div>
       </div>
@@ -590,23 +580,19 @@ export default function UHome() {
       {/* Onboarding & KYC Alert Banner (Non-Restrictive) */}
       <OnboardingBanner onStartOnboarding={() => setIsOnboardingOpen(true)} />
 
-      {/* Top Portfolio Hero Card (Inspired by Routa / Ether.fi Dashboard) */}
-      <div className="relative w-full rounded-[32px] bg-gradient-to-br from-[#121626] via-[#0B0E17] to-[#160F2B] border border-white/10 p-6 sm:p-8 md:p-10 shadow-2xl overflow-hidden group">
-        {/* Glow meshes */}
-        <div className="absolute -top-20 -right-20 w-[350px] h-[350px] bg-brand-purple/15 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-brand-yellow/5 rounded-full blur-[100px] pointer-events-none" />
-
+      {/* Top Portfolio Hero Card (Inspired by Modern FinTech Dashboard) */}
+      <div className="relative w-full rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white border border-indigo-100 p-6 sm:p-8 md:p-10 shadow-sm overflow-hidden group">
         <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-8 z-10">
           
           {/* Balance & Info */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-bold text-white/50 uppercase tracking-widest flex items-center gap-1.5">
+              <span className="text-xs sm:text-sm font-mono font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-1.5">
                 Portfolio Value · USD
               </span>
               <button 
                 onClick={() => setHideBalance(!hideBalance)}
-                className="text-white/40 hover:text-white transition-colors cursor-pointer p-1"
+                className="text-zinc-400 hover:text-zinc-800 transition-colors cursor-pointer p-1"
                 aria-label={hideBalance ? "Show balance" : "Hide balance"}
               >
                 {hideBalance ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -614,48 +600,48 @@ export default function UHome() {
             </div>
             
             {isBalanceLoading && !balance ? (
-              <div className="h-14 w-56 animate-pulse rounded-2xl bg-white/10" />
+              <div className="h-14 w-56 animate-pulse rounded-2xl bg-zinc-200" />
             ) : balanceError ? (
               <div className="flex flex-col gap-1">
-                <p className="text-2xl font-bold text-red-400">Unable to load portfolio</p>
+                <p className="text-2xl font-bold text-red-600 font-display">Unable to load portfolio</p>
                 <button onClick={handleRefresh} className="w-fit text-sm font-semibold text-brand-purple hover:underline">
                   Try again
                 </button>
               </div>
             ) : (
               <div className="flex items-baseline gap-3">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-mono font-black text-zinc-950 tracking-tight">
                   {hideBalance ? "••••••••" : `$${balance?.totalUSD?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || "0.00"}`}
                 </h1>
-                <span className="text-xs font-bold text-[#E9F2A3] bg-brand-purple/20 px-2.5 py-1 rounded-full border border-brand-purple/30">
+                <span className="text-xs font-mono font-bold text-brand-purple bg-brand-purple/10 px-2.5 py-1 rounded-full border border-brand-purple/20">
                   USD
                 </span>
               </div>
             )}
 
             <div className="flex items-center gap-3 pt-1">
-              <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <p className="text-emerald-400 text-xs font-bold font-mono">
+              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <p className="text-emerald-700 text-xs font-bold font-mono">
                   DeFi Yield: ${balance?.defiBalanceUSD?.toFixed(2) || "0.00"}
                 </p>
               </div>
-              <div className="text-xs text-white/40 hidden sm:block">
+              <div className="text-xs text-zinc-500 font-sans hidden sm:block">
                 Protected by MPC Segregated Ledgers
               </div>
             </div>
           </div>
 
           {/* Quick Action Circular Buttons */}
-          <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-around md:justify-end pt-4 md:pt-0 border-t border-white/5 md:border-t-0">
+          <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-around md:justify-end pt-4 md:pt-0 border-t border-zinc-200 md:border-t-0">
             {/* Deposit Modal */}
             <Dialog>
               <DialogTrigger asChild>
                 <button className="flex flex-col items-center gap-2 group cursor-pointer">
-                  <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-300 shadow-xl group-hover:scale-105 active:scale-95">
+                  <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
                     <ArrowDownLeft size={22} className="group-hover:translate-y-0.5 transition-transform" />
                   </div>
-                  <span className="text-xs font-bold text-white/60 group-hover:text-white transition-colors">Deposit</span>
+                  <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">Deposit</span>
                 </button>
               </DialogTrigger>
               <RecieveModal />
@@ -666,10 +652,10 @@ export default function UHome() {
               onClick={() => setIsSendOpen(true)}
               className="flex flex-col items-center gap-2 group cursor-pointer"
             >
-              <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-300 shadow-xl group-hover:scale-105 active:scale-95">
+              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
                 <ArrowUpRight size={22} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
               </div>
-              <span className="text-xs font-bold text-white/60 group-hover:text-white transition-colors">Send</span>
+              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">Send</span>
             </button>
 
             {/* Swap */}
@@ -677,10 +663,10 @@ export default function UHome() {
               onClick={() => router.push(appRoutes.dashboard.invest)}
               className="flex flex-col items-center gap-2 group cursor-pointer"
             >
-              <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black group-hover:border-brand-yellow transition-all duration-300 shadow-xl group-hover:scale-105 active:scale-95">
+              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-yellow group-hover:text-black group-hover:border-brand-yellow transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
                 <Repeat size={22} />
               </div>
-              <span className="text-xs font-bold text-white/60 group-hover:text-white transition-colors">Swap</span>
+              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Swap</span>
             </button>
 
             {/* Save / Earn */}
@@ -688,10 +674,10 @@ export default function UHome() {
               onClick={() => router.push(appRoutes.dashboard.savings)}
               className="flex flex-col items-center gap-2 group cursor-pointer"
             >
-              <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#319F43] group-hover:border-[#319F43] transition-all duration-300 shadow-xl group-hover:scale-105 active:scale-95">
+              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-[#319F43] group-hover:text-white group-hover:border-[#319F43] transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
                 <PiggyBank size={22} />
               </div>
-              <span className="text-xs font-bold text-white/60 group-hover:text-white transition-colors">Save</span>
+              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Save</span>
             </button>
           </div>
 
@@ -699,19 +685,19 @@ export default function UHome() {
       </div>
 
       {/* Card Promo Banner ("Spend USDT Like Cash") */}
-      <div className="relative rounded-[28px] bg-gradient-to-r from-[#17142b] via-[#0d0f1a] to-[#121824] border border-white/10 p-6 sm:p-7 shadow-xl overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div className="relative rounded-2xl bg-gradient-to-r from-indigo-50 via-purple-50 to-zinc-50 border border-zinc-200 p-6 sm:p-7 shadow-sm overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex items-center gap-5">
-          <div className="w-16 h-11 rounded-xl bg-gradient-to-tr from-brand-purple to-indigo-900 border border-white/20 shadow-lg flex items-center justify-center shrink-0">
-            <CreditCard size={24} className="text-white drop-shadow-md" />
+          <div className="w-16 h-11 rounded-xl bg-gradient-to-tr from-brand-purple to-indigo-900 border border-brand-purple/20 shadow-md flex items-center justify-center shrink-0">
+            <CreditCard size={24} className="text-white drop-shadow-sm" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-bold text-white">Get the Black Metal Card</h3>
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-brand-yellow/15 text-brand-yellow border border-brand-yellow/30">
+              <h3 className="text-lg font-display font-bold text-zinc-950">Get the Black Metal Card</h3>
+              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
                 3% Cashback
               </span>
             </div>
-            <p className="text-sm text-white/50 mt-0.5">
+            <p className="text-sm text-zinc-600 font-sans mt-0.5">
               Spend your USDT & USDC like cash anywhere Visa is accepted worldwide with zero FX markup.
             </p>
           </div>
@@ -719,7 +705,7 @@ export default function UHome() {
 
         <Button
           onClick={() => router.push(appRoutes.dashboard.vcard)}
-          className="bg-brand-yellow text-black hover:bg-brand-yellow/90 font-bold rounded-2xl h-11 px-6 text-sm shrink-0 cursor-pointer shadow-lg shadow-brand-yellow/10"
+          className="bg-brand-yellow text-black hover:bg-brand-yellow/90 font-bold rounded-full h-11 px-6 text-sm shrink-0 cursor-pointer shadow-sm shadow-brand-yellow/20"
         >
           {cards.length > 0 ? "Manage Card" : "Activate Card"}
         </Button>
@@ -730,16 +716,16 @@ export default function UHome() {
         {/* Feature 1: Virtual Accounts */}
         <div 
           onClick={() => router.push(appRoutes.dashboard.home)}
-          className="rounded-[24px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-5 shadow-xl hover:border-brand-purple/30 transition-all duration-300 group cursor-pointer flex items-center gap-4"
+          className="rounded-2xl bg-white border border-zinc-200 p-5 shadow-sm hover:shadow-md hover:border-brand-purple/40 transition-all duration-300 group cursor-pointer flex items-center gap-4"
         >
-          <div className="h-12 w-12 rounded-2xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center shrink-0">
+          <div className="h-12 w-12 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center shrink-0">
             <MultiFlagIcon className="w-7 h-5" />
           </div>
           <div className="min-w-0">
-            <h4 className="text-sm font-bold text-white group-hover:text-brand-purple transition-colors truncate">
+            <h4 className="text-sm font-display font-bold text-zinc-950 group-hover:text-brand-purple transition-colors truncate">
               Virtual USD, GBP & EUR
             </h4>
-            <p className="text-xs text-white/40 mt-0.5 line-clamp-1">
+            <p className="text-xs text-zinc-500 font-sans mt-0.5 line-clamp-1">
               Direct wire coordinates with automatic stablecoin settlement.
             </p>
           </div>
@@ -748,19 +734,19 @@ export default function UHome() {
         {/* Feature 2: High Yield Vaults */}
         <div 
           onClick={() => router.push(appRoutes.dashboard.savings)}
-          className="rounded-[24px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-5 shadow-xl hover:border-brand-yellow/30 transition-all duration-300 group cursor-pointer flex items-center gap-4"
+          className="rounded-2xl bg-white border border-zinc-200 p-5 shadow-sm hover:shadow-md hover:border-amber-400/40 transition-all duration-300 group cursor-pointer flex items-center gap-4"
         >
-          <div className="h-12 w-12 rounded-2xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center shrink-0 text-brand-yellow">
+          <div className="h-12 w-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 text-amber-700">
             <Percent size={22} />
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h4 className="text-sm font-bold text-white group-hover:text-brand-yellow transition-colors truncate">
+              <h4 className="text-sm font-display font-bold text-zinc-950 group-hover:text-amber-700 transition-colors truncate">
                 High-Yield Vaults
               </h4>
-              <span className="text-[9px] font-mono text-[#E9F2A3]">Up to 6.79%</span>
+              <span className="text-[10px] font-mono font-bold text-emerald-600">Up to 6.79%</span>
             </div>
-            <p className="text-xs text-white/40 mt-0.5 line-clamp-1">
+            <p className="text-xs text-zinc-500 font-sans mt-0.5 line-clamp-1">
               Automated compounding yields on idle stable assets.
             </p>
           </div>
@@ -769,16 +755,16 @@ export default function UHome() {
         {/* Feature 3: Team & Rewards */}
         <div 
           onClick={() => router.push(appRoutes.dashboard.rewards)}
-          className="rounded-[24px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-5 shadow-xl hover:border-emerald-500/30 transition-all duration-300 group cursor-pointer flex items-center gap-4"
+          className="rounded-2xl bg-white border border-zinc-200 p-5 shadow-sm hover:shadow-md hover:border-emerald-400/40 transition-all duration-300 group cursor-pointer flex items-center gap-4"
         >
-          <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400">
+          <div className="h-12 w-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 text-emerald-600">
             <Gift size={22} />
           </div>
           <div className="min-w-0">
-            <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors truncate">
+            <h4 className="text-sm font-display font-bold text-zinc-950 group-hover:text-emerald-600 transition-colors truncate">
               Refer Friends & Earn
             </h4>
-            <p className="text-xs text-white/40 mt-0.5 line-clamp-1">
+            <p className="text-xs text-zinc-500 font-sans mt-0.5 line-clamp-1">
               Earn lifetime rewards whenever your invited peers spend.
             </p>
           </div>
@@ -791,30 +777,29 @@ export default function UHome() {
         {/* Left Column (2/3 width on Desktop) */}
         <div className="lg:col-span-2 flex flex-col gap-6 sm:gap-8">
           
-          {/* Assets Distribution */}
-          <div className="rounded-[28px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-6 sm:p-7 shadow-2xl relative overflow-hidden">
-            
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          {/* Asset Distribution */}
+          <div className="rounded-2xl bg-white border border-zinc-200 p-6 sm:p-7 shadow-sm">
+            <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-                  Asset Distribution <span className="text-xs text-white/40 font-mono">({totalAssetsCount})</span>
+                <h3 className="text-xl font-display font-bold text-zinc-950 tracking-tight flex items-center gap-2">
+                  Asset Distribution <span className="text-xs text-zinc-400 font-mono font-semibold">({totalAssetsCount})</span>
                 </h3>
-                <p className="text-white/40 text-xs mt-0.5">Your balances indexed across multi-chain wallets.</p>
+                <p className="text-zinc-500 text-xs font-sans mt-0.5">Your balances indexed across multi-chain wallets.</p>
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-bold text-white/50">
+              <div className="flex items-center gap-3 text-xs font-sans font-bold text-zinc-600">
                 <span>Hide Zero Balances</span>
                 <button
                   type="button"
                   onClick={() => setHideZeroBalance(!hideZeroBalance)}
                   className={cn(
                     "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none",
-                    hideZeroBalance ? "bg-brand-purple" : "bg-white/10"
+                    hideZeroBalance ? "bg-brand-purple" : "bg-zinc-200"
                   )}
                 >
                   <span
                     className={cn(
-                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition duration-200 ease-in-out",
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition duration-200 ease-in-out",
                       hideZeroBalance ? "translate-x-4" : "translate-x-0"
                     )}
                   />
@@ -825,17 +810,17 @@ export default function UHome() {
             {isBalanceLoading && !balance ? (
               <div className="space-y-3">
                 {Array(3).fill(0).map((_, i) => (
-                  <div key={i} className="h-16 w-full animate-pulse rounded-2xl bg-white/5" />
+                  <div key={i} className="h-16 w-full animate-pulse rounded-2xl bg-zinc-100" />
                 ))}
               </div>
             ) : filteredTokens.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-white/5 rounded-2xl bg-white/[0.01]">
-                <Inbox size={32} className="text-white/20 mb-2" />
-                <p className="text-white/50 font-semibold text-sm">No assets found</p>
-                <p className="text-white/30 text-xs mt-0.5">Deposit funds to get started or adjust filters</p>
+              <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-zinc-200 rounded-2xl bg-zinc-50">
+                <Inbox size={32} className="text-zinc-400 mb-2" />
+                <p className="text-zinc-700 font-sans font-semibold text-sm">No assets found</p>
+                <p className="text-zinc-400 font-sans text-xs mt-0.5">Deposit funds to get started or adjust filters</p>
               </div>
             ) : (
-              <div className="divide-y divide-white/5 flex flex-col">
+              <div className="divide-y divide-zinc-100 flex flex-col">
                 {filteredTokens.map((token, i) => {
                   const percentageOfTotal = balance?.totalUSD && balance.totalUSD > 0
                     ? (token.balanceUSD / balance.totalUSD) * 100 
@@ -854,7 +839,7 @@ export default function UHome() {
                               size={38}
                               className="rounded-xl overflow-hidden"
                               fallback={
-                                <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center font-bold text-brand-purple text-xs">
+                                <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center font-bold text-brand-purple text-xs font-mono">
                                   {token.symbol.charAt(0)}
                                 </div>
                               }
@@ -863,18 +848,18 @@ export default function UHome() {
 
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-white">{token.name}</span>
-                              <span className="text-xs font-semibold text-white/40 font-mono">{token.symbol}</span>
+                              <span className="text-sm font-sans font-bold text-zinc-950">{token.name}</span>
+                              <span className="text-xs font-semibold text-zinc-400 font-mono">{token.symbol}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Balance Details */}
                         <div className="text-right">
-                          <p className="text-sm font-black text-[#E9F2A3]">
+                          <p className="text-sm font-mono font-bold text-zinc-950">
                             {hideBalance ? "••••" : `$${token.balanceUSD.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                           </p>
-                          <p className="text-xs font-semibold text-white/40 mt-0.5">
+                          <p className="text-xs font-mono font-medium text-zinc-500 mt-0.5">
                             {hideBalance ? "••••" : `${token.balance.toFixed(4)} ${token.symbol}`}
                           </p>
                         </div>
@@ -883,13 +868,13 @@ export default function UHome() {
 
                       {/* Weight Line */}
                       <div className="w-full flex items-center gap-2 mt-1">
-                        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="flex-1 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
                           <div 
                             className="h-full bg-brand-purple rounded-full transition-all duration-1000"
                             style={{ width: `${percentageOfTotal}%` }}
                           />
                         </div>
-                        <span className="text-[9px] font-bold text-white/30 font-mono w-8 text-right">
+                        <span className="text-[10px] font-bold text-zinc-400 font-mono w-8 text-right">
                           {percentageOfTotal.toFixed(1)}%
                         </span>
                       </div>
@@ -902,27 +887,27 @@ export default function UHome() {
           </div>
 
           {/* Recent Transfers Activity */}
-          <div className="rounded-[28px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-6 sm:p-7 shadow-2xl">
+          <div className="rounded-2xl bg-white border border-zinc-200 p-6 sm:p-7 shadow-sm">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                <h3 className="text-xl font-display font-bold text-zinc-950 tracking-tight flex items-center gap-2">
                   <Activity size={18} className="text-brand-purple" /> Recent Transactions
                 </h3>
-                <p className="text-white/40 text-xs mt-0.5">Inbound wires, on-chain deposits, and cross-chain transfers.</p>
+                <p className="text-zinc-500 font-sans text-xs mt-0.5">Inbound wires, on-chain deposits, and cross-chain transfers.</p>
               </div>
             </div>
 
             {isTransfersLoading ? (
               <div className="space-y-3">
                 {Array(3).fill(0).map((_, i) => (
-                  <div key={i} className="h-16 w-full animate-pulse rounded-2xl bg-white/5" />
+                  <div key={i} className="h-16 w-full animate-pulse rounded-2xl bg-zinc-100" />
                 ))}
               </div>
             ) : transfers.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-white/5 rounded-2xl bg-white/[0.01]">
-                <Inbox size={32} className="text-white/20 mb-2" />
-                <p className="text-white/50 font-semibold text-sm">No transaction history</p>
-                <p className="text-white/30 text-xs mt-0.5">Your incoming and outgoing transfers will display here.</p>
+              <div className="flex flex-col items-center justify-center py-12 text-center border border-dashed border-zinc-200 rounded-2xl bg-zinc-50">
+                <Inbox size={32} className="text-zinc-400 mb-2" />
+                <p className="text-zinc-700 font-sans font-semibold text-sm">No transaction history</p>
+                <p className="text-zinc-400 font-sans text-xs mt-0.5">Your incoming and outgoing transfers will display here.</p>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -936,16 +921,16 @@ export default function UHome() {
                   return (
                     <div 
                       key={tx.id} 
-                      className="p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-300 group"
+                      className="p-4 rounded-2xl bg-zinc-50/60 hover:bg-zinc-100/60 border border-zinc-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-200 group"
                     >
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "h-10 w-10 rounded-xl flex items-center justify-center shrink-0 border",
                           tx.type === "cross_chain"
-                            ? "bg-blue-500/10 border-blue-500/20 text-blue-400"
+                            ? "bg-blue-50 border-blue-200 text-blue-600"
                             : isOutbound
-                              ? "bg-red-500/10 border-red-500/20 text-red-400"
-                              : "bg-green-500/10 border-green-500/20 text-green-400"
+                              ? "bg-red-50 border-red-200 text-red-600"
+                              : "bg-emerald-50 border-emerald-200 text-emerald-600"
                         )}>
                           {tx.type === "cross_chain" ? (
                             <Repeat size={18} />
@@ -958,7 +943,7 @@ export default function UHome() {
 
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-white">
+                            <span className="text-sm font-sans font-bold text-zinc-950">
                               {tx.type === "cross_chain" 
                                 ? "Cross-Chain Bridge"
                                 : isOutbound
@@ -968,18 +953,18 @@ export default function UHome() {
                             </span>
                             
                             <span className={cn(
-                              "text-[9px] font-bold px-1.5 py-0.5 rounded-full border leading-none capitalize",
+                              "text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border leading-none capitalize",
                               tx.status === "completed"
-                                ? "bg-green-500/10 border-green-500/20 text-green-400"
+                                ? "bg-emerald-50 border-emerald-200 text-emerald-700"
                                 : tx.status === "pending" || tx.status === "processing"
-                                  ? "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 animate-pulse"
-                                  : "bg-red-500/10 border-red-500/20 text-red-400"
+                                  ? "bg-amber-50 border-amber-200 text-amber-700 animate-pulse"
+                                  : "bg-red-50 border-red-200 text-red-700"
                             )}>
                               {tx.status}
                             </span>
                           </div>
 
-                          <div className="text-xs text-white/30 flex items-center gap-2 mt-0.5">
+                          <div className="text-xs text-zinc-500 font-sans flex items-center gap-2 mt-0.5">
                             <span>
                               {new Date(tx.createdAt).toLocaleDateString(undefined, { 
                                 month: "short", 
@@ -1001,12 +986,12 @@ export default function UHome() {
 
                       <div className="text-right self-end sm:self-center">
                         <p className={cn(
-                          "text-sm font-black",
-                          isOutbound ? "text-white" : "text-green-400"
+                          "text-sm font-mono font-black",
+                          isOutbound ? "text-zinc-950" : "text-emerald-600"
                         )}>
                           {isOutbound ? "-" : "+"}{parseFloat(tx.amount).toFixed(2)} {tx.tokenSymbol}
                         </p>
-                        <p className="text-[11px] font-semibold text-white/40 mt-0.5">
+                        <p className="text-[11px] font-mono font-semibold text-zinc-500 mt-0.5">
                           ${tx.amountUSD.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </p>
                       </div>
@@ -1027,19 +1012,19 @@ export default function UHome() {
           <AccountsAndCardsWidget cards={cards} isCardsLoading={isCardsLoading} router={router} />
 
           {/* Active Target Savings Widget */}
-          <div className="rounded-[28px] bg-[#0A0D14]/80 backdrop-blur-xl border border-white/5 p-6 shadow-2xl">
+          <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-sm">
             <div className="flex justify-between items-center mb-5">
               <div>
-                <h4 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
+                <h4 className="text-base font-display font-bold text-zinc-950 tracking-tight flex items-center gap-2">
                   <PiggyBank size={16} className="text-brand-purple" /> Savings & Locks
                 </h4>
-                <p className="text-white/40 text-xs mt-0.5">Top active savings & yield buckets.</p>
+                <p className="text-zinc-500 font-sans text-xs mt-0.5">Top active savings & yield buckets.</p>
               </div>
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => router.push(appRoutes.dashboard.savings)}
-                className="text-brand-purple hover:text-brand-purple/80 hover:bg-brand-purple/10 flex items-center gap-1 text-xs font-bold shrink-0 p-1.5 cursor-pointer"
+                className="text-brand-purple hover:text-brand-purple hover:bg-brand-purple/10 flex items-center gap-1 text-xs font-bold shrink-0 p-1.5 cursor-pointer font-sans"
               >
                 View All <ChevronRight size={14} />
               </Button>
@@ -1047,12 +1032,12 @@ export default function UHome() {
 
             {isSavingsLoading ? (
               <div className="flex flex-col gap-3">
-                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-white/5" />
-                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-white/5" />
-                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-white/5" />
+                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-zinc-100" />
+                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-zinc-100" />
+                <div className="h-[70px] w-full animate-pulse rounded-2xl bg-zinc-100" />
               </div>
             ) : topSavingsBuckets.length > 0 ? (
-              <div className="flex flex-col gap-4 divide-y divide-white/5">
+              <div className="flex flex-col gap-4 divide-y divide-zinc-100">
                 {topSavingsBuckets.map((bucket, index) => {
                   const isSafeLock = bucket.savingsType === "safelock";
                   const isPiggy = bucket.savingsType === "piggybank";
@@ -1068,47 +1053,47 @@ export default function UHome() {
                         <div className="flex items-center gap-3">
                           <div className={cn(
                             "h-9 w-9 rounded-xl flex items-center justify-center border",
-                            isSafeLock ? "bg-brand-yellow/10 border-brand-yellow/30 text-brand-yellow" :
-                            isPiggy ? "bg-brand-purple/10 border-brand-purple/30 text-brand-purple" :
-                            isTarget ? "bg-[#319F43]/10 border-[#319F43]/30 text-[#319F43]" :
-                            "bg-blue-500/10 border-blue-500/30 text-blue-400"
+                            isSafeLock ? "bg-amber-50 border-amber-200 text-amber-700" :
+                            isPiggy ? "bg-brand-purple/10 border-brand-purple/20 text-brand-purple" :
+                            isTarget ? "bg-emerald-50 border-emerald-200 text-emerald-600" :
+                            "bg-blue-50 border-blue-200 text-blue-600"
                           )}>
                             {isSafeLock ? <Lock size={16} /> : isPiggy ? <PiggyBank size={16} /> : isTarget ? <Target size={16} /> : <Unlock size={16} />}
                           </div>
                           <div>
-                            <span className="text-sm font-bold text-white block leading-snug">{bucket.name}</span>
-                            <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest block mt-0.5">
+                            <span className="text-sm font-sans font-bold text-zinc-950 block leading-snug">{bucket.name}</span>
+                            <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest block mt-0.5">
                               {isSafeLock ? "SafeLock" : isPiggy ? "Piggybank" : isTarget ? "Target Savings" : "Flex Wallet"} • {bucket.interestRate * 100}% APY
                             </span>
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <span className="text-sm font-black text-white block">
+                          <span className="text-sm font-mono font-bold text-zinc-950 block">
                             ${bucket.currentAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                           {bucket.targetAmount > 0 && (
-                            <span className="text-[10px] text-white/40 font-bold block mt-0.5">Goal: ${bucket.targetAmount.toLocaleString()}</span>
+                            <span className="text-[10px] font-mono text-zinc-500 font-bold block mt-0.5">Goal: ${bucket.targetAmount.toLocaleString()}</span>
                           )}
                         </div>
                       </div>
 
                       {bucket.targetAmount > 0 && (
                         <div className="space-y-1">
-                          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                          <div className="h-1.5 w-full bg-zinc-100 rounded-full overflow-hidden">
                             <div 
                               className={cn(
                                 "h-full rounded-full transition-all duration-1000",
-                                isSafeLock ? "bg-brand-yellow" :
+                                isSafeLock ? "bg-amber-500" :
                                 isPiggy ? "bg-brand-purple" :
-                                isTarget ? "bg-[#319F43]" : "bg-blue-500"
+                                isTarget ? "bg-emerald-500" : "bg-blue-500"
                               )}
                               style={{ width: `${progress}%` }}
                             />
                           </div>
-                          <div className="flex justify-between text-[10px] font-bold">
-                            <span className="text-[#E9F2A3]">{progress.toFixed(1)}% Completed</span>
-                            <span className="text-white/40">${Math.max(0, bucket.targetAmount - bucket.currentAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} left</span>
+                          <div className="flex justify-between text-[10px] font-mono font-bold">
+                            <span className="text-brand-purple">{progress.toFixed(1)}% Completed</span>
+                            <span className="text-zinc-500">${Math.max(0, bucket.targetAmount - bucket.currentAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} left</span>
                           </div>
                         </div>
                       )}
@@ -1117,15 +1102,15 @@ export default function UHome() {
                 })}
               </div>
             ) : (
-              <div className="border border-dashed border-white/10 rounded-2xl p-5 text-center flex flex-col items-center justify-center bg-white/[0.01]">
-                <PiggyBank size={28} className="text-white/20 mb-2" />
-                <p className="text-sm font-bold text-white">No active savings goals or locks</p>
-                <p className="text-white/40 text-xs mt-1 max-w-[200px] leading-relaxed">
+              <div className="border border-dashed border-zinc-200 rounded-2xl p-5 text-center flex flex-col items-center justify-center bg-zinc-50">
+                <PiggyBank size={28} className="text-zinc-400 mb-2" />
+                <p className="text-sm font-display font-bold text-zinc-950">No active savings goals or locks</p>
+                <p className="text-zinc-500 font-sans text-xs mt-1 max-w-[200px] leading-relaxed">
                   Start a SafeLock or Target Savings bucket and earn high yield.
                 </p>
                 <Button 
                   onClick={() => router.push(appRoutes.dashboard.savings)}
-                  className="mt-4 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-xl text-xs h-9 cursor-pointer"
+                  className="mt-4 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-full text-xs h-9 cursor-pointer shadow-sm shadow-brand-purple/20"
                 >
                   <Plus size={14} className="mr-1" /> Get Started
                 </Button>
