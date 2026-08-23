@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { CreditCard, ShieldCheck, Zap, Lock } from "lucide-react";
+import { CreditCard, ShieldCheck, Zap, Lock, Sliders, Eye, EyeOff } from "lucide-react";
 import SectionCard from "@/components/cards/section";
 
 export default function VirtualCards() {
-  const [showDetails] = useState(true);
+  const [showDetails, setShowDetails] = useState(true);
+  const [isFrozen, setIsFrozen] = useState(false);
 
   // 3D Tilt Effect States
   const [rotateX, setRotateX] = useState(0);
@@ -39,7 +40,7 @@ export default function VirtualCards() {
           
           {/* Copy Side */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
-            <SectionCard title="VIRTUAL CARDS" />
+            <SectionCard title="VIRTUAL CARDS" category="INSTANT VISA" />
             
             <h2 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 leading-tight">
               Spend USDT Like Cash,<br />
@@ -52,19 +53,19 @@ export default function VirtualCards() {
 
             <ul className="mt-8 space-y-4 text-sm sm:text-base text-zinc-700 font-sans">
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-brand-purple/10 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <span><strong>Instant Issuance</strong> — Generate new cards for shopping or recurring payments immediately.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center text-brand-purple shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-purple-50 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
                   <Zap className="h-4 w-4" />
                 </div>
                 <span><strong>Stable Settlement</strong> — No pre-funding needed; funds settle directly from your stablecoin wallet.</span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-700 shrink-0">
+                <div className="h-7 w-7 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-700 shrink-0">
                   <Lock className="h-4 w-4" />
                 </div>
                 <span><strong>Single-Use Burners</strong> — Cards automatically self-destruct after one transaction for maximum safety.</span>
@@ -72,15 +73,17 @@ export default function VirtualCards() {
             </ul>
           </div>
 
-          {/* Interactive Card Side */}
+          {/* Interactive Card & Mobile Manager Side */}
           <div className="lg:col-span-6 flex flex-col items-center">
-            <div className="relative w-full max-w-[440px] px-2 sm:px-0">
+            <div className="relative w-full max-w-[440px] px-2 sm:px-0 flex flex-col gap-4">
               
-              {/* Premium Glassmorphic Card Container */}
+              {/* Premium 3D Card */}
               <div 
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="relative aspect-[1.586/1] w-full rounded-3xl p-6 sm:p-8 overflow-hidden border border-zinc-800 bg-gradient-to-br from-[#1E1B2E] via-[#0F0E17] to-[#161520] shadow-2xl flex flex-col justify-between cursor-pointer select-none"
+                className={`relative aspect-[1.586/1] w-full rounded-3xl p-6 sm:p-8 overflow-hidden border border-zinc-800 bg-gradient-to-br from-[#1E1B2E] via-[#0F0E17] to-[#161520] shadow-2xl flex flex-col justify-between cursor-pointer select-none transition-all ${
+                  isFrozen ? "opacity-75 grayscale" : ""
+                }`}
                 style={{
                   transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${rotateX !== 0 || rotateY !== 0 ? 1.04 : 1}, ${rotateX !== 0 || rotateY !== 0 ? 1.04 : 1}, 1)`,
                   transition: rotateX === 0 && rotateY === 0 ? "all 0.5s ease" : "transform 0.1s ease, border-color 0.5s ease, box-shadow 0.5s ease",
@@ -97,8 +100,12 @@ export default function VirtualCards() {
                     <h4 className="text-sm sm:text-base font-display font-extrabold text-white mt-0.5">Black Metal</h4>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase shrink-0 tracking-wider bg-emerald-500/20 text-emerald-400">
-                      Active
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase shrink-0 tracking-wider ${
+                      isFrozen 
+                        ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" 
+                        : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                    }`}>
+                      {isFrozen ? "Frozen" : "Active"}
                     </span>
                     <CreditCard className="h-6 w-6 text-brand-purple" />
                   </div>
@@ -138,6 +145,37 @@ export default function VirtualCards() {
                   </div>
                 </div>
               </div>
+
+              {/* Mobile Card Control Strip */}
+              <div className="rounded-2xl bg-white border border-zinc-200 p-4 shadow-sm flex items-center justify-between gap-3 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setShowDetails(!showDetails)}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 font-sans font-bold text-zinc-800 transition-colors cursor-pointer"
+                >
+                  {showDetails ? <EyeOff size={14} /> : <Eye size={14} />}
+                  <span>{showDetails ? "Hide Numbers" : "Show Numbers"}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsFrozen(!isFrozen)}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border font-sans font-bold transition-colors cursor-pointer ${
+                    isFrozen
+                      ? "bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100"
+                      : "bg-zinc-50 text-zinc-800 border-zinc-200 hover:bg-zinc-100"
+                  }`}
+                >
+                  <Lock size={14} />
+                  <span>{isFrozen ? "Unfreeze Card" : "Freeze Card"}</span>
+                </button>
+
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 font-sans font-bold text-zinc-800">
+                  <Sliders size={14} />
+                  <span>$10k Limit</span>
+                </div>
+              </div>
+
             </div>
           </div>
 
