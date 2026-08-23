@@ -66,61 +66,63 @@ export default function UConfirmTransaction({
 
   return (
     <div>
-      <DialogContent className="w-full !max-w-[660px] rounded-[20px] border-none bg-[#0E121C] px-[18px] py-5">
+      <DialogContent className="w-full !max-w-[660px] rounded-3xl border border-zinc-200 bg-white px-6 py-6 shadow-2xl text-zinc-950">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-5">
-            <span className="text-brand-white text-base font-semibold">
+            <span className="font-display font-bold text-xl text-zinc-950">
               Confirm Transaction
             </span>
           </DialogTitle>
 
-          <TransactionCard
-            timestamp={new Date().toLocaleString()}
-            from={{
-              name: user?.bankTag || "You",
-              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.walletAddress}`,
-              amount: `-$${amount}`,
-              bank: user?.bankTag || "Your Wallet",
-            }}
-            to={{
-              name: recipient.displayName || recipient.username,
-              avatar: recipient.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${recipient.bankTag}`,
-              amount: `+$${amount}`,
-              token: "USDC",
-              bank: recipient.bankTag,
-            }}
-          />
+          <div className="mt-4">
+            <TransactionCard
+              timestamp={new Date().toLocaleString()}
+              from={{
+                name: user?.bankTag || "You",
+                avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.walletAddress}`,
+                amount: `-$${amount}`,
+                bank: user?.bankTag || "Your Wallet",
+              }}
+              to={{
+                name: recipient.displayName || recipient.username,
+                avatar: recipient.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${recipient.bankTag}`,
+                amount: `+$${amount}`,
+                token: "USDC",
+                bank: recipient.bankTag,
+              }}
+            />
+          </div>
 
-          <div className="mt-4 space-y-2 rounded-lg bg-[#131926] p-4">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-white/60">Amount:</span>
-              <span className="font-medium text-white">${amount} USDC</span>
+          <div className="mt-4 space-y-2 rounded-2xl bg-zinc-50 border border-zinc-200 p-4">
+            <div className="flex items-center justify-between text-xs sm:text-sm font-sans">
+              <span className="text-zinc-500">Amount:</span>
+              <span className="font-mono font-bold text-zinc-950">${amount} USDC</span>
             </div>
             {fee && (
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-white/60">Network Fee:</span>
-                <span className="font-medium text-white">${fee.feeUSD?.toFixed(2)}</span>
+              <div className="flex items-center justify-between text-xs sm:text-sm font-sans">
+                <span className="text-zinc-500">Network Fee:</span>
+                <span className="font-mono font-bold text-zinc-950">${fee.feeUSD?.toFixed(2)}</span>
               </div>
             )}
-            <div className="flex items-center justify-between border-t border-white/10 pt-2 text-base font-semibold">
-              <span className="text-white">Total:</span>
-              <span className="text-brand-yellow">${totalAmount.toFixed(2)}</span>
+            <div className="flex items-center justify-between border-t border-zinc-200 pt-2 text-sm sm:text-base font-sans font-bold">
+              <span className="text-zinc-950">Total:</span>
+              <span className="font-mono font-black text-brand-purple">${totalAmount.toFixed(2)}</span>
             </div>
             {description && (
-              <div className="border-t border-white/10 pt-2">
-                <p className="text-sm text-white/60">Remark:</p>
-                <p className="text-sm text-white">{description}</p>
+              <div className="border-t border-zinc-200 pt-2">
+                <p className="text-xs text-zinc-500 font-sans">Remark:</p>
+                <p className="text-xs sm:text-sm text-zinc-800 font-sans mt-0.5">{description}</p>
               </div>
             )}
           </div>
         </DialogHeader>
 
-        <DialogFooter className="flex gap-3">
+        <DialogFooter className="flex gap-3 mt-4">
           <DialogClose asChild>
             <Button
               type="button"
               variant="outline"
-              className="flex h-12 flex-1 cursor-pointer items-center justify-center rounded-[10px] border-white/20 px-8 text-lg font-semibold"
+              className="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-full border-zinc-200 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 px-8 text-sm font-sans font-bold"
               disabled={isProcessing}
             >
               Cancel
@@ -130,7 +132,7 @@ export default function UConfirmTransaction({
             type="button"
             onClick={handleTransfer}
             disabled={isProcessing}
-            className="text-brand-white bg-brand-purple flex h-12 flex-1 cursor-pointer items-center justify-center rounded-[10px] px-8 text-lg font-semibold disabled:opacity-50"
+            className="text-white bg-brand-purple hover:bg-brand-purple/90 flex h-11 flex-1 cursor-pointer items-center justify-center rounded-full px-8 text-sm font-sans font-bold shadow-md shadow-brand-purple/20 disabled:opacity-50"
           >
             {isProcessing ? "Processing..." : "Confirm Transfer"}
           </Button>
