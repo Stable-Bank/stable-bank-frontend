@@ -20,7 +20,7 @@ const features = [
         title: "Multi-Currency Wallet",
         description:
             "Store USDC, USDT, DAI, and more stablecoins all in one secure, decentralized wallet.",
-        iconBg: "bg-brand-purple/10",
+        iconBg: "bg-purple-50 border-purple-100",
         iconColor: "text-brand-purple",
     },
     {
@@ -28,39 +28,39 @@ const features = [
         title: "Instant Transfers",
         description:
             "Send stablecoins globally in seconds with near-zero fees. No borders, no delays.",
-        iconBg: "bg-purple-50",
-        iconColor: "text-brand-purple",
+        iconBg: "bg-[#F5FACD] border-[#D9E956]/70",
+        iconColor: "text-[#556000]",
     },
     {
         icon: CreditCard,
         title: "Virtual Cards",
         description:
             "Spend your crypto anywhere with our virtual cards. Seamless online shopping experience.",
-        iconBg: "bg-emerald-50",
-        iconColor: "text-emerald-600",
+        iconBg: "bg-zinc-900 border-zinc-800",
+        iconColor: "text-zinc-50",
     },
     {
         icon: Gift,
         title: "Earn Rewards",
         description:
             "Get rewarded for holding stables. Earn competitive yields on your digital assets.",
-        iconBg: "bg-amber-50",
-        iconColor: "text-amber-600",
+        iconBg: "bg-[#F5FACD] border-[#D9E956]/70",
+        iconColor: "text-[#556000]",
     },
     {
         icon: Shield,
         title: "Bank-Grade Security",
         description:
             "Enterprise-level encryption and multi-sig protection keep your assets safe 24/7.",
-        iconBg: "bg-brand-purple/10",
-        iconColor: "text-brand-purple",
+        iconBg: "bg-emerald-50 border-emerald-200",
+        iconColor: "text-emerald-600",
     },
     {
         icon: Globe,
         title: "Global Access",
         description:
             "Bank without borders. Access your funds from anywhere in the world, anytime.",
-        iconBg: "bg-purple-50",
+        iconBg: "bg-indigo-50 border-indigo-200",
         iconColor: "text-brand-purple",
     },
 ];
