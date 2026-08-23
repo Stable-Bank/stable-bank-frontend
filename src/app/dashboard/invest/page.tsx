@@ -56,7 +56,7 @@ export default function UInvest() {
 
           <Card className="bg-white border-zinc-200 shadow-sm transition-all hover:shadow-md hover:-translate-y-1 rounded-2xl">
             <CardContent className="p-8 flex flex-col items-center gap-4 text-center">
-              <div className="h-14 w-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 mb-1">
+              <div className="h-14 w-14 rounded-2xl bg-purple-50 border border-brand-purple/20 flex items-center justify-center text-brand-purple mb-1">
                 <ChartLine size={28} />
               </div>
               <h3 className="text-lg font-display font-bold text-zinc-950">Synthetic Stocks</h3>
