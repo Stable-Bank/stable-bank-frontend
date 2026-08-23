@@ -21,59 +21,58 @@ export default function NetworkSelector() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex transform cursor-pointer items-center rounded-full p-1 pr-4 transition-colors duration-200 hover:bg-[#0E121C]"
+        className="flex transform cursor-pointer items-center rounded-full p-1 pr-3 transition-colors duration-200 hover:bg-zinc-100 border border-zinc-200 bg-white"
       >
         <div className="flex -space-x-2">
           {otherNetworks.slice(0, 4).map((network, index) => (
             <div
               key={network.id}
-              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-sm font-medium z-${10 - index}`}
+              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-xs font-medium z-${10 - index} border border-white`}
             >
               {network.logo ? <Image src={network.logo} alt={network.name} width={16} height={16} className="rounded-full" /> : network.icon}
             </div>
           ))}
 
           <div
-            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-sm font-medium`}
+            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-xs font-medium border border-white`}
           >
             {selectedNetworkData?.logo ? <Image src={selectedNetworkData.logo} alt={selectedNetworkData.name} width={16} height={16} className="rounded-full" /> : selectedNetworkData?.icon}
           </div>
 
           {otherNetworks.length > 4 && (
-            <div className="z-30 flex h-7 w-7 items-center justify-center rounded-full bg-[#4649D6] text-sm font-medium text-white">
+            <div className="z-30 flex h-7 w-7 items-center justify-center rounded-full bg-brand-purple text-xs font-mono font-bold text-white border border-white">
               +{otherNetworks.length - 4}
             </div>
           )}
         </div>
 
-        <span className="ml-2 text-sm font-medium">Networks</span>
+        <span className="ml-2 text-xs font-sans font-bold text-zinc-900">Networks</span>
         <ChevronDown
-          className={`ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          size={10}
-          color="white"
+          className={`ml-1 transition-transform text-zinc-500 ${isOpen ? "rotate-180" : ""}`}
+          size={12}
         />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-3.5 max-h-[360px] w-[230px] overflow-y-auto rounded-[20px] border-[0.2px] border-[#FEF8F1]/60 bg-[#0E121C] shadow-xl [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 hover:[&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
-          <div className="flex flex-col gap-[18px] px-3.5 py-3">
-            <div className="text-lg font-semibold text-white/60">
+        <div className="absolute top-full left-0 z-50 mt-2 max-h-[360px] w-[240px] overflow-y-auto rounded-2xl border border-zinc-200 bg-white shadow-xl custom-scrollbar">
+          <div className="flex flex-col gap-3 px-3.5 py-3">
+            <div className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">
               All Networks
             </div>
 
-            <div className="flex items-center gap-2 rounded-[20px] border-[0.3px] border-solid border-white/60 px-3 py-2">
-              <Search size={14} />
+            <div className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2">
+              <Search size={14} className="text-zinc-400" />
               <input
                 type="text"
                 placeholder="Search Networks"
-                className="hide-autofill h-full w-full border-0 bg-inherit ring-0 outline-0"
+                className="hide-autofill h-full w-full border-0 bg-transparent ring-0 outline-0 text-xs font-sans text-zinc-900 placeholder:text-zinc-400"
                 value={searchFilter}
                 onChange={(e) => setSearchFilter(e.target.value)}
               />
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1">
               {networks
                 .filter((network) =>
                   network.name
@@ -84,20 +83,20 @@ export default function NetworkSelector() {
                   <button
                     key={network.id}
                     onClick={() => handleNetworkSelect(network.id)}
-                    className={`flex w-full items-center gap-5 rounded-lg p-2 transition-colors hover:bg-gray-700 ${
-                      selectedNetwork === network.id ? "bg-gray-700" : ""
+                    className={`flex w-full items-center gap-3 rounded-xl p-2 transition-colors hover:bg-zinc-100 cursor-pointer ${
+                      selectedNetwork === network.id ? "bg-zinc-100 font-bold" : ""
                     }`}
                   >
                     <div
-                      className={`h-8 w-8 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-sm font-bold`}
+                      className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-xs font-bold shrink-0`}
                     >
-                      {network.logo ? <Image src={network.logo} alt={network.name} width={20} height={20} className="rounded-full" /> : network.icon}
+                      {network.logo ? <Image src={network.logo} alt={network.name} width={18} height={18} className="rounded-full" /> : network.icon}
                     </div>
-                    <span className="text-xl font-medium text-white">
+                    <span className="text-sm font-sans text-zinc-900">
                       {network.name}
                     </span>
                     {selectedNetwork === network.id && (
-                      <div className="ml-auto h-2 w-2 rounded-full bg-blue-500"></div>
+                      <div className="ml-auto h-2 w-2 rounded-full bg-brand-purple"></div>
                     )}
                   </button>
                 ))}
