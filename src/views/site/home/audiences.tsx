@@ -8,7 +8,7 @@ export default function Audiences() {
     <section className="py-20 px-4 sm:px-6 lg:px-10 relative">
       <div className="max-w-largest mx-auto relative z-10">
         <div className="mb-16 text-center flex flex-col items-center">
-          <SectionCard title="For Everyone" />
+          <SectionCard title="For Everyone" category="GLOBAL ACCESS" />
           <h2 className="mt-8 text-4xl sm:text-5xl font-display font-extrabold text-zinc-950 mb-6">
             Banking built for <span className="text-brand-purple">your scale</span>
           </h2>
@@ -20,7 +20,7 @@ export default function Audiences() {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Individuals */}
           <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
-            <div className="w-14 h-14 bg-brand-purple/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
+            <div className="w-14 h-14 bg-brand-purple/10 border border-brand-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
               <User className="w-7 h-7 text-brand-purple group-hover:text-white transition-colors" />
             </div>
             <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Individuals</h3>
@@ -34,7 +34,7 @@ export default function Audiences() {
 
           {/* Businesses */}
           <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
-            <div className="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
+            <div className="w-14 h-14 bg-purple-50 border border-brand-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-brand-purple transition-all duration-300">
               <Building2 className="w-7 h-7 text-brand-purple group-hover:text-white transition-colors" />
             </div>
             <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Businesses</h3>
@@ -48,7 +48,7 @@ export default function Audiences() {
 
           {/* Institutions */}
           <div className="group relative p-8 rounded-2xl bg-white border border-zinc-200 hover:border-brand-purple/40 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full shadow-sm">
-            <div className="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300">
+            <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300">
               <Landmark className="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors" />
             </div>
             <h3 className="text-2xl font-display font-bold text-zinc-950 mb-4">Institutions</h3>
