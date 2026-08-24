@@ -113,13 +113,17 @@ export default function SettingsPage() {
     try {
       const response = await apiClient.post("/users/avatar", formData);
       toast.success("Avatar uploaded successfully!");
-      if (response.avatarUrl) {
-        updateUser({ avatarUrl: response.avatarUrl });
+      const newAvatarUrl = response.avatarUrl || response.user?.avatarUrl;
+      if (newAvatarUrl) {
+        updateUser({ avatarUrl: newAvatarUrl });
       }
     } catch (error: any) {
       toast.error(error?.message || "Failed to upload avatar");
     } finally {
       setLoading(false);
+      if (e.target) {
+        e.target.value = "";
+      }
     }
   };
 
@@ -138,7 +142,10 @@ export default function SettingsPage() {
     }
   };
 
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '');
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || "http://localhost:4000";
+  const avatarSrc = user?.avatarUrl
+    ? (user.avatarUrl.startsWith("http") ? user.avatarUrl : `${backendUrl}${user.avatarUrl}`)
+    : "/images/svg/default-avatar.svg";
 
   return (
     <div className="flex flex-col gap-8 max-w-4xl animate-in fade-in duration-300 pb-20">
@@ -175,14 +182,11 @@ export default function SettingsPage() {
             <div className="relative group">
               <div className="h-32 w-32 rounded-full overflow-hidden border-4 border-brand-purple/20 bg-zinc-100">
                 <Image
-                  src={
-                    user?.avatarUrl 
-                      ? `${backendUrl}${user.avatarUrl}`
-                      : `/images/svg/default-avatar.svg`
-                  }
+                  src={avatarSrc}
                   alt="avatar"
                   width={128}
                   height={128}
+                  unoptimized={!!user?.avatarUrl}
                   className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 />
               </div>
