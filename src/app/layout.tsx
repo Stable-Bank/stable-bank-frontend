@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Darker_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Darker_Grotesque, JetBrains_Mono, Cormorant_Garamond } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
@@ -15,6 +15,13 @@ const darkerGrotesque = Darker_Grotesque({
   variable: "--font-grotesque",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800", "900"],
+});
+
+const oggFallback = Cormorant_Garamond({
+  variable: "--font-ogg-fallback",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -65,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakartaSans.variable} ${darkerGrotesque.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen`}
+        className={`${plusJakartaSans.variable} ${darkerGrotesque.variable} ${oggFallback.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen`}
       >
         <AuthProvider>
           <NotificationProvider>
