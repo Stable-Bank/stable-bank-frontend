@@ -1,10 +1,10 @@
 "use client";
 
 import { navLinks } from "@/lib/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Twitter, MessageCircle, Mail, ArrowUpRight } from "lucide-react";
+import BrandLogo from "@/components/brand/brand-logo";
 
 const footerSections = [
     {
@@ -61,13 +61,7 @@ export default function SiteFooter() {
                     {/* Brand column */}
                     <div className="col-span-2 md:col-span-3 lg:col-span-2">
                         <Link href="/" className="inline-block mb-6">
-                            <Image
-                                src="/images/brand/full-logo-purple.svg"
-                                alt="StableBank"
-                                width={165}
-                                height={20}
-                                className="h-5 sm:h-6 w-auto"
-                            />
+                            <BrandLogo height={24} />
                         </Link>
                         <p className="text-zinc-600 text-sm sm:text-base max-w-[280px] mb-6">
                             The future of banking is decentralized. Store, send, and spend
