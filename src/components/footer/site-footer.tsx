@@ -61,7 +61,7 @@ export default function SiteFooter() {
                     {/* Brand column */}
                     <div className="col-span-2 md:col-span-3 lg:col-span-2">
                         <Link href="/" className="inline-block mb-6">
-                            <BrandLogo height={24} />
+                            <BrandLogo />
                         </Link>
                         <p className="text-zinc-600 text-sm sm:text-base max-w-[280px] mb-6">
                             The future of banking is decentralized. Store, send, and spend
