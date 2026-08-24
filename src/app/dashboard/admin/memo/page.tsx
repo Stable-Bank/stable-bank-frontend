@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Send, ShieldAlert, Sparkles } from "lucide-react";
+import { Send, ShieldAlert, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
 import { adminService } from "@/services/adminService";
@@ -117,7 +117,7 @@ export default function AdminMemoPage() {
           <GlassCard className="relative overflow-hidden group border-indigo-100 bg-indigo-50/40">
             <div className="relative space-y-3">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-purple uppercase tracking-wider">
-                <Sparkles size={14} /> Real-time Delivery
+                <Zap size={14} /> Real-time Delivery
               </div>
               <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed">
                 Memos are stored in each user&apos;s notification list and pushed instantly to all online users using Server-Sent Events (SSE).
