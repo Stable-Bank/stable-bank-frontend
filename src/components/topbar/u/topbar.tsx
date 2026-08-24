@@ -34,10 +34,11 @@ export default function UTopbar() {
                 src={
                   user.avatarUrl.startsWith("http")
                     ? user.avatarUrl
-                    : `${process.env.NEXT_PUBLIC_API_URL?.replace("/api/v1", "")}${user.avatarUrl}`
+                    : `${process.env.NEXT_PUBLIC_API_URL?.replace("/api/v1", "") || "http://localhost:4000"}${user.avatarUrl}`
                 }
                 alt="avatar"
                 fill
+                unoptimized={true}
                 className="object-cover"
               />
             ) : user?.firstName || user?.bankTag ? (
