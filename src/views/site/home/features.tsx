@@ -11,7 +11,6 @@ import {
     ArrowUpRight,
     TrendingUp,
     CheckCircle2,
-    Sparkles,
 } from "lucide-react";
 import React, { useState } from "react";
 import SectionCard from "@/components/cards/section";
@@ -56,7 +55,7 @@ export default function Features() {
                                     <Wallet className="h-6 w-6" />
                                 </div>
                                 <div className="flex items-center gap-1.5 bg-[#EEF8A8]/80 border border-[#D0E244]/80 px-3 py-1 rounded-full text-xs font-mono font-bold text-[#556000]">
-                                    <Sparkles size={13} className="text-[#839105]" />
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[#839105]" />
                                     <span>Multi-Ledger Verified</span>
                                 </div>
                             </div>
