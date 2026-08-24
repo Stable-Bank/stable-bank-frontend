@@ -77,7 +77,7 @@ export default function RootLayout({
         <AuthProvider>
           <NotificationProvider>
             {children}
-            <Toaster position="top-center" />
+            <Toaster position="bottom-right" />
           </NotificationProvider>
         </AuthProvider>
       </body>
