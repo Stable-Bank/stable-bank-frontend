@@ -10,7 +10,7 @@ import {
   Trash2,
   CheckCheck,
   Shield,
-  Sparkles,
+  Tag,
   Gift,
   ArrowDownLeft,
   ArrowUpRight,
@@ -96,7 +96,7 @@ export default function NotificationsPage() {
       case "promotion":
         return (
           <div className="h-10 w-10 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0">
-            <Sparkles size={18} />
+            <Tag size={18} />
           </div>
         );
       case "referral":
