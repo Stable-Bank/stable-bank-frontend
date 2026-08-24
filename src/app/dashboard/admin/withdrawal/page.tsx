@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowUp, ShieldAlert, Sparkles, ExternalLink, Network } from "lucide-react";
+import { ArrowUp, ShieldAlert, CheckCircle2, ExternalLink, Network } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
 import { adminService } from "@/services/adminService";
@@ -127,7 +127,7 @@ export default function AdminWithdrawalPage() {
             <GlassCard className="border-emerald-200 bg-emerald-50/40">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700">
-                  <Sparkles size={16} /> On-chain Transaction Completed
+                  <CheckCircle2 size={16} /> On-chain Transaction Completed
                 </div>
                 <p className="text-xs sm:text-sm text-zinc-600 font-sans">
                   Funds have been successfully sent from the operator wallet on the blockchain.
