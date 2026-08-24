@@ -6,7 +6,7 @@ import { getToken } from "@/composables/token";
 import { notificationService } from "@/services/notificationService";
 import { Notification } from "@/types/notification";
 import { toast } from "sonner";
-import { Bell, ArrowDownLeft, Shield, Sparkles, Gift } from "lucide-react";
+import { Bell, ArrowDownLeft, Shield, Tag, Gift } from "lucide-react";
 
 interface NotificationContextType {
   notifications: Notification[];
@@ -27,7 +27,7 @@ const getTypeIcon = (type: Notification["type"]) => {
     case "security":
       return <Shield className="text-rose-400 h-5 w-5" />;
     case "promotion":
-      return <Sparkles className="text-amber-400 h-5 w-5" />;
+      return <Tag className="text-amber-400 h-5 w-5" />;
     case "referral":
       return <Gift className="text-brand-purple h-5 w-5" />;
     default:
