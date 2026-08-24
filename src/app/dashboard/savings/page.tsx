@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { 
   PiggyBank, Plus, ArrowRight, X, ArrowLeft, Target, 
   AlertCircle, CheckCircle, Lock, Unlock, ShieldAlert, 
-  Sparkles, Calendar, TrendingUp, Wallet 
+  Calendar, TrendingUp, Wallet 
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
@@ -447,7 +447,7 @@ export default function SavingsPage() {
           <div className="w-full max-w-lg bg-white border border-zinc-200 rounded-3xl shadow-xl overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between p-6 border-b border-zinc-200">
               <h3 className="text-xl font-display font-extrabold text-zinc-950 flex items-center gap-2">
-                <Sparkles size={20} className="text-brand-purple" />
+                <PiggyBank size={20} className="text-brand-purple" />
                 Create Savings Account
               </h3>
               <button onClick={() => { setShowCreate(false); }} className="p-2 rounded-full hover:bg-zinc-100 text-zinc-400 hover:text-zinc-800 transition-colors cursor-pointer">
