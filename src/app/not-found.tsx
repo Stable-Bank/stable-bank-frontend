@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import BrandLogo from "@/components/brand/brand-logo";
 
 export default function NotFound() {
   return (
@@ -14,14 +14,8 @@ export default function NotFound() {
       <div className="relative z-10 flex w-full items-center justify-center px-4 py-8 sm:px-6 sm:py-12 md:px-8 lg:px-[5%] lg:py-0">
         <div className="flex w-full max-w-[480px] flex-col items-start justify-center gap-10 sm:gap-12 md:gap-16 lg:gap-20">
           <div className="w-full">
-            <Link href="/">
-              <Image
-                src={"/images/brand/full-logo-purple.svg"}
-                alt="stable bank logo"
-                width={300}
-                height={35}
-                className="h-7 sm:h-8 md:h-9 w-auto"
-              />
+            <Link href="/" className="hover:opacity-90 transition-opacity">
+              <BrandLogo />
             </Link>
           </div>
           <div className="flex w-full flex-col gap-6 sm:gap-8 md:gap-10">
