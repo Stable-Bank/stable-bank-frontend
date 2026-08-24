@@ -16,8 +16,9 @@ import {
   Sparkles, 
   Info
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { accountService } from "@/services/accountService";
 import { toast } from "sonner";
 import { QRCodeSVG } from "qrcode.react";
 import { NetworkIcon, TokenIcon } from "@web3icons/react/dynamic";
@@ -31,6 +32,20 @@ export default function RecieveModal() {
   const [selectedToken, setSelectedToken] = useState<"usdc" | "usdt" | "eurc">("usdc");
   const [selectedNetwork, setSelectedNetwork] = useState<string>("arbitrum");
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [virtualAccounts, setVirtualAccounts] = useState<any[]>([]);
+  const [isCreatingVA, setIsCreatingVA] = useState(false);
+
+  useEffect(() => {
+    const fetchVA = async () => {
+      try {
+        const data = await accountService.getVirtualAccounts();
+        setVirtualAccounts(data || []);
+      } catch (err) {
+        console.debug("Virtual accounts fetch:", err);
+      }
+    };
+    fetchVA();
+  }, []);
 
   const handleCopy = (text: string, fieldName: string) => {
     if (!text) return toast.error("Nothing to copy!");
@@ -40,12 +55,30 @@ export default function RecieveModal() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const handleCreateVirtualAccount = async (currency: string) => {
+    try {
+      setIsCreatingVA(true);
+      toast.loading(`Provisioning Bridge ${currency} Virtual Account...`);
+      await accountService.createVirtualAccount({ currency: currency.toLowerCase() });
+      toast.dismiss();
+      toast.success(`Bridge ${currency} Virtual Account created successfully!`);
+      const updated = await accountService.getVirtualAccounts();
+      setVirtualAccounts(updated || []);
+    } catch (err: any) {
+      toast.dismiss();
+      toast.error(err?.message || "Failed to create virtual account");
+    } finally {
+      setIsCreatingVA(false);
+    }
+  };
+
   const tagValue = user?.bankTag || "";
   const addressValue = user?.walletAddress || "";
 
   const networks = [
-    { name: "Arbitrum", id: "arbitrum" },
+    { name: "Solana", id: "solana" },
     { name: "Base", id: "base" },
+    { name: "Arbitrum", id: "arbitrum" },
     { name: "Ethereum", id: "ethereum" },
     { name: "Optimism", id: "optimism" },
     { name: "Polygon", id: "polygon" },
@@ -57,52 +90,62 @@ export default function RecieveModal() {
     { name: "Euro Coin", symbol: "eurc", label: "EURC" },
   ];
 
-  const accountDetails = {
-    USD: {
-      bankName: "StableBank Corp (New York)",
-      routing: "021000021",
-      accountNumber: "1002 9845 2371",
-      currency: "USD",
-      rail: "ACH & FedWire",
-      details: [
-        { label: "Routing (ABA)", value: "021000021" },
-        { label: "Account Number", value: "100298452371" },
-        { label: "Bank Name", value: "StableBank Corp (New York)" },
-        { label: "Beneficiary Name", value: user ? `${user.firstName || "Member"} ${user.lastName || "Account"}` : "StableBank Ltd / Client Account" },
-        { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" }
-      ]
-    },
-    GBP: {
-      bankName: "StableBank UK Ltd (London)",
-      sortCode: "20-45-12",
-      accountNumber: "40982312",
-      currency: "GBP",
-      rail: "Faster Payments & BACS",
-      details: [
-        { label: "Sort Code", value: "20-45-12" },
-        { label: "Account Number", value: "40982312" },
-        { label: "Bank Name", value: "StableBank UK Ltd (London)" },
-        { label: "Beneficiary Name", value: user ? `${user.firstName || "Member"} ${user.lastName || "Account"}` : "StableBank Ltd / Client Account" },
-        { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" }
-      ]
-    },
-    EUR: {
-      bankName: "StableBank Europe AG (Frankfurt)",
-      iban: "DE89 3704 0044 0532 0130 00",
-      bic: "STBKDEFFXXX",
-      currency: "EUR",
-      rail: "SEPA Instant",
-      details: [
-        { label: "IBAN", value: "DE89370400440532013000" },
-        { label: "BIC / SWIFT", value: "STBKDEFFXXX" },
-        { label: "Bank Name", value: "StableBank Europe AG (Frankfurt)" },
-        { label: "Beneficiary Name", value: user ? `${user.firstName || "Member"} ${user.lastName || "Account"}` : "StableBank Ltd / Client Account" },
-        { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" }
-      ]
+  const getAccountData = (currency: "USD" | "GBP" | "EUR") => {
+    const va = virtualAccounts.find((a: any) => (a.currency || "").toUpperCase() === currency);
+    const userName = user ? `${user.firstName || "Member"} ${user.lastName || "Account"}` : "StableBank Ltd / Client Account";
+
+    if (currency === "USD") {
+      return {
+        bankName: va?.bank_name || va?.bankName || "Bridge Partner Bank (New York)",
+        routing: va?.routing_number || va?.routingNumber || "101019644",
+        accountNumber: va?.account_number || va?.accountNumber || "8518033136",
+        currency: "USD",
+        rail: "ACH & FedWire",
+        isLive: !!va,
+        details: [
+          { label: "Routing (ABA)", value: va?.routing_number || va?.routingNumber || "101019644" },
+          { label: "Account Number", value: va?.account_number || va?.accountNumber || "8518033136" },
+          { label: "Bank Name", value: va?.bank_name || va?.bankName || "Bank of Nowhere (Bridge USD)" },
+          { label: "Beneficiary Name", value: va?.account_holder_name || userName },
+          { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
+    } else if (currency === "EUR") {
+      return {
+        bankName: va?.bank_name || va?.bankName || "Bridge Europe Bank (Luxembourg)",
+        iban: va?.iban || "LU44 0000 1234 5678 9000",
+        bic: va?.bic || "BGELULXX",
+        currency: "EUR",
+        rail: "SEPA Instant",
+        isLive: !!va,
+        details: [
+          { label: "IBAN", value: va?.iban || "LU44 0000 1234 5678 9000" },
+          { label: "BIC / SWIFT", value: va?.bic || "BGELULXX" },
+          { label: "Bank Name", value: va?.bank_name || va?.bankName || "Bridge EU Clearing (Luxembourg)" },
+          { label: "Beneficiary Name", value: va?.account_holder_name || userName },
+          { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
+    } else {
+      return {
+        bankName: va?.bank_name || va?.bankName || "Bridge UK Ltd (London)",
+        sortCode: va?.sort_code || va?.sortCode || "20-45-12",
+        accountNumber: va?.account_number || va?.accountNumber || "40982312",
+        currency: "GBP",
+        rail: "Faster Payments & BACS",
+        isLive: !!va,
+        details: [
+          { label: "Sort Code", value: va?.sort_code || va?.sortCode || "20-45-12" },
+          { label: "Account Number", value: va?.account_number || va?.accountNumber || "40982312" },
+          { label: "Bank Name", value: va?.bank_name || va?.bankName || "Bridge UK Clearing" },
+          { label: "Beneficiary Name", value: va?.account_holder_name || userName },
+          { label: "Reference Note", value: tagValue ? `TAG-${tagValue.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
     }
   };
 
-  const currentAccount = accountDetails[activeCurrency];
+  const currentAccount = getAccountData(activeCurrency);
 
   return (
     <DialogContent className="w-full !max-w-[440px] rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 shadow-2xl text-zinc-950 animate-in zoom-in-95 duration-200 gap-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -234,6 +277,19 @@ export default function RecieveModal() {
               ))}
             </div>
           </div>
+
+          {!currentAccount.isLive && (
+            <div className="flex justify-end pt-0.5">
+              <button
+                type="button"
+                onClick={() => handleCreateVirtualAccount(activeCurrency)}
+                disabled={isCreatingVA}
+                className="text-[11px] text-brand-purple underline font-bold hover:opacity-80 cursor-pointer"
+              >
+                {isCreatingVA ? "Provisioning..." : `Activate Live Bridge ${activeCurrency} Account`}
+              </button>
+            </div>
+          )}
 
           {/* Value Prop Alert */}
           <div className="rounded-2xl bg-amber-50 border border-amber-200 p-3 flex items-start gap-2.5">
