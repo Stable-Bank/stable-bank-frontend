@@ -1,4 +1,4 @@
-import { ArrowRight, User, Building2, Landmark, Check, Sparkles } from "lucide-react";
+import { ArrowRight, User, Building2, Landmark, Check } from "lucide-react";
 import Link from "next/link";
 import { appRoutes } from "@/lib/navigation";
 import { SectionCard } from "@/components/cards";
@@ -76,8 +76,8 @@ export default function Audiences() {
           {/* Tier 2: Businesses - HIGH CONTRAST FEATURED VOLT LIME CARD */}
           <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-black text-white border-2 border-[#B0BE19] shadow-2xl flex flex-col justify-between transform lg:-translate-y-2 group">
             {/* Featured Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#EEF8A8] text-zinc-950 px-4 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-lg flex items-center gap-1.5 border border-[#B0BE19]">
-              <Sparkles size={13} className="text-[#556000]" />
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#EEF8A8] text-zinc-950 px-4 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-lg flex items-center gap-2 border border-[#B0BE19]">
+              <span className="h-2 w-2 rounded-full bg-[#556000] animate-pulse" />
               <span>Recommended for Teams</span>
             </div>
 
