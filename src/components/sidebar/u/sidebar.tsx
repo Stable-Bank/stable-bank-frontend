@@ -80,11 +80,14 @@ export default function USidebar() {
               <Image
                 src={
                   user?.avatarUrl 
-                    ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '')}${user.avatarUrl}`
+                    ? (user.avatarUrl.startsWith("http")
+                        ? user.avatarUrl
+                        : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || "http://localhost:4000"}${user.avatarUrl}`)
                     : `/images/svg/default-avatar.svg`
                 }
                 alt="avatar"
                 fill
+                unoptimized={!!user?.avatarUrl}
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
