@@ -32,7 +32,7 @@ export default function SectionCard({ title, category, variant = "purple" }: Sec
       : "hover:border-brand-purple/40";
 
   return (
-    <div className={`inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-white border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03),0_0_0_1px_rgba(0,0,0,0.03)] backdrop-blur-md transition-all ${hoverBorder}`}>
+    <div className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-zinc-200/80 shadow-[0_4px_12px_rgba(0,0,0,0.03),inset_0_1.5px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06),inset_0_1.5px_1px_rgba(255,255,255,1)] transition-all duration-300 ${hoverBorder}`}>
       <div className="relative flex h-2 w-2 items-center justify-center shrink-0">
         <span className={`absolute h-full w-full rounded-full ${pingColor} animate-ping`} />
         <span className={`h-1.5 w-1.5 rounded-full ${dotColor}`} />
