@@ -59,7 +59,7 @@ export default function AboutPage() {
             <section className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden">
                 <div className="max-w-largest mx-auto relative">
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionCard title="About Us" category="MISSION" />
+                        <SectionCard title="About Us" category="MISSION" variant="yellow" />
 
                         <h1 className="mt-6 sm:mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-zinc-950 leading-tight">
                             Banking for the{" "}
@@ -104,29 +104,29 @@ export default function AboutPage() {
                         <div className="relative">
                             <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white p-8 sm:p-12 shadow-md">
                                 <div className="grid grid-cols-2 gap-4 sm:gap-6">
-                                    <div className="text-center p-6 rounded-xl bg-zinc-50 border border-zinc-100">
+                                    <div className="text-center p-6 rounded-xl bg-purple-50/60 border border-purple-100">
                                         <div className="text-3xl sm:text-4xl font-mono font-black text-brand-purple">
                                             2023
                                         </div>
                                         <div className="text-xs sm:text-sm text-zinc-500 font-mono mt-1 font-semibold uppercase">Founded</div>
                                     </div>
-                                    <div className="text-center p-6 rounded-xl bg-zinc-50 border border-zinc-100">
-                                        <div className="text-3xl sm:text-4xl font-mono font-black text-brand-purple">
+                                    <div className="text-center p-6 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70">
+                                        <div className="text-3xl sm:text-4xl font-mono font-black text-[#556000]">
                                             50K+
                                         </div>
-                                        <div className="text-xs sm:text-sm text-zinc-500 font-mono mt-1 font-semibold uppercase">Users</div>
+                                        <div className="text-xs sm:text-sm text-[#556000] font-mono mt-1 font-semibold uppercase">Users</div>
                                     </div>
                                     <div className="text-center p-6 rounded-xl bg-zinc-50 border border-zinc-100">
-                                        <div className="text-3xl sm:text-4xl font-mono font-black text-brand-purple">
+                                        <div className="text-3xl sm:text-4xl font-mono font-black text-zinc-900">
                                             120+
                                         </div>
                                         <div className="text-xs sm:text-sm text-zinc-500 font-mono mt-1 font-semibold uppercase">Countries</div>
                                     </div>
-                                    <div className="text-center p-6 rounded-xl bg-zinc-50 border border-zinc-100">
-                                        <div className="text-3xl sm:text-4xl font-mono font-black text-brand-purple">
+                                    <div className="text-center p-6 rounded-xl bg-emerald-50 border border-emerald-200">
+                                        <div className="text-3xl sm:text-4xl font-mono font-black text-emerald-700">
                                             $100M+
                                         </div>
-                                        <div className="text-xs sm:text-sm text-zinc-500 font-mono mt-1 font-semibold uppercase">TVL</div>
+                                        <div className="text-xs sm:text-sm text-emerald-700 font-mono mt-1 font-semibold uppercase">TVL</div>
                                     </div>
                                 </div>
                             </div>
