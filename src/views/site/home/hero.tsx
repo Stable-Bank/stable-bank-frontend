@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { ArrowRight, ArrowUpRight, ArrowDownLeft, Repeat, Bell, CreditCard, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CreditCard, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import TextMarquee from "@/components/marquee";
@@ -61,112 +61,22 @@ export default function HeroHome() {
             </div>
             <div className="text-left">
               <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider block">StableTag Instant</span>
-              <span className="text-xs font-mono font-bold text-[#556000]">$alex.vance ↔ $elena</span>
+              <span className="text-xs font-mono font-bold text-[#556000]">$timmyisanerd ↔ $global</span>
             </div>
           </div>
 
-          {/* Mobile Phone Chassis */}
-          <div className="relative z-10 w-[300px] sm:w-[350px] md:w-[375px] rounded-[48px] border-[7px] border-zinc-900 bg-zinc-950 p-2 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.08)]">
-            {/* Dynamic Island Notch */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-zinc-900 rounded-full z-30" />
-
-            {/* Inner Mobile Screen */}
-            <div className="rounded-[40px] bg-zinc-50 border border-zinc-200/80 overflow-hidden text-left p-4 pt-7 flex flex-col gap-3.5">
-              
-              {/* Screen Top Bar */}
-              <div className="flex items-center justify-between pb-1">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-brand-purple to-indigo-600 flex items-center justify-center text-white font-mono text-xs font-bold shadow-xs">
-                    AV
-                  </div>
-                  <div>
-                    <span className="text-xs font-mono font-bold text-zinc-950 block leading-none">$alex.vance</span>
-                    <span className="text-[9px] font-sans font-semibold text-emerald-600">● Tier 2 Verified</span>
-                  </div>
-                </div>
-                <div className="h-8 w-8 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-600 shadow-xs relative">
-                  <Bell size={14} />
-                  <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-brand-purple" />
-                </div>
-              </div>
-
-              {/* Mobile Unified Balance Card */}
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">Unified Balance</span>
-                  <span className="text-[10px] font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2 py-0.5 rounded-full border border-[#D0E244]/80 shadow-2xs">+4.2% APY</span>
-                </div>
-                <div className="mt-1">
-                  <span className="text-2xl sm:text-3xl font-mono font-black text-zinc-950 tracking-tight">$142,850.00</span>
-                </div>
-                
-                {/* Mobile Quick Action Buttons */}
-                <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-zinc-100">
-                  <div className="flex items-center justify-center gap-1.5 py-1.5 rounded-xl bg-brand-purple text-white text-[11px] font-sans font-bold shadow-xs">
-                    <ArrowUpRight size={13} />
-                    <span>Send</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-1.5 py-1.5 rounded-xl bg-[#F5FACD] text-[#556000] border border-[#D9E956]/70 text-[11px] font-sans font-bold shadow-2xs">
-                    <ArrowDownLeft size={13} />
-                    <span>Receive</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-1.5 py-1.5 rounded-xl bg-zinc-100 text-zinc-700 border border-zinc-200 text-[11px] font-sans font-bold">
-                    <Repeat size={13} />
-                    <span>Swap</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Live Virtual Card Widget Preview */}
-              <div className="relative rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-indigo-950 p-4 text-white shadow-md overflow-hidden border border-zinc-800">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <Image src="/images/brand/favicon.svg" alt="logo" width={16} height={16} className="brightness-200" />
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-white/90">StableCard</span>
-                  </div>
-                  <span className="text-xs font-mono font-extrabold text-white/80">VISA</span>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="font-mono text-xs text-white/70 tracking-widest">•••• •••• •••• 4892</span>
-                  <span className="text-[9px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">Active</span>
-                </div>
-              </div>
-
-              {/* Mobile Assets Feed Preview */}
-              <div className="rounded-2xl bg-white border border-zinc-200 p-3 shadow-xs space-y-2">
-                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-400 block px-1">Holdings</span>
-                
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-2">
-                    <div className="h-6 w-6 rounded-full bg-indigo-50 border border-indigo-200 flex items-center justify-center text-[10px] font-bold text-brand-purple">
-                      $
-                    </div>
-                    <span className="text-xs font-sans font-bold text-zinc-900">USDC</span>
-                  </div>
-                  <span className="text-xs font-mono font-bold text-zinc-950">$94,200.00</span>
-                </div>
-
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-2">
-                    <div className="h-6 w-6 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[10px] font-bold text-emerald-600">
-                      ₮
-                    </div>
-                    <span className="text-xs font-sans font-bold text-zinc-900">USDT</span>
-                  </div>
-                  <span className="text-xs font-mono font-bold text-zinc-950">$38,650.00</span>
-                </div>
-
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-2">
-                    <div className="h-6 w-6 rounded-full bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[10px] font-bold text-[#556000]">
-                      €
-                    </div>
-                    <span className="text-xs font-sans font-bold text-zinc-900">EURC</span>
-                  </div>
-                  <span className="text-xs font-mono font-bold text-zinc-950">€10,000.00</span>
-                </div>
-              </div>
-
+          {/* Mobile Phone Chassis with Real App UI */}
+          <div className="relative z-10 w-[290px] sm:w-[340px] md:w-[380px] rounded-[48px] border-[8px] border-zinc-900 bg-zinc-950 p-1.5 shadow-[0_35px_80px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(0,0,0,0.12)] group">
+            {/* Inner Mobile Screen Image */}
+            <div className="relative rounded-[38px] overflow-hidden bg-white aspect-[384/832] w-full border border-zinc-200/60 shadow-inner">
+              <Image
+                src="/images/png/mobile-app-ui.png"
+                alt="StableBank Mobile Application Interface"
+                width={384}
+                height={832}
+                className="w-full h-auto object-cover object-top select-none transition-transform duration-500 group-hover:scale-[1.02]"
+                priority
+              />
             </div>
           </div>
         </div>
