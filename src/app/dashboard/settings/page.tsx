@@ -101,8 +101,8 @@ export default function SettingsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 1 * 1024 * 1024) {
-      toast.error("Avatar size must be less than 1MB");
+    if (file.size > 3 * 1024 * 1024) {
+      toast.error("Avatar size must be less than 3MB");
       return;
     }
 
@@ -209,7 +209,7 @@ export default function SettingsPage() {
             <div className="w-full h-px bg-zinc-100" />
             
             <p className="text-xs text-center text-zinc-500 font-sans leading-relaxed">
-              Max file size is 1MB. Supported formats: JPG, PNG, SVG.
+              Max file size is 3MB. Supported formats: JPG, PNG, SVG.
             </p>
           </div>
 
