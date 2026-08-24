@@ -11,7 +11,8 @@ export default function HeroHome() {
   return (
     <div className="py-12 px-4 sm:py-16 md:py-24 overflow-hidden relative">
       {/* Subtle ambient blur */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[450px] bg-gradient-to-tr from-brand-purple/15 via-purple-100/40 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[450px] bg-gradient-to-tr from-brand-purple/15 via-[#EEF8A8]/30 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[350px] h-[250px] bg-[#D4E972]/20 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 flex flex-col items-center text-center">
         <div className="mb-6">
