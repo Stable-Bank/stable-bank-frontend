@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { appRoutes } from "@/lib/navigation";
 import axios, { AxiosResponse } from "axios";
-import { MoveRight, Sparkles } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -110,8 +110,8 @@ export default function CreateBankTag() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-7">
       <div className="flex flex-col gap-3">
-        <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-zinc-100 border border-zinc-200 py-1.5 pr-8 pl-3 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-sm">
-          <Sparkles size={14} className="text-brand-purple" />
+        <div className="flex w-fit items-center gap-2 sm:gap-2.5 rounded-full bg-white border border-zinc-200/90 py-1.5 px-3.5 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-xs">
+          <span className="h-2 w-2 rounded-full bg-[#839105]" />
           <span>Create your Unique Banktag</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-950">
