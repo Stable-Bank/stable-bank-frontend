@@ -2,11 +2,12 @@
 
 import { appRoutes, navLinks } from "@/lib/navigation";
 import { cn } from "@/utils/cn";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+
+import BrandLogo from "@/components/brand/brand-logo";
 
 interface NavbarProps {
   className?: string;
@@ -35,14 +36,7 @@ export default function Navbar({ className }: NavbarProps) {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image
-            src={"/images/brand/full-logo-purple.svg"}
-            alt="StableBank logo"
-            width={165}
-            height={20}
-            className="h-[18px] sm:h-[22px] w-auto"
-            priority
-          />
+          <BrandLogo height={22} showTag={true} />
         </Link>
 
         {/* Desktop Navigation Links */}
