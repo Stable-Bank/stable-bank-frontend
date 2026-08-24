@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { appRoutes } from "@/lib/navigation";
-import { Sparkles, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,24 +19,22 @@ export default function Login() {
     loading: false,
   });
 
-  function updateLoginData<K extends keyof typeof loginData>(
-    field: K,
-    value: (typeof loginData)[K]
-  ) {
-    setLoginData((prev) => ({ ...prev, [field]: value }));
-  }
+  const updateLoginData = (key: string, value: string | boolean) => {
+    setLoginData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    updateLoginData("loading", true);
-
     if (!loginData.email || !loginData.password) {
-      toast.error("Email and password are required.");
-      updateLoginData("loading", false);
+      toast.error("Please fill in all fields");
       return;
     }
 
     try {
+      updateLoginData("loading", true);
       await login(loginData.email, loginData.password);
       router.push(appRoutes.dashboard.home);
     } catch (error) {
@@ -52,8 +50,8 @@ export default function Login() {
       className="flex w-full flex-col gap-5 sm:gap-6 md:gap-7"
     >
       <div className="flex flex-col gap-2 sm:gap-3">
-        <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-zinc-100 border border-zinc-200 py-1.5 pr-6 sm:pr-8 pl-3 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-sm">
-          <Sparkles size={14} className="text-brand-purple" />
+        <div className="flex w-fit items-center gap-2 sm:gap-2.5 rounded-full bg-white border border-zinc-200/90 py-1.5 px-3.5 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-xs">
+          <span className="h-2 w-2 rounded-full bg-brand-purple" />
           <span>Spend USDT Like Cash</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-zinc-950">
