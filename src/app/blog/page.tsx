@@ -111,7 +111,7 @@ function BlogCard({ post, featured = false }: { post: typeof posts[0]; featured?
                     }`}
             >
                 <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-purple text-white text-xs font-mono font-semibold uppercase tracking-wider">
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider ${featured ? "bg-[#EEF8A8] text-zinc-950 border border-[#D0E244]" : "bg-brand-purple text-white"}`}>
                         <Tag className="h-3 w-3" />
                         {post.category}
                     </span>
@@ -164,7 +164,7 @@ export default function BlogPage() {
                 <div className="max-w-largest mx-auto">
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 sm:mb-12">
                         <div>
-                            <SectionCard title="Blog" category="EDITORIAL" />
+                            <SectionCard title="Blog" category="EDITORIAL" variant="yellow" />
                             <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-zinc-950">
                                 Insights & Updates
                             </h1>
