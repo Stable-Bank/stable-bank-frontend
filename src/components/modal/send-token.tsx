@@ -20,8 +20,8 @@ import {
   CheckCircle2,
   XCircle,
   HelpCircle,
-  Sparkles,
   ShieldAlert,
+  Send,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -360,7 +360,7 @@ export default function SendTokenModal({
       {/* Dynamic Header */}
       <div className="px-6 pt-6 pb-4 border-b border-zinc-200 flex items-center justify-between">
         <DialogTitle className="text-lg font-display font-bold text-zinc-950 flex items-center gap-2">
-          <Sparkles size={16} className="text-brand-purple animate-pulse" />
+          <Send size={16} className="text-brand-purple" />
           Send Funds
         </DialogTitle>
         <span className="text-xs font-mono font-bold text-zinc-400 tracking-wider uppercase bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200">
