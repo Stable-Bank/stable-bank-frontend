@@ -9,7 +9,7 @@ import {
   TrendingUp,
   Coins,
   Search,
-  Sparkles,
+  ShieldAlert,
   RefreshCw,
   UserPlus,
   ShieldCheck,
@@ -550,7 +550,7 @@ export default function AdminDashboard() {
 
                 <div className="mt-8 pt-6 border-t border-zinc-100 space-y-3">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-purple uppercase tracking-wider">
-                    <Sparkles size={14} /> Security Advisory
+                    <ShieldAlert size={14} /> Security Advisory
                   </div>
                   <p className="text-xs text-zinc-600 font-sans leading-relaxed">
                     Administrators gain write access to fraud alerts, watchlist modifications, and are allowed to authorize/reject platform operations. Only promote trusted team members.
