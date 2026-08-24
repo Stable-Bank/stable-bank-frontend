@@ -2,7 +2,7 @@
 
 import { SectionCard } from "@/components/cards";
 import { cn } from "@/utils/cn";
-import { XCircle, CheckCircle2, Shield, Globe, Sparkles } from "lucide-react";
+import { XCircle, CheckCircle2, Shield, Globe, Zap } from "lucide-react";
 import React, { useState } from "react";
 
 const comparisonRows = [
@@ -56,8 +56,8 @@ export default function Why() {
             <div>
               <div className="flex justify-between items-center mb-6 border-b border-zinc-200 pb-4">
                 <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 font-semibold">Feature comparison</span>
-                <span className="text-xs font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2.5 py-0.5 rounded-full border border-[#D0E244]/80 flex items-center gap-1">
-                  <Sparkles className="h-3.5 w-3.5" /> Direct Settle
+                <span className="text-xs font-mono font-bold text-[#556000] bg-[#EEF8A8]/80 px-2.5 py-0.5 rounded-full border border-[#D0E244]/80 flex items-center gap-1.5">
+                  <Zap className="h-3.5 w-3.5 text-[#839105]" /> Direct Settle
                 </span>
               </div>
 
