@@ -458,10 +458,11 @@ export default function SendTokenModal({
                         <Image
                           src={rec.avatarUrl.startsWith("http") 
                             ? rec.avatarUrl 
-                            : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '')}${rec.avatarUrl}`
+                            : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || "http://localhost:4000"}${rec.avatarUrl}`
                           }
                           alt={rec.bankTag}
                           fill
+                          unoptimized={true}
                           className="object-cover"
                         />
                       ) : (
