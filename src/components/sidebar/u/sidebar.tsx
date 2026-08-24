@@ -21,6 +21,7 @@ import { appRoutes } from "@/lib/navigation";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationContext";
+import BrandLogo from "@/components/brand/brand-logo";
 
 export default function USidebar() {
   const pathname = usePathname();
@@ -65,15 +66,9 @@ export default function USidebar() {
   return (
     <div className="flex h-full w-[280px] flex-col bg-white border-r border-zinc-200 shadow-sm">
       {/* Brand Header */}
-      <div className="px-6 py-8 flex items-center justify-center">
-        <Link href={appRoutes.dashboard.home} className="hover:opacity-80 transition-opacity">
-          <Image
-            src={"/images/brand/full-logo-purple.svg"}
-            alt="Stable Bank"
-            width={160}
-            height={40}
-            priority
-          />
+      <div className="px-6 py-8 flex items-center justify-start">
+        <Link href={appRoutes.dashboard.home} className="hover:opacity-90 transition-opacity">
+          <BrandLogo />
         </Link>
       </div>
 
