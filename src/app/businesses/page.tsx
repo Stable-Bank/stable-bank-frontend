@@ -13,8 +13,8 @@ import {
     FileCheck,
     Fingerprint,
     CreditCard,
-    Sparkles,
-    Percent
+    Percent,
+    Clock,
 } from "lucide-react";
 
 export const metadata = {
@@ -132,8 +132,9 @@ export default function BusinessPage() {
                                     Hold and trade stablecoins (USDC, USDT, EURC) alongside USD, GBP, and EUR corporate banking details, protected by fully segregated account custody.
                                 </p>
                             </div>
-                            <div className="text-xs font-semibold text-brand-purple font-mono flex items-center gap-1 mt-6">
-                                Program live soon <Sparkles size={14} className="text-amber-500" />
+                            <div className="text-xs font-semibold text-brand-purple font-mono flex items-center gap-1.5 mt-6">
+                                <Clock size={14} className="text-brand-purple" />
+                                <span>Program live soon</span>
                             </div>
                         </div>
 
