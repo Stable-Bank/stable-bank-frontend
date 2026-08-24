@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { apiClient } from "@/config/axios";
 import { appRoutes } from "@/lib/navigation";
 import { passwordSchema } from "@/schema/password";
-import { MoveRight, Sparkles, User, Building2, ChevronLeft, Eye, EyeOff } from "lucide-react";
+import { MoveRight, User, Building2, ChevronLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -72,8 +72,8 @@ export default function Signup() {
       {step === 1 ? (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="flex flex-col gap-2 sm:gap-3 mb-8">
-            <div className="flex w-fit items-center gap-2 sm:gap-3.5 rounded-full bg-zinc-100 border border-zinc-200 py-1.5 pr-6 sm:pr-8 pl-3 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-sm">
-              <Sparkles size={14} className="text-brand-purple" />
+            <div className="flex w-fit items-center gap-2 sm:gap-2.5 rounded-full bg-white border border-zinc-200/90 py-1.5 px-3.5 text-xs sm:text-sm font-mono font-semibold text-zinc-800 shadow-xs">
+              <span className="h-2 w-2 rounded-full bg-brand-purple" />
               <span>Spend USDT Like Cash</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-zinc-950">
