@@ -29,9 +29,9 @@ const fetchSharedBalance = async (walletAddress: string) => {
       sharedBalance = data;
       sharedError = null;
     } catch (err: any) {
-      console.error("Failed to fetch balance:", err);
-      if (err?.status !== 401) {
-        sharedError = err?.message || "Failed to load balance";
+      const errorMsg = err?.response?.data?.message || err?.message || "Failed to load balance";
+      if (err?.status !== 401 && err?.response?.status !== 401) {
+        sharedError = errorMsg;
       }
     } finally {
       sharedLoading = false;
