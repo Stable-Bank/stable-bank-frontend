@@ -12,7 +12,15 @@ export const cardService = {
    * Get all virtual cards for authenticated user
    */
   getUserCards: async (): Promise<VirtualCard[]> => {
-    return apiClient.get("/cards");
+    try {
+      const res: any = await apiClient.get("/cards");
+      if (Array.isArray(res)) return res;
+      if (res && Array.isArray(res.cards)) return res.cards;
+      if (res && Array.isArray(res.data)) return res.data;
+      return [];
+    } catch {
+      return [];
+    }
   },
 
   /**
