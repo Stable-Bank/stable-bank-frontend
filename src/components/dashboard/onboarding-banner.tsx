@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Sparkles, X, CheckCircle2, Circle, ArrowRight } from "lucide-react";
+import { ShieldCheck, X, CheckCircle2, Circle, ArrowRight } from "lucide-react";
 
 interface OnboardingBannerProps {
   onStartOnboarding: () => void;
@@ -30,8 +30,8 @@ export default function OnboardingBanner({ onStartOnboarding }: OnboardingBanner
         {/* Left Info */}
         <div className="space-y-2 max-w-xl">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-brand-purple/10 text-brand-purple px-2.5 py-0.5 rounded-full border border-brand-purple/20 flex items-center gap-1">
-              <Sparkles size={11} className="text-brand-purple" /> Account Verification
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-brand-purple/10 text-brand-purple px-2.5 py-0.5 rounded-full border border-brand-purple/20 flex items-center gap-1.5">
+              <ShieldCheck size={12} className="text-brand-purple" /> Account Verification
             </span>
             <span className="text-xs text-zinc-500 font-sans hidden sm:inline">
               Unlock Visa cards & wire accounts
