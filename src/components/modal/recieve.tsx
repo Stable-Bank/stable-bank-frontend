@@ -13,7 +13,6 @@ import {
   Wallet, 
   Send, 
   ShieldAlert, 
-  Sparkles, 
   Info
 } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -155,8 +154,8 @@ export default function RecieveModal() {
             <ArrowDownLeft size={20} />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-display font-extrabold text-zinc-950 tracking-tight flex items-center gap-1.5">
-              Add Funds <Sparkles size={14} className="text-brand-purple" />
+            <h2 className="text-lg sm:text-xl font-display font-extrabold text-zinc-950 tracking-tight">
+              Add Funds
             </h2>
             <p className="text-xs text-zinc-500 font-sans font-medium">
               Choose your preferred deposit channel
