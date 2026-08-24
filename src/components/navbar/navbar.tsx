@@ -36,7 +36,7 @@ export default function Navbar({ className }: NavbarProps) {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <BrandLogo height={22} />
+          <BrandLogo />
         </Link>
 
         {/* Desktop Navigation Links */}
