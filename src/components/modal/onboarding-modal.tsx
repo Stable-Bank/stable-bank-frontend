@@ -12,7 +12,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { apiClient } from "@/config/axios";
 import { toast } from "sonner";
 import {
-  Sparkles,
   Check,
   ChevronRight,
   ChevronLeft,
@@ -178,7 +177,7 @@ export default function OnboardingModal({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 text-brand-purple flex items-center justify-center">
-                <Sparkles size={18} />
+                <BadgeCheck size={18} />
               </div>
               <div>
                 <DialogTitle className="text-base sm:text-lg font-display font-bold text-zinc-950 tracking-tight">
