@@ -126,14 +126,18 @@ export default function ContactPage() {
             <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-10">
                 <div className="max-w-largest mx-auto">
                     <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-                        <SectionCard title="Contact Us" category="SUPPORT" />
+                        <SectionCard title="Contact Us" category="SUPPORT" variant="yellow" />
                         <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-display font-black text-zinc-950">
                             Get in <span className="text-brand-purple">Touch</span>
                         </h1>
-                        <p className="mt-4 text-lg sm:text-xl text-zinc-600 font-sans">
+                        <p className="mt-4 text-lg sm:text-xl text-zinc-600 font-sans mb-6">
                             Have questions or need help? We&apos;re here for you. Reach out
                             through any channel below.
                         </p>
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-[#EEF8A8]/90 text-[#4D5600] border border-[#D0E244]/80 shadow-2xs">
+                            <span className="h-2 w-2 rounded-full bg-[#839105] animate-pulse" />
+                            <span>Average response time &lt; 5 minutes</span>
+                        </div>
                     </div>
                 </div>
             </section>
