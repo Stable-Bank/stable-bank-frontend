@@ -3,7 +3,6 @@ import React from "react";
 import { ArrowRight, CreditCard, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import TextMarquee from "@/components/marquee";
 import { appRoutes } from "@/lib/navigation";
 import SectionCard from "@/components/cards/section";
 
@@ -81,8 +80,6 @@ export default function HeroHome() {
           </div>
         </div>
       </div>
-
-      <TextMarquee />
     </div>
   );
 }
