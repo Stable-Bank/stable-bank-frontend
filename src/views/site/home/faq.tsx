@@ -11,9 +11,9 @@ const faqData = [
       "StableBank is a next-generation platform that allows you to securely store, send, and earn yield on your stablecoins without traditional banking fees.",
   },
   {
-    question: "How do Fund Locks work?",
+    question: "How does earning high-yield interest work?",
     answer:
-      "You can 'lock' funds in your vault to remove them from your spendable balance. These locked funds earn yield, allowing your money to work for you. You can unlock them at any time, subject to a 24-hour cool-down period.",
+      "You can deposit funds into Flexible Savings for daily compounding returns or Safelock term deposits for fixed guaranteed yields up to 12.0% APY. Interest is credited directly into your spendable balance.",
   },
   {
     question: "What are Target Savings?",
@@ -23,12 +23,12 @@ const faqData = [
   {
     question: "How can I track my earnings?",
     answer:
-      "Our Staking Dashboard provides a comprehensive view of all your yield-generating positions in one place, so you always know exactly how your funds are performing.",
+      "Our Savings & Earnings Dashboard provides a comprehensive real-time view of your daily accrued interest and maturing deposits in one place.",
   },
   {
     question: "Can I withdraw my money whenever I want?",
     answer:
-      "Yes! You can manually withdraw or unstake your funds back to your spendable balance at any time, keeping in mind the standard 24-hour cool-down period for locked funds.",
+      "Yes! Flexible Savings allow instant withdrawals back to your spendable wallet or virtual card at any time with zero lockup periods or penalty fees.",
   },
 ];
 
