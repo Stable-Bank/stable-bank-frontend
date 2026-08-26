@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import {
   Check,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   ShieldCheck,
   Upload,
   CreditCard,
@@ -27,10 +28,24 @@ import {
   User,
   AtSign,
   FileCheck2,
-  X
+  X,
+  Search
 } from "lucide-react";
 import { cn } from "@/utils/cn";
-import { USFlagIcon, UKFlagIcon, EUFlagIcon, NGFlagIcon } from "@/components/ui/flag-icons";
+import { 
+  USFlagIcon, 
+  UKFlagIcon, 
+  EUFlagIcon, 
+  NGFlagIcon, 
+  CAFlagIcon, 
+  BRFlagIcon, 
+  ZAFlagIcon, 
+  CHFlagIcon, 
+  KEFlagIcon, 
+  GHFlagIcon, 
+  EGFlagIcon, 
+  TZFlagIcon 
+} from "@/components/ui/flag-icons";
 
 export interface OnboardingModalProps {
   open: boolean;
@@ -38,6 +53,159 @@ export interface OnboardingModalProps {
   onComplete?: () => void;
   triggerReason?: "virtual_account" | "card" | "general";
   targetCurrency?: string;
+}
+
+interface CountryOption {
+  code: string;
+  name: string;
+  rails: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const supportedCountries: CountryOption[] = [
+  { code: "US", name: "United States", rails: "USD · ACH & Wire", icon: USFlagIcon },
+  { code: "GB", name: "United Kingdom", rails: "GBP · Faster Payments", icon: UKFlagIcon },
+  { code: "EU", name: "European Union", rails: "EUR · SEPA Instant", icon: EUFlagIcon },
+  { code: "NG", name: "Nigeria", rails: "NGN · NIBSS Instant", icon: NGFlagIcon },
+  { code: "BR", name: "Brazil", rails: "BRL · Pix Instant", icon: BRFlagIcon },
+  { code: "CA", name: "Canada", rails: "CAD · EFT & Interac", icon: CAFlagIcon },
+  { code: "ZA", name: "South Africa", rails: "ZAR · Instant EFT", icon: ZAFlagIcon },
+  { code: "CH", name: "Switzerland", rails: "CHF · SIC Transfer", icon: CHFlagIcon },
+  { code: "KE", name: "Kenya", rails: "KES · M-Pesa & PesaLink", icon: KEFlagIcon },
+  { code: "GH", name: "Ghana", rails: "GHS · Mobile Money", icon: GHFlagIcon },
+  { code: "EG", name: "Egypt", rails: "EGP · IPN Instant", icon: EGFlagIcon },
+  { code: "TZ", name: "Tanzania", rails: "TZS · TISS Transfer", icon: TZFlagIcon },
+];
+
+function CustomCountrySelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (code: string) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const selectedCountry = supportedCountries.find((c) => c.code === value) || supportedCountries[0];
+  const SelectedIcon = selectedCountry.icon;
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const filteredCountries = supportedCountries.filter((c) =>
+    c.name.toLowerCase().includes(search.toLowerCase()) ||
+    c.code.toLowerCase().includes(search.toLowerCase()) ||
+    c.rails.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      {/* Custom Trigger Button */}
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={cn(
+          "w-full h-11 rounded-xl bg-zinc-50 border px-3.5 flex items-center justify-between text-xs sm:text-sm font-sans transition-all cursor-pointer shadow-2xs",
+          isOpen
+            ? "border-brand-purple bg-white ring-2 ring-brand-purple/10"
+            : "border-zinc-200 hover:bg-zinc-100/80 hover:border-zinc-300"
+        )}
+      >
+        <div className="flex items-center gap-2.5 min-w-0">
+          <SelectedIcon className="w-5 h-5 rounded-full shrink-0 shadow-2xs" />
+          <span className="font-semibold text-zinc-900 truncate">{selectedCountry.name}</span>
+          <span className="text-[10px] font-mono font-bold text-zinc-400 bg-zinc-200/70 px-1.5 py-0.5 rounded">
+            {selectedCountry.code}
+          </span>
+        </div>
+        <ChevronDown
+          size={16}
+          className={cn("text-zinc-400 transition-transform duration-200 shrink-0", isOpen && "rotate-180 text-brand-purple")}
+        />
+      </button>
+
+      {/* Floating Popover Menu */}
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 mt-2 z-50 rounded-2xl bg-white border border-zinc-200 shadow-2xl p-2 animate-in fade-in zoom-in-95 duration-150">
+          {/* Search Box */}
+          <div className="relative mb-2 px-1">
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search country or currency..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full h-8 pl-8 pr-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs font-sans text-zinc-900 placeholder:text-zinc-400 focus:border-brand-purple focus:bg-white outline-none"
+            />
+          </div>
+
+          {/* Options List */}
+          <div className="max-h-52 overflow-y-auto custom-scrollbar space-y-1">
+            {filteredCountries.length > 0 ? (
+              filteredCountries.map((country) => {
+                const Icon = country.icon;
+                const isSelected = country.code === value;
+                return (
+                  <button
+                    key={country.code}
+                    type="button"
+                    onClick={() => {
+                      onChange(country.code);
+                      setIsOpen(false);
+                      setSearch("");
+                    }}
+                    className={cn(
+                      "w-full flex items-center justify-between p-2 rounded-xl text-left transition-all cursor-pointer",
+                      isSelected
+                        ? "bg-purple-50 text-brand-purple font-bold border border-brand-purple/30"
+                        : "hover:bg-zinc-50 text-zinc-800 border border-transparent"
+                    )}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Icon className="w-5 h-5 rounded-full shrink-0 shadow-2xs" />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-xs font-semibold text-zinc-900 truncate">
+                          {country.name}
+                        </span>
+                        <span className="text-[10px] font-mono text-zinc-400 truncate">
+                          {country.rails}
+                        </span>
+                      </div>
+                    </div>
+                    {isSelected && (
+                      <Check size={14} className="text-brand-purple shrink-0 ml-2" />
+                    )}
+                  </button>
+                );
+              })
+            ) : (
+              <div className="p-3 text-center text-xs text-zinc-400 font-sans">
+                No matching country found
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function OnboardingModal({
@@ -72,13 +240,6 @@ export default function OnboardingModal({
 
   const [tagChecking, setTagChecking] = useState(false);
   const [tagAvailable, setTagAvailable] = useState<boolean | null>(null);
-
-  const countries = [
-    { code: "US", name: "United States", icon: USFlagIcon },
-    { code: "GB", name: "United Kingdom", icon: UKFlagIcon },
-    { code: "EU", name: "European Union", icon: EUFlagIcon },
-    { code: "NG", name: "Nigeria", icon: NGFlagIcon },
-  ];
 
   const handleInputChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -323,19 +484,13 @@ export default function OnboardingModal({
                 />
               </div>
 
+              {/* Custom Country Selector */}
               <div className="space-y-1.5">
                 <label className="text-[11px] font-mono font-bold text-zinc-700 uppercase tracking-wider">Country of Residence</label>
-                <select
+                <CustomCountrySelect
                   value={formData.country}
-                  onChange={(e) => handleInputChange("country", e.target.value)}
-                  className="w-full h-11 rounded-xl bg-zinc-50 border border-zinc-200 px-3.5 text-xs sm:text-sm font-sans text-zinc-900 focus:border-brand-purple focus:bg-white outline-none cursor-pointer shadow-2xs"
-                >
-                  {countries.map((c) => (
-                    <option key={c.code} value={c.code}>
-                      {c.name} ({c.code})
-                    </option>
-                  ))}
-                </select>
+                  onChange={(code) => handleInputChange("country", code)}
+                />
               </div>
             </div>
 
