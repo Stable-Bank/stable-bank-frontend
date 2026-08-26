@@ -89,8 +89,8 @@ export default function AboutPage() {
                                     transfers, and endless paperwork were holding people back.
                                 </p>
                                 <p>
-                                    In 2023, our founders—former fintech executives and blockchain
-                                    pioneers—came together with a mission: to create a banking
+                                    In 2023, our founders, former fintech executives and blockchain
+                                    pioneers, came together with a mission: to create a banking
                                     experience that matches the speed of the digital world.
                                 </p>
                                 <p>
