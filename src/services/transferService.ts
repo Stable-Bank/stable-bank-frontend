@@ -54,6 +54,13 @@ export const transferService = {
   },
 
   /**
+   * Create an outbound fiat bank transfer or offramp via Bridge
+   */
+  createOutboundTransfer: async (data: any): Promise<any> => {
+    return apiClient.post("/transfer/outbound", data);
+  },
+
+  /**
    * Get transfer history for authenticated user
    */
   getTransferHistory: async (): Promise<Transfer[]> => {

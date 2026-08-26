@@ -19,7 +19,7 @@ const GlassCard = ({ children, className }: { children: React.ReactNode; classNa
 export default function AdminWithdrawalPage() {
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
-  const [network, setNetwork] = useState("bsc");
+  const [network, setNetwork] = useState("polygon");
   const [submitting, setSubmitting] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
 
@@ -92,8 +92,8 @@ export default function AdminWithdrawalPage() {
                     onChange={(e) => setNetwork(e.target.value)}
                     className="w-full h-11 bg-zinc-50 border border-zinc-200 rounded-xl px-4 text-xs sm:text-sm text-zinc-900 font-sans outline-none focus:border-brand-purple focus:bg-white transition-all cursor-pointer"
                   >
-                    <option value="bsc">BSC Testnet (Default)</option>
-                    <option value="polygon">Polygon Amoy</option>
+                    <option value="polygon">Polygon Amoy (Default)</option>
+                    <option value="base">Base Sepolia</option>
                   </select>
                 </div>
 
@@ -136,7 +136,7 @@ export default function AdminWithdrawalPage() {
                   <span>Tx Hash: {txHash}</span>
                 </div>
                 <a
-                  href={network === "bsc" ? `https://testnet.bscscan.com/tx/${txHash}` : `https://amoy.polygonscan.com/tx/${txHash}`}
+                  href={network === "base" ? `https://sepolia.basescan.org/tx/${txHash}` : `https://amoy.polygonscan.com/tx/${txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs text-brand-purple hover:underline font-mono font-bold self-start mt-1"

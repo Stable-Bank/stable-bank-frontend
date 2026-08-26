@@ -23,7 +23,12 @@ export interface UnifiedBalance {
   totalUSD: number;
   defiBalanceUSD: number;
   chains: ChainBalance[];
-  lastUpdated: string;
+  walletsByChain?: Record<string, string>;
+  evmWalletAddress?: string;
+  solanaWalletAddress?: string;
+  tronWalletAddress?: string;
+  virtualAccounts?: any[];
+  lastUpdated?: string;
 }
 
 export interface WalletInfo {

@@ -58,7 +58,7 @@ export default function Balances() {
         <div className="relative flex flex-col items-center gap-4">
           <div className="p-4 bg-white rounded-3xl shadow-sm border border-zinc-200 group-hover:scale-[1.02] transition-transform duration-300">
             <QRCodeSVG
-              value={`ethereum:${user?.walletAddress || ""}`}
+              value={user?.walletAddress || ""}
               size={200}
               level="H"
               includeMargin={false}

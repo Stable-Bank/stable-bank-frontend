@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
+import { NetworkIcon } from "@web3icons/react/dynamic";
 import Image from "next/image";
 
 export default function NetworkSelector() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedNetwork, setSelectedNetwork] = useState("optimism");
+  const [selectedNetwork, setSelectedNetwork] = useState("solana");
   const [searchFilter, setSearchFilter] = useState("");
 
   const selectedNetworkData = networks.find((n) => n.id === selectedNetwork);
@@ -27,16 +28,24 @@ export default function NetworkSelector() {
           {otherNetworks.slice(0, 4).map((network, index) => (
             <div
               key={network.id}
-              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-xs font-medium z-${10 - index} border border-white`}
+              className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center font-sans text-xs font-medium z-${10 - index} border border-white overflow-hidden`}
             >
-              {network.logo ? <Image src={network.logo} alt={network.name} width={16} height={16} className="rounded-full" /> : network.icon}
+              {network.logo ? (
+                <Image src={network.logo} alt={network.name} width={16} height={16} className="rounded-full" />
+              ) : (
+                <NetworkIcon id={network.id} variant="branded" size={16} fallback={<span>{network.icon}</span>} />
+              )}
             </div>
           ))}
 
           <div
-            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-xs font-medium border border-white`}
+            className={`h-7 w-7 rounded-full ${selectedNetworkData?.bgColor} ${selectedNetworkData?.textColor} z-20 flex items-center justify-center text-xs font-medium border border-white overflow-hidden`}
           >
-            {selectedNetworkData?.logo ? <Image src={selectedNetworkData.logo} alt={selectedNetworkData.name} width={16} height={16} className="rounded-full" /> : selectedNetworkData?.icon}
+            {selectedNetworkData?.logo ? (
+              <Image src={selectedNetworkData.logo} alt={selectedNetworkData.name} width={16} height={16} className="rounded-full" />
+            ) : (
+              <NetworkIcon id={selectedNetworkData?.id || "solana"} variant="branded" size={16} fallback={<span>{selectedNetworkData?.icon}</span>} />
+            )}
           </div>
 
           {otherNetworks.length > 4 && (
@@ -46,7 +55,9 @@ export default function NetworkSelector() {
           )}
         </div>
 
-        <span className="ml-2 text-xs font-sans font-bold text-zinc-900">Networks</span>
+        <span className="ml-2 text-xs font-sans font-bold text-zinc-900">
+          {selectedNetworkData ? selectedNetworkData.name : "Networks"}
+        </span>
         <ChevronDown
           className={`ml-1 transition-transform text-zinc-500 ${isOpen ? "rotate-180" : ""}`}
           size={12}
@@ -55,10 +66,10 @@ export default function NetworkSelector() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-2 max-h-[360px] w-[240px] overflow-y-auto rounded-2xl border border-zinc-200 bg-white shadow-xl custom-scrollbar">
+        <div className="absolute top-full right-0 z-50 mt-2 max-h-[360px] w-[260px] overflow-y-auto rounded-2xl border border-zinc-200 bg-white shadow-xl custom-scrollbar">
           <div className="flex flex-col gap-3 px-3.5 py-3">
             <div className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">
-              All Networks
+              Bridge Supported Networks
             </div>
 
             <div className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2">
@@ -88,13 +99,22 @@ export default function NetworkSelector() {
                     }`}
                   >
                     <div
-                      className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-xs font-bold shrink-0`}
+                      className={`h-7 w-7 rounded-full ${network.bgColor} ${network.textColor} flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden`}
                     >
-                      {network.logo ? <Image src={network.logo} alt={network.name} width={18} height={18} className="rounded-full" /> : network.icon}
+                      {network.logo ? (
+                        <Image src={network.logo} alt={network.name} width={18} height={18} className="rounded-full" />
+                      ) : (
+                        <NetworkIcon id={network.id} variant="branded" size={18} fallback={<span>{network.icon}</span>} />
+                      )}
                     </div>
-                    <span className="text-sm font-sans text-zinc-900">
-                      {network.name}
-                    </span>
+                    <div className="flex flex-col items-start text-left">
+                      <span className="text-sm font-sans text-zinc-900 leading-none">
+                        {network.name}
+                      </span>
+                      <span className="text-[10px] font-mono text-zinc-400 mt-0.5">
+                        {network.ecosystem}
+                      </span>
+                    </div>
                     {selectedNetwork === network.id && (
                       <div className="ml-auto h-2 w-2 rounded-full bg-brand-purple"></div>
                     )}
@@ -114,17 +134,27 @@ export default function NetworkSelector() {
 
 const networks = [
   {
-    id: "optimism",
-    name: "Optimism",
-    icon: "OP",
-    logo: "/networks/optimism.svg",
-    bgColor: "bg-red-500",
+    id: "solana",
+    name: "Solana",
+    icon: "SOL",
+    ecosystem: "Non-EVM",
+    bgColor: "bg-purple-900",
+    textColor: "text-white",
+  },
+  {
+    id: "base",
+    name: "Base",
+    icon: "◯",
+    ecosystem: "EVM L2",
+    logo: "/networks/base.svg",
+    bgColor: "bg-blue-400",
     textColor: "text-white",
   },
   {
     id: "ethereum",
     name: "Ethereum",
     icon: "♦",
+    ecosystem: "EVM L1",
     logo: "/networks/ethereum.svg",
     bgColor: "bg-blue-600",
     textColor: "text-white",
@@ -133,6 +163,7 @@ const networks = [
     id: "polygon",
     name: "Polygon",
     icon: "▲",
+    ecosystem: "EVM",
     logo: "/networks/polygon.svg",
     bgColor: "bg-purple-600",
     textColor: "text-white",
@@ -141,32 +172,68 @@ const networks = [
     id: "arbitrum",
     name: "Arbitrum",
     icon: "ARB",
+    ecosystem: "EVM L2",
     logo: "/networks/arbitrum.svg",
     bgColor: "bg-blue-500",
     textColor: "text-white",
   },
   {
-    id: "base",
-    name: "Base",
-    icon: "◯",
-    logo: "/networks/base.svg",
-    bgColor: "bg-blue-400",
+    id: "optimism",
+    name: "Optimism",
+    icon: "OP",
+    ecosystem: "EVM L2",
+    logo: "/networks/optimism.svg",
+    bgColor: "bg-red-500",
     textColor: "text-white",
   },
   {
     id: "avalanche",
     name: "Avalanche",
     icon: "AVAX",
+    ecosystem: "EVM",
     logo: "/networks/avalanche.svg",
     bgColor: "bg-red-600",
     textColor: "text-white",
   },
   {
-    id: "bsc",
-    name: "BSC",
-    icon: "BNB",
-    logo: "/networks/bsc.svg",
-    bgColor: "bg-yellow-500",
-    textColor: "text-black",
+    id: "stellar",
+    name: "Stellar",
+    icon: "XLM",
+    ecosystem: "Non-EVM",
+    bgColor: "bg-black",
+    textColor: "text-white",
+  },
+  {
+    id: "tron",
+    name: "Tron",
+    icon: "TRX",
+    ecosystem: "Non-EVM",
+    bgColor: "bg-red-700",
+    textColor: "text-white",
+  },
+  {
+    id: "sui",
+    name: "Sui",
+    icon: "SUI",
+    ecosystem: "Move / Non-EVM",
+    bgColor: "bg-cyan-600",
+    textColor: "text-white",
+  },
+  {
+    id: "aptos",
+    name: "Aptos",
+    icon: "APT",
+    ecosystem: "Move / Non-EVM",
+    bgColor: "bg-zinc-800",
+    textColor: "text-white",
+  },
+  {
+    id: "celo",
+    name: "Celo",
+    icon: "CELO",
+    ecosystem: "EVM",
+    bgColor: "bg-emerald-600",
+    textColor: "text-white",
   },
 ];
+

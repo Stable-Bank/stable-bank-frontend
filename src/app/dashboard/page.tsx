@@ -49,7 +49,7 @@ import {
   Loader2
 } from "lucide-react";
 import { cn } from "@/utils/cn";
-import { TokenIcon } from "@web3icons/react/dynamic";
+import { TokenLogo } from "@/components/common/crypto-icons";
 import { USFlagIcon, UKFlagIcon, EUFlagIcon, MultiFlagIcon } from "@/components/ui/flag-icons";
 
 // Accounts & Cards Tabbed Widget with SVG Flag Icons
@@ -417,7 +417,7 @@ export default function UHome() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
-  const { balance, isLoading: isBalanceLoading, error: balanceError, refresh: refreshBalance } = useBalance(user?.walletAddress);
+  const { balance, isLoading: isBalanceLoading, error: balanceError, refresh: refreshBalance } = useBalance((user as any)?.primaryWalletAddress || user?.walletAddress);
 
   // Send Token Modal State
   const [isSendOpen, setIsSendOpen] = useState(false);
@@ -913,16 +913,11 @@ export default function UHome() {
                         {/* Token Info */}
                         <div className="flex items-center gap-3">
                           <div className="relative group-hover:scale-105 transition-transform duration-300 shrink-0">
-                            <TokenIcon
-                              symbol={token.symbol.toLowerCase()}
-                              variant="branded"
+                            <TokenLogo
+                              symbol={token.symbol}
+                              name={token.name}
                               size={38}
-                              className="rounded-xl overflow-hidden"
-                              fallback={
-                                <div className="h-9 w-9 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center font-bold text-brand-purple text-xs font-mono">
-                                  {token.symbol.charAt(0)}
-                                </div>
-                              }
+                              className="rounded-xl overflow-hidden shadow-2xs"
                             />
                           </div>
 

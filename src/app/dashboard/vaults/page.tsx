@@ -20,7 +20,7 @@ const GlassCard = ({ children, className }: { children: React.ReactNode; classNa
 
 export default function VaultsPage() {
   const { user } = useAuth();
-  const { balance, refresh: refreshBalance } = useBalance(user?.walletAddress);
+  const { balance, refresh: refreshBalance } = useBalance((user as any)?.primaryWalletAddress || user?.walletAddress);
   
   const [vaults, setVaults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

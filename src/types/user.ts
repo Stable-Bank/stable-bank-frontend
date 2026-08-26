@@ -7,6 +7,11 @@ export interface User {
   firstName?: string;
   lastName?: string;
   walletAddress?: string;
+  primaryWalletAddress?: string;
+  evmWalletAddress?: string;
+  solanaWalletAddress?: string;
+  tronWalletAddress?: string;
+  bridgeCustomerId?: string;
   kycStatus?: 'pending' | 'approved' | 'rejected' | 'not_started';
   role?: 'user' | 'admin' | 'moderator';
   accountType?: 'individual' | 'business';
