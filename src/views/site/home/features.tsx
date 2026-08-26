@@ -104,10 +104,10 @@ export default function Features() {
                             </div>
 
                             <h3 className="text-2xl sm:text-3xl font-display font-bold text-zinc-950 mb-2">
-                                Multi-Currency Stablecoin Vault
+                                All-in-One Digital Dollar Account
                             </h3>
                             <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-sans max-w-xl mb-6">
-                                Manage USDC, USDT, EURC, and PYUSD across 10+ blockchains in one unified balance. Auto-convert deposits with zero slippage.
+                                Hold, convert, and manage USDC, USDT, EURC, and PYUSD in a single multi-chain balance. Auto-convert incoming deposits with zero slippage.
                             </p>
                         </div>
 
@@ -254,10 +254,10 @@ export default function Features() {
                             </div>
 
                             <h3 className="text-2xl sm:text-3xl font-display font-bold text-zinc-950 mb-2">
-                                DeFi Yield & Term Lockers
+                                Automated High-Yield Savings
                             </h3>
                             <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-sans max-w-xl mb-6">
-                                Maximize your returns with flexible daily compounding interest, fixed-term Safelock lockers, and automated goal savings.
+                                Grow your holdings automatically with daily compounding interest, fixed-term deposits, and smart savings goals.
                             </p>
                         </div>
 
@@ -326,21 +326,21 @@ export default function Features() {
                             </div>
 
                             <h3 className="text-xl sm:text-2xl font-display font-bold text-zinc-950 mb-2">
-                                Institutional Custody
+                                Bank-Grade Protection
                             </h3>
                             <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-sans mb-6">
-                                Multi-Party Computation (MPC), 24-hour timelock vault delays, and automated Travel Rule compliance.
+                                Multi-Party Computation (MPC), automated Travel Rule compliance, and real-time fraud monitoring keep your funds safe 24/7.
                             </p>
                         </div>
 
                         <div className="rounded-2xl bg-zinc-50 border border-zinc-200/80 p-4 space-y-2 text-xs font-mono">
                             <div className="flex items-center justify-between text-zinc-600">
-                                <span>Segregated Bridge MPC</span>
+                                <span>Segregated Custody</span>
                                 <span className="text-emerald-600 font-bold">ENFORCED</span>
                             </div>
                             <div className="flex items-center justify-between text-zinc-600">
-                                <span>24h Timelock Cooldown</span>
-                                <span className="text-emerald-600 font-bold">ACTIVE</span>
+                                <span>Fraud Prevention</span>
+                                <span className="text-emerald-600 font-bold">ACTIVE 24/7</span>
                             </div>
                         </div>
                     </div>
