@@ -1,7 +1,20 @@
 import TextMarquee from "@/components/marquee";
 import Testimonials from "@/components/testimonial";
 import SiteLayout from "@/layouts/site";
-import { HeroHome, Why, Features, Stats, FAQ, CTA, Audiences, VirtualCards, VirtualAccounts, OperatingFrontiers } from "@/views/site/home";
+import { 
+  HeroHome, 
+  Why, 
+  Features, 
+  Stats, 
+  FAQ, 
+  CTA, 
+  Audiences, 
+  VirtualCards, 
+  VirtualAccounts, 
+  OperatingFrontiers,
+  GlobalTransfers,
+  YieldVaults
+} from "@/views/site/home";
 
 export default function Home() {
   return (
@@ -12,9 +25,11 @@ export default function Home() {
         <Audiences />
         <TextMarquee direction="right" />
         <OperatingFrontiers />
+        <GlobalTransfers />
         <Features />
         <VirtualAccounts />
         <VirtualCards />
+        <YieldVaults />
         <Stats />
         <Testimonials />
         <FAQ />
@@ -23,4 +38,5 @@ export default function Home() {
     </SiteLayout>
   );
 }
+
 
