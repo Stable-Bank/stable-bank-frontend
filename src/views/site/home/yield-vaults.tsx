@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import SectionCard from "@/components/cards/section";
 import { 
   TrendingUp, 
-  Lock, 
-  ShieldCheck, 
+  Target, 
   PiggyBank, 
   CheckCircle2
 } from "lucide-react";
@@ -34,20 +33,20 @@ export default function YieldVaults() {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20 flex flex-col items-center">
           <div className="mb-6">
-            <SectionCard title="HIGH-YIELD & VAULTS" category="DEFI SAVINGS" variant="yellow" />
+            <SectionCard title="SMART SAVINGS" category="HIGH-YIELD INTEREST" variant="yellow" />
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-zinc-950 tracking-tight leading-[1.08] mb-4">
-            Put Your Idle Stables to Work, <br className="hidden sm:block" />
+            Put Your Idle Cash to Work, <br className="hidden sm:block" />
             <span className="text-brand-purple">Earn Up to 12.0% Fixed APY</span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-zinc-600 max-w-2xl font-sans">
-            Beat traditional 0.01% bank interest. Earn high, institutional-grade yield on your USDC, USDT, and EURC through flexible daily compounding, fixed Safelock terms, and timelocked security vaults.
+            Beat traditional 0.01% bank interest. Earn high daily compounding returns and guaranteed term yields on your digital dollars and euros.
           </p>
         </div>
 
-        {/* 3 Bento Vault Cards */}
+        {/* 3 Bento Savings Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           
           {/* Tile 1: Flexible Savings */}
@@ -99,53 +98,53 @@ export default function YieldVaults() {
               </div>
 
               <h3 className="text-2xl font-display font-bold text-zinc-950 mb-2">
-                Safelock Term Lockers
+                Safelock Term Deposits
               </h3>
               <p className="text-sm text-zinc-600 font-sans leading-relaxed mb-6">
-                Lock your stablecoins for 30 to 365 days to guarantee maximum guaranteed yield. Choose between upfront payout or maturity compounding.
+                Lock your funds for 30 to 365 days to guarantee maximum fixed yield. Choose between upfront interest payout or maturity compounding.
               </p>
             </div>
 
             <ul className="space-y-2.5 pt-4 border-t border-purple-100 text-xs font-sans text-zinc-700">
               <li className="flex items-center gap-2">
                 <CheckCircle2 size={15} className="text-brand-purple shrink-0" />
-                <span>Upfront interest payout available instantly</span>
+                <span>Upfront interest payout available immediately</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 size={15} className="text-brand-purple shrink-0" />
-                <span>Fixed, guaranteed institutional yields</span>
+                <span>Fixed, guaranteed high-yield returns</span>
               </li>
             </ul>
           </div>
 
-          {/* Tile 3: Timelocked DeFi Security Vaults */}
+          {/* Tile 3: Target Goal Savings */}
           <div className="rounded-3xl border border-zinc-200 bg-white p-6 sm:p-8 shadow-sm hover:shadow-md hover:border-brand-purple/40 transition-all flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div className="h-12 w-12 rounded-2xl bg-zinc-900 text-white flex items-center justify-center">
-                  <Lock size={22} />
+                <div className="h-12 w-12 rounded-2xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000]">
+                  <Target size={24} />
                 </div>
-                <span className="text-xs font-mono font-bold text-zinc-700 bg-zinc-100 border border-zinc-200 px-2.5 py-1 rounded-full">
-                  24h Cooldown Timelock
+                <span className="text-xs font-mono font-bold text-[#556000] bg-[#EEF8A8] border border-[#D0E244] px-2.5 py-1 rounded-full">
+                  8.5% Goal APY
                 </span>
               </div>
 
               <h3 className="text-2xl font-display font-bold text-zinc-950 mb-2">
-                Timelocked Vaults
+                Target Savings Goals
               </h3>
               <p className="text-sm text-zinc-600 font-sans leading-relaxed mb-6">
-                Cold-storage style security for your high-value treasury. Initiating a withdrawal starts a 24-hour timelock delay with SMS & email alerts.
+                Set automated daily, weekly, or monthly autosave rules toward life milestones like real estate, emergency funds, or travel.
               </p>
             </div>
 
             <ul className="space-y-2.5 pt-4 border-t border-zinc-100 text-xs font-sans text-zinc-700">
               <li className="flex items-center gap-2">
-                <ShieldCheck size={15} className="text-brand-purple shrink-0" />
-                <span>Anti-theft timelocked security gateway</span>
+                <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                <span>Custom milestone targets with automated rules</span>
               </li>
               <li className="flex items-center gap-2">
-                <ShieldCheck size={15} className="text-brand-purple shrink-0" />
-                <span>Smart contract enforced multi-sig custody</span>
+                <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                <span>Bonus interest unlocked on goal completion</span>
               </li>
             </ul>
           </div>
