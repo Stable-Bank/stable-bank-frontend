@@ -109,7 +109,7 @@ export default function GlobalTransfers() {
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-zinc-600 max-w-2xl font-sans">
-            Convert stablecoins into local fiat currencies and pay out directly to recipient bank accounts worldwide with instant local rails — zero wire delays and zero hidden spreads.
+            Convert stablecoins into local fiat currencies and pay out directly to recipient bank accounts worldwide with instant local rails, zero wire delays, and zero hidden spreads.
           </p>
         </div>
 
