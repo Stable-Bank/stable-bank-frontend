@@ -209,12 +209,14 @@ export default function OnboardingModal({
 
     setLoading(true);
     try {
+      const cleanTag = formData.bankTag.replace(/^[@$]+/, "").trim().toLowerCase();
+
       // 1. Update user profile
       try {
         await apiClient.patch("/users/profile", {
           firstName: formData.firstName,
           lastName: formData.lastName,
-          bankTag: formData.bankTag.startsWith("$") ? formData.bankTag : `$${formData.bankTag}`,
+          bankTag: cleanTag,
         });
       } catch (pErr) {
         console.debug("Profile update API response:", pErr);
@@ -231,7 +233,7 @@ export default function OnboardingModal({
       updateUser({
         firstName: formData.firstName,
         lastName: formData.lastName,
-        bankTag: formData.bankTag.startsWith("$") ? formData.bankTag : `$${formData.bankTag}`,
+        bankTag: `$${cleanTag}`,
         kycStatus: "approved",
       });
 
