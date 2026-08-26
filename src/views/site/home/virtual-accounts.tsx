@@ -171,19 +171,19 @@ export default function VirtualAccounts() {
                 <div className="h-7 w-7 rounded-xl bg-[#F5FACD] border border-[#D9E956]/70 flex items-center justify-center text-[#556000] shrink-0">
                   <RefreshCw className="h-4 w-4" />
                 </div>
-                <span><strong>Instant Crypto Conversion</strong> — Incoming fiat deposits automatically convert to USDC or USDT at market rates.</span>
+                <span><strong>Instant Crypto Conversion:</strong> Incoming fiat deposits automatically convert to USDC or USDT at market rates.</span>
               </li>
               <li className="flex items-center gap-3">
                 <div className="h-7 w-7 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-brand-purple shrink-0">
                   <Globe className="h-4 w-4" />
                 </div>
-                <span><strong>Zero Cross-Border Fees</strong> — Receive international employer payments or contractor invoices without standard high wire charges.</span>
+                <span><strong>Zero Cross-Border Fees:</strong> Receive international employer payments or contractor invoices without standard high wire charges.</span>
               </li>
               <li className="flex items-center gap-3">
                 <div className="h-7 w-7 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
                   <Info className="h-4 w-4" />
                 </div>
-                <span><strong>ACH & SEPA Ready</strong> — Settle local payments seamlessly over direct country-specific payment pathways.</span>
+                <span><strong>ACH & SEPA Ready:</strong> Settle local payments seamlessly over direct country-specific payment pathways.</span>
               </li>
             </ul>
           </div>
