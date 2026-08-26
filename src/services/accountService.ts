@@ -29,8 +29,11 @@ export const accountService = {
     try {
       const res: any = await apiClient.get("/virtual-accounts");
       if (Array.isArray(res)) return res;
+      if (res && Array.isArray(res.accounts)) return res.accounts;
       if (res && Array.isArray(res.virtualAccounts)) return res.virtualAccounts;
       if (res && Array.isArray(res.data)) return res.data;
+      if (res && res.data && Array.isArray(res.data.accounts)) return res.data.accounts;
+      if (res && res.data && Array.isArray(res.data.virtualAccounts)) return res.data.virtualAccounts;
       return [];
     } catch {
       return [];

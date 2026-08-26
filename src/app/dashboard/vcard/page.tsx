@@ -1,14 +1,16 @@
 "use client";
 
-import { CircleCheckBig, Info, RefreshCw, Trash2, Plus } from "lucide-react";
+import { CircleCheckBig, Info, RefreshCw, Trash2, Plus, CreditCard, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import RegenerateCardModal from "@/components/modal/regenerate-card";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import DeleteVirtualCardModal from "@/components/modal/delete-virtual-card";
+import OnboardingModal from "@/components/modal/onboarding-modal";
+import IssueCardModal from "@/components/modal/issue-card-modal";
 import { cardService } from "@/services/cardService";
 import { web3Service } from "@/services/web3Service";
 import { useAuth } from "@/contexts/AuthContext";
@@ -25,6 +27,23 @@ export default function UVCard() {
   const [balance, setBalance] = useState<UnifiedBalance | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
+  const [isCreatingCard, setIsCreatingCard] = useState(false);
+
+  const fetchCardsData = useCallback(async () => {
+    if (!user?.walletAddress) return;
+
+    try {
+      const cardsData = await cardService.getUserCards();
+      setCards(cardsData || []);
+      if (cardsData && cardsData.length > 0) {
+        setSelectedCard(cardsData[0]);
+      }
+    } catch (err) {
+      console.debug("Failed to fetch cards:", err);
+    }
+  }, [user?.walletAddress]);
 
   // Fetch cards and balance
   useEffect(() => {
@@ -33,12 +52,7 @@ export default function UVCard() {
 
       setIsLoading(true);
       try {
-        // Fetch cards
-        const cardsData = await cardService.getUserCards();
-        setCards(cardsData);
-        if (cardsData.length > 0) {
-          setSelectedCard(cardsData[0]);
-        }
+        await fetchCardsData();
 
         // Fetch balance for funding sources
         const balanceData = await web3Service.getUnifiedBalance(user.walletAddress);
@@ -52,7 +66,37 @@ export default function UVCard() {
     };
 
     fetchData();
-  }, [user?.walletAddress]);
+  }, [user?.walletAddress, fetchCardsData]);
+
+  const handleCreateCard = () => {
+    if (user?.kycStatus !== "approved") {
+      setIsOnboardingOpen(true);
+      return;
+    }
+    setIsIssueModalOpen(true);
+  };
+
+  const handleConfirmIssueCard = async () => {
+    try {
+      setIsCreatingCard(true);
+      const cardholderName = `${user?.firstName || "Stable"} ${user?.lastName || "Member"}`.trim();
+      await cardService.createCard({
+        cardholderName,
+        limits: { daily: 5000, monthly: 50000 },
+      });
+      toast.success("Bridge Visa Virtual Card issued successfully!");
+      await fetchCardsData();
+      setIsIssueModalOpen(false);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to issue card");
+    } finally {
+      setIsCreatingCard(false);
+    }
+  };
+
+  const handleKycComplete = () => {
+    setIsIssueModalOpen(true);
+  };
 
   // Fetch transactions when card is selected
   useEffect(() => {
@@ -128,12 +172,40 @@ export default function UVCard() {
 
   if (cards.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <p className="text-xl text-zinc-500 font-sans">No virtual cards yet</p>
-        <Button className="bg-brand-purple hover:bg-brand-purple/90 text-white rounded-full font-bold shadow-md shadow-brand-purple/20">
-          <Plus size={20} className="mr-2" />
-          Create Virtual Card
+      <div className="flex flex-col items-center justify-center gap-5 py-20 max-w-[480px] mx-auto text-center animate-in fade-in duration-300">
+        <div className="h-16 w-16 rounded-3xl bg-purple-50 text-brand-purple flex items-center justify-center border border-brand-purple/20 shadow-sm">
+          <CreditCard size={32} />
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-xl font-display font-extrabold text-zinc-950">No Active Virtual Cards</h2>
+          <p className="text-zinc-500 font-sans text-xs sm:text-sm max-w-[340px] leading-relaxed">
+            Generate your Bridge-issued Visa Virtual Card in seconds to spend stablecoins globally at zero foreign exchange fees.
+          </p>
+        </div>
+        <Button
+          onClick={handleCreateCard}
+          disabled={isCreatingCard}
+          className="bg-brand-purple hover:bg-brand-purple/90 text-white rounded-full font-bold h-11 px-6 text-sm shadow-md shadow-brand-purple/20 cursor-pointer flex items-center gap-2"
+        >
+          {isCreatingCard ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              <span>Issuing Card...</span>
+            </>
+          ) : (
+            <>
+              <Plus size={18} />
+              <span>Issue Visa Virtual Card</span>
+            </>
+          )}
         </Button>
+
+        <OnboardingModal
+          open={isOnboardingOpen}
+          onOpenChange={setIsOnboardingOpen}
+          onComplete={handleKycComplete}
+          triggerReason="card"
+        />
       </div>
     );
   }
@@ -238,6 +310,23 @@ export default function UVCard() {
           transactions={transactions}
         />
       </div>
+
+      {/* Confirmation Modal: Issue Virtual Card */}
+      <IssueCardModal
+        open={isIssueModalOpen}
+        onOpenChange={setIsIssueModalOpen}
+        onConfirm={handleConfirmIssueCard}
+        isLoading={isCreatingCard}
+        cardholderName={`${user?.firstName || "Stable"} ${user?.lastName || "Member"}`.trim()}
+      />
+
+      {/* Identity Verification Modal */}
+      <OnboardingModal
+        open={isOnboardingOpen}
+        onOpenChange={setIsOnboardingOpen}
+        onComplete={handleKycComplete}
+        triggerReason="card"
+      />
     </div>
   );
 }

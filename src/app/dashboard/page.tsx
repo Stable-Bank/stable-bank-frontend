@@ -13,10 +13,11 @@ import RecieveModal from "@/components/modal/recieve";
 import SendTokenModal from "@/components/modal/send-token";
 import OnboardingModal from "@/components/modal/onboarding-modal";
 import OnboardingBanner from "@/components/dashboard/onboarding-banner";
-import BusinessKybGateway from "@/components/dashboard/business-kyb-gateway";
+import ProvisionAccountModal from "@/components/modal/provision-account-modal";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { appRoutes } from "@/lib/navigation";
+import { accountService, VirtualAccount } from "@/services/accountService";
 import {
   ArrowUpRight,
   ArrowDownLeft,
@@ -44,7 +45,8 @@ import {
   Eye,
   EyeOff,
   Gift,
-  Percent
+  Percent,
+  Loader2
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { TokenIcon } from "@web3icons/react/dynamic";
@@ -55,63 +57,138 @@ type AccountsAndCardsWidgetProps = {
   cards: any[];
   isCardsLoading: boolean;
   router: any;
+  user?: any;
+  onRequireKyc?: (reason: "virtual_account" | "card", currency?: string) => void;
 };
 
-function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCardsWidgetProps) {
+function AccountsAndCardsWidget({ cards, isCardsLoading, router, user, onRequireKyc }: AccountsAndCardsWidgetProps) {
   const [activeTab, setActiveTab] = useState<"accounts" | "cards">("accounts");
   const [activeCurrency, setActiveCurrency] = useState<"USD" | "GBP" | "EUR">("USD");
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [virtualAccounts, setVirtualAccounts] = useState<VirtualAccount[]>([]);
+  const [isAccountsLoading, setIsAccountsLoading] = useState(true);
+  const [isCreatingVA, setIsCreatingVA] = useState(false);
+  const [isProvisionModalOpen, setIsProvisionModalOpen] = useState(false);
+  const [pendingCurrency, setPendingCurrency] = useState<string>("USD");
+
+  const fetchAccounts = useCallback(async () => {
+    try {
+      setIsAccountsLoading(true);
+      const data = await accountService.getVirtualAccounts();
+      setVirtualAccounts(data || []);
+    } catch (err) {
+      console.error("Failed to fetch virtual accounts:", err);
+    } finally {
+      setIsAccountsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAccounts();
+  }, [fetchAccounts]);
 
   const handleCopy = (text: string, fieldName: string) => {
+    if (!text || text === "Pending Setup") return toast.error("Account detail not available");
     navigator.clipboard.writeText(text);
     setCopiedField(fieldName);
     toast.success("Copied to clipboard");
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const accountDetails = {
-    USD: {
-      bankName: "StableBank Corp (New York)",
-      routing: "021000021",
-      accountNumber: "1002 9845 2371",
-      icon: USFlagIcon,
-      rail: "ACH / FedWire",
-      details: [
-        { label: "Routing Number", value: "021000021" },
-        { label: "Account Number", value: "100298452371" },
-        { label: "Bank Name", value: "StableBank Corp (New York)" },
-        { label: "Beneficiary", value: "StableBank Ltd / User Account" }
-      ]
-    },
-    GBP: {
-      bankName: "StableBank UK Ltd (London)",
-      sortCode: "20-45-12",
-      accountNumber: "40982312",
-      icon: UKFlagIcon,
-      rail: "Faster Payments",
-      details: [
-        { label: "Sort Code", value: "20-45-12" },
-        { label: "Account Number", value: "40982312" },
-        { label: "Bank Name", value: "StableBank UK Ltd (London)" },
-        { label: "Beneficiary", value: "StableBank Ltd / User Account" }
-      ]
-    },
-    EUR: {
-      bankName: "StableBank Europe AG (Frankfurt)",
-      iban: "DE89 3704 0044 0532 0130 00",
-      bic: "STBKDEFFXXX",
-      icon: EUFlagIcon,
-      rail: "SEPA Instant",
-      details: [
-        { label: "IBAN", value: "DE89370400440532013000" },
-        { label: "BIC / SWIFT", value: "STBKDEFFXXX" },
-        { label: "Bank Name", value: "StableBank Europe AG (Frankfurt)" },
-        { label: "Beneficiary", value: "StableBank Ltd / User Account" }
-      ]
+  const handleCreateVirtualAccount = (currency: string) => {
+    if (user?.kycStatus !== "approved") {
+      if (onRequireKyc) {
+        onRequireKyc("virtual_account", currency);
+      } else {
+        toast.error("Identity verification required to provision virtual accounts.");
+      }
+      return;
+    }
+
+    setPendingCurrency(currency);
+    setIsProvisionModalOpen(true);
+  };
+
+  const handleConfirmProvision = async () => {
+    try {
+      setIsCreatingVA(true);
+      await accountService.createVirtualAccount({ currency: pendingCurrency.toLowerCase() });
+      toast.success(`Bridge ${pendingCurrency} Virtual Account provisioned successfully!`);
+      await fetchAccounts();
+      setIsProvisionModalOpen(false);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to create virtual account");
+    } finally {
+      setIsCreatingVA(false);
     }
   };
 
-  const activeAccount = accountDetails[activeCurrency];
+  const handleCreateCardClick = () => {
+    if (user?.kycStatus !== "approved") {
+      if (onRequireKyc) {
+        onRequireKyc("card");
+      } else {
+        toast.error("Identity verification required to issue virtual cards.");
+      }
+      return;
+    }
+    router.push(appRoutes.dashboard.vcard);
+  };
+
+  const activeVa = virtualAccounts.find(
+    (a: any) => (a.currency || "").toUpperCase() === activeCurrency
+  );
+
+  const userName = user
+    ? `${user.firstName || "Member"} ${user.lastName || "Account"}`
+    : "StableBank Client Account";
+
+  const getAccountFields = () => {
+    if (!activeVa) return null;
+
+    if (activeCurrency === "USD") {
+      return {
+        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge USD Settlement Partner",
+        rail: "ACH / FedWire",
+        icon: USFlagIcon,
+        details: [
+          { label: "Routing Number (ABA)", value: (activeVa as any).routing_number || activeVa.routingNumber || "Pending Setup" },
+          { label: "Account Number", value: (activeVa as any).account_number || activeVa.accountNumber || "Pending Setup" },
+          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge USD Settlement Partner" },
+          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
+    } else if (activeCurrency === "EUR") {
+      return {
+        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge Europe Bank (Luxembourg)",
+        rail: "SEPA Instant",
+        icon: EUFlagIcon,
+        details: [
+          { label: "IBAN", value: activeVa.iban || "Pending Setup" },
+          { label: "BIC / SWIFT", value: activeVa.bic || "Pending Setup" },
+          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge Europe Bank (Luxembourg)" },
+          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
+    } else {
+      return {
+        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge UK Settlement Clearing",
+        rail: "Faster Payments",
+        icon: UKFlagIcon,
+        details: [
+          { label: "Sort Code", value: (activeVa as any).sort_code || activeVa.sortCode || "Pending Setup" },
+          { label: "Account Number", value: (activeVa as any).account_number || activeVa.accountNumber || "Pending Setup" },
+          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge UK Settlement Clearing" },
+          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
+        ],
+      };
+    }
+  };
+
+  const accountInfo = getAccountFields();
   const primaryCard = cards.length > 0 ? cards[0] : null;
 
   return (
@@ -179,38 +256,71 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
           </div>
 
           {/* Account Details Box */}
-          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4 space-y-3">
-            <div className="flex justify-between items-center border-b border-zinc-200 pb-2.5">
-              <div className="flex items-center gap-2">
-                <activeAccount.icon className="w-4 h-4" />
-                <span className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider">{activeAccount.bankName}</span>
-              </div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                {activeAccount.rail}
-              </span>
-            </div>
-            
-            <div className="space-y-2.5">
-              {activeAccount.details.map((field) => (
-                <div key={field.label} className="flex justify-between items-center gap-3 text-xs">
-                  <span className="text-zinc-500 font-sans font-medium">{field.label}</span>
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-zinc-900 font-mono font-bold truncate max-w-[180px]" title={field.value}>{field.value}</span>
-                    <button
-                      onClick={() => handleCopy(field.value, `${activeCurrency}-${field.label}`)}
-                      className="p-1 rounded hover:bg-zinc-200/60 text-zinc-400 hover:text-zinc-800 transition-colors cursor-pointer shrink-0"
-                    >
-                      {copiedField === `${activeCurrency}-${field.label}` ? (
-                        <Check size={12} className="text-emerald-600" />
-                      ) : (
-                        <Copy size={12} />
-                      )}
-                    </button>
-                  </div>
+          {isAccountsLoading ? (
+            <div className="h-[180px] w-full animate-pulse rounded-2xl bg-zinc-100" />
+          ) : accountInfo ? (
+            <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4 space-y-3">
+              <div className="flex justify-between items-center border-b border-zinc-200 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <accountInfo.icon className="w-4 h-4" />
+                  <span className="text-xs font-mono font-bold text-zinc-700 uppercase tracking-wider">{accountInfo.bankName}</span>
                 </div>
-              ))}
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  {accountInfo.rail}
+                </span>
+              </div>
+              
+              <div className="space-y-2.5">
+                {accountInfo.details.map((field) => (
+                  <div key={field.label} className="flex justify-between items-center gap-3 text-xs">
+                    <span className="text-zinc-500 font-sans font-medium">{field.label}</span>
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="text-zinc-900 font-mono font-bold truncate max-w-[180px]" title={field.value}>{field.value}</span>
+                      <button
+                        onClick={() => handleCopy(field.value, `${activeCurrency}-${field.label}`)}
+                        className="p-1 rounded hover:bg-zinc-200/60 text-zinc-400 hover:text-zinc-800 transition-colors cursor-pointer shrink-0"
+                      >
+                        {copiedField === `${activeCurrency}-${field.label}` ? (
+                          <Check size={12} className="text-emerald-600" />
+                        ) : (
+                          <Copy size={12} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-6 text-center flex flex-col items-center justify-center">
+              <div className="h-10 w-10 rounded-full bg-purple-50 text-brand-purple flex items-center justify-center mb-2">
+                {activeCurrency === "USD" && <USFlagIcon className="w-5 h-5" />}
+                {activeCurrency === "GBP" && <UKFlagIcon className="w-5 h-5" />}
+                {activeCurrency === "EUR" && <EUFlagIcon className="w-5 h-5" />}
+              </div>
+              <h5 className="text-sm font-display font-bold text-zinc-950">No {activeCurrency} Virtual Account</h5>
+              <p className="text-zinc-500 text-xs mt-1 max-w-[240px] font-sans leading-relaxed">
+                Generate dedicated {activeCurrency} bank details powered by Bridge.xyz to receive direct wire, ACH, or SEPA transfers.
+              </p>
+              <Button
+                onClick={() => handleCreateVirtualAccount(activeCurrency)}
+                disabled={isCreatingVA}
+                className="mt-3.5 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-full text-xs h-8 px-4 cursor-pointer shadow-sm"
+              >
+                {isCreatingVA ? (
+                  <>
+                    <Loader2 size={12} className="animate-spin mr-1.5" />
+                    Provisioning...
+                  </>
+                ) : (
+                  <>
+                    <Plus size={12} className="mr-1.5" />
+                    Provision {activeCurrency} Account
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
           
           <div className="text-[11px] text-brand-purple font-sans font-medium flex items-center gap-1.5 leading-snug">
             <Info size={13} className="shrink-0" />
@@ -280,7 +390,7 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
                 Generate a Visa card in seconds to spend stablecoins instantly.
               </p>
               <Button
-                onClick={() => router.push(appRoutes.dashboard.vcard)}
+                onClick={handleCreateCardClick}
                 className="mt-4 bg-brand-purple text-white hover:bg-brand-purple/90 font-bold rounded-full text-xs h-9 cursor-pointer shadow-sm shadow-brand-purple/20"
               >
                 <Plus size={14} className="mr-1" /> Create Card
@@ -289,6 +399,16 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router }: AccountsAndCa
           )}
         </div>
       )}
+
+      {/* Provision Virtual Account Confirmation Modal */}
+      <ProvisionAccountModal
+        open={isProvisionModalOpen}
+        onOpenChange={setIsProvisionModalOpen}
+        currency={pendingCurrency}
+        onConfirm={handleConfirmProvision}
+        isLoading={isCreatingVA}
+        userName={userName}
+      />
     </div>
   );
 }
@@ -302,7 +422,15 @@ export default function UHome() {
   // Send Token Modal State
   const [isSendOpen, setIsSendOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  const [kycTriggerReason, setKycTriggerReason] = useState<"virtual_account" | "card" | "general">("general");
+  const [kycTargetCurrency, setKycTargetCurrency] = useState<string>("USD");
   const [hideBalance, setHideBalance] = useState(false);
+
+  const handleRequireKyc = (reason: "virtual_account" | "card" | "general" = "general", currency = "USD") => {
+    setKycTriggerReason(reason);
+    setKycTargetCurrency(currency);
+    setIsOnboardingOpen(true);
+  };
 
   useEffect(() => {
     if (searchParams.get("send") === "true") {
@@ -389,52 +517,9 @@ export default function UHome() {
     }
   }, [user?.walletAddress]);
 
-  const pollDashboardData = useCallback(async () => {
-    if (!user?.walletAddress) return;
-
-    try {
-      await refreshBalance();
-    } catch (err) {
-      console.error("Silent balance refresh failed:", err);
-    }
-
-    try {
-      const cardsData = await cardService.getUserCards();
-      setCards(cardsData || []);
-    } catch (err) {
-      console.error("Failed to fetch cards silently:", err);
-    }
-
-    try {
-      const history: any = await transferService.getTransferHistory();
-      const historyList = Array.isArray(history) 
-        ? history 
-        : (history && Array.isArray(history.transfers) ? history.transfers : []);
-      const sortedHistory = [...historyList].sort((a: any, b: any) => 
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      setTransfers(sortedHistory);
-    } catch (err) {
-      console.error("Failed to fetch transfers silently:", err);
-    }
-
-    try {
-      const { data } = await apiClient.get("/savings");
-      setSavingsBuckets(data?.data || []);
-    } catch (err) {
-      console.error("Failed to fetch savings buckets silently:", err);
-    }
-  }, [user?.walletAddress, refreshBalance]);
-
   useEffect(() => {
     fetchDashboardData();
-
-    const intervalId = setInterval(() => {
-      pollDashboardData();
-    }, 30000);
-
-    return () => clearInterval(intervalId);
-  }, [user?.walletAddress, fetchDashboardData, pollDashboardData]);
+  }, [user?.walletAddress, fetchDashboardData]);
 
   const handleRefresh = async () => {
     try {
@@ -569,16 +654,11 @@ export default function UHome() {
     );
   }
 
-  // Restrictive KYB Gatekeeper for Business Accounts
-  if (user?.accountType === "business" && user?.kycStatus !== "approved") {
-    return <BusinessKybGateway onRefreshStatus={handleRefresh} />;
-  }
-
   return (
     <div className="flex flex-col gap-6 sm:gap-8 p-1 sm:p-2 lg:p-4 animate-in fade-in duration-700 pb-20 max-w-[1440px] mx-auto w-full">
       
       {/* Onboarding & KYC Alert Banner (Non-Restrictive) */}
-      <OnboardingBanner onStartOnboarding={() => setIsOnboardingOpen(true)} />
+      <OnboardingBanner onStartOnboarding={() => handleRequireKyc("general")} />
 
       {/* Top Portfolio Hero Card (Inspired by Modern FinTech Dashboard) */}
       <div className="relative w-full rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white border border-indigo-100 p-6 sm:p-8 md:p-10 shadow-sm overflow-hidden group">
@@ -1009,7 +1089,13 @@ export default function UHome() {
         <div className="flex flex-col gap-6 sm:gap-8">
 
           {/* Accounts & Cards Control Panel with SVG Flag Icons */}
-          <AccountsAndCardsWidget cards={cards} isCardsLoading={isCardsLoading} router={router} />
+          <AccountsAndCardsWidget
+            cards={cards}
+            isCardsLoading={isCardsLoading}
+            router={router}
+            user={user}
+            onRequireKyc={handleRequireKyc}
+          />
 
           {/* Active Target Savings Widget */}
           <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-sm">
@@ -1150,6 +1236,8 @@ export default function UHome() {
         open={isOnboardingOpen}
         onOpenChange={setIsOnboardingOpen}
         onComplete={handleRefresh}
+        triggerReason={kycTriggerReason}
+        targetCurrency={kycTargetCurrency}
       />
 
     </div>

@@ -17,6 +17,7 @@ export const cardService = {
       if (Array.isArray(res)) return res;
       if (res && Array.isArray(res.cards)) return res.cards;
       if (res && Array.isArray(res.data)) return res.data;
+      if (res && res.data && Array.isArray(res.data.cards)) return res.data.cards;
       return [];
     } catch {
       return [];

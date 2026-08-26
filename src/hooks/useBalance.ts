@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { web3Service } from "@/services/web3Service";
 import type { UnifiedBalance } from "@/types/wallet";
 
@@ -45,7 +45,6 @@ const fetchSharedBalance = async (walletAddress: string) => {
 
 export const useBalance = (walletAddress?: string) => {
   const [, forceUpdate] = useState({});
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Force component re-render when shared state changes
   const handleUpdate = useCallback(() => {
@@ -63,34 +62,10 @@ export const useBalance = (walletAddress?: string) => {
   }, [handleUpdate]);
 
   useEffect(() => {
-    if (!walletAddress) {
-      // Clear interval if no wallet address
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      return;
-    }
+    if (!walletAddress) return;
 
-    // Initial fetch
+    // Single fetch on load
     fetchSharedBalance(walletAddress);
-
-    // Set up auto-refresh (only one interval for all components)
-    if (!intervalRef.current) {
-      intervalRef.current = setInterval(() => {
-        if (walletAddress) {
-          fetchSharedBalance(walletAddress);
-        }
-      }, 30000); // 30 seconds
-    }
-
-    return () => {
-      // Clean up interval when component unmounts
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
   }, [walletAddress]);
 
   const refresh = useCallback(async () => {
