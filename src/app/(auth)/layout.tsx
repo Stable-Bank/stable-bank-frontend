@@ -6,7 +6,7 @@ import BrandLogo from "@/components/brand/brand-logo";
 export const metadata: Metadata = {
   title: "StableBank | Authentication",
   description:
-    "Secure, scalable, and decentralized solutions for your digital assets—experience the future of financial freedom.",
+    "Secure, scalable, and decentralized solutions for your digital assets. Experience the future of financial freedom.",
   icons: {
     icon: "/images/brand/favicon.svg",
   },
