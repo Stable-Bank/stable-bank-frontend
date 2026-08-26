@@ -7,4 +7,5 @@ export { default as CTA } from "./cta";
 export { default as Audiences } from "./audiences";
 export { default as VirtualCards } from "./virtual-cards";
 export { default as VirtualAccounts } from "./virtual-accounts";
+export { default as OperatingFrontiers } from "./operating-frontiers";
 
