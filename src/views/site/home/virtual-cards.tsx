@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { CreditCard, ShieldCheck, Zap, Lock, Sliders, Eye, EyeOff } from "lucide-react";
+import { ShieldCheck, Zap, Lock, Eye, EyeOff, Snowflake, Sparkles } from "lucide-react";
 import SectionCard from "@/components/cards/section";
+import BrandLogo from "@/components/brand/brand-logo";
 
 export default function VirtualCards() {
   const [showDetails, setShowDetails] = useState(true);
@@ -93,11 +94,11 @@ export default function VirtualCards() {
                 {/* Background decorative gradient mesh inside the card */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#4649d6_0%,transparent_60%)] opacity-40 pointer-events-none" />
                 
-                {/* Card Top Row */}
+                {/* Card Top Row with White StableBank Logo */}
                 <div className="relative flex justify-between items-start z-10" style={{ transform: "translateZ(30px)" }}>
-                  <div>
-                    <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/50 uppercase">StableBank</span>
-                    <h4 className="text-sm sm:text-base font-display font-extrabold text-white mt-0.5">Black Metal</h4>
+                  <div className="flex flex-col items-start gap-1">
+                    <BrandLogo variant="white" className="h-5 sm:h-6" textClassName="text-base sm:text-lg text-white" iconClassName="h-4 sm:h-5 text-white" />
+                    <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/50 uppercase ml-0.5">Black Metal</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase shrink-0 tracking-wider ${
@@ -107,7 +108,7 @@ export default function VirtualCards() {
                     }`}>
                       {isFrozen ? "Frozen" : "Active"}
                     </span>
-                    <CreditCard className="h-6 w-6 text-brand-purple" />
+                    <span className="text-xs sm:text-sm font-mono font-extrabold text-white tracking-widest px-1">VISA</span>
                   </div>
                 </div>
 
@@ -146,36 +147,35 @@ export default function VirtualCards() {
                 </div>
               </div>
 
-              {/* Mobile Card Control Strip */}
-              <div className="rounded-2xl bg-white border border-zinc-200 p-4 shadow-sm flex items-center justify-between gap-3 text-xs">
+              {/* Quick Card Interactive Controls */}
+              <div className="flex items-center justify-between gap-2 pt-1 px-1">
                 <button
                   type="button"
                   onClick={() => setShowDetails(!showDetails)}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 hover:bg-zinc-100 font-sans font-bold text-zinc-800 transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-zinc-200 text-xs font-mono font-bold text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-all shadow-xs cursor-pointer"
                 >
-                  {showDetails ? <EyeOff size={14} /> : <Eye size={14} />}
+                  {showDetails ? <EyeOff size={13} className="text-zinc-500" /> : <Eye size={13} className="text-zinc-500" />}
                   <span>{showDetails ? "Hide Numbers" : "Show Numbers"}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setIsFrozen(!isFrozen)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border font-sans font-bold transition-colors cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all shadow-xs cursor-pointer ${
                     isFrozen
-                      ? "bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100"
-                      : "bg-zinc-50 text-zinc-800 border-zinc-200 hover:bg-zinc-100"
+                      ? "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100"
+                      : "bg-white border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300"
                   }`}
                 >
-                  <Lock size={14} />
+                  <Snowflake size={13} className={isFrozen ? "text-amber-600" : "text-zinc-500"} />
                   <span>{isFrozen ? "Unfreeze Card" : "Freeze Card"}</span>
                 </button>
 
-                <div className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-200 font-sans font-bold text-zinc-800">
-                  <Sliders size={14} />
-                  <span>$10k Limit</span>
+                <div className="hidden sm:flex items-center gap-1 bg-[#EEF8A8]/90 border border-[#D0E244]/80 px-2.5 py-1.5 rounded-xl text-[11px] font-mono font-bold text-[#556000]">
+                  <Sparkles size={12} className="text-[#839105]" />
+                  <span>3% Cashback</span>
                 </div>
               </div>
-
             </div>
           </div>
 
