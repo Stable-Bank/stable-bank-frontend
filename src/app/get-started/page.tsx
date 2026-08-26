@@ -38,7 +38,7 @@ export default function GetStarted() {
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-[22px] font-normal text-zinc-600 font-sans">
                 Secure, scalable, and decentralized solutions for your digital
-                assets—experience the future of financial freedom.
+                assets. Experience the future of financial freedom.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5">
