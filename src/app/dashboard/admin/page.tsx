@@ -94,10 +94,20 @@ export default function AdminDashboard() {
   const filteredLedger = ledger.filter((l) => {
     if (ledgerTypeFilter === "all") return true;
     if (ledgerTypeFilter === "stable_tags") {
-      // Stable tags transfers are internal transfers (transfer_in or transfer_out)
-      return l.type === "transfer_in" || l.type === "transfer_out";
+      return l.type === "transfer_in" || l.type === "transfer_out" || l.rawType === "p2p_internal";
     }
-    return l.type === ledgerTypeFilter;
+    if (ledgerTypeFilter === "deposit") {
+      return l.type === "deposit" || l.rawType === "onramp";
+    }
+    if (ledgerTypeFilter === "withdrawal") {
+      return (
+        l.type === "withdrawal" ||
+        l.rawType === "offramp" ||
+        l.rawType === "crypto_outbound" ||
+        l.rawType === "operational_withdrawal"
+      );
+    }
+    return l.type === ledgerTypeFilter || l.rawType === ledgerTypeFilter;
   });
 
   return (
@@ -237,10 +247,11 @@ export default function AdminDashboard() {
         <div className="animate-in fade-in duration-300">
           
           {/* TAB 1: LEDGER */}
+          {/* TAB 1: LEDGER */}
           {activeTab === "ledger" && (
             <div className="flex flex-col gap-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h3 className="text-xl font-display font-bold text-zinc-950">Off-chain Virtual Ledger Log</h3>
+                <h3 className="text-xl font-display font-bold text-zinc-950">Multi-Rail Financial Ledger Log</h3>
                 
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-mono font-bold text-zinc-500 uppercase tracking-wider shrink-0">Filter Type:</span>
@@ -250,13 +261,11 @@ export default function AdminDashboard() {
                     className="bg-white border border-zinc-200 rounded-xl px-4 py-2 text-xs font-sans font-semibold text-zinc-800 outline-none focus:border-brand-purple transition-colors cursor-pointer"
                   >
                     <option value="all">All Operations</option>
-                    <option value="stable_tags">Stable Tag Transfers</option>
-                    <option value="deposit">Deposits</option>
-                    <option value="withdrawal">Withdrawals</option>
-                    <option value="transfer_out">Transfers Out</option>
-                    <option value="transfer_in">Transfers In</option>
-                    <option value="reward">Rewards</option>
-                    <option value="fee">Fees</option>
+                    <option value="stable_tags">P2P Stable Tags</option>
+                    <option value="deposit">Inbound Deposits (Wire/ACH)</option>
+                    <option value="withdrawal">Outbound Withdrawals</option>
+                    <option value="card_purchase">Visa Card Purchases</option>
+                    <option value="operational_withdrawal">Admin Operational</option>
                   </select>
                 </div>
               </div>
@@ -266,10 +275,10 @@ export default function AdminDashboard() {
                   <thead>
                     <tr className="border-b border-zinc-200 bg-zinc-50/70 font-mono text-xs">
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">User / Email</th>
-                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Type</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Type / Rail</th>
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Asset</th>
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Amount</th>
-                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Counterparty (Stable Tag)</th>
+                      <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Status / State</th>
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Description</th>
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Reference / Hash</th>
                       <th className="p-4 font-bold text-zinc-500 uppercase tracking-wider">Date</th>
@@ -284,53 +293,63 @@ export default function AdminDashboard() {
                       </tr>
                     ) : (
                       filteredLedger.map((entry) => {
-                        const isPositive = entry.amount > 0;
-                        const isStableTag = entry.type === "transfer_in" || entry.type === "transfer_out";
+                        const amountVal = entry.amount || 0;
+                        const isPositive = entry.type === "deposit" || entry.type === "transfer_in";
+                        const isStableTag = entry.type === "transfer_in" || entry.type === "transfer_out" || entry.rawType === "p2p_internal";
+                        const isCompleted = entry.status === "completed" || entry.state === "completed" || entry.state === "payment_processed";
 
                         return (
-                          <tr key={entry._id} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+                          <tr key={entry._id || entry.id || Math.random()} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
                             <td className="p-4">
                               <div className="flex flex-col">
                                 <span className="font-sans font-bold text-zinc-950 text-sm">
-                                  {entry.userId?.firstName ? `${entry.userId.firstName} ${entry.userId.lastName}` : "User"}
+                                  {entry.userId?.firstName ? `${entry.userId.firstName} ${entry.userId.lastName}` : (entry.userId?.bankTag ? `@${entry.userId.bankTag}` : "Platform User")}
                                 </span>
                                 <span className="text-xs text-zinc-500 font-sans">{entry.userId?.email || "unknown@stablebank"}</span>
                               </div>
                             </td>
                             <td className="p-4">
-                              <span className={cn(
-                                "text-xs font-mono font-bold uppercase px-2.5 py-1 rounded-full border",
-                                entry.type === "deposit" && "bg-emerald-50 text-emerald-700 border-emerald-200",
-                                entry.type === "withdrawal" && "bg-red-50 text-red-700 border-red-200",
-                                isStableTag && "bg-purple-50 text-brand-purple border-purple-200",
-                                entry.type === "reward" && "bg-amber-50 text-amber-700 border-amber-200",
-                                entry.type === "fee" && "bg-zinc-100 text-zinc-700 border-zinc-200"
-                              )}>
-                                {entry.type.replace("_", " ")}
-                              </span>
+                              <div className="flex flex-col gap-1">
+                                <span className={cn(
+                                  "text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded-full border inline-block w-fit",
+                                  (entry.type === "deposit" || entry.rawType === "onramp") && "bg-emerald-50 text-emerald-700 border-emerald-200",
+                                  (entry.type === "withdrawal" || entry.rawType === "offramp" || entry.rawType === "operational_withdrawal") && "bg-red-50 text-red-700 border-red-200",
+                                  isStableTag && "bg-purple-50 text-brand-purple border-purple-200",
+                                  entry.type === "card_purchase" && "bg-blue-50 text-blue-700 border-blue-200",
+                                  entry.type === "reward" && "bg-amber-50 text-amber-700 border-amber-200",
+                                  entry.type === "fee" && "bg-zinc-100 text-zinc-700 border-zinc-200"
+                                )}>
+                                  {entry.type ? String(entry.type).replace("_", " ") : "transfer"}
+                                </span>
+                                {entry.sourceRail && (
+                                  <span className="text-[10px] font-mono text-zinc-400 uppercase">
+                                    {entry.sourceRail} → {entry.destinationRail || "wallet"}
+                                  </span>
+                                )}
+                              </div>
                             </td>
-                            <td className="p-4 font-mono font-bold text-xs text-zinc-900">{entry.currency}</td>
-                            <td className={cn("p-4 font-mono font-bold text-xs", isPositive ? "text-emerald-600" : "text-red-600")}>
-                              {isPositive ? "+" : ""}{entry.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
+                            <td className="p-4 font-mono font-bold text-xs text-zinc-900">{entry.currency || "USDC"}</td>
+                            <td className={cn("p-4 font-mono font-bold text-xs", isPositive ? "text-emerald-600" : "text-zinc-900")}>
+                              {isPositive ? "+" : "-"}${amountVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
                             </td>
                             <td className="p-4">
-                              {entry.counterpartyId ? (
-                                <div className="flex flex-col">
-                                  <span className="text-xs font-mono text-brand-purple font-bold">
-                                    @{entry.counterpartyId.bankTag || "no-tag"}
-                                  </span>
-                                  <span className="text-xs text-zinc-400 font-sans">{entry.counterpartyId.email}</span>
-                                </div>
-                              ) : (
-                                <span className="text-xs text-zinc-400">—</span>
-                              )}
+                              <span className={cn(
+                                "text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full inline-block",
+                                isCompleted ? "bg-emerald-50 text-emerald-700" : entry.status === "failed" ? "bg-red-50 text-red-700" : "bg-amber-50 text-amber-700"
+                              )}>
+                                {entry.state || entry.status || "completed"}
+                              </span>
                             </td>
                             <td className="p-4 text-xs text-zinc-600 max-w-[200px] truncate font-sans" title={entry.description}>
-                              {entry.description || "No description"}
+                              {entry.description || "Bridge Money Movement"}
                             </td>
-                            <td className="p-4 font-mono text-xs text-zinc-400 max-w-[120px] truncate" title={entry.referenceId}>
-                              {entry.referenceId ? (
-                                <span className="flex items-center gap-1 hover:text-zinc-900 cursor-pointer transition-colors">
+                            <td className="p-4 font-mono text-xs text-zinc-400 max-w-[140px] truncate">
+                              {entry.destinationTxHash || entry.depositTxHash ? (
+                                <span className="text-brand-purple hover:underline cursor-pointer" title={entry.destinationTxHash || entry.depositTxHash}>
+                                  {(entry.destinationTxHash || entry.depositTxHash)?.substring(0, 10)}...
+                                </span>
+                              ) : entry.referenceId ? (
+                                <span title={entry.referenceId}>
                                   {entry.referenceId.substring(0, 10)}...
                                 </span>
                               ) : (
@@ -338,7 +357,7 @@ export default function AdminDashboard() {
                               )}
                             </td>
                             <td className="p-4 text-xs font-mono text-zinc-500">
-                              {new Date(entry.createdAt).toLocaleString()}
+                              {entry.createdAt ? new Date(entry.createdAt).toLocaleString() : "—"}
                             </td>
                           </tr>
                         );
