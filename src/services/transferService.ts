@@ -87,4 +87,42 @@ export const transferService = {
   getTransferStats: async (): Promise<TransferStats> => {
     return apiClient.get("/transfer/stats");
   },
+
+  /**
+   * Get live exchange rates from Bridge
+   */
+  getExchangeRate: async (from: string, to: string): Promise<any> => {
+    return apiClient.get(`/transfer/exchange-rates?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+  },
+
+  /**
+   * Get estimated quote for currency/stable swap
+   */
+  getSwapQuote: async (data: {
+    sourceCurrency: string;
+    sourceRail?: string;
+    destinationCurrency: string;
+    destinationRail?: string;
+    amount: string;
+    fixedOutput?: boolean;
+  }): Promise<any> => {
+    return apiClient.post("/transfer/swap/quote", data);
+  },
+
+  /**
+   * Execute swap across stables, fiat, or cross-asset pairs via Bridge
+   */
+  executeSwap: async (data: {
+    sourceCurrency: string;
+    sourceRail?: string;
+    destinationCurrency: string;
+    destinationRail?: string;
+    amount: string;
+    fixedOutput?: boolean;
+    externalAccountId?: string;
+    toAddress?: string;
+  }): Promise<any> => {
+    return apiClient.post("/transfer/swap/execute", data);
+  },
 };
+

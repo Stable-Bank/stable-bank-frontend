@@ -4,6 +4,7 @@ import Image from "next/image";
 import {
   Home,
   ArrowUp,
+  ArrowDownUp,
   CreditCard,
   Gift,
   Settings,
@@ -14,6 +15,7 @@ import {
   ShieldCheck,
   PiggyBank,
   Bell,
+  LayoutGrid,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -214,6 +216,11 @@ const navItems = [
     icon: Home,
   },
   {
+    label: "Swap",
+    route: appRoutes.dashboard.swap,
+    icon: ArrowDownUp,
+  },
+  {
     label: "Virtual Card",
     route: appRoutes.dashboard.vcard,
     icon: CreditCard,
@@ -227,6 +234,11 @@ const navItems = [
     label: "Savings & Lock",
     route: appRoutes.dashboard.savings,
     icon: PiggyBank,
+  },
+  {
+    label: "Apps",
+    route: appRoutes.dashboard.apps,
+    icon: LayoutGrid,
   },
   {
     label: "Rewards",

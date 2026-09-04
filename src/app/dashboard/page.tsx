@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import RecieveModal from "@/components/modal/recieve";
 import SendTokenModal from "@/components/modal/send-token";
+import SwapModal from "@/components/modal/swap-modal";
 import OnboardingModal from "@/components/modal/onboarding-modal";
 import OnboardingBanner from "@/components/dashboard/onboarding-banner";
 import ProvisionAccountModal from "@/components/modal/provision-account-modal";
@@ -46,7 +47,8 @@ import {
   EyeOff,
   Gift,
   Percent,
-  Loader2
+  Loader2,
+  LayoutGrid
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { TokenLogo } from "@/components/common/crypto-icons";
@@ -419,8 +421,9 @@ export default function UHome() {
   const { user } = useAuth();
   const { balance, isLoading: isBalanceLoading, error: balanceError, refresh: refreshBalance } = useBalance((user as any)?.primaryWalletAddress || user?.walletAddress);
 
-  // Send Token Modal State
+  // Send Token & Swap Modal State
   const [isSendOpen, setIsSendOpen] = useState(false);
+  const [isSwapOpen, setIsSwapOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [kycTriggerReason, setKycTriggerReason] = useState<"virtual_account" | "card" | "general">("general");
   const [kycTargetCurrency, setKycTargetCurrency] = useState<string>("USD");
@@ -435,6 +438,9 @@ export default function UHome() {
   useEffect(() => {
     if (searchParams.get("send") === "true") {
       setIsSendOpen(true);
+    }
+    if (searchParams.get("swap") === "true") {
+      setIsSwapOpen(true);
     }
   }, [searchParams]);
 
@@ -740,11 +746,11 @@ export default function UHome() {
 
             {/* Swap */}
             <button 
-              onClick={() => router.push(appRoutes.dashboard.invest)}
+              onClick={() => setIsSwapOpen(true)}
               className="flex flex-col items-center gap-2 group cursor-pointer"
             >
               <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-yellow group-hover:text-black group-hover:border-brand-yellow transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                <Repeat size={22} />
+                <Repeat size={22} className="group-hover:rotate-180 transition-transform duration-500" />
               </div>
               <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Swap</span>
             </button>
@@ -758,6 +764,17 @@ export default function UHome() {
                 <PiggyBank size={22} />
               </div>
               <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Save</span>
+            </button>
+
+            {/* More / Apps */}
+            <button 
+              onClick={() => router.push(appRoutes.dashboard.apps)}
+              className="flex flex-col items-center gap-2 group cursor-pointer"
+            >
+              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
+                <LayoutGrid size={22} className="group-hover:rotate-6 transition-transform duration-300" />
+              </div>
+              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">More</span>
             </button>
           </div>
 
@@ -1219,6 +1236,29 @@ export default function UHome() {
             onClose={() => {
               setIsSendOpen(false);
               if (searchParams.get("send") === "true") {
+                router.replace(appRoutes.dashboard.home);
+              }
+            }}
+          />
+        )}
+      </Dialog>
+
+      {/* Swap Multi-Asset Modal */}
+      <Dialog open={isSwapOpen} onOpenChange={(open) => {
+        if (!open) {
+          setIsSwapOpen(false);
+          if (searchParams.get("swap") === "true") {
+            router.replace(appRoutes.dashboard.home);
+          }
+        }
+      }}>
+        {isSwapOpen && (
+          <SwapModal
+            balance={balance}
+            onSuccess={handleRefresh}
+            onClose={() => {
+              setIsSwapOpen(false);
+              if (searchParams.get("swap") === "true") {
                 router.replace(appRoutes.dashboard.home);
               }
             }}

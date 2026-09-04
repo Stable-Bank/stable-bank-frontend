@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import {
   Home,
   ArrowUp,
+  ArrowDownUp,
   CreditCard,
-  Settings,
-  ChartNoAxesCombined,
+  LayoutGrid,
 } from "lucide-react";
 import { appRoutes } from "@/lib/navigation";
 import { cn } from "@/utils/cn";
@@ -24,19 +24,19 @@ const navItems = [
     icon: ArrowUp,
   },
   {
+    label: "Swap",
+    route: appRoutes.dashboard.swap,
+    icon: ArrowDownUp,
+  },
+  {
     label: "Card",
     route: appRoutes.dashboard.vcard,
     icon: CreditCard,
   },
   {
-    label: "Invest",
-    route: appRoutes.dashboard.invest,
-    icon: ChartNoAxesCombined,
-  },
-  {
-    label: "More",
-    route: appRoutes.dashboard.settings,
-    icon: Settings,
+    label: "Apps",
+    route: appRoutes.dashboard.apps,
+    icon: LayoutGrid,
   },
 ];
 

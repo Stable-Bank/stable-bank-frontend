@@ -166,15 +166,15 @@ export const adminService = {
   },
 
   getLedger: async (params?: { page?: number; limit?: number; type?: string; status?: string; search?: string }): Promise<LedgerEntry[]> => {
-    return apiClient.get("/admin/ledger", { params });
+    return apiClient.get("/admin/ledger", { params } as any);
   },
 
   getCardTransactions: async (params?: { page?: number; limit?: number; status?: string }): Promise<CardTransaction[]> => {
-    return apiClient.get("/admin/cards/transactions", { params });
+    return apiClient.get("/admin/cards/transactions", { params } as any);
   },
 
   getWebhookLogs: async (params?: { page?: number; limit?: number; category?: string; processed?: boolean }): Promise<WebhookEventLog[]> => {
-    return apiClient.get("/admin/webhooks", { params });
+    return apiClient.get("/admin/webhooks", { params } as any);
   },
 
   getSavings: async (): Promise<SavingsSummary> => {

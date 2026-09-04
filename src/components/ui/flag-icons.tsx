@@ -272,6 +272,37 @@ export function AEFlagIcon({ className = "w-5 h-5" }: { className?: string }) {
   );
 }
 
+export function MXFlagIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`rounded-full shrink-0 shadow-sm ${className}`} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <clipPath id="sb-mx-clip">
+        <circle cx="256" cy="256" r="256" />
+      </clipPath>
+      <g clipPath="url(#sb-mx-clip)">
+        <rect width="170.66" height="512" fill="#006847" />
+        <rect x="170.66" width="170.66" height="512" fill="#FFFFFF" />
+        <rect x="341.33" width="170.66" height="512" fill="#CE1126" />
+        <circle cx="256" cy="256" r="28" fill="#8B5A2B" />
+      </g>
+    </svg>
+  );
+}
+
+export function COFlagIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`rounded-full shrink-0 shadow-sm ${className}`} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <clipPath id="sb-co-clip">
+        <circle cx="256" cy="256" r="256" />
+      </clipPath>
+      <g clipPath="url(#sb-co-clip)">
+        <rect width="512" height="256" fill="#FCD116" />
+        <rect y="256" width="512" height="128" fill="#003893" />
+        <rect y="384" width="512" height="128" fill="#CE1126" />
+      </g>
+    </svg>
+  );
+}
+
 export function MultiFlagIcon({ className = "w-7 h-5" }: { className?: string }) {
   return (
     <div className={`relative flex items-center shrink-0 ${className}`}>

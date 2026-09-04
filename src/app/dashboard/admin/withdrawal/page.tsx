@@ -41,8 +41,8 @@ export default function AdminWithdrawalPage() {
         toast.success(response.message || "Withdrawal completed successfully!");
         setRecipient("");
         setAmount("");
-        if (response.hash) {
-          setTxHash(response.hash);
+        if ((response as any).hash) {
+          setTxHash((response as any).hash);
         }
       } else {
         toast.error("Withdrawal failed.");
