@@ -667,8 +667,8 @@ export default function UHome() {
       <OnboardingBanner onStartOnboarding={() => handleRequireKyc("general")} />
 
       {/* Top Portfolio Hero Card (Inspired by Modern FinTech Dashboard) */}
-      <div className="relative w-full rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white border border-indigo-100 p-6 sm:p-8 md:p-10 shadow-sm overflow-hidden group">
-        <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-8 z-10">
+      <div className="relative w-full rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white border border-indigo-100 p-4 sm:p-6 md:p-8 lg:p-10 shadow-sm overflow-hidden group">
+        <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8 z-10">
           
           {/* Balance & Info */}
           <div className="space-y-3">
@@ -719,63 +719,65 @@ export default function UHome() {
           </div>
 
           {/* Quick Action Circular Buttons */}
-          <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-around md:justify-end pt-4 md:pt-0 border-t border-zinc-200 md:border-t-0">
-            {/* Deposit Modal */}
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="flex flex-col items-center gap-2 group cursor-pointer">
-                  <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                    <ArrowDownLeft size={22} className="group-hover:translate-y-0.5 transition-transform" />
-                  </div>
-                  <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">Deposit</span>
-                </button>
-              </DialogTrigger>
-              <RecieveModal />
-            </Dialog>
+          <div className="w-full md:w-auto pt-4 md:pt-0 border-t border-zinc-200/80 md:border-t-0">
+            <div className="grid grid-cols-5 gap-1 sm:flex sm:items-center sm:gap-4 md:gap-5 justify-between sm:justify-around md:justify-end">
+              {/* Deposit Modal */}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="flex flex-col items-center gap-1.5 sm:gap-2 group cursor-pointer w-full sm:w-auto">
+                    <div className="h-11 w-11 min-[375px]:h-12 min-[375px]:w-12 sm:h-14 sm:w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-xs group-hover:scale-105 active:scale-95">
+                      <ArrowDownLeft size={20} className="sm:scale-110 group-hover:translate-y-0.5 transition-transform" />
+                    </div>
+                    <span className="text-[11px] sm:text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors text-center truncate max-w-full">Deposit</span>
+                  </button>
+                </DialogTrigger>
+                <RecieveModal />
+              </Dialog>
 
-            {/* Send */}
-            <button 
-              onClick={() => setIsSendOpen(true)}
-              className="flex flex-col items-center gap-2 group cursor-pointer"
-            >
-              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                <ArrowUpRight size={22} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-              </div>
-              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">Send</span>
-            </button>
+              {/* Send */}
+              <button 
+                onClick={() => setIsSendOpen(true)}
+                className="flex flex-col items-center gap-1.5 sm:gap-2 group cursor-pointer w-full sm:w-auto"
+              >
+                <div className="h-11 w-11 min-[375px]:h-12 min-[375px]:w-12 sm:h-14 sm:w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-xs group-hover:scale-105 active:scale-95">
+                  <ArrowUpRight size={20} className="sm:scale-110 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors text-center truncate max-w-full">Send</span>
+              </button>
 
-            {/* Swap */}
-            <button 
-              onClick={() => setIsSwapOpen(true)}
-              className="flex flex-col items-center gap-2 group cursor-pointer"
-            >
-              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-yellow group-hover:text-black group-hover:border-brand-yellow transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                <Repeat size={22} className="group-hover:rotate-180 transition-transform duration-500" />
-              </div>
-              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Swap</span>
-            </button>
+              {/* Swap */}
+              <button 
+                onClick={() => setIsSwapOpen(true)}
+                className="flex flex-col items-center gap-1.5 sm:gap-2 group cursor-pointer w-full sm:w-auto"
+              >
+                <div className="h-11 w-11 min-[375px]:h-12 min-[375px]:w-12 sm:h-14 sm:w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-yellow group-hover:text-black group-hover:border-brand-yellow transition-all duration-300 shadow-xs group-hover:scale-105 active:scale-95">
+                  <Repeat size={20} className="sm:scale-110 group-hover:rotate-180 transition-transform duration-500" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors text-center tracking-tight truncate max-w-full">Swap</span>
+              </button>
 
-            {/* Save / Earn */}
-            <button 
-              onClick={() => router.push(appRoutes.dashboard.savings)}
-              className="flex flex-col items-center gap-2 group cursor-pointer"
-            >
-              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                <PiggyBank size={22} />
-              </div>
-              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors">Save</span>
-            </button>
+              {/* Save / Earn */}
+              <button 
+                onClick={() => router.push(appRoutes.dashboard.savings)}
+                className="flex flex-col items-center gap-1.5 sm:gap-2 group cursor-pointer w-full sm:w-auto"
+              >
+                <div className="h-11 w-11 min-[375px]:h-12 min-[375px]:w-12 sm:h-14 sm:w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all duration-300 shadow-xs group-hover:scale-105 active:scale-95">
+                  <PiggyBank size={20} className="sm:scale-110" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-sans font-bold text-zinc-600 group-hover:text-zinc-950 transition-colors text-center tracking-tight truncate max-w-full">Save</span>
+              </button>
 
-            {/* More / Apps */}
-            <button 
-              onClick={() => router.push(appRoutes.dashboard.apps)}
-              className="flex flex-col items-center gap-2 group cursor-pointer"
-            >
-              <div className="h-14 w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-sm group-hover:scale-105 active:scale-95">
-                <LayoutGrid size={22} className="group-hover:rotate-6 transition-transform duration-300" />
-              </div>
-              <span className="text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors">More</span>
-            </button>
+              {/* More / Apps */}
+              <button 
+                onClick={() => router.push(appRoutes.dashboard.apps)}
+                className="flex flex-col items-center gap-1.5 sm:gap-2 group cursor-pointer w-full sm:w-auto"
+              >
+                <div className="h-11 w-11 min-[375px]:h-12 min-[375px]:w-12 sm:h-14 sm:w-14 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-zinc-700 group-hover:bg-brand-purple group-hover:text-white group-hover:border-brand-purple transition-all duration-300 shadow-xs group-hover:scale-105 active:scale-95">
+                  <LayoutGrid size={20} className="sm:scale-110 group-hover:rotate-6 transition-transform duration-300" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-sans font-bold text-zinc-600 group-hover:text-brand-purple transition-colors text-center tracking-tight truncate max-w-full">More</span>
+              </button>
+            </div>
           </div>
 
         </div>
