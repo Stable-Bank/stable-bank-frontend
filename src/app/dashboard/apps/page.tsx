@@ -477,20 +477,20 @@ export default function AppsPage() {
   return (
     <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full pb-10">
       
-      {/* Hero Header Banner (Solid Single Color - Law of Prägnanz & Hick's Law) */}
-      <div className="relative overflow-hidden rounded-3xl bg-zinc-950 text-white p-6 sm:p-8 md:p-10 shadow-lg border border-zinc-800">
+      {/* Hero Header Banner (Solid Single Color Purple - Law of Prägnanz & Hick's Law) */}
+      <div className="relative overflow-hidden rounded-3xl bg-brand-purple text-white p-6 sm:p-8 md:p-10 shadow-lg border border-purple-400/20">
         <div className="relative z-10 max-w-2xl space-y-3 sm:space-y-4">
           {/* Best-Practice Purposeful Status Pill (Jakob's Law & Von Restorff Effect) */}
-          <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono">
+          <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
-            <span className="font-bold uppercase tracking-wider text-[11px] text-emerald-400">
+            <span className="font-bold uppercase tracking-wider text-[11px] text-white">
               10 Verified Partner Apps
             </span>
-            <span className="text-zinc-600 select-none hidden sm:inline">·</span>
-            <span className="text-zinc-300 font-medium text-[11px] sm:text-xs">
+            <span className="text-white/40 select-none hidden sm:inline">·</span>
+            <span className="text-purple-100 font-medium text-[11px] sm:text-xs">
               Direct Stablecoin Settlement
             </span>
           </div>
@@ -499,20 +499,20 @@ export default function AppsPage() {
             Spend, Travel & Live with Stables
           </h1>
           
-          <p className="text-sm sm:text-base text-zinc-300 font-sans leading-relaxed">
+          <p className="text-sm sm:text-base text-purple-100/90 font-sans leading-relaxed">
             Directly connect your USDC & USDT to real-world services. Instant global eSIM data, airline tickets, luxury villas, city rides, and utility bills with zero bank markups.
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-zinc-300">
-            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
+          <div className="pt-2 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-white">
+            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               MPC Segregated Balances
             </span>
-            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
-              <Globe2 className="w-4 h-4 text-sky-400" />
+            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
+              <Globe2 className="w-4 h-4 text-sky-300" />
               160+ Countries
             </span>
-            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
+            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
               <Zap className="w-4 h-4 text-brand-yellow" />
               Instant Settlement
             </span>
