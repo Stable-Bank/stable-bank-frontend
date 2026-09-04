@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import { 
   Search, 
-  Sparkles, 
   Check, 
   ChevronRight, 
   Star,
@@ -478,41 +477,47 @@ export default function AppsPage() {
   return (
     <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full pb-10">
       
-      {/* Hero Header Banner with Glassmorphism */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-brand-purple to-purple-950 text-white p-6 sm:p-8 md:p-10 shadow-lg border border-purple-800/40">
+      {/* Hero Header Banner (Solid Single Color - Law of Prägnanz & Hick's Law) */}
+      <div className="relative overflow-hidden rounded-3xl bg-zinc-950 text-white p-6 sm:p-8 md:p-10 shadow-lg border border-zinc-800">
         <div className="relative z-10 max-w-2xl space-y-3 sm:space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-mono font-semibold text-purple-200">
-            <Sparkles className="w-3.5 h-3.5 text-brand-yellow" />
-            <span>StableBank Lifestyle Ecosystem</span>
+          {/* Best-Practice Purposeful Status Pill (Jakob's Law & Von Restorff Effect) */}
+          <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </span>
+            <span className="font-bold uppercase tracking-wider text-[11px] text-emerald-400">
+              10 Verified Partner Apps
+            </span>
+            <span className="text-zinc-600 select-none hidden sm:inline">·</span>
+            <span className="text-zinc-300 font-medium text-[11px] sm:text-xs">
+              Direct Stablecoin Settlement
+            </span>
           </div>
           
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold tracking-tight text-white">
             Spend, Travel & Live with Stables
           </h1>
           
-          <p className="text-sm sm:text-base text-purple-200/90 font-sans leading-relaxed">
+          <p className="text-sm sm:text-base text-zinc-300 font-sans leading-relaxed">
             Directly connect your USDC & USDT to real-world services. Instant global eSIM data, airline tickets, luxury villas, city rides, and utility bills with zero bank markups.
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono text-purple-200">
-            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
+          <div className="pt-2 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-mono text-zinc-300">
+            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               MPC Segregated Balances
             </span>
-            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
+            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
               <Globe2 className="w-4 h-4 text-sky-400" />
               160+ Countries
             </span>
-            <span className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
+            <span className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-800">
               <Zap className="w-4 h-4 text-brand-yellow" />
               Instant Settlement
             </span>
           </div>
         </div>
-
-        {/* Decorative Background Elements */}
-        <div className="absolute -right-10 -bottom-10 w-72 h-72 bg-brand-yellow/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-10 top-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none" />
       </div>
 
       {/* Search & Category Filter Section (Hick's Law & Fitts's Law) */}
