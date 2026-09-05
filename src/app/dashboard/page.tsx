@@ -15,6 +15,7 @@ import SwapModal from "@/components/modal/swap-modal";
 import OnboardingModal from "@/components/modal/onboarding-modal";
 import OnboardingBanner from "@/components/dashboard/onboarding-banner";
 import ProvisionAccountModal from "@/components/modal/provision-account-modal";
+import TestnetWarningModal from "@/components/modal/testnet-warning-modal";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { appRoutes } from "@/lib/navigation";
@@ -428,6 +429,31 @@ export default function UHome() {
   const [kycTriggerReason, setKycTriggerReason] = useState<"virtual_account" | "card" | "general">("general");
   const [kycTargetCurrency, setKycTargetCurrency] = useState<string>("USD");
   const [hideBalance, setHideBalance] = useState(false);
+  const [isTestnetWarningOpen, setIsTestnetWarningOpen] = useState(false);
+
+  // Auto-pop Testnet Warning Modal on dashboard load (unless dismissed for session/permanently)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const permanentlyDismissed = localStorage.getItem("stablebank_testnet_warning_dont_show");
+      const sessionDismissed = sessionStorage.getItem("stablebank_testnet_warning_dismissed");
+      if (!permanentlyDismissed && !sessionDismissed) {
+        const timer = setTimeout(() => {
+          setIsTestnetWarningOpen(true);
+        }, 600);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
+  const handleAcknowledgeTestnet = (dontShowAgain: boolean) => {
+    setIsTestnetWarningOpen(false);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("stablebank_testnet_warning_dismissed", "true");
+      if (dontShowAgain) {
+        localStorage.setItem("stablebank_testnet_warning_dont_show", "true");
+      }
+    }
+  };
 
   const handleRequireKyc = (reason: "virtual_account" | "card" | "general" = "general", currency = "USD") => {
     setKycTriggerReason(reason);
@@ -672,7 +698,7 @@ export default function UHome() {
           
           {/* Balance & Info */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs sm:text-sm font-mono font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-1.5">
                 Portfolio Value · USD
               </span>
@@ -682,6 +708,14 @@ export default function UHome() {
                 aria-label={hideBalance ? "Show balance" : "Hide balance"}
               >
                 {hideBalance ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+              <button
+                onClick={() => setIsTestnetWarningOpen(true)}
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-700 text-[11px] font-mono font-bold hover:bg-amber-500/15 transition-colors cursor-pointer"
+                title="Click to view testnet disclaimer"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                <span>Testnet Mode</span>
               </button>
             </div>
             
@@ -1275,6 +1309,13 @@ export default function UHome() {
         onComplete={handleRefresh}
         triggerReason={kycTriggerReason}
         targetCurrency={kycTargetCurrency}
+      />
+
+      {/* Testnet & Sandbox Warning Modal */}
+      <TestnetWarningModal
+        open={isTestnetWarningOpen}
+        onOpenChange={setIsTestnetWarningOpen}
+        onAcknowledge={handleAcknowledgeTestnet}
       />
 
     </div>
