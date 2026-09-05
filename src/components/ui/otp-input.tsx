@@ -70,7 +70,7 @@ export function OtpInput({
   };
 
   return (
-    <div className={cn("flex justify-center gap-2 sm:gap-3", className)}>
+    <div className={cn("flex justify-center items-center gap-2 sm:gap-3", className)}>
       {otp.map((digit, index) => (
         <input
           key={index}
@@ -83,14 +83,19 @@ export function OtpInput({
           ref={(el) => {
             if (el) inputRefs.current[index] = el;
           }}
+          onFocus={(e) => e.target.select()}
           onChange={(e) => handleChange(index, e)}
           onKeyDown={(e) => handleKeyDown(index, e)}
           onPaste={handlePaste}
           className={cn(
-            "h-12 w-10 sm:h-14 sm:w-12 rounded-lg border border-white/10 bg-white/5 text-center text-xl font-bold text-white transition-all duration-200 outline-none",
-            "focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 focus:bg-white/10",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
-            digit ? "border-brand-purple/50 bg-brand-purple/5" : ""
+            "h-13 w-10 min-[375px]:w-11 sm:h-16 sm:w-13 md:h-16 md:w-14 rounded-xl sm:rounded-2xl border-2 text-center text-2xl sm:text-3xl font-mono font-bold transition-all duration-150 outline-none shadow-xs select-none",
+            "bg-white text-zinc-950 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50/50",
+            "focus:border-brand-purple focus:ring-4 focus:ring-brand-purple/15 focus:bg-white focus:text-zinc-950",
+            "dark:bg-zinc-900 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:focus:border-brand-purple dark:focus:ring-brand-purple/30 dark:focus:bg-zinc-800",
+            "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-zinc-100 dark:disabled:bg-zinc-800",
+            digit
+              ? "border-brand-purple bg-brand-purple/[0.05] text-brand-purple font-extrabold shadow-sm dark:bg-brand-purple/10 dark:text-purple-300"
+              : ""
           )}
         />
       ))}

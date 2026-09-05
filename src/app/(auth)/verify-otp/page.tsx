@@ -72,55 +72,68 @@ export default function VerifyOtp() {
   }
 
   return (
-    <form onSubmit={handleVerify} className="flex w-full flex-col gap-6 sm:gap-8">
-      <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="flex w-fit items-center gap-2 rounded-full border border-zinc-300 bg-zinc-100/80 px-3.5 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider shadow-sm">
+    <div className="flex w-full flex-col gap-5 sm:gap-6">
+      <div className="flex flex-col gap-2.5 sm:gap-3 text-left">
+        <div className="flex w-fit items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100/90 px-3.5 py-1.5 font-mono text-xs font-semibold text-zinc-800 uppercase tracking-wider shadow-xs">
           <ShieldCheck size={14} className="text-brand-purple" />
           <span>Security Verification</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-zinc-950">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-zinc-950 tracking-tight">
           Check your <span className="text-brand-purple">inbox.</span>
         </h1>
-        <p className="text-zinc-600 text-sm sm:text-base font-sans leading-relaxed">
-          We&apos;ve sent a 6-digit security code to <span className="text-zinc-900 font-semibold underline decoration-brand-purple/30 underline-offset-4">{email}</span>. Please enter it below.
+        <p className="text-zinc-600 text-sm sm:text-base font-sans">
+          Enter the 6-digit security verification code sent to your email.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8">
-        <div className="py-4">
-          <OtpInput 
-            value={otp} 
-            onChange={setOtp} 
-            disabled={loading}
-          />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Button
-            type="submit"
-            disabled={loading || otp.length !== 6}
-            className="text-white bg-brand-purple hover:bg-brand-purple/90 h-12 sm:h-14 rounded-full text-base font-bold transition-all active:scale-[0.98] shadow-md shadow-brand-purple/20"
-          >
-            {loading ? "Verifying..." : "Verify Identity"}
-          </Button>
-
-          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-sans">
-            <span className="text-zinc-500">Didn&apos;t receive it?</span>
-            <button
-              type="button"
-              onClick={handleResend}
-              disabled={timer > 0}
-              className={cn(
-                "font-bold transition-colors cursor-pointer",
-                timer > 0 ? "text-zinc-400 cursor-not-allowed" : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
-              )}
-            >
-              Resend Code {timer > 0 && <span className="font-mono text-zinc-400 text-xs ml-1">({timer}s)</span>}
-            </button>
+      <div className="w-full rounded-2xl sm:rounded-3xl bg-white border border-zinc-200/90 p-5 sm:p-7 md:p-8 shadow-sm">
+        <form onSubmit={handleVerify} className="flex flex-col gap-5 sm:gap-6">
+          <div className="flex items-center gap-2.5 rounded-xl bg-zinc-50 border border-zinc-200/90 px-3.5 py-2.5 text-xs sm:text-sm">
+            <span className="truncate font-medium text-zinc-700">
+              Code sent to <strong className="text-zinc-950 font-semibold font-mono">{email}</strong>
+            </span>
           </div>
-        </div>
+
+          <div className="flex flex-col items-center justify-center rounded-2xl bg-zinc-50/70 border border-zinc-200/80 p-4 sm:p-6">
+            <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
+              Verification Code
+            </span>
+            <div className="w-full flex justify-center py-2">
+              <OtpInput 
+                value={otp} 
+                onChange={setOtp} 
+                disabled={loading}
+              />
+            </div>
+
+            <div className="flex items-center justify-center gap-1.5 pt-3 text-xs sm:text-sm font-sans">
+              <span className="text-zinc-500">Didn&apos;t receive it?</span>
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={timer > 0 || loading}
+                className={cn(
+                  "font-bold transition-colors cursor-pointer",
+                  timer > 0 ? "text-zinc-400 cursor-not-allowed" : "text-brand-purple hover:text-brand-purple/80 underline underline-offset-4"
+                )}
+              >
+                {timer > 0 ? `Resend in ${timer}s` : "Resend code"}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 pt-1">
+            <Button
+              type="submit"
+              disabled={loading || otp.length !== 6}
+              className="w-full text-white bg-brand-purple hover:bg-brand-purple/90 h-11 sm:h-12 rounded-full text-sm sm:text-base font-bold transition-all active:scale-[0.98] shadow-md shadow-brand-purple/20 cursor-pointer"
+            >
+              {loading ? "Verifying..." : "Verify Identity"}
+            </Button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }
 
