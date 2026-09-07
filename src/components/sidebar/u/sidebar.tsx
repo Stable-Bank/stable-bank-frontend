@@ -4,7 +4,6 @@ import Image from "next/image";
 import {
   Home,
   ArrowUp,
-  ArrowDownUp,
   CreditCard,
   Gift,
   Settings,
@@ -215,11 +214,6 @@ const navItems = [
     label: "Home",
     route: appRoutes.dashboard.home,
     icon: Home,
-  },
-  {
-    label: "Swap",
-    route: appRoutes.dashboard.swap,
-    icon: ArrowDownUp,
   },
   {
     label: "Virtual Card",
