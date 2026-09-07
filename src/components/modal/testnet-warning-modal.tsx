@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,6 +36,7 @@ export default function TestnetWarningModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden border-amber-200/90 rounded-3xl bg-white shadow-2xl">
+        <DialogTitle className="sr-only">Sandbox Mode Warning: Do Not Send Real Funds</DialogTitle>
         <div className="flex flex-col">
           {/* Visual Header Banner with Amber Accent */}
           <div className="relative p-6 pb-5 bg-gradient-to-b from-amber-50/80 to-white border-b border-amber-100">

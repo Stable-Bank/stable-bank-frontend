@@ -237,8 +237,8 @@ export default function UVCard() {
   };
 
   const handleCopyCardNumber = () => {
-    if (!selectedCard) return;
-    const cleanNum = selectedCard.cardNumber.replace(/\s+/g, "");
+    if (!selectedCard || !selectedCard.cardNumber) return;
+    const cleanNum = String(selectedCard.cardNumber).replace(/\s+/g, "");
     navigator.clipboard.writeText(cleanNum);
     setCopiedNumber(true);
     toast.success("Card number copied to clipboard!");

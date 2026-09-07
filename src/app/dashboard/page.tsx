@@ -150,41 +150,56 @@ function AccountsAndCardsWidget({ cards, isCardsLoading, router, user, onRequire
     if (!activeVa) return null;
 
     if (activeCurrency === "USD") {
+      const routing = (activeVa as any).bank_routing_number || (activeVa as any).routing_number || activeVa.routingNumber;
+      const account = (activeVa as any).bank_account_number || (activeVa as any).account_number || activeVa.accountNumber;
+      const bank = (activeVa as any).bank_name || activeVa.bankName || "Bank of Nowhere (Bridge Partner)";
+      const holder = (activeVa as any).bank_beneficiary_name || (activeVa as any).account_holder_name || activeVa.accountHolderName || userName;
+
       return {
-        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge USD Settlement Partner",
+        bankName: bank,
         rail: "ACH / FedWire",
         icon: USFlagIcon,
         details: [
-          { label: "Routing Number (ABA)", value: (activeVa as any).routing_number || activeVa.routingNumber || "Pending Setup" },
-          { label: "Account Number", value: (activeVa as any).account_number || activeVa.accountNumber || "Pending Setup" },
-          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge USD Settlement Partner" },
-          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "Routing Number (ABA)", value: routing && String(routing).trim() ? String(routing) : "Pending Setup" },
+          { label: "Account Number", value: account && String(account).trim() ? String(account) : "Pending Setup" },
+          { label: "Bank Name", value: bank },
+          { label: "Beneficiary", value: holder },
           { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
         ],
       };
     } else if (activeCurrency === "EUR") {
+      const iban = activeVa.iban || (activeVa as any).account_number;
+      const bic = activeVa.bic || "BCIRLULL";
+      const bank = (activeVa as any).bank_name || activeVa.bankName || "Banking Circle S.A. (Luxembourg)";
+      const holder = (activeVa as any).bank_beneficiary_name || (activeVa as any).account_holder_name || activeVa.accountHolderName || userName;
+
       return {
-        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge Europe Bank (Luxembourg)",
+        bankName: bank,
         rail: "SEPA Instant",
         icon: EUFlagIcon,
         details: [
-          { label: "IBAN", value: activeVa.iban || "Pending Setup" },
-          { label: "BIC / SWIFT", value: activeVa.bic || "Pending Setup" },
-          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge Europe Bank (Luxembourg)" },
-          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "IBAN", value: iban && String(iban).trim() ? String(iban) : "Pending Setup" },
+          { label: "BIC / SWIFT", value: bic && String(bic).trim() ? String(bic) : "Pending Setup" },
+          { label: "Bank Name", value: bank },
+          { label: "Beneficiary", value: holder },
           { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
         ],
       };
     } else {
+      const sort = (activeVa as any).sort_code || activeVa.sortCode;
+      const account = (activeVa as any).bank_account_number || (activeVa as any).account_number || activeVa.accountNumber;
+      const bank = (activeVa as any).bank_name || activeVa.bankName || "ClearBank UK (Bridge Partner)";
+      const holder = (activeVa as any).bank_beneficiary_name || (activeVa as any).account_holder_name || activeVa.accountHolderName || userName;
+
       return {
-        bankName: (activeVa as any).bank_name || activeVa.bankName || "Bridge UK Settlement Clearing",
+        bankName: bank,
         rail: "Faster Payments",
         icon: UKFlagIcon,
         details: [
-          { label: "Sort Code", value: (activeVa as any).sort_code || activeVa.sortCode || "Pending Setup" },
-          { label: "Account Number", value: (activeVa as any).account_number || activeVa.accountNumber || "Pending Setup" },
-          { label: "Bank Name", value: (activeVa as any).bank_name || activeVa.bankName || "Bridge UK Settlement Clearing" },
-          { label: "Beneficiary", value: (activeVa as any).account_holder_name || activeVa.accountHolderName || userName },
+          { label: "Sort Code", value: sort && String(sort).trim() ? String(sort) : "Pending Setup" },
+          { label: "Account Number", value: account && String(account).trim() ? String(account) : "Pending Setup" },
+          { label: "Bank Name", value: bank },
+          { label: "Beneficiary", value: holder },
           { label: "Reference Note", value: user?.bankTag ? `TAG-${user.bankTag.toUpperCase()}` : "STABLE-DEP" },
         ],
       };

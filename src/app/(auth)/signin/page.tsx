@@ -36,6 +36,9 @@ export default function Login() {
     try {
       updateLoginData("loading", true);
       await login(loginData.email, loginData.password);
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("stablebank_testnet_warning_dismissed");
+      }
       router.push(appRoutes.dashboard.home);
     } catch (error) {
       console.error("Login error:", error);
