@@ -1,4 +1,4 @@
-import { apiClient } from "@/config/axios";
+import { apiClient, getApiBaseUrl } from "@/config/axios";
 import { NotificationsResponse, Notification } from "@/types/notification";
 
 export const notificationService = {
@@ -39,7 +39,7 @@ export const notificationService = {
    * Helper to construct the real-time EventSource URL
    */
   getStreamUrl: (token: string): string => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    const baseUrl = getApiBaseUrl();
     return `${baseUrl}/notifications/stream?token=${encodeURIComponent(token)}`;
   },
 };

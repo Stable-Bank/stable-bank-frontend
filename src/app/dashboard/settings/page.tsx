@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { apiClient } from "@/config/axios";
+import { apiClient, getBackendOrigin } from "@/config/axios";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { 
@@ -142,7 +142,7 @@ export default function SettingsPage() {
     }
   };
 
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || "http://localhost:4000";
+  const backendUrl = getBackendOrigin();
   const avatarSrc = user?.avatarUrl
     ? (user.avatarUrl.startsWith("http") ? user.avatarUrl : `${backendUrl}${user.avatarUrl}`)
     : "/images/svg/default-avatar.svg";

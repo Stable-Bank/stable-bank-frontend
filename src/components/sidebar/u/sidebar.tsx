@@ -23,6 +23,7 @@ import { appRoutes } from "@/lib/navigation";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationContext";
+import { getBackendOrigin } from "@/config/axios";
 import BrandLogo from "@/components/brand/brand-logo";
 
 export default function USidebar() {
@@ -84,7 +85,7 @@ export default function USidebar() {
                   user?.avatarUrl 
                     ? (user.avatarUrl.startsWith("http")
                         ? user.avatarUrl
-                        : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/v1', '') || "http://localhost:4000"}${user.avatarUrl}`)
+                        : `${getBackendOrigin()}${user.avatarUrl}`)
                     : `/images/svg/default-avatar.svg`
                 }
                 alt="avatar"

@@ -8,6 +8,7 @@ import { appRoutes } from "@/lib/navigation";
 import { Power, Bell, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getBackendOrigin } from "@/config/axios";
 
 export default function UTopbar() {
   const { unreadCount } = useNotifications();
@@ -34,7 +35,7 @@ export default function UTopbar() {
                 src={
                   user.avatarUrl.startsWith("http")
                     ? user.avatarUrl
-                    : `${process.env.NEXT_PUBLIC_API_URL?.replace("/api/v1", "") || "http://localhost:4000"}${user.avatarUrl}`
+                    : `${getBackendOrigin()}${user.avatarUrl}`
                 }
                 alt="avatar"
                 fill

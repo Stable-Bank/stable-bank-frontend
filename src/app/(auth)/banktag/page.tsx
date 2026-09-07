@@ -2,22 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { appRoutes } from "@/lib/navigation";
-import axios, { AxiosResponse } from "axios";
+import { apiClient } from "@/config/axios";
+import axios from "axios";
 import { MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-
-interface CreateBankTagResponse {
-  id: number;
-  bankTag: string;
-  displayName: string;
-  ownerUserId: number;
-}
-
-interface CheckBankTagResponse {
-  available: boolean;
-}
 
 export default function CreateBankTag() {
   const router = useRouter();
@@ -40,49 +30,35 @@ export default function CreateBankTag() {
       return;
     }
     try {
-      const res: AxiosResponse<CheckBankTagResponse> = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/bank-tag/check?bankTag=@${tagData.bankTag}`
+      const res: any = await apiClient.get(
+        `/bank-tag/check?bankTag=@${tagData.bankTag}`
       );
-      console.log("response in checker", res);
-
-      if (res.status >= 200 && res.status < 300) {
-        if (res.data.available) {
-          toast.success("Banktag is available!");
-          return true;
-        } else {
-          toast.error("Banktag is already taken.");
-          return false;
-        }
-      }
-
-      return false;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errMsg = error.response.data.message;
-        console.error("Banktag error:", error);
-        toast.error(errMsg || "Failed to check banktag. Please try again.");
+      if (res?.available) {
+        toast.success("Banktag is available!");
+        return true;
+      } else {
+        toast.error("Banktag is already taken.");
         return false;
       }
+    } catch (error: any) {
+      toast.error(error?.message || "Failed to check banktag. Please try again.");
+      return false;
     }
   }
 
   async function createBankTag() {
     try {
-      const res: AxiosResponse<CreateBankTagResponse> = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/bank-tag`,
+      await apiClient.post(
+        `/bank-tag`,
         {
           bankTag: `@${tagData.bankTag}`,
           displayName: tagData.displayName,
         }
       );
 
-      if (res.status >= 200 && res.status < 300) {
-        console.log("response in creator", res);
-
-        toast.success("BankTag created successfully!");
-        router.push(appRoutes.dashboard.home);
-      }
-    } catch (error) {
+      toast.success("BankTag created successfully!");
+      router.push(appRoutes.dashboard.home);
+    } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         const errMsg = error.response.data.message;
         console.error("Create BankTag error:", error);

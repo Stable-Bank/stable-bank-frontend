@@ -5,10 +5,27 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+export const getApiBaseUrl = (): string => {
+  const url = process.env.NEXT_PUBLIC_API_URL || "";
+  if (typeof window !== "undefined") {
+    // If the client page is served over HTTPS (e.g. https://stablebank.finance)
+    // NEVER allow insecure http:// requests to prevent browser Mixed Content blocking.
+    if (window.location.protocol === "https:") {
+      if (!url || url.includes("46.224.93.94") || url.startsWith("http://")) {
+        return "https://api.stablebank.finance/api/v1";
+      }
+    }
+  }
+  return url || "https://api.stablebank.finance/api/v1";
+};
+
+export const getBackendOrigin = (): string => {
+  const base = getApiBaseUrl();
+  return base.replace(/\/api\/v1\/?$/, "");
+};
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: getApiBaseUrl(),
   timeout: 20000,
   headers: {},
 });
@@ -27,6 +44,16 @@ const onRefreshed = (token: string): void => {
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    if (typeof window !== "undefined" && window.location.protocol === "https:") {
+      if (!config.baseURL || config.baseURL.startsWith("http://")) {
+        config.baseURL = getApiBaseUrl();
+      }
+      if (config.url && config.url.startsWith("http://")) {
+        config.url = config.url
+          .replace("http://46.224.93.94:4000", "https://api.stablebank.finance")
+          .replace(/^http:\/\//i, "https://");
+      }
+    }
     const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -100,7 +127,7 @@ api.interceptors.response.use(
         const response = await axios.post<{
           status: string;
           data: RefreshResponse;
-        }>(`${API_BASE_URL}/auth/refresh`, { refreshToken });
+        }>(`${getApiBaseUrl()}/auth/refresh`, { refreshToken });
 
         const { accessToken, refreshToken: newRefreshToken } =
           response.data.data;
