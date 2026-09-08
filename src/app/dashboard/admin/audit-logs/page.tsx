@@ -142,6 +142,7 @@ export default function AuditLogsPage() {
       "ActorBankTag",
       "ActorRole",
       "ActorIP",
+      "UserAgent",
       "Description",
     ];
     const rows = logs.map((l) => [
@@ -153,7 +154,8 @@ export default function AuditLogsPage() {
       `"${l.actorEmail || (typeof l.actorId === "object" ? l.actorId?.email : "") || ""}"`,
       `"${l.actorBankTag || (typeof l.actorId === "object" ? l.actorId?.bankTag : "") || ""}"`,
       `"${l.actorRole || ""}"`,
-      `"${l.actorIp || ""}"`,
+      `"${l.actorIp || l.ipAddress || ""}"`,
+      `"${(l.userAgent || (l.details && l.details.userAgent) || "").replace(/"/g, '""')}"`,
       `"${(l.description || "").replace(/"/g, '""')}"`,
     ]);
 
@@ -525,7 +527,7 @@ export default function AuditLogsPage() {
 
                       <td className="p-4 font-mono text-zinc-500 whitespace-nowrap">
                         <div className="flex flex-col text-[11px]">
-                          <span>{log.actorIp || "127.0.0.1"}</span>
+                          <span className="font-semibold text-zinc-800">{log.actorIp || log.ipAddress || "Unknown"}</span>
                           {log.deviceInfo?.browser && (
                             <span className="text-[9px] text-zinc-400">
                               {log.deviceInfo.browser} ({log.deviceInfo.os || "OS"})
@@ -702,11 +704,33 @@ export default function AuditLogsPage() {
                   <div className="flex items-center gap-2 text-zinc-400 font-mono font-bold uppercase text-[10px]">
                     <Globe size={12} /> Network & Device
                   </div>
-                  <div className="space-y-1 font-mono text-[11px] text-zinc-700">
-                    <div>IP: <span className="font-bold text-zinc-900">{activeInspectorLog.actorIp || "127.0.0.1"}</span></div>
-                    <div>Browser: {activeInspectorLog.deviceInfo?.browser || "Unknown"}</div>
-                    <div>OS: {activeInspectorLog.deviceInfo?.os || "Unknown"}</div>
-                    <div>Device: {activeInspectorLog.deviceInfo?.device || "Desktop"}</div>
+                  <div className="space-y-1.5 font-mono text-[11px] text-zinc-700">
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400">IP:</span>
+                      <span className="font-bold text-zinc-900 select-all">
+                        {activeInspectorLog.actorIp || activeInspectorLog.ipAddress || activeInspectorLog.deviceInfo?.ip || "Unknown"}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400">Browser:</span>
+                      <span>{activeInspectorLog.deviceInfo?.browser || "Unknown"}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400">OS:</span>
+                      <span>{activeInspectorLog.deviceInfo?.os || "Unknown"}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400">Device:</span>
+                      <span>{activeInspectorLog.deviceInfo?.device || "Desktop"}</span>
+                    </div>
+                    {(activeInspectorLog.userAgent || (activeInspectorLog.details && activeInspectorLog.details.userAgent)) && (
+                      <div className="pt-2 border-t border-zinc-100">
+                        <span className="text-zinc-400 block text-[10px] mb-1">User-Agent:</span>
+                        <div className="text-[10px] text-zinc-600 font-mono break-all bg-zinc-50 p-2 rounded border border-zinc-100 leading-normal select-all">
+                          {activeInspectorLog.userAgent || activeInspectorLog.details?.userAgent}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -910,6 +934,36 @@ export default function AuditLogsPage() {
                         )}
                       </div>
                     )}
+
+                    {/* Network & Device Footprint */}
+                    <div className="p-4 border border-zinc-200 rounded-xl bg-white space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold flex items-center gap-1.5">
+                          <Globe size={13} className="text-zinc-500" /> Latest Network & Session Footprint
+                        </span>
+                        <span className="text-[10px] font-mono text-zinc-500">
+                          {user.lastLoginAt ? `Last active: ${new Date(user.lastLoginAt).toLocaleString()}` : "No recorded activity"}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        <div className="p-2.5 bg-zinc-50 rounded-lg border border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block mb-1">
+                            Last Known IP Address
+                          </span>
+                          <span className="font-mono font-bold text-zinc-900 text-xs">
+                            {user.lastLoginIp || "N/A"}
+                          </span>
+                        </div>
+                        <div className="p-2.5 bg-zinc-50 rounded-lg border border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block mb-1">
+                            Last Known User-Agent
+                          </span>
+                          <span className="font-mono text-zinc-700 text-[11px] break-all select-all block" title={user.lastUserAgent || undefined}>
+                            {user.lastUserAgent || "N/A"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Virtual Balances */}
                     {virtualBalances.length > 0 && (

@@ -28,6 +28,7 @@ import {
   X,
   Copy,
   Check,
+  Globe,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/utils/cn";
@@ -660,9 +661,27 @@ export default function AdminDashboard() {
                         {selectedEvent.actorEmail && (
                           <div className="text-zinc-500 text-[11px]">{selectedEvent.actorEmail}</div>
                         )}
-                        <div className="font-mono text-[10px] text-zinc-500 pt-1 border-t border-zinc-100 flex items-center justify-between">
-                          <span>IP: {selectedEvent.actorIp || "127.0.0.1"}</span>
-                          <span>{selectedEvent.deviceInfo?.browser || "Device"}</span>
+                        <div className="font-mono text-[10px] text-zinc-600 pt-2 border-t border-zinc-100 flex flex-col gap-1.5">
+                          <div className="flex items-center justify-between">
+                            <span className="text-zinc-400 font-bold uppercase">Client IP:</span>
+                            <span className="font-bold text-zinc-900">
+                              {selectedEvent.actorIp || selectedEvent.ipAddress || selectedEvent.deviceInfo?.ip || "Unknown"}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-zinc-400 font-bold uppercase">Client:</span>
+                            <span className="text-zinc-700">
+                              {selectedEvent.deviceInfo?.browser || "Browser"} • {selectedEvent.deviceInfo?.os || "OS"} ({selectedEvent.deviceInfo?.device || "Desktop"})
+                            </span>
+                          </div>
+                          {(selectedEvent.userAgent || (selectedEvent.details && selectedEvent.details.userAgent)) && (
+                            <div className="mt-1 pt-1.5 border-t border-zinc-100">
+                              <span className="text-zinc-400 font-bold uppercase text-[9px] block mb-0.5">User-Agent:</span>
+                              <div className="text-[10px] text-zinc-600 font-mono break-all bg-zinc-50 p-1.5 rounded border border-zinc-100 leading-tight select-all">
+                                {selectedEvent.userAgent || selectedEvent.details?.userAgent}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -1216,6 +1235,36 @@ export default function AdminDashboard() {
                         )}
                       </div>
                     )}
+
+                    {/* Network & Device Footprint */}
+                    <div className="p-4 border border-zinc-200 rounded-xl bg-white space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold flex items-center gap-1.5">
+                          <Globe size={13} className="text-zinc-500" /> Latest Network & Session Footprint
+                        </span>
+                        <span className="text-[10px] font-mono text-zinc-500">
+                          {user.lastLoginAt ? `Last active: ${new Date(user.lastLoginAt).toLocaleString()}` : "No recorded activity"}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        <div className="p-2.5 bg-zinc-50 rounded-lg border border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block mb-1">
+                            Last Known IP Address
+                          </span>
+                          <span className="font-mono font-bold text-zinc-900 text-xs">
+                            {user.lastLoginIp || "N/A"}
+                          </span>
+                        </div>
+                        <div className="p-2.5 bg-zinc-50 rounded-lg border border-zinc-100">
+                          <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block mb-1">
+                            Last Known User-Agent
+                          </span>
+                          <span className="font-mono text-zinc-700 text-[11px] break-all select-all block" title={user.lastUserAgent || undefined}>
+                            {user.lastUserAgent || "N/A"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Virtual Balances */}
                     {virtualBalances.length > 0 && (

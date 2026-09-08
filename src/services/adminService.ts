@@ -16,6 +16,9 @@ export interface AdminUser {
   restrictedReason?: string;
   restrictedAt?: string;
   restrictedBy?: string;
+  lastLoginAt?: string;
+  lastLoginIp?: string;
+  lastUserAgent?: string;
   createdAt: string;
 }
 
@@ -32,6 +35,8 @@ export interface AuditLogItem {
   actorBankTag?: string;
   actorRole: "user" | "admin" | "system";
   actorIp?: string;
+  ipAddress?: string;
+  userAgent?: string;
   deviceInfo?: {
     browser?: string;
     os?: string;
