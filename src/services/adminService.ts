@@ -87,6 +87,11 @@ export interface AdminStats {
 export interface AdminUserDeepDive {
   user: AdminUser & {
     bridgeCustomerId?: string;
+    virtualBalances?: Array<{
+      currency: string;
+      amount: number;
+      lastUpdated?: string;
+    }>;
   };
   wallets: Array<{
     id: string;
@@ -106,6 +111,14 @@ export interface AdminUserDeepDive {
     created_at: string;
   }>;
   recentAuditLogs: AuditLogItem[];
+  savingsBuckets?: Array<{
+    _id: string;
+    bucketType: string;
+    currency: string;
+    targetAmount?: number;
+    currentAmount: number;
+    status: string;
+  }>;
 }
 
 export interface SystemHealth {
@@ -330,7 +343,23 @@ export const adminService = {
   },
 
   getUserDeepDive: async (userId: string): Promise<AdminUserDeepDive> => {
-    return apiClient.get(`/admin/users/${userId}`);
+    const raw: any = await apiClient.get(`/admin/users/${userId}`);
+    const data = raw?.data || raw;
+    return {
+      user: data?.user || data || {},
+      wallets: Array.isArray(data?.wallets) ? data.wallets : [],
+      recentTransfers: Array.isArray(data?.recentTransfers)
+        ? data.recentTransfers
+        : Array.isArray(data?.transfers)
+        ? data.transfers
+        : [],
+      recentAuditLogs: Array.isArray(data?.recentAuditLogs)
+        ? data.recentAuditLogs
+        : Array.isArray(data?.auditLogs)
+        ? data.auditLogs
+        : [],
+      savingsBuckets: Array.isArray(data?.savingsBuckets) ? data.savingsBuckets : [],
+    } as AdminUserDeepDive;
   },
 
   restrictUser: async (

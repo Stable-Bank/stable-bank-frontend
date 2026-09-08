@@ -816,173 +816,203 @@ export default function AuditLogsPage() {
                   <RefreshCw size={28} className="text-brand-purple animate-spin" />
                   <p className="text-zinc-500 font-sans">Compiling user audit profile & wallets...</p>
                 </div>
-              ) : deepDiveData ? (
-                <>
-                  {/* Top Stats Profile */}
-                  <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
-                        Account Holder
-                      </span>
-                      <span className="font-sans font-bold text-zinc-950 text-sm">
-                        {deepDiveData.user.firstName
-                          ? `${deepDiveData.user.firstName} ${deepDiveData.user.lastName}`
-                          : "StableBank User"}
-                      </span>
-                      <div className="text-zinc-500 text-xs mt-0.5">{deepDiveData.user.email}</div>
-                    </div>
+              ) : deepDiveData && deepDiveData.user ? (() => {
+                const user = deepDiveData.user;
+                const wallets = Array.isArray(deepDiveData.wallets) ? deepDiveData.wallets : [];
+                const recentAuditLogs: AuditLogItem[] = Array.isArray(deepDiveData.recentAuditLogs)
+                  ? deepDiveData.recentAuditLogs
+                  : Array.isArray((deepDiveData as any).auditLogs)
+                  ? (deepDiveData as any).auditLogs
+                  : [];
+                const virtualBalances = Array.isArray(user.virtualBalances) ? user.virtualBalances : [];
 
-                    <div>
-                      <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
-                        Stable Tag
-                      </span>
-                      <span className="font-mono font-bold text-brand-purple text-sm">
-                        {deepDiveData.user.bankTag ? `@${deepDiveData.user.bankTag}` : "None"}
-                      </span>
-                      <div className="text-zinc-400 text-xs mt-0.5 capitalize">
-                        Role: {deepDiveData.user.role}
+                return (
+                  <>
+                    {/* Top Stats Profile */}
+                    <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
+                          Account Holder
+                        </span>
+                        <span className="font-sans font-bold text-zinc-950 text-sm">
+                          {user.firstName
+                            ? `${user.firstName} ${user.lastName || ""}`.trim()
+                            : "StableBank User"}
+                        </span>
+                        <div className="text-zinc-500 text-xs mt-0.5">{user.email}</div>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
+                          Stable Tag
+                        </span>
+                        <span className="font-mono font-bold text-brand-purple text-sm">
+                          {user.bankTag ? `@${user.bankTag}` : "None"}
+                        </span>
+                        <div className="text-zinc-400 text-xs mt-0.5 capitalize">
+                          Role: {user.role || "user"}
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
+                          KYC Verification
+                        </span>
+                        <span className="font-sans font-bold text-zinc-900 text-sm capitalize flex items-center gap-1 mt-0.5">
+                          {user.kycStatus === "approved" ? (
+                            <span className="text-emerald-600 flex items-center gap-1 font-bold">
+                              <CheckCircle size={14} /> Approved
+                            </span>
+                          ) : user.kycStatus === "rejected" ? (
+                            <span className="text-red-600 flex items-center gap-1 font-bold">
+                              <XCircle size={14} /> Rejected
+                            </span>
+                          ) : (
+                            <span className="text-amber-600 flex items-center gap-1 font-bold">
+                              <Clock size={14} /> {user.kycStatus || "Not Started"}
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-col justify-center">
+                        <Button
+                          onClick={() => {
+                            setRestrictingUser({
+                              id: user._id,
+                              email: user.email,
+                              isRestricted: !!user.isRestricted,
+                            });
+                          }}
+                          variant={user.isRestricted ? "default" : "destructive"}
+                          size="sm"
+                          className="w-full text-xs font-bold cursor-pointer"
+                        >
+                          <Ban size={14} className="mr-1.5" />
+                          {user.isRestricted ? "Remove Restriction" : "Restrict Account"}
+                        </Button>
                       </div>
                     </div>
 
-                    <div>
-                      <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold block">
-                        KYC Verification
-                      </span>
-                      <span className="font-sans font-bold text-zinc-900 text-sm capitalize flex items-center gap-1 mt-0.5">
-                        {deepDiveData.user.kycStatus === "approved" ? (
-                          <span className="text-emerald-600 flex items-center gap-1 font-bold">
-                            <CheckCircle size={14} /> Approved
-                          </span>
-                        ) : deepDiveData.user.kycStatus === "rejected" ? (
-                          <span className="text-red-600 flex items-center gap-1 font-bold">
-                            <XCircle size={14} /> Rejected
-                          </span>
-                        ) : (
-                          <span className="text-amber-600 flex items-center gap-1 font-bold">
-                            <Clock size={14} /> {deepDiveData.user.kycStatus}
-                          </span>
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col justify-center">
-                      <Button
-                        onClick={() => {
-                          setRestrictingUser({
-                            id: deepDiveData.user._id,
-                            email: deepDiveData.user.email,
-                            isRestricted: !!deepDiveData.user.isRestricted,
-                          });
-                        }}
-                        variant={deepDiveData.user.isRestricted ? "default" : "destructive"}
-                        size="sm"
-                        className="w-full text-xs font-bold cursor-pointer"
-                      >
-                        <Ban size={14} className="mr-1.5" />
-                        {deepDiveData.user.isRestricted ? "Remove Restriction" : "Restrict Account"}
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* Restriction Banner if active */}
-                  {deepDiveData.user.isRestricted && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 space-y-1">
-                      <div className="flex items-center gap-2 font-mono font-bold uppercase text-[11px]">
-                        <AlertTriangle size={14} /> Account Under Administrative Restriction
-                      </div>
-                      <p className="text-xs font-sans">
-                        Reason: {deepDiveData.user.restrictedReason || "Violation of terms or suspicious activity"}
-                      </p>
-                      {deepDiveData.user.restrictedAt && (
-                        <p className="text-[10px] font-mono text-red-600">
-                          Restricted on {new Date(deepDiveData.user.restrictedAt).toLocaleString()}
+                    {/* Restriction Banner if active */}
+                    {user.isRestricted && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 space-y-1">
+                        <div className="flex items-center gap-2 font-mono font-bold uppercase text-[11px]">
+                          <AlertTriangle size={14} /> Account Under Administrative Restriction
+                        </div>
+                        <p className="text-xs font-sans">
+                          Reason: {user.restrictedReason || "Violation of terms or suspicious activity"}
                         </p>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Bridge Custodial Wallets */}
-                  <div className="space-y-3">
-                    <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider">
-                      Bridge Custodial Wallets ({deepDiveData.wallets?.length || 0})
-                    </h4>
-                    {deepDiveData.wallets?.length === 0 ? (
-                      <p className="text-zinc-500 italic">No Bridge wallets provisioned yet.</p>
-                    ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {deepDiveData.wallets.map((w) => (
-                          <div key={w.id} className="p-3 border border-zinc-200 rounded-xl bg-white space-y-1">
-                            <div className="flex items-center justify-between">
-                              <span className="font-mono font-bold uppercase text-[10px] text-brand-purple">
-                                {w.chain}
-                              </span>
-                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700">
-                                {w.status}
-                              </span>
-                            </div>
-                            <div className="font-mono text-xs text-zinc-900 break-all select-all">
-                              {w.address}
-                            </div>
-                          </div>
-                        ))}
+                        {user.restrictedAt && (
+                          <p className="text-[10px] font-mono text-red-600">
+                            Restricted on {new Date(user.restrictedAt).toLocaleString()}
+                          </p>
+                        )}
                       </div>
                     )}
-                  </div>
 
-                  {/* Recent Audit Trail */}
-                  <div className="space-y-3">
-                    <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider">
-                      Actor Recent Audit Trail ({deepDiveData.recentAuditLogs?.length || 0})
-                    </h4>
-                    <div className="border border-zinc-200 rounded-xl overflow-hidden">
-                      <table className="w-full text-left border-collapse">
-                        <thead>
-                          <tr className="border-b border-zinc-200 bg-zinc-50 font-mono text-[10px] text-zinc-500">
-                            <th className="p-3 font-bold uppercase">Time</th>
-                            <th className="p-3 font-bold uppercase">Action</th>
-                            <th className="p-3 font-bold uppercase">Category</th>
-                            <th className="p-3 font-bold uppercase">Status</th>
-                            <th className="p-3 font-bold uppercase">Description</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {deepDiveData.recentAuditLogs?.length === 0 ? (
-                            <tr>
-                              <td colSpan={5} className="p-6 text-center text-zinc-500 font-sans">
-                                No recent audit events found for this actor.
-                              </td>
+                    {/* Virtual Balances */}
+                    {virtualBalances.length > 0 && (
+                      <div className="space-y-2">
+                        <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider">
+                          Virtual Balances ({virtualBalances.length})
+                        </h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          {virtualBalances.map((vb: any, i: number) => (
+                            <div key={vb._id || i} className="p-3 border border-zinc-200 rounded-xl bg-white space-y-0.5">
+                              <span className="text-[10px] font-mono text-zinc-400 font-bold uppercase">{vb.currency}</span>
+                              <div className="text-base font-mono font-bold text-zinc-950">
+                                ${(vb.amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Bridge Custodial Wallets */}
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider">
+                        Bridge Custodial Wallets ({wallets.length})
+                      </h4>
+                      {wallets.length === 0 ? (
+                        <p className="text-zinc-500 italic">No Bridge wallets provisioned yet.</p>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {wallets.map((w) => (
+                            <div key={w.id} className="p-3 border border-zinc-200 rounded-xl bg-white space-y-1">
+                              <div className="flex items-center justify-between">
+                                <span className="font-mono font-bold uppercase text-[10px] text-brand-purple">
+                                  {w.chain}
+                                </span>
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700">
+                                  {w.status}
+                                </span>
+                              </div>
+                              <div className="font-mono text-xs text-zinc-900 break-all select-all">
+                                {w.address}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Recent Audit Trail */}
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider">
+                        Actor Recent Audit Trail ({recentAuditLogs.length})
+                      </h4>
+                      <div className="border border-zinc-200 rounded-xl overflow-hidden">
+                        <table className="w-full text-left border-collapse">
+                          <thead>
+                            <tr className="border-b border-zinc-200 bg-zinc-50 font-mono text-[10px] text-zinc-500">
+                              <th className="p-3 font-bold uppercase">Time</th>
+                              <th className="p-3 font-bold uppercase">Action</th>
+                              <th className="p-3 font-bold uppercase">Category</th>
+                              <th className="p-3 font-bold uppercase">Status</th>
+                              <th className="p-3 font-bold uppercase">Description</th>
                             </tr>
-                          ) : (
-                            deepDiveData.recentAuditLogs.map((log) => (
-                              <tr key={log._id} className="border-b border-zinc-100 hover:bg-zinc-50 text-[11px]">
-                                <td className="p-3 font-mono text-zinc-500 whitespace-nowrap">
-                                  {new Date(log.timestamp).toLocaleTimeString()}
-                                </td>
-                                <td className="p-3 font-mono font-bold text-zinc-900 whitespace-nowrap">
-                                  {log.action}
-                                </td>
-                                <td className="p-3 whitespace-nowrap">
-                                  <span className={cn("text-[9px] font-mono uppercase px-1.5 py-0.2 rounded border", getCategoryBadgeClass(log.category))}>
-                                    {log.category}
-                                  </span>
-                                </td>
-                                <td className="p-3 whitespace-nowrap">
-                                  <span className={cn("text-[9px] font-mono uppercase px-1.5 py-0.2 rounded border", getStatusBadgeClass(log.status))}>
-                                    {log.status}
-                                  </span>
-                                </td>
-                                <td className="p-3 text-zinc-600 font-sans truncate max-w-[300px]">
-                                  {log.description}
+                          </thead>
+                          <tbody>
+                            {recentAuditLogs.length === 0 ? (
+                              <tr>
+                                <td colSpan={5} className="p-6 text-center text-zinc-500 font-sans">
+                                  No recent audit events found for this actor.
                                 </td>
                               </tr>
-                            ))
-                          )}
-                        </tbody>
-                      </table>
+                            ) : (
+                              recentAuditLogs.map((log) => (
+                                <tr key={log._id} className="border-b border-zinc-100 hover:bg-zinc-50 text-[11px]">
+                                  <td className="p-3 font-mono text-zinc-500 whitespace-nowrap">
+                                    {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : "N/A"}
+                                  </td>
+                                  <td className="p-3 font-mono font-bold text-zinc-900 whitespace-nowrap">
+                                    {log.action}
+                                  </td>
+                                  <td className="p-3 whitespace-nowrap">
+                                    <span className={cn("text-[9px] font-mono uppercase px-1.5 py-0.2 rounded border", getCategoryBadgeClass(log.category))}>
+                                      {log.category}
+                                    </span>
+                                  </td>
+                                  <td className="p-3 whitespace-nowrap">
+                                    <span className={cn("text-[9px] font-mono uppercase px-1.5 py-0.2 rounded border", getStatusBadgeClass(log.status))}>
+                                      {log.status}
+                                    </span>
+                                  </td>
+                                  <td className="p-3 text-zinc-600 font-sans truncate max-w-[300px]">
+                                    {log.description}
+                                  </td>
+                                </tr>
+                              ))
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ) : null}
+                  </>
+                );
+              })() : null}
             </div>
 
             {/* Footer */}
