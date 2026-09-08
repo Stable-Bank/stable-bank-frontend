@@ -15,6 +15,7 @@ import {
   PiggyBank,
   Bell,
   LayoutGrid,
+  Activity,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -42,6 +43,11 @@ export default function USidebar() {
           label: "Admin Panel",
           route: "/dashboard/admin",
           icon: ShieldCheck,
+        },
+        {
+          label: "Audit Logs",
+          route: "/dashboard/admin/audit-logs",
+          icon: Activity,
         },
         {
           label: "Memo",

@@ -1,4 +1,4 @@
-import { apiClient } from "@/config/axios";
+import { apiClient, getApiBaseUrl } from "@/config/axios";
 
 export interface AdminUser {
   _id: string;
@@ -6,10 +6,117 @@ export interface AdminUser {
   role: "user" | "admin" | "moderator";
   kycStatus: "pending" | "approved" | "rejected" | "not_started";
   bankTag?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
   virtualBalances?: Array<{ currency: string; amount: number; lastUpdated?: string }>;
   accountType: "individual" | "business";
   status: "active" | "suspended" | "banned";
+  isRestricted?: boolean;
+  restrictedReason?: string;
+  restrictedAt?: string;
+  restrictedBy?: string;
   createdAt: string;
+}
+
+export interface AuditLogItem {
+  _id: string;
+  actorId?: {
+    _id: string;
+    email: string;
+    bankTag?: string;
+    firstName?: string;
+    lastName?: string;
+  } | string;
+  actorEmail?: string;
+  actorBankTag?: string;
+  actorRole: "user" | "admin" | "system";
+  actorIp?: string;
+  deviceInfo?: {
+    browser?: string;
+    os?: string;
+    device?: string;
+    ip?: string;
+  };
+  action: string;
+  category: "auth" | "transaction" | "card" | "savings" | "compliance" | "security" | "user" | "admin" | "system";
+  severity: "info" | "warning" | "error" | "critical";
+  status: "success" | "failed" | "pending" | "blocked";
+  description: string;
+  resourceType?: string;
+  resourceId?: string;
+  details?: Record<string, any>;
+  errorMessage?: string;
+  timestamp: string;
+  createdAt?: string;
+}
+
+export interface AdminStats {
+  users: {
+    total: number;
+    active: number;
+    restricted: number;
+    pendingKyc: number;
+    approvedKyc: number;
+    rejectedKyc: number;
+  };
+  auditLogs24h: {
+    total: number;
+    auth: number;
+    transactions: number;
+    security: number;
+    admin: number;
+    errors: number;
+  };
+  volume24h: {
+    totalUSD: number;
+    totalTransfers: number;
+  };
+  savings: {
+    totalLockedUSD: number;
+    activeSavers: number;
+  };
+  system: {
+    redis: string;
+    postgres: string;
+    mongo: string;
+    status: string;
+  };
+}
+
+export interface AdminUserDeepDive {
+  user: AdminUser & {
+    bridgeCustomerId?: string;
+  };
+  wallets: Array<{
+    id: string;
+    chain: string;
+    address: string;
+    status: string;
+  }>;
+  recentTransfers: Array<{
+    id: string;
+    bridge_transfer_id?: string;
+    source_currency: string;
+    source_amount: number;
+    destination_currency: string;
+    destination_amount: number;
+    state: string;
+    transfer_type: string;
+    created_at: string;
+  }>;
+  recentAuditLogs: AuditLogItem[];
+}
+
+export interface SystemHealth {
+  status: "healthy" | "degraded" | "down";
+  uptime: number;
+  timestamp: string;
+  services: {
+    mongo: { status: string };
+    postgres: { status: string };
+    redis: { status: string };
+  };
 }
 
 export interface LedgerEntry {
@@ -195,5 +302,83 @@ export const adminService = {
 
   reconcileAll: async (): Promise<{ totalReconciled: number; timestamp: string; reports: ReconciliationReport[] }> => {
     return apiClient.get("/admin/reconciliation");
+  },
+
+  getAuditLogs: async (params?: {
+    page?: number;
+    limit?: number;
+    category?: string;
+    severity?: string;
+    status?: string;
+    action?: string;
+    actorId?: string;
+    search?: string;
+  }): Promise<{
+    logs: AuditLogItem[];
+    pagination: {
+      total: number;
+      page: number;
+      limit: number;
+      totalPages: number;
+    };
+  }> => {
+    return apiClient.get("/admin/audit-logs", { params } as any);
+  },
+
+  getAdminStats: async (): Promise<AdminStats> => {
+    return apiClient.get("/admin/stats");
+  },
+
+  getUserDeepDive: async (userId: string): Promise<AdminUserDeepDive> => {
+    return apiClient.get(`/admin/users/${userId}`);
+  },
+
+  restrictUser: async (
+    userId: string,
+    isRestricted: boolean,
+    reason?: string
+  ): Promise<{ success: boolean; message: string; user: AdminUser }> => {
+    return apiClient.post(`/admin/users/${userId}/restrict`, { isRestricted, reason });
+  },
+
+  getSystemHealth: async (): Promise<SystemHealth> => {
+    return apiClient.get("/admin/system/health");
+  },
+
+  connectAuditStream: (
+    onEvent: (event: AuditLogItem) => void,
+    onConnected?: () => void,
+    onError?: (err: any) => void
+  ): (() => void) => {
+    if (typeof window === "undefined") return () => {};
+
+    const baseUrl = getApiBaseUrl();
+    const token = localStorage.getItem("accessToken") || "";
+    const url = `${baseUrl}/admin/audit/stream?token=${encodeURIComponent(token)}`;
+
+    const eventSource = new EventSource(url);
+
+    eventSource.onopen = () => {
+      onConnected?.();
+    };
+
+    eventSource.onmessage = (e) => {
+      try {
+        const parsed = JSON.parse(e.data);
+        if (parsed && parsed.type !== "heartbeat") {
+          onEvent(parsed);
+        }
+      } catch {
+        // Ignore unparseable frames (like keepalives)
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      onError?.(err);
+    };
+
+    return () => {
+      eventSource.close();
+    };
   },
 };
